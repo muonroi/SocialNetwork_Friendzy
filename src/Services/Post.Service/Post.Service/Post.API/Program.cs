@@ -1,6 +1,6 @@
 using Commons.Logging;
 using Post.API.Extentions;
-using Post.Infrastructure.Persistence;
+using Post.API.Infrastructure;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -8,22 +8,27 @@ Log.Logger = new LoggerConfiguration()
     .CreateBootstrapLogger();
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+IServiceCollection services = builder.Services;
+
+ConfigurationManager configuration = builder.Configuration;
+
 builder.Host.UseSerilog(SerilogAction.Configure);
+
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
+
 try
 {
-    _ = builder.Services.AddConfigurationSettings(builder.Configuration);
+    _ = services.AddConfigurationSettings(configuration);
+
     builder.AddAppConfigurations();
 
     WebApplication app = builder.Build();
 
-    using (IServiceScope scope = app.Services.CreateScope())
-    {
-        PostDbContextSeed services = scope.ServiceProvider.GetRequiredService<PostDbContextSeed>();
-        await services.InitialiseAsync();
-        await services.SeedAsync();
-    }
+    _ = app.SeedConfigAsync();
+
     app.AddMapGrpcServices();
+
     app.Run();
 }
 catch (Exception ex)

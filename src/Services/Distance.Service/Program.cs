@@ -1,6 +1,6 @@
 using Commons.Logging;
 using Distance.Service.Extensions;
-using Distance.Service.Persistences;
+using Distance.Service.Infrastructure;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -9,22 +9,24 @@ Log.Logger = new LoggerConfiguration()
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog(SerilogAction.Configure);
+
+IServiceCollection services = builder.Services;
+
+IConfiguration configuration = builder.Configuration;
+
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 try
 {
-    _ = builder.Services.AddConfigurationSettings(builder.Configuration);
+    _ = services.AddConfigurationSettings(configuration);
+
     builder.AddAppConfigurations();
 
     WebApplication app = builder.Build();
 
-    using (IServiceScope scope = app.Services.CreateScope())
-    {
-        DistanceDbContextSeed services = scope.ServiceProvider.GetRequiredService<DistanceDbContextSeed>();
-        await services.InitialiseAsync();
-        await services.SeedAsync();
-    }
+    _ = app.SeedConfigAsync();
 
     app.AddMapGrpcServices();
+
     app.Run();
 }
 catch (Exception ex)
