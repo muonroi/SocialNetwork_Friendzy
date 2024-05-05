@@ -8,26 +8,40 @@ Log.Logger = new LoggerConfiguration()
     .CreateBootstrapLogger();
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
 builder.Host.UseSerilog(SerilogAction.Configure);
+
+IServiceCollection services = builder.Services;
+
+IWebHostEnvironment env = builder.Environment;
+
+ConfigurationManager configuration = builder.Configuration;
+
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
+
 try
 {
     // Add services to the container.
-    _ = builder.Services.AddControllers();
-    _ = builder.Services.AddConfigurationSettings(builder.Configuration);
+    _ = services.AddControllers();
+
+    _ = services.AddConfigurationSettings(configuration);
+
     builder.AddAppConfigurations();
 
-    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-    _ = builder.Services.AddEndpointsApiExplorer();
-    _ = builder.Services.AddSwaggerGen();
+    _ = services.AddEndpointsApiExplorer();
+
+    _ = services.AddSwaggerGen();
 
     WebApplication app = builder.Build();
+
     app.AddMapGrpcServices();
+
     EndpointConfigure.ConfigureEndpoints(app);
 }
 catch (Exception ex)
 {
     string type = ex.GetType().Name;
+
     if (type.Equals("StopTheHostException", StringComparison.Ordinal))
     {
         throw;
@@ -38,5 +52,6 @@ catch (Exception ex)
 finally
 {
     Log.Information("Shut down SearchPartners Service complete");
+
     Log.CloseAndFlush();
 }
