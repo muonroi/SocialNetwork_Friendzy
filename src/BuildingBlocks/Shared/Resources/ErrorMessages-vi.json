@@ -1,0 +1,8 @@
+﻿{
+  "Success": "Thành công",
+  "ErrorUnknown": "lỗi không xác định",
+  "CategorySettingNotFound": "Không tìm thấy danh mục",
+  "UserNotFound": "Không tìm thấy người dùng",
+  "PostNotFound": "Không tìm thấy bài viết",
+  "PartnersNotFound": "Hiện không có người dùng gần bạn"
+}

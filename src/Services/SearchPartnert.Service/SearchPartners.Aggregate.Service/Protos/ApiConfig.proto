@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option csharp_namespace = "User.Config.Service.Protos";
+
+package Api.Config;
+
+service ApiConfigGrpc{
+	  rpc GetApiIntConfig (ApiIntConfigRequest) returns (ApiIntConfigReply);
+}
+
+message ApiIntConfigRequest {
+	string partner_code = 1;
+	string partner_type = 2;
+}
+
+message ApiIntConfigReply {
+  string User_id = 1;
+  string partner_code = 2;
+  string partner_type = 3;
+  repeated MethodReply methods = 4;
+}
+
+message MethodReply {
+  string method_key = 1;
+  string method_value = 2;
+}

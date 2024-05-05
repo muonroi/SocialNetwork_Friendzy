@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <Folder Include="Commons\Configurations\" />
+  </ItemGroup>
+  
+  <Import Project="..\Commons\Directory.Packages.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\Commons\Commons.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\..\BuildingBlocks\Commons\Directory.Packages.props" />
+
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BuildingBlocks\Contracts\Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

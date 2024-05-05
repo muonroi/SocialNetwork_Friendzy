@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Core" />
+    <PackageReference Include="Calzolari.Grpc.AspNetCore.Validation" />
+    <PackageReference Include="Calzolari.Grpc.Domain" />
+    <PackageReference Include="Calzolari.Grpc.Net.Client.Validation" />
+    <PackageReference Include="Consul" />
+    <PackageReference Include="Dapper" />
+    <PackageReference Include="Dapper.Extensions.Caching.Redis" />
+    <PackageReference Include="Dapper.Extensions.MSSQL" />
+    <PackageReference Include="Dapper.Extensions.MySQL" />
+    <PackageReference Include="Dapper.Extensions.NetCore" />
+    <PackageReference Include="Dapper.Extensions.PostgreSQL" />
+    <PackageReference Include="FluentValidation.AspNetCore" />
+    <PackageReference Include="Google.Protobuf" />
+    <PackageReference Include="Grpc.AspNetCore" />
+    <PackageReference Include="Grpc.Net.Client" />
+    <PackageReference Include="Grpc.Tools">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="MySql.EntityFrameworkCore" />
+    <PackageReference Include="RestEase" />
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Enrichers.Environment" />
+    <PackageReference Include="Serilog.Formatting.Compact" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="MailKit" />
+    <PackageReference Include="MimeKit" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
+    <PackageReference Include="System.Linq.Async" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Directory.Packages.props">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

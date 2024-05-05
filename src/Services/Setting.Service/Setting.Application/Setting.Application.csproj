@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+  <Import Project="..\..\..\BuildingBlocks\Commons\Directory.Packages.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Commons\Commons.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\ExternalAPI\ExternalAPI.csproj" />
+    <ProjectReference Include="..\Setting.Domain\Setting.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commons\Models\" />
+    <Folder Include="feature\v1\Commands\" />
+    <Folder Include="feature\v1\EventHandlers\" />
+  </ItemGroup>
+
+</Project>

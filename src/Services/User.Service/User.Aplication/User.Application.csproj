@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\BuildingBlocks\Commons\Directory.Packages.props" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Commons\Commons.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Shared\Shared.csproj" />
+    <ProjectReference Include="..\User.Domain\User.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Feature\v1\Users\Commands\" />
+    <Folder Include="Feature\v1\Users\EventHandlers\" />
+    <Folder Include="Feature\v2\" />
+  </ItemGroup>
+
+
+</Project>

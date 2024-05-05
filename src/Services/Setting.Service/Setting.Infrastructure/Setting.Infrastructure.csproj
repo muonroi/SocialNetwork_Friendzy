@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\BuildingBlocks\Commons\Directory.Packages.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Commons\Commons.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Setting.Application\Setting.Application.csproj" />
+    <ProjectReference Include="..\Setting.Domain\Setting.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Persistence\" />
+  </ItemGroup>
+
+
+</Project>

@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <Import Project="..\..\..\BuildingBlocks\Commons\Directory.Packages.props" />
+
+  <ItemGroup>
+    <Content Remove="appsettings.Development.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Protos\ApiConfig.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="appsettings.Development.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Commons\Commons.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\ExternalAPI\ExternalAPI.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\ApiConfig.proto">
+      <GrpcServices>Client</GrpcServices>
+    </Protobuf>
+    <Protobuf Include="Protos\searchPartners.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\distance.proto" GrpcServices="Client" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" />
+    <PackageReference Include="Grpc.AspNetCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+</Project>

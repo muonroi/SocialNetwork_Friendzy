@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Commons\Commons.csproj" />
+    <ProjectReference Include="..\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+  <Import Project="..\Commons\Directory.Packages.props" />
+</Project>

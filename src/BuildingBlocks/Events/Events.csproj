@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Commons\Commons.csproj" />
+  </ItemGroup>
+  <Import Project="..\Commons\Directory.Packages.props" />
+</Project>

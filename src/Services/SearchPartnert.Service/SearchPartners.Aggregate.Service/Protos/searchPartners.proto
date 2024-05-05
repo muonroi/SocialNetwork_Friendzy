@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option csharp_namespace = "SearchPartners.Service";
+
+package SearchPartnerService;
+
+service SearchPartnerService {
+  rpc SortPartnersByDistance (SortPartnersByDistanceRequest) returns (SortPartnersByDistanceReply);
+}
+
+message SortPartnersByDistanceRequest {
+	int64 userId = 1;
+	double latitude = 2;
+	double longitude = 3;
+	repeated DistanceDetail Distancedetails = 4;
+}
+
+
+message DistanceDetail {
+	int64 userId = 1;
+	double latitude = 2;
+	double longitude = 3;
+}
+
+message SortPartnersByDistanceReply {
+	repeated SortPartnersByDistanceReplyDetail Distancedetails = 1;
+}
+
+
+message SortPartnersByDistanceReplyDetail {
+	int64 userId = 1;
+	double latitude = 2;
+	double longitude = 3;
+}
