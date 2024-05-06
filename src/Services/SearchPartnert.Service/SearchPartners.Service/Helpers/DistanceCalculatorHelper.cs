@@ -1,7 +1,4 @@
-﻿using Contracts.Commons.Constants;
-using Shared.DTOs;
-
-namespace SearchPartners.Service.Helpers;
+﻿namespace SearchPartners.Service.Helpers;
 
 public static class DistanceCalculatorHelper
 {

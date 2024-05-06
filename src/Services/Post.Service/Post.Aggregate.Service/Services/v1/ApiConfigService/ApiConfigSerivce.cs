@@ -1,9 +1,4 @@
-﻿using Contracts.Commons.Constants;
-using Grpc.Net.ClientFactory;
-using User.Config.Service.Protos;
-using static User.Config.Service.Protos.ApiConfigGrpc;
-
-namespace Post.Aggregate.Service.Services.v1.ApiConfigService
+﻿namespace Post.Aggregate.Service.Services.v1.ApiConfigService
 {
     public class ApiConfigService(GrpcClientFactory grpcClientFactory) : IApiConfigSerivce
     {

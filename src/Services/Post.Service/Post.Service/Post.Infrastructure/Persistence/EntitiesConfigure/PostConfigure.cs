@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Post.Domain.Entities;
-
-namespace Post.Infrastructure.Persistence.EntitiesConfigure;
+﻿namespace Post.Infrastructure.Persistence.EntitiesConfigure;
 
 public class PostConfigure : IEntityTypeConfiguration<PostEnitity>
 {

@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using MySql.EntityFrameworkCore.Metadata;
-
-#nullable disable
+﻿#nullable disable
 
 namespace Post.Infrastructure.Persistence.Migrations
 {

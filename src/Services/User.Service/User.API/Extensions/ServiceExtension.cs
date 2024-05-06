@@ -1,11 +1,4 @@
-﻿using Dapper.Extensions;
-using Dapper.Extensions.MSSQL;
-using Infrastructure.Extensions;
-using Infrastructure.ORMs.Dapper;
-using Infrastructure.ORMs.Dappers;
-using Infrastructure.ORMs.Dappers.Interfaces;
-
-namespace User.API.Extensions;
+﻿namespace User.API.Extensions;
 
 public static class ServiceExtension
 {

@@ -1,9 +1,4 @@
-﻿using Distance.Service.Domains;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using ILogger = Serilog.ILogger;
-
-namespace Distance.Service.Persistences;
+﻿namespace Distance.Service.Persistences;
 
 public class DistanceDbContextSeed(ILogger logger, DistanceDbContext context)
 {

@@ -1,19 +1,4 @@
-﻿using Commons.Pagination;
-using Contracts.Commons.Constants;
-using Contracts.Commons.Interfaces;
-using ExternalAPI;
-using ExternalAPI.DTOs;
-using Grpc.Net.ClientFactory;
-using MediatR;
-using Post.Aggregate.Service.Infrastructure.ErrorMessages;
-using Post.Aggregate.Service.Infrastructure.Helpers;
-using Post.API.Protos;
-using Shared.DTOs;
-using Shared.SeedWorks;
-using System.Net;
-using static Post.API.Protos.PostApiService;
-
-namespace Post.Aggregate.Service.Services.v1.Query.GetPosts;
+﻿namespace Post.Aggregate.Service.Services.v1.Query.GetPosts;
 
 public class GetPostsQueryHandler(GrpcClientFactory grpcClientFactory
     , IWorkContextAccessor workContextAccessor

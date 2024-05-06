@@ -1,6 +1,4 @@
-﻿using ExternalAPI.DTOs;
-
-namespace Setting.Application.feature.v1.Queries.GetCategorySettings;
+﻿namespace Setting.Application.feature.v1.Queries.GetCategorySettings;
 
 public class GetCategoryQueryHandler(ISettingRepository<SettingEntity, long> settingRepository) :
     IRequestHandler<GetCategoryQuery, ApiResult<IEnumerable<CategoryData>>>

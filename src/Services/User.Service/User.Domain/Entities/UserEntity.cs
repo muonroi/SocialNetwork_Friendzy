@@ -1,6 +1,4 @@
-﻿using Shared.Enums;
-
-namespace User.Domain.Entities;
+﻿namespace User.Domain.Entities;
 
 public class UserEntity : EntityAuditBase<long>
 {

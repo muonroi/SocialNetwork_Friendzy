@@ -1,8 +1,4 @@
-﻿using Distance.Service.Domains;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Distance.Service.Persistences.Configures;
+﻿namespace Distance.Service.Persistences.Configures;
 
 public class DistanceConfigure : IEntityTypeConfiguration<DistanceEntity>
 {

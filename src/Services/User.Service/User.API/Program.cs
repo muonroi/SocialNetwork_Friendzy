@@ -1,6 +1,3 @@
-using User.API.Infrastructures;
-using User.API.Infrastructures.Endpoints;
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();

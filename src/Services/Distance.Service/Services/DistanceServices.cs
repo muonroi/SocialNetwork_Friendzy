@@ -1,11 +1,4 @@
-﻿using Distance.Service.Infrastructure.Interface;
-using Distance.Service.Models;
-using Distance.Service.Protos;
-using Grpc.Core;
-using Newtonsoft.Json;
-using static Distance.Service.Protos.DistanceService;
-
-namespace Distance.Service.Services;
+﻿namespace Distance.Service.Services;
 
 public class DistanceServices(ILogger<DistanceServices> logger, IDistanceServiceRepository distanceServiceRepository) : DistanceServiceBase
 {

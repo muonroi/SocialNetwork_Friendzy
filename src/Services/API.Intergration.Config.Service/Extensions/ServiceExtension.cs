@@ -1,11 +1,4 @@
-﻿using Dapper.Extensions;
-using Dapper.Extensions.PostgreSql;
-using Infrastructure.Extensions;
-using Infrastructure.ORMs.Dapper;
-using Infrastructure.ORMs.Dappers;
-using Infrastructure.ORMs.Dappers.Interfaces;
-
-namespace API.Intergration.Config.Service.Extensions
+﻿namespace API.Intergration.Config.Service.Extensions
 {
     internal static class ServiceExtension
     {

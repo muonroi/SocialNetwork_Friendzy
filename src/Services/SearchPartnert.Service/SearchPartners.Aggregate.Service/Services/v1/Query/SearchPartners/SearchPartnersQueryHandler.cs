@@ -1,18 +1,4 @@
-﻿using Contracts.Commons.Constants;
-using Contracts.Commons.Interfaces;
-using Distance.Service.Protos;
-using ExternalAPI;
-using ExternalAPI.DTOs;
-using Grpc.Net.ClientFactory;
-using MediatR;
-using SearchPartners.Aggregate.Service.Infrastructure.ErrorMessages;
-using SearchPartners.Service;
-using Shared.DTOs;
-using Shared.SeedWorks;
-using static Distance.Service.Protos.DistanceService;
-using static SearchPartners.Service.SearchPartnerService;
-
-namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
+﻿namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
 
 public class SearchPartnersQueryHandler(
     GrpcClientFactory grpcClientFactory

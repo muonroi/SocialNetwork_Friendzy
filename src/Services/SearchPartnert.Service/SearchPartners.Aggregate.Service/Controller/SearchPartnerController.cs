@@ -1,8 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
-
-namespace SearchPartners.Aggregate.Service.Controller;
+﻿namespace SearchPartners.Aggregate.Service.Controller;
 
 [Route("api/v1/[controller]")]
 [ApiController]

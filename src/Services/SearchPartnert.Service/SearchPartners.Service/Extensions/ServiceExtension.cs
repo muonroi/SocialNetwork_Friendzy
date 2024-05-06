@@ -1,7 +1,4 @@
-﻿using Calzolari.Grpc.AspNetCore.Validation.Internal;
-using Infrastructure.Extensions;
-
-namespace SearchPartners.Service.Extensions;
+﻿namespace SearchPartners.Service.Extensions;
 
 public static class ServiceExtension
 {

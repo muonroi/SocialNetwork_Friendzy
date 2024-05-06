@@ -1,10 +1,4 @@
-﻿using Dapper.Extensions;
-using Dapper.Extensions.MSSQL;
-using Infrastructure.Extensions;
-using Infrastructure.Helper;
-using Infrastructure.ORMs.Dapper;
-
-namespace Setting.Infrastructure;
+﻿namespace Setting.Infrastructure;
 
 public static class ConfigureService
 {

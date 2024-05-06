@@ -1,4 +1,6 @@
-﻿namespace User.Application.Commons.Behaviours;
+﻿
+
+namespace Commons.Behaviours;
 
 public class ValidationBehaviour<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators) : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>

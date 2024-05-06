@@ -1,8 +1,4 @@
-﻿using MediatR;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-
-namespace Post.Application.Commons.Behaviours;
+﻿namespace Post.Application.Commons.Behaviours;
 
 public class PerformanceBehaviours<TRequest, TResponse>(Stopwatch timer, ILogger<TRequest> logger) :
     IPipelineBehavior<TRequest, TResponse>

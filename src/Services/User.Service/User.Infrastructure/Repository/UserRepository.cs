@@ -1,8 +1,4 @@
-﻿using Dapper.Extensions;
-using Infrastructure.ORMs.Dapper;
-using User.Application.Commons;
-
-namespace User.Infrastructure.Repository;
+﻿namespace User.Infrastructure.Repository;
 
 public class UserRepository(IMapper mapper, UserDbContext dbContext, IUnitOfWork<UserDbContext> unitOfWork, ILogger logger, IDapper dapper) : RepositoryBaseAsync<UserEntity, long, UserDbContext>(dbContext, unitOfWork), IUserRepository
 {

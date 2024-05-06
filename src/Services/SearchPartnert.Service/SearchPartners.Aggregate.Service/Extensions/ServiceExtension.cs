@@ -1,18 +1,4 @@
-﻿using Calzolari.Grpc.AspNetCore.Validation.Internal;
-using Consul;
-using Contracts.Commons.Constants;
-using Contracts.Commons.Interfaces;
-using ExternalAPI;
-using Infrastructure.Commons;
-using Infrastructure.Extensions;
-using Infrastructure.Factorys;
-using SearchPartners.Aggregate.Service.Services.v1.ApiConfigService;
-using System.Net.Http.Headers;
-using static Distance.Service.Protos.DistanceService;
-using static SearchPartners.Service.SearchPartnerService;
-using static User.Config.Service.Protos.ApiConfigGrpc;
-
-namespace SearchPartners.Aggregate.Service.Extensions;
+﻿namespace SearchPartners.Aggregate.Service.Extensions;
 
 public static class ServiceExtension
 {

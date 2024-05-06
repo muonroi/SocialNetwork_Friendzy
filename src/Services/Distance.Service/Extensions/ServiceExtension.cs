@@ -1,18 +1,4 @@
-﻿using Contracts.Commons.Interfaces;
-using Dapper.Extensions;
-using Dapper.Extensions.MSSQL;
-using Distance.Service.Infrastructure;
-using Distance.Service.Infrastructure.Interface;
-using Distance.Service.Persistences;
-using Infrastructure.Commons;
-using Infrastructure.Extensions;
-using Infrastructure.Helper;
-using Infrastructure.ORMs.Dapper;
-using Infrastructure.ORMs.Dappers;
-using Infrastructure.ORMs.Dappers.Interfaces;
-using Microsoft.EntityFrameworkCore;
-
-namespace Distance.Service.Extensions;
+﻿namespace Distance.Service.Extensions;
 
 internal static class ServiceExtension
 {
