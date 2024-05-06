@@ -19,4 +19,4 @@ global using User.Application.Commons.Interfaces;
 global using User.Application.Commons.Mappings;
 global using User.Application.Commons.Models;
 global using User.Domain.Entities;
-global using UserErrorMessages = User.Application.ErrorMessages.ErrorMessages;
+global using UserErrorMessages = User.Application.ErrorMessages.ErrorMessages;global using Shared.Enums;

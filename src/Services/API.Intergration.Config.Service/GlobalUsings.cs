@@ -1,0 +1,18 @@
+global using API.Intergration.Config.Service.Protos;
+global using Grpc.Core;
+global using Contracts.Commons.Interfaces;
+global using API.Intergration.Config.Service.v1.Query;
+global using Infrastructure.ORMs.Dapper;
+global using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
+global using API.Intergration.Config.Service.v1.Services;
+global using Infrastructure.Extensions;
+global using API.Intergration.Config.Service.Extensions;
+global using Serilog;
+global using Infrastructure.Configurations;
+global using Infrastructure.ORMs.Dappers.Interfaces;
+global using Dapper.Extensions;
+global using Infrastructure.ORMs.Dappers;
+global using API.Intergration.Config.Service.v1.DTOs;
+global using Commons.Logging;
+global using Dapper.Extensions.PostgreSql;
+global using System.Text.Json;

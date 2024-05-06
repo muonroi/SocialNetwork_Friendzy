@@ -9,4 +9,6 @@ global using Setting.Domain.Enums;
 global using Setting.Infrastructure;
 global using Setting.Infrastructure.Persitence;
 global using Shared.SeedWorks;
-global using System.Net;
+global using System.Net;global using ExternalAPI.DTOs;
+global using Setting.API.Infrastructures;
+global using Setting.API.Infrastructures.Endpoints;

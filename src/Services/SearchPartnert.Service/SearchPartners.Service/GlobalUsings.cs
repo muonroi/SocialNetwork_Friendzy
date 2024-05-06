@@ -1,0 +1,16 @@
+global using MediatR;
+global using FluentValidation;
+global using static SearchPartners.Service.SearchPartnerService;
+global using Newtonsoft.Json;
+global using SearchPartners.Service.Helpers;
+global using Shared.DTOs;
+global using Contracts.Commons.Constants;
+global using System.Diagnostics;
+global using SearchPartners.Service.Services;
+global using SearchPartners.Service.Infrastructure.Endpoints;
+global using SearchPartners.Service.Extensions;
+global using Commons.Logging;
+global using Infrastructure.Extensions;
+global using Calzolari.Grpc.AspNetCore.Validation.Internal;
+global using Grpc.Core;
+global using Serilog;
