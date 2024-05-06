@@ -21,4 +21,4 @@ global using System.Linq.Expressions;
 global using System.Net;
 global using System.Reflection;
 global using System.Threading;
-global using System.Threading.Tasks;
+global using System.Threading.Tasks;global using ExternalAPI.DTOs;
