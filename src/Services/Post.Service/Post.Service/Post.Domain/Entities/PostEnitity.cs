@@ -1,6 +1,4 @@
-﻿using Contracts.Domains;
-
-namespace Post.Domain.Entities;
+﻿namespace Post.Domain.Entities;
 
 public class PostEnitity : EntityAuditBase<long>
 {

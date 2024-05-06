@@ -1,11 +1,4 @@
-﻿using FluentValidation;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using Post.Application.Commons.Behaviours;
-using System.Diagnostics;
-using System.Reflection;
-
-namespace Post.Application;
+﻿namespace Post.Application;
 
 public static class ConfigureServices
 {

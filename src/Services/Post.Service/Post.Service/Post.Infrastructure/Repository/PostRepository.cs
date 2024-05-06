@@ -1,17 +1,4 @@
-﻿using Contracts.Commons.Interfaces;
-using Dapper.Extensions;
-using Grpc.Core;
-using Infrastructure.Commons;
-using Infrastructure.ORMs.Dapper;
-using Newtonsoft.Json;
-using Post.Application.Commons.Interfaces;
-using Post.Application.Commons.Models;
-using Post.Domain.Entities;
-using Post.Infrastructure.Persistence;
-using Post.Infrastructure.Persistence.Query;
-using Serilog;
-
-namespace Post.Infrastructure.Repository;
+﻿namespace Post.Infrastructure.Repository;
 
 public class PostRepository(PostDbContext dbContext, IUnitOfWork<PostDbContext> unitOfWork, ILogger logger, IDapper dapper)
     : RepositoryBaseAsync<PostEnitity, long, PostDbContext>(dbContext, unitOfWork), IPostRepository
@@ -34,5 +21,35 @@ public class PostRepository(PostDbContext dbContext, IUnitOfWork<PostDbContext> 
         PageResult<PostDto> result = await _dapper.QueryPageAsync<PostDto>(command, CustomSqlQuery.CountPostByInput, pageIndex: pageIndex, pageSite: pageSize, cancellationToken: context.CancellationToken);
         _logger.Information($"END: GetPersonalPostsAsync RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
         return result;
+    }
+
+    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -1,7 +1,4 @@
-﻿using MediatR;
-using Microsoft.Extensions.Logging;
-
-namespace Post.Application.Commons.Behaviours;
+﻿namespace Post.Application.Commons.Behaviours;
 
 public class UnhandledExceptionBehaviour<TRequest, TResponse>(ILogger<TRequest> logger) :
     IPipelineBehavior<TRequest, TResponse>

@@ -1,6 +1,4 @@
-﻿using Shared.Enums;
-
-namespace User.Application.Commons.Models;
+﻿namespace User.Application.Commons.Models;
 
 public record UserDto : IMapFrom<UserEntity>
 {

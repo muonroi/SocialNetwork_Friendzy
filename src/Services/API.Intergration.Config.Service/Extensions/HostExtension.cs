@@ -1,4 +1,4 @@
-﻿using API.Intergration.Config.Service.v1.Services;
+﻿
 
 namespace API.Intergration.Config.Service.Extensions
 {

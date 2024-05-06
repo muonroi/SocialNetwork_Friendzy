@@ -1,11 +1,4 @@
-﻿using Contracts.Domains.Interfaces;
-using Distance.Service.Domains;
-using Distance.Service.Persistences.Configures;
-using Infrastructure.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-
-namespace Distance.Service.Persistences;
+﻿namespace Distance.Service.Persistences;
 
 public class DistanceDbContext(DbContextOptions<DistanceDbContext> options) : DbContext(options)
 {

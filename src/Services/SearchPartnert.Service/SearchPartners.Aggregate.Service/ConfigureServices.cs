@@ -1,10 +1,4 @@
-﻿using FluentValidation;
-using MediatR;
-using SearchPartners.Aggregate.Service.Infrastructure.Behaviours;
-using System.Diagnostics;
-using System.Reflection;
-
-namespace SearchPartners.Aggregate.Service;
+﻿namespace SearchPartners.Aggregate.Service;
 
 public static class ConfigureServices
 {

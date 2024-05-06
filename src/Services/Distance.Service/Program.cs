@@ -1,8 +1,3 @@
-using Commons.Logging;
-using Distance.Service.Extensions;
-using Distance.Service.Infrastructure;
-using Serilog;
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();

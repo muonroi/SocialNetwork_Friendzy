@@ -1,14 +1,4 @@
-﻿using Commons.Pagination;
-using Dapper.Extensions;
-using Grpc.Core;
-using Infrastructure.ORMs.Dapper;
-using Newtonsoft.Json;
-using Post.API.Protos;
-using Post.Infrastructure.Persistence.Query;
-using static Post.API.Protos.PostApiService;
-using ILogger = Serilog.ILogger;
-
-namespace Post.API.Services
+﻿namespace Post.API.Services
 {
     public class PostService(ILogger logger, IDapper dapper) : PostApiServiceBase
     {

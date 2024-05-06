@@ -1,13 +1,3 @@
-using API.Intergration.Config.Service.Protos;
-using API.Intergration.Config.Service.v1.DTOs;
-using API.Intergration.Config.Service.v1.Query;
-using Contracts.Commons.Interfaces;
-using Dapper.Extensions;
-using Grpc.Core;
-using Infrastructure.ORMs.Dapper;
-using System.Text.Json;
-using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
-
 namespace API.Intergration.Config.Service.v1.Services
 {
     public class ApiIntergrationService(IDapper dapper,

@@ -1,11 +1,4 @@
-﻿using Contracts.Domains.Interfaces;
-using Infrastructure.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Post.Domain.Entities;
-using Post.Infrastructure.Persistence.EntitiesConfigure;
-
-namespace Post.Infrastructure.Persistence;
+﻿namespace Post.Infrastructure.Persistence;
 
 public class PostDbContext(DbContextOptions<PostDbContext> options) : DbContext(options)
 {

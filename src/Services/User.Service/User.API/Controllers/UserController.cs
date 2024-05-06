@@ -1,6 +1,4 @@
-﻿using User.Application.Feature.v1.Users.Queries.GetMultipleUsers;
-
-namespace User.API.Controllers;
+﻿namespace User.API.Controllers;
 
 [Route("api/v1/[controller]")]
 [ApiController]

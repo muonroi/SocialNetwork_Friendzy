@@ -1,7 +1,4 @@
-﻿using MediatR;
-using Shared.SeedWorks;
-
-namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
+﻿namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
 
 public record SearchPartnersQuery : IRequest<ApiResult<SearchPartnersQueryResponse>>
 {
