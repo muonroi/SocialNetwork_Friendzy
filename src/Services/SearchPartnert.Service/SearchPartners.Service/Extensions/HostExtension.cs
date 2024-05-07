@@ -1,6 +1,4 @@
-﻿using SearchPartners.Service.Services;
-
-namespace SearchPartners.Service.Extensions;
+﻿namespace SearchPartners.Service.Extensions;
 
 public static class HostExtension
 {

@@ -1,8 +1,4 @@
-﻿using Commons.Pagination;
-using Post.Aggregate.Service.Services.v1.Query.GetPosts;
-using Post.API.Protos;
-
-namespace Post.Aggregate.Service.Infrastructure.Helpers
+﻿namespace Post.Aggregate.Service.Infrastructure.Helpers
 {
     public static class PostHelper
     {

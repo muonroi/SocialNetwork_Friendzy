@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace SearchPartners.Aggregate.Service.Infrastructure.Behaviours;
+﻿namespace Commons.Behaviours;
 
 public class UnhandledExceptionBehaviour<TRequest, TResponse>(ILogger<TRequest> logger) :
     IPipelineBehavior<TRequest, TResponse>

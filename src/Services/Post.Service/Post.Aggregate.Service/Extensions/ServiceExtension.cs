@@ -1,18 +1,4 @@
-﻿using Calzolari.Grpc.AspNetCore.Validation.Internal;
-using Commons.Pagination;
-using Consul;
-using Contracts.Commons.Constants;
-using Contracts.Commons.Interfaces;
-using ExternalAPI;
-using Infrastructure.Commons;
-using Infrastructure.Extensions;
-using Infrastructure.Factorys;
-using Post.Aggregate.Service.Services.v1.ApiConfigService;
-using System.Net.Http.Headers;
-using static Post.API.Protos.PostApiService;
-using static User.Config.Service.Protos.ApiConfigGrpc;
-
-namespace Post.Aggregate.Service.Extensions;
+﻿namespace Post.Aggregate.Service.Extensions;
 
 public static class ServiceExtension
 {

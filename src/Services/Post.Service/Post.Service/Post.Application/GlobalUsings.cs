@@ -1,0 +1,10 @@
+global using AutoMapper;
+global using ExternalAPI.DTOs;
+global using FluentValidation;
+global using FluentValidation.Results;
+global using MediatR;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using Post.Application.Commons.Behaviours;
+global using System.Diagnostics;
+global using System.Reflection;

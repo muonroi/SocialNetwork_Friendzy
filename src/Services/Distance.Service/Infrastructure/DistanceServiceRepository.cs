@@ -1,17 +1,4 @@
-﻿using Contracts.Commons.Interfaces;
-using Dapper.Extensions;
-using Distance.Service.Domains;
-using Distance.Service.Infrastructure.Interface;
-using Distance.Service.Infrastructure.Query;
-using Distance.Service.Models;
-using Distance.Service.Persistences;
-using Infrastructure.Commons;
-using Infrastructure.ORMs.Dapper;
-using Newtonsoft.Json;
-using System.Data;
-using ILogger = Serilog.ILogger;
-
-namespace Distance.Service.Infrastructure;
+﻿namespace Distance.Service.Infrastructure;
 
 public class DistanceServiceRepository(DistanceDbContext distanceDbContext, IUnitOfWork<DistanceDbContext> unitOfWork, ILogger logger, IDapper dapper) : RepositoryBaseAsync<DistanceEntity, long, DistanceDbContext>(distanceDbContext, unitOfWork), IDistanceServiceRepository
 {

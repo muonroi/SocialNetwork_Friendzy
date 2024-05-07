@@ -1,6 +1,4 @@
-﻿using Post.Infrastructure.Persistence;
-
-namespace Post.API.Infrastructure
+﻿namespace Post.API.Infrastructure
 {
     public static class SeedingDataConfig
     {

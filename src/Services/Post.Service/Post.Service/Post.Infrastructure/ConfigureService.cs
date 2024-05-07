@@ -1,18 +1,4 @@
-﻿using Contracts.Commons.Interfaces;
-using Dapper.Extensions;
-using Dapper.Extensions.MySql;
-using Infrastructure.Commons;
-using Infrastructure.Extensions;
-using Infrastructure.Helper;
-using Infrastructure.ORMs.Dapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Post.Application.Commons.Interfaces;
-using Post.Infrastructure.Persistence;
-using Post.Infrastructure.Repository;
-
-namespace Post.Infrastructure;
+﻿namespace Post.Infrastructure;
 
 public static class ConfigureService
 {

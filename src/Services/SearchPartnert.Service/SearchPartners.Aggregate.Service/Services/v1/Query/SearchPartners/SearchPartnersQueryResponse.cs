@@ -1,7 +1,4 @@
-﻿using ExternalAPI.DTOs;
-using Shared.SeedWorks;
-
-namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
+﻿namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
 
 public class SearchPartnersQueryResponse
 {

@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using System.Reflection;
-
-namespace Post.Application.Commons.Mappings;
+﻿namespace Post.Application.Commons.Mappings;
 
 public class MappingProfile : Profile
 {

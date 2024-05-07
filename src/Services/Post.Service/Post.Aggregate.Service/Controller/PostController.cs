@@ -1,8 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Post.Aggregate.Service.Services.v1.Query.GetPosts;
-
-namespace Post.Aggregate.Service.Controller;
+﻿namespace Post.Aggregate.Service.Controller;
 
 [Route("api/v1/[controller]")]
 [ApiController]

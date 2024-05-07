@@ -1,6 +1,4 @@
-﻿using Infrastructure.Extensions;
-
-namespace Setting.Infrastructure.Persitence;
+﻿namespace Setting.Infrastructure.Persitence;
 
 public class SettingDbContext(DbContextOptions<SettingDbContext> options) : DbContext(options)
 {

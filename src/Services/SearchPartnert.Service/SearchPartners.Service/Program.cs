@@ -1,8 +1,3 @@
-using Commons.Logging;
-using SearchPartners.Service.Extensions;
-using SearchPartners.Service.Infrastructure.Endpoints;
-using Serilog;
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();

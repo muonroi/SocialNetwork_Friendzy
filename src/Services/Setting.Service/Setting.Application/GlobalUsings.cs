@@ -1,6 +1,7 @@
 global using AutoMapper;
 global using Contracts.Commons.Interfaces;
 global using Contracts.Domains;
+global using ExternalAPI.DTOs;
 global using FluentValidation;
 global using FluentValidation.Results;
 global using MediatR;
@@ -21,4 +22,4 @@ global using System.Linq.Expressions;
 global using System.Net;
 global using System.Reflection;
 global using System.Threading;
-global using System.Threading.Tasks;
+global using System.Threading.Tasks;global using Commons.Behaviours;

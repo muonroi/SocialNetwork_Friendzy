@@ -1,6 +1,4 @@
-﻿using Post.API.Services;
-
-namespace Post.API.Extentions;
+﻿namespace Post.API.Extentions;
 
 public static class HostExtension
 {

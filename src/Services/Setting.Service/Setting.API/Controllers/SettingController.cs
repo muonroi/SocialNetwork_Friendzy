@@ -1,6 +1,4 @@
-﻿using ExternalAPI.DTOs;
-
-namespace Setting.API.Controllers;
+﻿namespace Setting.API.Controllers;
 
 [Route("api/v1/[controller]")]
 [ApiController]

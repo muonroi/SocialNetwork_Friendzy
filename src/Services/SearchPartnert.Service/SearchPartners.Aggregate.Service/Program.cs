@@ -1,13 +1,3 @@
-using Commons.Logging;
-using Infrastructure.Configurations;
-using Infrastructure.Extensions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using SearchPartners.Aggregate.Service;
-using SearchPartners.Aggregate.Service.Extensions;
-using SearchPartners.Aggregate.Service.Infrastructure.Endpoints;
-using Serilog;
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();

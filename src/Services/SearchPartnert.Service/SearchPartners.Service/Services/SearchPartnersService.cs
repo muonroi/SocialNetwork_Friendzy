@@ -1,9 +1,3 @@
-using Grpc.Core;
-using Newtonsoft.Json;
-using SearchPartners.Service.Helpers;
-using Shared.DTOs;
-using static SearchPartners.Service.SearchPartnerService;
-
 namespace SearchPartners.Service.Services;
 
 public class SearchPartnersService(ILogger<SearchPartnersService> logger) : SearchPartnerServiceBase

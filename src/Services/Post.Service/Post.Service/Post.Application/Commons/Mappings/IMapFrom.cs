@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace Post.Application.Commons.Mappings;
+﻿namespace Post.Application.Commons.Mappings;
 
 public interface IMapFrom<T>
 {

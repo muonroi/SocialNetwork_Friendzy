@@ -1,6 +1,4 @@
-﻿using Contracts.Domains;
-
-namespace Distance.Service.Domains;
+﻿namespace Distance.Service.Domains;
 
 public class DistanceEntity : EntityAuditBase<long>
 {
