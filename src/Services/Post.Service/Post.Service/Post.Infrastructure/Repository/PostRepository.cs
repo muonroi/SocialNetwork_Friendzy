@@ -6,7 +6,7 @@ public class PostRepository(PostDbContext dbContext, IUnitOfWork<PostDbContext> 
     private readonly ILogger _logger = logger;
     private readonly IDapper _dapper = dapper;
 
-    public async Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
+    public async Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, ServerCallContext context)
     {
         _logger.Information($"BEGIN: GetPersonalPostsAsync");
         DapperCommand command = new()
@@ -21,35 +21,5 @@ public class PostRepository(PostDbContext dbContext, IUnitOfWork<PostDbContext> 
         PageResult<PostDto> result = await _dapper.QueryPageAsync<PostDto>(command, CustomSqlQuery.CountPostByInput, pageIndex: pageIndex, pageSite: pageSize, cancellationToken: context.CancellationToken);
         _logger.Information($"END: GetPersonalPostsAsync RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
         return result;
-    }
-
-    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
-    {
-        throw new NotImplementedException();
     }
 }

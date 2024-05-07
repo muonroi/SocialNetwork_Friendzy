@@ -1,4 +1,6 @@
-﻿namespace SearchPartners.Aggregate.Service.Extensions;
+﻿using Consul;
+
+namespace SearchPartners.Aggregate.Service.Extensions;
 
 public static class ServiceExtension
 {

@@ -1,4 +1,6 @@
-﻿namespace User.Infrastructure;
+﻿using Infrastructure.Helper;
+
+namespace User.Infrastructure;
 
 public static class ConfigureService
 {

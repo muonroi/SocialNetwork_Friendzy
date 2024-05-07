@@ -13,7 +13,7 @@ public class ValidationException : ApplicationException
     {
         Errors = failures
             .GroupBy(e => e.PropertyName, e => e.ErrorMessage)
-            .ToDictionary(failureGroup => s
+            .ToDictionary(failureGroup =>
                 failureGroup.Key, failureGroup => failureGroup.ToArray());
     }
 

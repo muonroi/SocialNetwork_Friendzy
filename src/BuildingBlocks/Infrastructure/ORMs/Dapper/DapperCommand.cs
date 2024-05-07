@@ -1,5 +1,4 @@
-﻿using Dapper;
-using System.Data;
+﻿using CommandFlags = Dapper.CommandFlags;
 
 namespace Infrastructure.ORMs.Dapper
 {
