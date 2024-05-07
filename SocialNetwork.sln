@@ -93,7 +93,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Post.Aggregate.Service", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Post.Service", "src\Services\Post.Service\Post.Service\Post.API\Post.Service.csproj", "{4C2FA2E9-8AB2-4ADE-BE89-2C34EF6301AC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management.Photo.Service", "Management.Photo.Service", "{03493AD5-AC85-479D-82FD-E2EE817E1AA8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management.Photo", "Management.Photo", "{03493AD5-AC85-479D-82FD-E2EE817E1AA8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Photo.Domain", "src\Services\Management.Photo.Service\Management.Photo.Domain\Management.Photo.Domain.csproj", "{AC1DBE39-4F6B-4391-91DC-2214C8475996}"
 EndProject
