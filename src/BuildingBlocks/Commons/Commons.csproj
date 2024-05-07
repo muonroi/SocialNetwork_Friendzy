@@ -30,6 +30,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="Minio" />
     <PackageReference Include="MySql.EntityFrameworkCore" />
     <PackageReference Include="RestEase" />
     <PackageReference Include="Serilog" />
