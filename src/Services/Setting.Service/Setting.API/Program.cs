@@ -21,7 +21,7 @@ try
 
     _ = services.AddInfrastructureServices(configuration);
 
-    _ = services.AddApplicationServices(configuration);
+    _ = services.AddApplicationServices();
 
     _ = services.AddEndpointsApiExplorer();
 

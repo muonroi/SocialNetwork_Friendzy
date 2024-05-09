@@ -93,15 +93,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Post.Aggregate.Service", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Post.Service", "src\Services\Post.Service\Post.Service\Post.API\Post.Service.csproj", "{4C2FA2E9-8AB2-4ADE-BE89-2C34EF6301AC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management.Photo.Service", "Management.Photo.Service", "{0E58C232-7DA0-486C-AF5D-1309A5AFFE07}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Photo.Application", "src\Services\Management.Photo.Service\Management.Photo.Application\Management.Photo.Application.csproj", "{1EE5FD62-6600-471C-A498-3213EF24EFB8}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Photo.Domain", "src\Services\Management.Photo.Service\Management.Photo.Domain\Management.Photo.Domain.csproj", "{509CF5B8-674B-42A2-8445-BACEF5319B1F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Photo.Infrastructure", "src\Services\Management.Photo.Service\Management.Photo.Infrastructure\Management.Photo.Infrastructure.csproj", "{D90402AB-77E1-4DC6-948E-593641BC761C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Photo.Service", "src\Services\Management.Photo.Service\Management.Photo.Service\Management.Photo.Service.csproj", "{260A904F-0E41-4B03-9849-8A46A0C1CFF3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management.Photo", "Management.Photo", "{0E58C232-7DA0-486C-AF5D-1309A5AFFE07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -209,22 +201,6 @@ Global
 		{4C2FA2E9-8AB2-4ADE-BE89-2C34EF6301AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C2FA2E9-8AB2-4ADE-BE89-2C34EF6301AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C2FA2E9-8AB2-4ADE-BE89-2C34EF6301AC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1EE5FD62-6600-471C-A498-3213EF24EFB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1EE5FD62-6600-471C-A498-3213EF24EFB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1EE5FD62-6600-471C-A498-3213EF24EFB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1EE5FD62-6600-471C-A498-3213EF24EFB8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{509CF5B8-674B-42A2-8445-BACEF5319B1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{509CF5B8-674B-42A2-8445-BACEF5319B1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{509CF5B8-674B-42A2-8445-BACEF5319B1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{509CF5B8-674B-42A2-8445-BACEF5319B1F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D90402AB-77E1-4DC6-948E-593641BC761C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D90402AB-77E1-4DC6-948E-593641BC761C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D90402AB-77E1-4DC6-948E-593641BC761C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D90402AB-77E1-4DC6-948E-593641BC761C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{260A904F-0E41-4B03-9849-8A46A0C1CFF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{260A904F-0E41-4B03-9849-8A46A0C1CFF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{260A904F-0E41-4B03-9849-8A46A0C1CFF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{260A904F-0E41-4B03-9849-8A46A0C1CFF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -268,11 +244,6 @@ Global
 		{217B6BED-02AA-4029-BC61-ECDE6EDB9B2C} = {3D0230CC-6D28-4B4D-B3BA-58302301F78A}
 		{0D9949E4-D87E-409A-AD68-E517F8337728} = {8238CB7E-6F66-40DC-861C-AEBE50F4887A}
 		{4C2FA2E9-8AB2-4ADE-BE89-2C34EF6301AC} = {3D0230CC-6D28-4B4D-B3BA-58302301F78A}
-		{0E58C232-7DA0-486C-AF5D-1309A5AFFE07} = {75A1D3AF-E61F-4BD1-BF3E-DD5E8DD99BDF}
-		{1EE5FD62-6600-471C-A498-3213EF24EFB8} = {0E58C232-7DA0-486C-AF5D-1309A5AFFE07}
-		{509CF5B8-674B-42A2-8445-BACEF5319B1F} = {0E58C232-7DA0-486C-AF5D-1309A5AFFE07}
-		{D90402AB-77E1-4DC6-948E-593641BC761C} = {0E58C232-7DA0-486C-AF5D-1309A5AFFE07}
-		{260A904F-0E41-4B03-9849-8A46A0C1CFF3} = {0E58C232-7DA0-486C-AF5D-1309A5AFFE07}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {70492B5C-778F-4934-AF28-85BA58775A20}

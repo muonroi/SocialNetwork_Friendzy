@@ -1,5 +1,4 @@
-using Contracts.Commons.Constants
-using Infrastructure.Helper;
+using Contracts.Commons.Constants;
 
 namespace User.Infrastructure;
 
