@@ -1,4 +1,4 @@
-﻿using Shared.Services.Emails;
+﻿using Contracts.Services.Interfaces;
 
 namespace Contracts.Services;
 

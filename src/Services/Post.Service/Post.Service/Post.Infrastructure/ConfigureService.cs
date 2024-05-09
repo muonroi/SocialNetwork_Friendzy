@@ -1,4 +1,6 @@
-﻿namespace Post.Infrastructure;
+﻿using Contracts.Commons.Constants;
+
+namespace Post.Infrastructure;
 
 public static class ConfigureService
 {
@@ -6,7 +8,7 @@ public static class ConfigureService
     {
         _ = services.AddDbContext<PostDbContext>(options =>
         {
-            _ = options.UseMySQL(configuration.GetConnectionStringHelper(),
+            _ = options.UseMySQL(configuration.GetConfigHelper(ConfigurationSetting.ConnectionString),
                 builder => builder.MigrationsAssembly(typeof(PostDbContext).Assembly.FullName));
         });
         _ = services.AddScoped<PostDbContextSeed>();

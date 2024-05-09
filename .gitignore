@@ -368,3 +368,4 @@ launchSettings.json
 global.json
 docker-override-compose.yml
 docker-compose.yml
+*.bkp

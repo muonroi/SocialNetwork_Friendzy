@@ -1,4 +1,5 @@
-﻿using Contracts.Commons.Interfaces;
+﻿using Contracts.Commons.Constants;
+using Contracts.Commons.Interfaces;
 using Dapper.Extensions;
 using Dapper.Extensions.MSSQL;
 using Infrastructure.Commons;
@@ -20,7 +21,7 @@ public static class ConfigureService
     {
         _ = services.AddDbContext<StoreInfoDbContext>(options =>
         {
-            _ = options.UseSqlServer(configuration.GetConnectionStringHelper(),
+            _ = options.UseSqlServer(configuration.GetConfigHelper(ConfigurationSetting.ConnectionString),
                 builder => builder.MigrationsAssembly(typeof(StoreInfoDbContext).Assembly.FullName));
         });
         _ = services.AddScoped<StoreInfoDbContextSeed>();

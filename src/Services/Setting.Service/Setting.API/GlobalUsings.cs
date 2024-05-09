@@ -3,7 +3,6 @@ global using ExternalAPI.DTOs;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
 global using Serilog;
-global using Setting.API.Extentions;
 global using Setting.API.Infrastructures;
 global using Setting.API.Infrastructures.Endpoints;
 global using Setting.Application;

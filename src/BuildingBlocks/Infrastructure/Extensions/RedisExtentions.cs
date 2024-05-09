@@ -1,10 +1,4 @@
-﻿using Dapper.Extensions.Caching.Redis;
-using FreeRedis;
-using Infrastructure.Caching.Distributed.Redis;
-using Infrastructure.Exceptions;
-using Microsoft.Extensions.Caching.Distributed;
-using StackExchange.Redis;
-using System.Text;
+﻿using Dapper.Extensions.Caching;
 
 namespace Infrastructure.Extensions
 {
@@ -49,7 +43,7 @@ namespace Infrastructure.Extensions
                 KeyPrefix = keyPrefix,
             }, redisClient);
 
-            _ = services.AddSingleton<global::Dapper.Extensions.Caching.ICacheProvider, RedisCacheProvider>();
+            _ = services.AddSingleton<ICacheProvider, RedisCacheProvider>();
 
             return services;
         }
