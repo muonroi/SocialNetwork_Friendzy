@@ -1,10 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace Setting.Application;
+﻿namespace Setting.Application;
 
 public static class ConfigureServices
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         _ = services.AddAutoMapper(Assembly.GetExecutingAssembly())
             .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())
