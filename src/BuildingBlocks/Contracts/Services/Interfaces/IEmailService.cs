@@ -1,4 +1,4 @@
-﻿namespace Contracts.Services;
+﻿namespace Contracts.Services.Interfaces;
 
 public interface IEmailService<in T> where T : class
 {

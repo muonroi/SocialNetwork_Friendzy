@@ -21,11 +21,11 @@ try
 
     _ = services.AddConfigurationSettings(configuration);
 
-    builder.AddAppConfigurations();
-
     _ = services.AddEndpointsApiExplorer();
 
     _ = services.AddSwaggerGen();
+
+    builder.AddAppConfigurations();
 
     WebApplication app = builder.Build();
 

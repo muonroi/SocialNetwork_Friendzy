@@ -1,4 +1,6 @@
-﻿namespace SearchPartners.Aggregate.Service.Extensions;
+﻿using Consul;
+
+namespace SearchPartners.Aggregate.Service.Extensions;
 
 public static class ServiceExtension
 {
@@ -10,6 +12,7 @@ public static class ServiceExtension
         _ = services.AddTransient(typeof(GrpcConfigClientFactory<>));
         _ = services.AddGrpcClientServices(configuration, environment);
         _ = services.AddApiIntegration(configuration);
+        _ = ServiceExtensionCommon.AddConfigurationSettingsCommon(services, configuration);
         return services;
     }
 

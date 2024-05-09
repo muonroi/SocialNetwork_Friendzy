@@ -1,4 +1,6 @@
-﻿namespace User.Infrastructure;
+﻿using Contracts.Commons.Constants;
+
+namespace User.Infrastructure;
 
 public static class ConfigureService
 {
@@ -6,7 +8,7 @@ public static class ConfigureService
     {
         _ = services.AddDbContext<UserDbContext>(options =>
         {
-            _ = options.UseSqlServer(configuration.GetConnectionStringHelper(),
+            _ = options.UseSqlServer(configuration.GetConfigHelper(ConfigurationSetting.ConnectionString),
                 builder => builder.MigrationsAssembly(typeof(UserDbContext).Assembly.FullName));
         });
         _ = services.AddScoped<UserDbContextSeed>();

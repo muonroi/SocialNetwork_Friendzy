@@ -22,34 +22,4 @@ public class PostRepository(PostDbContext dbContext, IUnitOfWork<PostDbContext> 
         _logger.Information($"END: GetPersonalPostsAsync RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
         return result;
     }
-
-    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
-    {
-        throw new NotImplementedException();
-    }
 }

@@ -1,13 +1,3 @@
-using Commons.Logging;
-using Infrastructure.Configurations;
-using Infrastructure.Extensions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Post.Aggregate.Service;
-using Post.Aggregate.Service.Extensions;
-using Post.Aggregate.Service.Infrastructure.Endpoints;
-using Serilog;
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();

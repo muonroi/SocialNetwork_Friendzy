@@ -5,10 +5,8 @@
         internal static IServiceCollection AddConfigurationSettings(this IServiceCollection services,
         IConfiguration configuration)
         {
-            _ = services.AddScoped<IDapperCustom, DapperCustom>();
+            _ = ServiceExtensionCommon.AddConfigurationSettingsCommon(services, configuration);
             _ = services.AddDapperForPostgreSQL();
-            _ = services.AddDapperConnectionStringProvider<ConnectionStringProvider>();
-            _ = services.AddDapperCaching(configuration);
             services.AddGrpcServer();
             return services;
         }

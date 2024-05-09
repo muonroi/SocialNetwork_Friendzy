@@ -1,3 +1,5 @@
+using User.Service.Extensions;
+
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -24,11 +26,11 @@ try
 
     _ = services.AddApplicationServices();
 
-    builder.AddAppConfigurations();
-
     _ = services.AddEndpointsApiExplorer();
 
     _ = services.AddSwaggerGen();
+
+    builder.AddAppConfigurations();
 
     WebApplication app = builder.Build();
 

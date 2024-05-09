@@ -3,6 +3,15 @@
   <Import Project="..\..\..\BuildingBlocks\Commons\Directory.Packages.props" />
 
   <ItemGroup>
+    <Compile Remove="Feature\v1\Queries\Commands\**" />
+    <Compile Remove="Feature\v1\Queries\EventHandlers\**" />
+    <EmbeddedResource Remove="Feature\v1\Queries\Commands\**" />
+    <EmbeddedResource Remove="Feature\v1\Queries\EventHandlers\**" />
+    <None Remove="Feature\v1\Queries\Commands\**" />
+    <None Remove="Feature\v1\Queries\EventHandlers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\Commons\Commons.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Contracts\Contracts.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Events\Events.csproj" />
@@ -14,9 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Commons\Constants\StoreInfoProceduceParameters\" />
-    <Folder Include="Feature\v1\Users\Commands\" />
-    <Folder Include="Feature\v1\Users\EventHandlers\" />
-    <Folder Include="Feature\v1\Users\Queries\" />
+    <Folder Include="Feature\v1\Queries\" />
     <Folder Include="Feature\v2\" />
   </ItemGroup>
 

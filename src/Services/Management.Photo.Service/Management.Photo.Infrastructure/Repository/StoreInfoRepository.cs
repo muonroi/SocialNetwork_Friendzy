@@ -3,6 +3,7 @@ using Contracts.Commons.Interfaces;
 using Dapper.Extensions;
 using Infrastructure.Commons;
 using Management.Photo.Application.Commons.Interfaces;
+using Management.Photo.Application.Commons.Models;
 using Management.Photo.Domain.Entities;
 using Management.Photo.Infrastructure.Persistences;
 using Serilog;
@@ -16,5 +17,10 @@ namespace Management.Photo.Infrastructure.Repository
         private readonly ILogger _logger = logger;
 
         private readonly IDapper _dapper = dapper;
+
+        public Task<StoreInfoDTO> ImportResource()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

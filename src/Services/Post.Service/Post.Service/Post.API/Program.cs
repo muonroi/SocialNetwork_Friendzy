@@ -1,7 +1,4 @@
-using Commons.Logging;
-using Post.API.Extentions;
-using Post.API.Infrastructure;
-using Serilog;
+using Post.Service.Extentions;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
