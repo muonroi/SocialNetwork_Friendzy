@@ -6,7 +6,7 @@ public class PostRepository(PostDbContext dbContext, IUnitOfWork<PostDbContext> 
     private readonly ILogger _logger = logger;
     private readonly IDapper _dapper = dapper;
 
-    public async Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, long userId, ServerCallContext context)
+    public async Task<PageResult<PostDto>> GetRandomPostsAsync(int pageIndex, int pageSize, ServerCallContext context)
     {
         _logger.Information($"BEGIN: GetPersonalPostsAsync");
         DapperCommand command = new()
