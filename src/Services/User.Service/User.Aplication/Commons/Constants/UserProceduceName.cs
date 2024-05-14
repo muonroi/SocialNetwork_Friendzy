@@ -1,15 +1,14 @@
-﻿namespace User.Application.Commons.Constants
-{
-    public static class UserProceduceName
-    {
-        /// <summary>
-        /// value: ProcGetUserByInput
-        /// </summary>
-        public static readonly string GetUserByInput = "GetUserByInput";
+﻿namespace User.Application.Commons.Constants;
 
-        /// <summary>
-        /// value: ProcGetUsersByInput
-        /// </summary>
-        public static readonly string GetUsersByInput = "GetUsersByInput";
-    }
+public static class UserProceduceName
+{
+    /// <summary>
+    /// value: ProcGetUserByInput
+    /// </summary>
+    public static readonly string GetUserByInput = "GetUserByInput";
+
+    /// <summary>
+    /// value: ProcGetUsersByInput
+    /// </summary>
+    public static readonly string GetUsersByInput = "GetUsersByInput";
 }

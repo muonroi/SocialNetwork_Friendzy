@@ -1,18 +1,14 @@
-﻿using Dapper;
-using System.Data;
+﻿namespace Infrastructure.ORMs.Dapper.Handlers;
 
-namespace Infrastructure.ORMs.Dapper.Handlers
+public class StringValueHandler : SqlMapper.TypeHandler<string>
 {
-    public class StringValueHandler : SqlMapper.TypeHandler<string>
+    public override string? Parse(object value)
     {
-        public override string? Parse(object value)
-        {
-            return value.ToString()?.Trim();
-        }
+        return value.ToString()?.Trim();
+    }
 
-        public override void SetValue(IDbDataParameter parameter, string? value)
-        {
-            throw new NotImplementedException();
-        }
+    public override void SetValue(IDbDataParameter parameter, string? value)
+    {
+        throw new NotImplementedException();
     }
 }

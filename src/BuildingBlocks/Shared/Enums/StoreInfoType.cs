@@ -1,9 +1,8 @@
-﻿namespace Shared.Enums
+﻿namespace Shared.Enums;
+
+public enum StoreInfoType
 {
-    public enum StoreInfoType
-    {
-        Image = 1,
-        Video = 2,
-        SortVideo = 3,
-    }
+    Image = 1,
+    Video = 2,
+    SortVideo = 3,
 }

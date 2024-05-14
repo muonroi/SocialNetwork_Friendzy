@@ -19,8 +19,6 @@ global using Infrastructure.Commons;
 global using Infrastructure.Extensions;
 global using Infrastructure.Helper;
 global using Infrastructure.ORMs.Dapper;
-global using Infrastructure.ORMs.Dappers;
-global using Infrastructure.ORMs.Dappers.Interfaces;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.ChangeTracking;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;

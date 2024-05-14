@@ -1,6 +1,4 @@
-﻿using Grpc.Net.Client;
-
-namespace Infrastructure.Factorys;
+﻿namespace Infrastructure.Factorys;
 
 public class GrpcConfigClientFactory<T> where T : ClientBase<T>
 {

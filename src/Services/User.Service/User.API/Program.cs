@@ -1,4 +1,6 @@
 using User.Service.Extensions;
+using User.Service.Infrastructures;
+using User.Service.Infrastructures.Endpoints;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()

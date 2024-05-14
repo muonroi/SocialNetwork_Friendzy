@@ -1,6 +1,5 @@
-﻿namespace Management.Photo.Application.Commons
+﻿namespace Management.Photo.Application.Commons;
+
+public static class CustomQuery
 {
-    public static class CustomQuery
-    {
-    }
 }

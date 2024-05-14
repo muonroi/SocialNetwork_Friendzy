@@ -1,6 +1,4 @@
-﻿using Infrastructure.Extensions;
-
-namespace User.Infrastructure.Persistence;
+﻿namespace User.Infrastructure.Persistence;
 
 public class UserDbContext(DbContextOptions<UserDbContext> options) : DbContext(options)
 {

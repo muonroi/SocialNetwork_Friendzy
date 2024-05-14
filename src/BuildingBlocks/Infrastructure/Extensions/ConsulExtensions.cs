@@ -1,116 +1,110 @@
-﻿using Consul;
-using Infrastructure.Exceptions;
-using Microsoft.AspNetCore.Hosting.Server.Features;
-using Microsoft.AspNetCore.Http.Features;
+﻿namespace Infrastructure.Extensions;
 
-namespace Infrastructure.Extensions
+public static class ConsulExtensions
 {
-    public static class ConsulExtensions
+    private static readonly string defaultProtocol = "http";
+    private static readonly string defaultTenantId = "TenantId";
+
+    public static async Task<string> GetUriOnConsulAsync(this IConsulClient consulClient, string serviceName, string tenantId)
     {
-        private static readonly string defaultProtocol = "http";
-        private static readonly string defaultTenantId = "TenantId";
+        ArgumentNullException.ThrowIfNull(consulClient);
 
-        public static async Task<string> GetUriOnConsulAsync(this IConsulClient consulClient, string serviceName, string tenantId)
+        serviceName = serviceName.Trim();
+        if (string.IsNullOrEmpty(serviceName))
         {
-            ArgumentNullException.ThrowIfNull(consulClient);
-
-            serviceName = serviceName.Trim();
-            if (string.IsNullOrEmpty(serviceName))
-            {
-                throw new ArgumentNullException(nameof(serviceName));
-            }
-
-            Dictionary<string, AgentService>.ValueCollection services = (await consulClient.Agent.Services()).Response.Values;
-            List<AgentService> filteredServices = services
-                  .Where(x => x.Service == serviceName)
-                  .ToList();
-            if (!filteredServices.Any())
-            {
-                throw new ConsulServiceNotFoundException($"Service '{serviceName}' not found in Consul.");
-            }
-            List<AgentService> tenantServices = [];
-            List<AgentService> shareTenantServices = [];
-            foreach (AgentService? service in filteredServices)
-            {
-                if (service.Meta.Any(x => x.Key == defaultTenantId && x.Value == tenantId))
-                {
-                    tenantServices.Add(service);
-                }
-                else if (!service.Meta.Any())
-                {
-                    shareTenantServices.Add(service);
-                }
-            }
-            if (shareTenantServices.Count == 0)
-            {
-                shareTenantServices = filteredServices;
-            }
-
-            Random random = new();
-            int choice = tenantServices.Count != 0 ? random.Next(tenantServices.Count) : random.Next(shareTenantServices.Count);
-
-            AgentService selectedService = tenantServices.Count != 0 ? tenantServices[choice] : shareTenantServices[choice];
-            //var protocol = selectedService.Meta.ContainsKey("protocol")
-            //    ? selectedService.Meta["protocol"]
-            //    : "http";
-
-            return $"{defaultProtocol}://{selectedService.Address}:{selectedService.Port}";
+            throw new ArgumentNullException(nameof(serviceName));
         }
 
-        public static IServiceCollection AddConsul(this IServiceCollection services, ConsulConfigs consulConfigs, IWebHostEnvironment environment)
+        Dictionary<string, AgentService>.ValueCollection services = (await consulClient.Agent.Services()).Response.Values;
+        List<AgentService> filteredServices = services
+              .Where(x => x.Service == serviceName)
+              .ToList();
+        if (!filteredServices.Any())
         {
-            if (!environment.IsDevelopment())
+            throw new ConsulServiceNotFoundException($"Service '{serviceName}' not found in Consul.");
+        }
+        List<AgentService> tenantServices = [];
+        List<AgentService> shareTenantServices = [];
+        foreach (AgentService? service in filteredServices)
+        {
+            if (service.Meta.Any(x => x.Key == defaultTenantId && x.Value == tenantId))
             {
-                _ = services.AddSingleton<IConsulClient, ConsulClient>(p => new ConsulClient(consulConfig =>
-                {
-                    string address = consulConfigs.ConsulAddress!;
-                    consulConfig.Address = new Uri(address);
-                }));
+                tenantServices.Add(service);
             }
-            return services;
+            else if (!service.Meta.Any())
+            {
+                shareTenantServices.Add(service);
+            }
+        }
+        if (shareTenantServices.Count == 0)
+        {
+            shareTenantServices = filteredServices;
         }
 
-        public static IApplicationBuilder UseConsul(this IApplicationBuilder app, ConsulConfigs consulSettings, IWebHostEnvironment environment)
+        Random random = new();
+        int choice = tenantServices.Count != 0 ? random.Next(tenantServices.Count) : random.Next(shareTenantServices.Count);
+
+        AgentService selectedService = tenantServices.Count != 0 ? tenantServices[choice] : shareTenantServices[choice];
+        //var protocol = selectedService.Meta.ContainsKey("protocol")
+        //    ? selectedService.Meta["protocol"]
+        //    : "http";
+
+        return $"{defaultProtocol}://{selectedService.Address}:{selectedService.Port}";
+    }
+
+    public static IServiceCollection AddConsul(this IServiceCollection services, ConsulConfigs consulConfigs, IWebHostEnvironment environment)
+    {
+        if (!environment.IsDevelopment())
         {
-            if (environment.IsDevelopment())
+            _ = services.AddSingleton<IConsulClient, ConsulClient>(p => new ConsulClient(consulConfig =>
             {
-                return app;
-            }
-            IConsulClient consulClient = app.ApplicationServices
-                               .GetRequiredService<IConsulClient>();
-            IHostApplicationLifetime lifetime = app.ApplicationServices.GetRequiredService<IHostApplicationLifetime>();
-            string? address = $"{consulSettings.ServiceAddress}:{consulSettings.ServicePort}";
+                string address = consulConfigs.ConsulAddress!;
+                consulConfig.Address = new Uri(address);
+            }));
+        }
+        return services;
+    }
 
-            if (string.IsNullOrWhiteSpace(address))
-            {
-                FeatureCollection? features = app.Properties["server.Features"] as FeatureCollection;
-                IServerAddressesFeature? addresses = features?.Get<IServerAddressesFeature>();
-                address = addresses?.Addresses.First() ?? string.Empty;
-
-                Console.WriteLine($"Could not find service address in config. " +
-                    $"Using '{address}'");
-            }
-
-            Uri uri = new(address);
-            string serviceName = consulSettings.ServiceName ?? AppDomain.CurrentDomain.FriendlyName.Trim().Trim('_');
-            AgentServiceRegistration registration = new()
-            {
-                ID = $"{serviceName.ToLowerInvariant()}-{consulSettings.Id ?? Guid.NewGuid().ToString()}",
-                Name = serviceName,
-                Address = uri.Host,
-                Port = uri.Port,
-                Meta = consulSettings.ServiceMetadata ?? []
-            };
-
-            consulClient.Agent.ServiceDeregister(registration.ID).Wait();
-            consulClient.Agent.ServiceRegister(registration).Wait();
-
-            _ = lifetime.ApplicationStopping.Register(() =>
-            {
-                consulClient.Agent.ServiceDeregister(registration.ID).Wait();
-            });
-
+    public static IApplicationBuilder UseConsul(this IApplicationBuilder app, ConsulConfigs consulSettings, IWebHostEnvironment environment)
+    {
+        if (environment.IsDevelopment())
+        {
             return app;
         }
+        IConsulClient consulClient = app.ApplicationServices
+                           .GetRequiredService<IConsulClient>();
+        IHostApplicationLifetime lifetime = app.ApplicationServices.GetRequiredService<IHostApplicationLifetime>();
+        string? address = $"{consulSettings.ServiceAddress}:{consulSettings.ServicePort}";
+
+        if (string.IsNullOrWhiteSpace(address))
+        {
+            FeatureCollection? features = app.Properties["server.Features"] as FeatureCollection;
+            IServerAddressesFeature? addresses = features?.Get<IServerAddressesFeature>();
+            address = addresses?.Addresses.First() ?? string.Empty;
+
+            Console.WriteLine($"Could not find service address in config. " +
+                $"Using '{address}'");
+        }
+
+        Uri uri = new(address);
+        string serviceName = consulSettings.ServiceName ?? AppDomain.CurrentDomain.FriendlyName.Trim().Trim('_');
+        AgentServiceRegistration registration = new()
+        {
+            ID = $"{serviceName.ToLowerInvariant()}-{consulSettings.Id ?? Guid.NewGuid().ToString()}",
+            Name = serviceName,
+            Address = uri.Host,
+            Port = uri.Port,
+            Meta = consulSettings.ServiceMetadata ?? []
+        };
+
+        consulClient.Agent.ServiceDeregister(registration.ID).Wait();
+        consulClient.Agent.ServiceRegister(registration).Wait();
+
+        _ = lifetime.ApplicationStopping.Register(() =>
+        {
+            consulClient.Agent.ServiceDeregister(registration.ID).Wait();
+        });
+
+        return app;
     }
 }

@@ -1,8 +1,7 @@
-﻿namespace Commons.Pagination
+﻿namespace Commons.Pagination;
+
+public class LinkResponse
 {
-    public class LinkResponse
-    {
-        public string? Href { get; set; }
-        public string? Method { get; set; }
-    }
+    public string? Href { get; set; }
+    public string? Method { get; set; }
 }

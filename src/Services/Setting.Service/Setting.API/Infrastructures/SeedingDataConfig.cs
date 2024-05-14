@@ -1,13 +1,12 @@
-﻿namespace Setting.API.Infrastructures
+﻿namespace Setting.Service.Infrastructures;
+
+public static class SeedingDataConfig
 {
-    public static class SeedingDataConfig
+    public static async Task SeedConfigAsync(this WebApplication app)
     {
-        public static async Task SeedConfigAsync(this WebApplication app)
-        {
-            using IServiceScope scope = app.Services.CreateScope();
-            SettingDbContextSeed services = scope.ServiceProvider.GetRequiredService<SettingDbContextSeed>();
-            await services.InitialiseAsync();
-            await services.SeedAsync();
-        }
+        using IServiceScope scope = app.Services.CreateScope();
+        SettingDbContextSeed services = scope.ServiceProvider.GetRequiredService<SettingDbContextSeed>();
+        await services.InitialiseAsync();
+        await services.SeedAsync();
     }
 }

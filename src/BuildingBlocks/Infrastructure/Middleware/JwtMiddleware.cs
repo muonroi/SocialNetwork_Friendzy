@@ -1,6 +1,4 @@
-﻿using Shared.DTOs;
-
-namespace Infrastructure.Middleware;
+﻿namespace Infrastructure.Middleware;
 
 public class JwtMiddleware(
     RequestDelegate next,

@@ -3,49 +3,49 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Serilog;
 
-namespace Management.Photo.Infrastructure.Persistences
+namespace Management.Photo.Infrastructure.Persistences;
+
+public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
 {
-    public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
+    private readonly ILogger _logger = logger;
+
+    private readonly StoreInfoDbContext _context = context;
+
+    public async Task InitialiseAsync()
     {
-        private readonly ILogger _logger = logger;
-
-        private readonly StoreInfoDbContext _context = context;
-
-        public async Task InitialiseAsync()
+        try
         {
-            try
+            if (_context.Database.IsSqlServer())
             {
-                if (_context.Database.IsSqlServer())
-                {
-                    await _context.Database.MigrateAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "An error occurred while initialising the database.");
-                throw;
+                await _context.Database.MigrateAsync();
             }
         }
-
-        public async Task SeedAsync()
+        catch (Exception ex)
         {
-            try
-            {
-                _ = TrySeed();
-                _ = await _context.SaveChangesAsync(new CancellationToken());
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "An error occurred while seeding the database.");
-                throw;
-            }
+            _logger.Error(ex, "An error occurred while initialising the database.");
+            throw;
         }
+    }
 
-        public async Task TrySeed()
+    public async Task SeedAsync()
+    {
+        try
         {
-            if (!_context.StoreInfoEntities.Any())
-            {
-                string StoreInfoJson = @"[
+            _ = TrySeed();
+            _ = await _context.SaveChangesAsync(new CancellationToken());
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "An error occurred while seeding the database.");
+            throw;
+        }
+    }
+
+    public async Task TrySeed()
+    {
+        if (!_context.StoreInfoEntities.Any())
+        {
+            string StoreInfoJson = @"[
                 {
                    ""UserId"": 1,
                    ""StoreName"": ""image 1"",
@@ -82,9 +82,8 @@ namespace Management.Photo.Infrastructure.Persistences
                    ""StoreInfoType"": 2,
                  },
             ]";
-                List<StoreInfoEntity>? storeInfo = JsonConvert.DeserializeObject<List<StoreInfoEntity>>(StoreInfoJson);
-                await _context.StoreInfoEntities.AddRangeAsync(storeInfo ?? []);
-            }
+            List<StoreInfoEntity>? storeInfo = JsonConvert.DeserializeObject<List<StoreInfoEntity>>(StoreInfoJson);
+            await _context.StoreInfoEntities.AddRangeAsync(storeInfo ?? []);
         }
     }
 }

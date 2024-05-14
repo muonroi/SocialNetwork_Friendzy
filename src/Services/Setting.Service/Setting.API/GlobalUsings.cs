@@ -3,8 +3,6 @@ global using ExternalAPI.DTOs;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
 global using Serilog;
-global using Setting.API.Infrastructures;
-global using Setting.API.Infrastructures.Endpoints;
 global using Setting.Application;
 global using Setting.Application.feature.v1.Queries.GetCategorySettings;
 global using Setting.Domain.Enums;

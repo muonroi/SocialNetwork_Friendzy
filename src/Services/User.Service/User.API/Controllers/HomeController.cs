@@ -1,4 +1,4 @@
-﻿namespace User.API.Controllers;
+﻿namespace User.Service.Controllers;
 
 public class HomeController : ControllerBase
 {

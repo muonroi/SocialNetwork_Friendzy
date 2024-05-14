@@ -22,4 +22,9 @@ public class PostRepository(PostDbContext dbContext, IUnitOfWork<PostDbContext> 
         _logger.Information($"END: GetPersonalPostsAsync RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
         return result;
     }
+
+    Task<PageResult<PostDto>> IPostRepository.GetRandomPostsAsync(int pageIndex, int pageSize, ServerCallContext context)
+    {
+        throw new NotImplementedException();
+    }
 }

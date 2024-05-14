@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Management.Photo.Service.Controller
+namespace Management.Photo.Service.Controller;
+
+public class HomeController : ControllerBase
 {
-    public class HomeController : ControllerBase
+    // GET
+    public IActionResult Index()
     {
-        // GET
-        public IActionResult Index()
-        {
-            return Redirect("~/swagger");
-        }
+        return Redirect("~/swagger");
     }
 }

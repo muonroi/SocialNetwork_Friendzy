@@ -15,4 +15,9 @@ public class SettingRepository<T, TK>(SettingDbContext dbContext, IUnitOfWork<Se
         _logger.Information($"END: GetSettingByKey RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
         return result;
     }
+
+    Task<T?> ISettingRepository<T, TK>.GetSettingByType(Expression<Func<T, bool>> expresion)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -1,10 +1,9 @@
-﻿namespace API.Intergration.Config.Service.Extensions
+﻿namespace API.Intergration.Config.Service.Extensions;
+
+public static class HostExtension
 {
-    public static class HostExtension
+    internal static void AddMapGrpcServices(this WebApplication app)
     {
-        internal static void AddMapGrpcServices(this WebApplication app)
-        {
-            _ = app.MapGrpcService<ApiIntergrationService>();
-        }
+        _ = app.MapGrpcService<ApiIntergrationService>();
     }
 }

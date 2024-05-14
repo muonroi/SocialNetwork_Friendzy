@@ -1,6 +1,4 @@
-﻿using Shared.DTOs;
-
-namespace Infrastructure.Configurations;
+﻿namespace Infrastructure.Configurations;
 
 internal class GrpcServerInterceptor(Func<object?> workContextInfoFunc) : GrpcCoreInterceptor
 {

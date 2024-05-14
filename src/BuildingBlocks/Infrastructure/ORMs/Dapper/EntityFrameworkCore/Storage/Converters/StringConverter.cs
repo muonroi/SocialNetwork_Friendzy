@@ -1,14 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿namespace Infrastructure.ORMs.Dapper.EntityFrameworkCore.Storage.Converters;
 
-namespace Infrastructure.ORMs.Dapper.EntityFrameworkCore.Storage.Converters
+public class StringConverter : ValueConverter<string, string>
 {
-    public class StringConverter : ValueConverter<string, string>
+    public StringConverter()
+        : base(
+            v => v,
+            v => v.Trim())
     {
-        public StringConverter()
-            : base(
-                v => v,
-                v => v.Trim())
-        {
-        }
     }
 }

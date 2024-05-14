@@ -1,8 +1,8 @@
-﻿namespace Distance.Service.Infrastructure.Constants.DistanceProceduceParameters.GetDistanceByCountryInfo
+﻿namespace Distance.Service.Infrastructure.Constants.DistanceProceduceParameters.GetDistanceByCountryInfo;
+
+public class RawProceduceGetDistanceByCountry
 {
-    public class RawProceduceGetDistanceByCountry
-    {
-        public const string query = @"
+    public const string query = @"
 CREATE PROC GetDistanceByCountry
     @Country VARCHAR(50),
     @PageSize INT,
@@ -23,5 +23,4 @@ BEGIN
     OFFSET @Offset ROWS
     FETCH NEXT @PageSize ROWS ONLY;
 END;";
-    }
 }

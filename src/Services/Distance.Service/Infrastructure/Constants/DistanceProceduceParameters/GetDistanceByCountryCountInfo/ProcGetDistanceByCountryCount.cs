@@ -1,7 +1,6 @@
-﻿namespace Distance.Service.Infrastructure.Constants.DistanceProceduceParameters.GetDistanceByCountryCountInfo
+﻿namespace Distance.Service.Infrastructure.Constants.DistanceProceduceParameters.GetDistanceByCountryCountInfo;
+
+public enum GetDistanceByCountryCount
 {
-    public enum GetDistanceByCountryCount
-    {
-        Country = 1,
-    }
+    Country = 1,
 }

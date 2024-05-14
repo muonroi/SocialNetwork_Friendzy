@@ -12,8 +12,6 @@ global using Shared.SeedWorks;
 global using System;
 global using System.Net;
 global using System.Threading.Tasks;
-global using User.API.Infrastructures;
-global using User.API.Infrastructures.Endpoints;
 global using User.Application;
 global using User.Application.Commons.Models;
 global using User.Application.Feature.v1.Users.Queries.GetMultipleUsers;

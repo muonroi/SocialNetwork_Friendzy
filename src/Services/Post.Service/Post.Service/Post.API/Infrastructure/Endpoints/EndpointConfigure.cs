@@ -1,4 +1,4 @@
-﻿namespace Post.API.Infrastructure.Endpoints;
+﻿namespace Post.Service.Infrastructure.Endpoints;
 
 internal static class EndpointConfigure
 {

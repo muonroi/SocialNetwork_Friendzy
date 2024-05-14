@@ -1,4 +1,4 @@
-﻿namespace Setting.API.Infrastructures.Endpoints;
+﻿namespace Setting.Service.Infrastructures.Endpoints;
 
 internal static class EndpointConfigure
 {

@@ -6,7 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{07A357DB-E126-4B77-827F-07BA30462E9E}"
 	ProjectSection(SolutionItems) = preProject
 		SolutionItems\.dockerignore = SolutionItems\.dockerignore
-		SolutionItems\.editorconfig = SolutionItems\.editorconfig
 		SolutionItems\.gitattributes = SolutionItems\.gitattributes
 		.gitignore = .gitignore
 		src\docker-compose.yml = src\docker-compose.yml

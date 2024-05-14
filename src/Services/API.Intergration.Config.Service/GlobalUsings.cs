@@ -11,8 +11,6 @@ global using Grpc.Core;
 global using Infrastructure.Configurations;
 global using Infrastructure.Extensions;
 global using Infrastructure.ORMs.Dapper;
-global using Infrastructure.ORMs.Dappers;
-global using Infrastructure.ORMs.Dappers.Interfaces;
 global using Serilog;
 global using System.Text.Json;
 global using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;

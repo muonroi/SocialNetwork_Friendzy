@@ -1,4 +1,4 @@
-﻿namespace Setting.API.Controllers;
+﻿namespace Setting.Service.Controllers;
 
 [Route("api/v1/[controller]")]
 [ApiController]

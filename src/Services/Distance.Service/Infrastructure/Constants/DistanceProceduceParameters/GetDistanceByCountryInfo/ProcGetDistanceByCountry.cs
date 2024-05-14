@@ -1,11 +1,10 @@
-﻿namespace Distance.Service.Infrastructure.Constants.DistanceProceduceParameters.GetDistanceByCountryInfo
+﻿namespace Distance.Service.Infrastructure.Constants.DistanceProceduceParameters.GetDistanceByCountryInfo;
+
+public enum GetDistanceByCountry
 {
-    public enum GetDistanceByCountry
-    {
-        Country = 1,
+    Country = 1,
 
-        PageSize = 2,
+    PageSize = 2,
 
-        PageIndex = 3
-    }
+    PageIndex = 3
 }

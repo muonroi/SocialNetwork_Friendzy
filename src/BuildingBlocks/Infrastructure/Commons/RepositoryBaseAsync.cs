@@ -76,9 +76,4 @@ public class RepositoryBaseAsync<T, TK, TContext>(TContext context, IUnitOfWork<
     {
         return _context.Database.RollbackTransactionAsync();
     }
-
-    Task<IDbContextTransaction> IRepositoryBaseAsync<T, TK>.BeginTransactionAsync()
-    {
-        throw new NotImplementedException();
-    }
 }

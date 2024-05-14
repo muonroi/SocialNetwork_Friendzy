@@ -1,6 +1,5 @@
-﻿namespace Infrastructure.Factorys
+﻿namespace Infrastructure.Factorys;
+
+internal class RestEaseConfigClientFactory
 {
-    internal class RestEaseConfigClientFactory
-    {
-    }
 }

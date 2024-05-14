@@ -1,8 +1,8 @@
-﻿namespace API.Intergration.Config.Service.v1.Query
+﻿namespace API.Intergration.Config.Service.v1.Query;
+
+public static class CustomSqlQuery
 {
-    public static class CustomSqlQuery
-    {
-        public const string GetUserIntConfig = @"SELECT
+    public const string GetUserIntConfig = @"SELECT
                                                 ui.user_id AS UserId,
                                                 ui.partner_code AS PartnerCode,
                                                 ui.partner_type AS PartnerType,
@@ -17,5 +17,4 @@
                                             GROUP BY
                                                 ui.user_id, ui.partner_code, ui.partner_type;
 ";
-    }
 }

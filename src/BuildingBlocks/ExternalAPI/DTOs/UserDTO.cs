@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace ExternalAPI.DTOs;
+﻿namespace ExternalAPI.DTOs;
 public record UserDTO
 {
     [JsonProperty("isSucceeded")]

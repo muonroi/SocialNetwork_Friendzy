@@ -1,8 +1,8 @@
-﻿namespace User.Application.Commons.Constants.UserProceduceParameters.GetUsersByInput
+﻿namespace User.Application.Commons.Constants.UserProceduceParameters.GetUsersByInput;
+
+public class RawProceduceGetUsersByInput
 {
-    public class RawProceduceGetUsersByInput
-    {
-        public const string query = @"CREATE PROC GetUsersByInput
+    public const string query = @"CREATE PROC GetUsersByInput
 @Input varchar(50)
 AS
 BEGIN
@@ -48,5 +48,4 @@ BEGIN
 
     DROP TABLE #TempUserResult
 END";
-    }
 }
