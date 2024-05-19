@@ -3,6 +3,7 @@ using Contracts.DTOs.ResourceDTOs;
 using Contracts.Services;
 using Management.Photo.Application.Commons.Interfaces;
 using Management.Photo.Application.Commons.Models;
+using Management.Photo.Application.Commons.Requests;
 using MediatR;
 using Shared.DTOs;
 using Shared.SeedWorks;
