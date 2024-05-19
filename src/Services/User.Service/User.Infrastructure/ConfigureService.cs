@@ -1,4 +1,6 @@
 using Contracts.Commons.Constants;
+using Contracts.Services;
+using Infrastructure.Services;
 
 namespace User.Infrastructure;
 
@@ -15,6 +17,7 @@ public static class ConfigureService
         _ = services.AddScoped(typeof(IRepositoryBaseAsync<,,>), typeof(RepositoryBaseAsync<,,>));
         _ = services.AddScoped<IUserRepository, UserRepository>();
         _ = services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+        _ = services.AddScoped(typeof(ISmtpEmailService), typeof(SmtpEmailService));
         return services;
     }
 }

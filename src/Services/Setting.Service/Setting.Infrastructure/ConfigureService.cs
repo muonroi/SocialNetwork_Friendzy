@@ -1,4 +1,6 @@
 ﻿using Contracts.Commons.Constants;
+using Dapper.Extensions;
+using Infrastructure.ORMs.Dapper;
 
 namespace Setting.Infrastructure;
 
@@ -15,8 +17,10 @@ public static class ConfigureService
         _ = services.AddScoped(typeof(IRepositoryBaseAsync<,,>), typeof(RepositoryBaseAsync<,,>));
         _ = services.AddScoped(typeof(ISettingRepository<,>), typeof(SettingRepository<,>));
         _ = services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
-        _ = ServiceExtensionCommon.AddConfigurationSettingsCommon(services, configuration);
+        _ = services.AddConfigurationSettingsThirdExtenal(configuration);
         _ = services.AddDapperForMSSQL();
+        _ = services.AddDapperConnectionStringProvider<ConnectionStringProvider>();
+        _ = services.AddDapperCaching(configuration);
 
         return services;
     }

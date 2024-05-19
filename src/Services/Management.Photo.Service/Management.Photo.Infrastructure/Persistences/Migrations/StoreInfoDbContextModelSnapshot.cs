@@ -22,6 +22,57 @@ namespace Management.Photo.Infrastructure.Persistences.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Management.Photo.Domain.Entities.BucketEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("BucketDescription")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("BucketName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<long?>("CreatedDateTs")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("DeletedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("LastModifiedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<long?>("LastModifiedDateTs")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BucketEntities");
+                });
+
             modelBuilder.Entity("Management.Photo.Domain.Entities.StoreInfoEntity", b =>
                 {
                     b.Property<long>("Id")
@@ -29,6 +80,9 @@ namespace Management.Photo.Infrastructure.Persistences.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("BucketId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -81,7 +135,25 @@ namespace Management.Photo.Infrastructure.Persistences.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BucketId");
+
                     b.ToTable("StoreInfoEntities");
+                });
+
+            modelBuilder.Entity("Management.Photo.Domain.Entities.StoreInfoEntity", b =>
+                {
+                    b.HasOne("Management.Photo.Domain.Entities.BucketEntity", "Bucket")
+                        .WithMany("StoreInfos")
+                        .HasForeignKey("BucketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bucket");
+                });
+
+            modelBuilder.Entity("Management.Photo.Domain.Entities.BucketEntity", b =>
+                {
+                    b.Navigation("StoreInfos");
                 });
 #pragma warning restore 612, 618
         }

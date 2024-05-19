@@ -1,6 +1,7 @@
 using Infrastructure.Extensions;
 using Setting.Service.Infrastructures;
 using Setting.Service.Infrastructures.Endpoints;
+using System.Reflection;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -19,11 +20,13 @@ builder.Host.UseSerilog(SerilogAction.Configure);
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 try
 {
+    Assembly assemblyInstance = Assembly.GetExecutingAssembly();
+
     _ = services.AddControllers();
 
     _ = services.AddInfrastructureServices(configuration);
 
-    _ = services.AddApplicationServices();
+    _ = services.AddConfigurationApplication();
 
     _ = services.AddEndpointsApiExplorer();
 

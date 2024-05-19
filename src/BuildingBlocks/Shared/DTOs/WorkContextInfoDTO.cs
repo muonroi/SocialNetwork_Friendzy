@@ -11,7 +11,7 @@ public record WorkContextInfoDTO
     public string Roles { get; set; } = string.Empty;
     public string AgentCode { get; set; } = string.Empty;
     public string LinerCode { get; set; } = string.Empty;
-    public int UserId { get; set; }
+    public long UserId { get; set; }
     public bool IsMasterAccount { get; set; }
     public List<int>? RelatedAccounts { get; set; }
 
@@ -26,7 +26,7 @@ public record WorkContextInfoDTO
             }
             if (UserId > 0)
             {
-                ids.Add(UserId);
+                ids.Add((int)UserId);
             }
             return ids;
         }

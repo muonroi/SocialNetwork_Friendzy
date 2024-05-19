@@ -13,5 +13,9 @@ public class StoreInfoEntity : EntityAuditBase<long>
 
     public string StoreUrl { get; set; } = string.Empty;
 
+    public long BucketId { get; set; }
+
     public StoreInfoType StoreInfoType { get; set; }
+
+    public BucketEntity? Bucket { get; set; }
 }

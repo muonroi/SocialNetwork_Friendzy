@@ -1,6 +1,6 @@
+using Post.Application;
 using Post.Service.Extentions;
 using Post.Service.Infrastructure;
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -18,6 +18,8 @@ Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 try
 {
     _ = services.AddConfigurationSettings(configuration);
+
+    _ = services.AddConfigurationApplication();
 
     builder.AddAppConfigurations();
 

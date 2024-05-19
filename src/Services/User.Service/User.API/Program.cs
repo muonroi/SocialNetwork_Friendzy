@@ -19,6 +19,7 @@ builder.Host.UseSerilog(SerilogAction.Configure);
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 try
 {
+
     // Add services to the container.
     _ = services.AddControllers();
 
@@ -26,7 +27,7 @@ try
 
     _ = services.AddInfrastructureServices(configuration);
 
-    _ = services.AddApplicationServices();
+    _ = services.AddConfigurationApplication();
 
     _ = services.AddEndpointsApiExplorer();
 
