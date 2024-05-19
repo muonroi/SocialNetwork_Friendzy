@@ -1,4 +1,6 @@
-﻿namespace SearchPartners.Aggregate.Service.Infrastructure.Endpoints;
+﻿using Infrastructure.Middleware;
+
+namespace SearchPartners.Aggregate.Service.Infrastructure.Endpoints;
 
 internal static class EndpointConfigure
 {
@@ -13,6 +15,7 @@ internal static class EndpointConfigure
         _ = app.UseAuthorization();
 
         _ = app.MapControllers();
+        _ = app.UseMiddleware<GlobalExceptionMiddleware>();
         _ = app.UseCors();
         _ = app.MapControllerRoute(
                            name: "default",

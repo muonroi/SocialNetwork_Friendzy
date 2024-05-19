@@ -1,5 +1,6 @@
 ﻿using Contracts.Commons.Interfaces;
 using Management.Photo.Application.Commons.Models;
+using Management.Photo.Application.Commons.Requests;
 using Management.Photo.Domain.Entities;
 using Shared.Enums;
 

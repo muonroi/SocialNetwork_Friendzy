@@ -1,4 +1,6 @@
-﻿namespace User.Service.Infrastructures.Endpoints;
+﻿using Infrastructure.Middleware;
+
+namespace User.Service.Infrastructures.Endpoints;
 
 internal static class EndpointConfigure
 {
@@ -11,6 +13,7 @@ internal static class EndpointConfigure
         }
         _ = app.MapControllers();
         _ = app.UseCors();
+        _ = app.UseMiddleware<GlobalExceptionMiddleware>();
         _ = app.MapControllerRoute(
                            name: "default",
                                           pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -19,7 +19,7 @@ namespace Management.Photo.Infrastructure.Query
 
         public async Task<BucketDto?> GetBucketByIdAsync(long bucketId, CancellationToken cancellationToken)
         {
-            _logger.Information($"BEGIN: GetBucketByIdAsync");
+            _logger.Information($"BEGIN: GetBucketByIdAsync REQUEST --> {JsonConvert.SerializeObject(new { bucketId })} <--");
             BucketDto? result = await _dapper.QueryFirstOrDefaultAsync<BucketDto>(CustomSqlQuery.GetBucketById, new { id = bucketId }, cancellationToken: cancellationToken);
             if (result is null)
             {
@@ -31,7 +31,7 @@ namespace Management.Photo.Infrastructure.Query
         }
         public async Task<IEnumerable<BucketDto>?> GetBucketsAsync(CancellationToken cancellationToken)
         {
-            _logger.Information($"BEGIN: GetBucketsAsync");
+            _logger.Information($"BEGIN: GetBucketsAsync REQUEST --> none <--");
             IEnumerable<BucketDto>? result = await _dapper.QueryAsync<BucketDto>(CustomSqlQuery.GetBuckets, cancellationToken: cancellationToken);
             if (result is null)
             {

@@ -5,4 +5,5 @@ public static class ConfigurationSetting
     public const string ConnectionString = "DatabaseConfigs:ConnectionString";
     public const string MinIOAccessKey = "MinIOConfig:accessKey";
     public const string MinIOSerrectKey = "MinIOConfig:secretKey";
+    public const string EmailPassword = "SmtpConfig:Password";
 }

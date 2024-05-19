@@ -1,3 +1,5 @@
+using Infrastructure.Middleware;
+
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -34,7 +36,7 @@ try
     _ = app.UseConsul(consulSettings, env);
 
     app.AddMapGrpcServices();
-
+    _ = app.UseMiddleware<GlobalExceptionMiddleware>();
     app.Run();
 }
 catch (Exception ex)

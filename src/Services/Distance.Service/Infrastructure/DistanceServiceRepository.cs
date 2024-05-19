@@ -10,7 +10,7 @@ public class DistanceServiceRepository(DistanceDbContext distanceDbContext, IUni
     {
         //remove space and convert to lower case
         request.Country = request.Country.Replace(" ", string.Empty).ToLower();
-        _logger.Information($"BEGIN: GetDistanceAsync");
+        _logger.Information($"BEGIN: GetDistanceAsync REQUEST --> {JsonConvert.SerializeObject(request)} <--");
         DapperCommand command = new()
         {
             CommandText = CustomSqlQuery.GetDistanceByCountry,
@@ -40,7 +40,7 @@ public class DistanceServiceRepository(DistanceDbContext distanceDbContext, IUni
             TotalItems = dataDistanceResult.TotalCount
         };
 
-        _logger.Information($"END: GetDistanceAsync RESULT --> {JsonConvert.SerializeObject(dataDistanceResult)} <-- ");
+        _logger.Information($"END: GetDistanceAsync RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
 
         return result;
     }

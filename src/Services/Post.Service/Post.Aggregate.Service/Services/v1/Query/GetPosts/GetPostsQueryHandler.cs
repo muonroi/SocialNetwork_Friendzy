@@ -3,15 +3,17 @@
 public class GetPostsQueryHandler(GrpcClientFactory grpcClientFactory
     , IWorkContextAccessor workContextAccessor
     , PaginationConfigs paginationConfigs
-    , IApiExternalClient externalClient) : IRequestHandler<GetPostsQuery, ApiResult<PagingResponse<IEnumerable<GetPostsQueryResponse>>>>
+    , IApiExternalClient externalClient
+    , ILogger logger) : IRequestHandler<GetPostsQuery, ApiResult<PagingResponse<IEnumerable<GetPostsQueryResponse>>>>
 {
     private readonly IWorkContextAccessor _workContextAccessor = workContextAccessor;
-
+    private readonly ILogger _logger = logger;
     private readonly PostApiServiceClient _postApiServiceClient =
         grpcClientFactory.CreateClient<PostApiServiceClient>(ServiceConstants.PostService);
 
     public async Task<ApiResult<PagingResponse<IEnumerable<GetPostsQueryResponse>>>> Handle(GetPostsQuery request, CancellationToken cancellationToken)
     {
+        _logger.Information($"BEGIN: GetPostsQuery REQUEST --> {JsonConvert.SerializeObject(request)} <--");
         WorkContextInfoDTO workContext = _workContextAccessor.WorkContext!;
         if (request.PageIndex < 1)
         {
@@ -72,6 +74,8 @@ public class GetPostsQueryHandler(GrpcClientFactory grpcClientFactory
         });
 
         #endregion Get user info
+
+        _logger.Information($"END: GetPostsQuery RESULT --> {JsonConvert.SerializeObject(result)} <--");
 
         return new ApiSuccessResult<PagingResponse<IEnumerable<GetPostsQueryResponse>>>(result);
     }

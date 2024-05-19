@@ -1,14 +1,11 @@
-global using Commons.Behaviours;
 global using Contracts.Commons.Interfaces;
 global using FluentValidation;
-global using FluentValidation.Results;
 global using MediatR;
 global using Microsoft.Extensions.DependencyInjection;
 global using Shared.Enums;
 global using Shared.SeedWorks;
 global using System;
 global using System.Collections.Generic;
-global using System.Diagnostics;
 global using System.Linq;
 global using System.Net;
 global using System.Reflection;
