@@ -16,8 +16,10 @@ public static class ServiceExtension
         _ = services.AddScoped(typeof(IRepositoryBaseAsync<,,>), typeof(RepositoryBaseAsync<,,>));
         _ = services.AddScoped<IPostRepository, PostRepository>();
         _ = services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
-        _ = ServiceExtensionCommon.AddConfigurationSettingsCommon(services, configuration);
+        _ = services.AddConfigurationSettingsThirdExtenal(configuration);
         _ = services.AddDapperForMySQL();
+        _ = services.AddDapperConnectionStringProvider<ConnectionStringProvider>();
+        _ = services.AddDapperCaching(configuration);
         services.AddGrpcServer();
         return services;
     }

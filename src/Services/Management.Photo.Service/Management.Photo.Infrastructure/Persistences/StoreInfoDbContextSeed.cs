@@ -43,6 +43,26 @@ public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
 
     public async Task TrySeed()
     {
+        if (!_context.BucketEntities.Any())
+        {
+            string bucketJson = @"[
+                {
+                    ""BucketName"": ""images"",
+                    ""BucketDescription"": ""Store images""
+                },
+                {
+                    ""BucketName"": ""videos"",
+                    ""BucketDescription"": ""Store videos""
+                },
+                {
+                    ""BucketName"": ""sort-videos"",
+                    ""BucketDescription"": ""Store sort-videos""
+                }
+            ]";
+            List<BucketEntity>? bucketEntities = JsonConvert.DeserializeObject<List<BucketEntity>>(bucketJson);
+            await _context.BucketEntities.AddRangeAsync(bucketEntities ?? []);
+        }
+
         if (!_context.StoreInfoEntities.Any())
         {
             string StoreInfoJson = @"[
@@ -52,6 +72,7 @@ public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
                    ""StoreDescription"": ""image Description"",
                    ""StoreUrl"": ""https://example.com/storeInfo1.jpg"",
                    ""StoreInfoType"": 1,
+                   ""BucketId"": 1,
                  },
                  {
                    ""UserId"": 2,
@@ -59,6 +80,8 @@ public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
                    ""StoreDescription"": ""video Description"",
                    ""StoreUrl"": ""https://example.com/storeInfo1.jpg"",
                    ""StoreInfoType"": 2,
+                   ""BucketId"": 2,
+
                  },
                  {
                    ""UserId"": 3,
@@ -66,6 +89,8 @@ public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
                    ""StoreDescription"": ""sort video Description"",
                    ""StoreUrl"": ""https://example.com/storeInfo1.jpg"",
                    ""StoreInfoType"": 3,
+                   ""BucketId"": 3,
+
                  },
                  {
                    ""UserId"": 1,
@@ -73,6 +98,8 @@ public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
                    ""StoreDescription"": ""image 2 Description"",
                    ""StoreUrl"": ""https://example.com/storeInfo1.jpg"",
                    ""StoreInfoType"": 1,
+                   ""BucketId"": 1,
+
                  },
                  {
                    ""UserId"": 2,
@@ -80,6 +107,7 @@ public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
                    ""StoreDescription"": ""video 2 Description"",
                    ""StoreUrl"": ""https://example.com/storeInfo1.jpg"",
                    ""StoreInfoType"": 2,
+                   ""BucketId"": 2,
                  },
             ]";
             List<StoreInfoEntity>? storeInfo = JsonConvert.DeserializeObject<List<StoreInfoEntity>>(StoreInfoJson);

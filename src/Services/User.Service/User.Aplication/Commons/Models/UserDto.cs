@@ -1,4 +1,5 @@
-﻿namespace User.Application.Commons.Models;
+﻿using User.Application.Commons.Mappings;
+namespace User.Application.Commons.Models;
 
 public record UserDto : IMapFrom<UserEntity>
 {

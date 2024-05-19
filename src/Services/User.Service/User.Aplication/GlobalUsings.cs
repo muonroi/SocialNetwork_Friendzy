@@ -1,4 +1,3 @@
-global using AutoMapper;
 global using Commons.Behaviours;
 global using Contracts.Commons.Interfaces;
 global using FluentValidation;
@@ -16,7 +15,6 @@ global using System.Reflection;
 global using System.Threading;
 global using System.Threading.Tasks;
 global using User.Application.Commons.Interfaces;
-global using User.Application.Commons.Mappings;
 global using User.Application.Commons.Models;
 global using User.Domain.Entities;
 global using UserErrorMessages = User.Application.ErrorMessages.ErrorMessages;

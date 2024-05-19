@@ -1,3 +1,5 @@
+using Post.Aggregate.Service.Infrastructure;
+
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -16,6 +18,7 @@ Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 
 try
 {
+
     // config appsetting
     _ = services.Configure<ConsulConfigs>(configuration.GetSection(nameof(ConsulConfigs)));
 
@@ -40,7 +43,7 @@ try
 
     services.ConfigureJwtBearerToken(configuration);
 
-    _ = services.AddApplicationServices();
+    _ = services.AddConfigurationApplication();
 
     _ = services.AddWorkContextAccessor();
 

@@ -12,5 +12,6 @@ public class StoreInfoConfigure : IEntityTypeConfiguration<StoreInfoEntity>
         _ = modelBuilder.Property(x => x.StoreDescription).HasMaxLength(1000);
         _ = modelBuilder.Property(x => x.StoreName).HasMaxLength(255).IsRequired();
         _ = modelBuilder.Property(x => x.UserId).IsRequired();
+        _ = modelBuilder.Property(x => x.BucketId).IsRequired();
     }
 }

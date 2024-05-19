@@ -1,14 +1,12 @@
 ﻿using Contracts.Commons.Constants;
 using Infrastructure.Helper;
-using Infrastructure.ORMs.Dapper;
-using Infrastructure.ORMs.Dappers;
 using Minio;
 
 namespace Infrastructure.Extensions;
 
 public static class ServiceExtensionCommon
 {
-    public static IServiceCollection AddConfigurationSettingsCommon(this IServiceCollection services,
+    public static IServiceCollection AddConfigurationSettingsThirdExtenal(this IServiceCollection services,
     IConfiguration configuration)
     {
         SmtpConfig? emailSettings = configuration.GetSection(nameof(SmtpConfig)).Get<SmtpConfig>();
@@ -21,18 +19,15 @@ public static class ServiceExtensionCommon
         {
             _ = services.AddSingleton(minIOConfig);
         }
-        _ = services.AddSingleton(client =>
-        {
-            IMinioClient minioClient = new MinioClient()
-                                .WithEndpoint(minIOConfig?.Endpoint)
-                                .WithCredentials(configuration.GetConfigHelper(ConfigurationSetting.MinIOAccessKey),
-                          configuration.GetConfigHelper(ConfigurationSetting.MinIOSerrectKey))
-                          .WithSSL();
-            return (MinioClient)minioClient;
-        });
-        _ = services.AddScoped<IDapperCustom, DapperCustom>();
-        _ = services.AddDapperConnectionStringProvider<ConnectionStringProvider>();
-        _ = services.AddDapperCaching(configuration);
+        string accessKey = configuration.GetConfigHelper(ConfigurationSetting.MinIOAccessKey);
+        string secretKey = configuration.GetConfigHelper(ConfigurationSetting.MinIOSerrectKey);
+
+        _ = services.AddMinio(configureClient => configureClient
+            .WithEndpoint(minIOConfig!.Endpoint)
+            .WithCredentials(accessKey, secretKey)
+            .WithSSL(false))
+            ;
+
         return services;
     }
 }

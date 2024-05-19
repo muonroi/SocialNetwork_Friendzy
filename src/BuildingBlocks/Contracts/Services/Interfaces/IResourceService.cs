@@ -1,12 +1,14 @@
-﻿namespace Contracts.Services.Interfaces;
+﻿using Contracts.DTOs.ResourceDTOs;
+
+namespace Contracts.Services.Interfaces;
 
 public interface IResourceService<T> where T : class
 {
-    Task UploadResourceAsync(T request, CancellationToken cancellationToken = new());
+    Task<ImportObjectResourceDTO?> ImportResourceAsync(string bucketName, T request, CancellationToken cancellationToken);
 
-    Task RemoveResourceAsync(T request, CancellationToken cancellationToken = new());
+    Task<IEnumerable<ImportObjectResourceDTO>?> ImportMultipleResourceAsync(string bucketName, IEnumerable<T> request, CancellationToken cancellationToken);
 
-    Task UpdateResourceAsync(T request, CancellationToken cancellationToken = new());
+    Task RemoveResourceAsync(string bucketName, string objectName, CancellationToken cancellationToken);
 
-    Task<T> GetResourceAsync(T request, CancellationToken cancellationToken = new());
+    Task<Stream> DownloadResourceStreamAsync(string bucketName, string objectName, CancellationToken cancellationToken);
 }

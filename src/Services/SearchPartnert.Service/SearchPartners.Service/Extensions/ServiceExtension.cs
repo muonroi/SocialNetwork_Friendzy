@@ -6,7 +6,7 @@ public static class ServiceExtension
         IConfiguration configuration)
     {
         _ = configuration.ToBase64();
-        _ = ServiceExtensionCommon.AddConfigurationSettingsCommon(services, configuration);
+        _ = services.AddConfigurationSettingsThirdExtenal(configuration);
         services.AddGrpcServer();
         return services;
     }

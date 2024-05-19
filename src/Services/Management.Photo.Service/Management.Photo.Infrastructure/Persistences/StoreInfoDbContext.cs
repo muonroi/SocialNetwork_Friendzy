@@ -3,27 +3,30 @@ using Infrastructure.Extensions;
 using Management.Photo.Domain.Entities;
 using Management.Photo.Infrastructure.Persistences.EntitiesConfigure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Management.Photo.Infrastructure.Persistences;
 
 public class StoreInfoDbContext(DbContextOptions<StoreInfoDbContext> options) : DbContext(options)
 {
     public DbSet<StoreInfoEntity> StoreInfoEntities { get; set; }
+    public DbSet<BucketEntity> BucketEntities { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         _ = modelBuilder.ApplyConfiguration(new StoreInfoConfigure());
+        _ = modelBuilder.ApplyConfiguration(new BucketConfiguration());
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
     {
-        IEnumerable<Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry> modifiedEntries = ChangeTracker
+        IEnumerable<EntityEntry> modifiedEntries = ChangeTracker
             .Entries()
             .Where(x => x.State is EntityState.Added
             or EntityState.Modified
             or EntityState.Deleted);
-        foreach (Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry? item in modifiedEntries)
+        foreach (EntityEntry? item in modifiedEntries)
         {
             switch (item.State)
             {

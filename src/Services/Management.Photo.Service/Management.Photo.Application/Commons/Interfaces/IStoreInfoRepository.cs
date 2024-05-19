@@ -7,5 +7,7 @@ namespace Management.Photo.Application.Commons.Interfaces;
 
 public interface IStoreInfoRepository : IRepositoryBaseAsync<StoreInfoEntity, long>
 {
-    Task<List<StoreInfoDTO>> GetResourceByName(long userId, StoreInfoType type);
+    Task<IEnumerable<StoreInfoDTO>> GetResourceByTypeAsync(long userId, long bucketId, StoreInfoType type, CancellationToken cancellationToken);
+    Task<bool> CreateResourceAsync(CreateResourceRequest request, CancellationToken cancellationToken);
+    Task<StoreInfoDTO?> GetResourceByIdAsync(long userId, long bucketId, long storyInfoId, CancellationToken cancellationToken);
 }

@@ -12,7 +12,7 @@ public static class ServiceExtension
         _ = services.AddTransient(typeof(GrpcConfigClientFactory<>));
         _ = services.AddGrpcClientServices(configuration, environment);
         _ = services.AddApiIntegration(configuration);
-        _ = ServiceExtensionCommon.AddConfigurationSettingsCommon(services, configuration);
+        _ = services.AddConfigurationSettingsThirdExtenal(configuration);
         return services;
     }
 

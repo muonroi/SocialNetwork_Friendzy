@@ -55,14 +55,4 @@ public class UserRepository(IMapper mapper, UserDbContext dbContext, IUnitOfWork
         });
         return result;
     }
-
-    Task<UserDto?> IUserRepository.GetUserByInput(string input, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<IEnumerable<UserDto>?> IUserRepository.GetUsersByInput(string input, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
 }
