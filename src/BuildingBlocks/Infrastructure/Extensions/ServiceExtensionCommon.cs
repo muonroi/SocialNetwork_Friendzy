@@ -12,6 +12,7 @@ public static class ServiceExtensionCommon
         SmtpConfig? emailSettings = configuration.GetSection(nameof(SmtpConfig)).Get<SmtpConfig>();
         if (emailSettings is not null)
         {
+            emailSettings.Password = configuration.GetConfigHelper(ConfigurationSetting.EmailPassword);
             _ = services.AddSingleton(emailSettings);
         }
         MinIOConfig minIOConfig = configuration.GetSection(nameof(MinIOConfig)).Get<MinIOConfig>() ?? new MinIOConfig();
@@ -25,8 +26,7 @@ public static class ServiceExtensionCommon
         _ = services.AddMinio(configureClient => configureClient
             .WithEndpoint(minIOConfig!.Endpoint)
             .WithCredentials(accessKey, secretKey)
-            .WithSSL(false))
-            ;
+            .WithSSL(false));
 
         return services;
     }

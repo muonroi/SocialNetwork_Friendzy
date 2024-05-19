@@ -1,4 +1,6 @@
-﻿namespace Management.Photo.Service.Infrastructures.Endpoints;
+﻿using Infrastructure.Middleware;
+
+namespace Management.Photo.Service.Infrastructures.Endpoints;
 
 internal static class EndpointConfigure
 {
@@ -10,6 +12,7 @@ internal static class EndpointConfigure
             _ = app.UseSwaggerUI();
         }
         _ = app.MapControllers();
+        _ = app.UseMiddleware<GlobalExceptionMiddleware>();
         _ = app.UseCors();
         _ = app.MapControllerRoute(
                            name: "default",

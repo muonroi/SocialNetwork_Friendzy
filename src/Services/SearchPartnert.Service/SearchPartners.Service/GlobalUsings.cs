@@ -8,6 +8,6 @@ global using SearchPartners.Service.Extensions;
 global using SearchPartners.Service.Helpers;
 global using SearchPartners.Service.Infrastructure.Endpoints;
 global using SearchPartners.Service.Services;
-global using Serilog;
 global using Shared.DTOs;
 global using static SearchPartners.Service.SearchPartnerService;
+global using ILogger = Serilog.ILogger;

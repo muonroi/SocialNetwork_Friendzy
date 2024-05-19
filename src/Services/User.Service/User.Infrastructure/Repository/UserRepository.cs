@@ -24,7 +24,7 @@ public class UserRepository(IMapper mapper, UserDbContext dbContext, IUnitOfWork
         {
             return null;
         }
-        _logger.Information($"END: GetUserByInput --> {input} <--, RESULT --> {JsonConvert.SerializeObject(rawResult)} <-- ");
+        _logger.Information($"END: GetUserByInput RESULT --> {JsonConvert.SerializeObject(rawResult)} <-- ");
         UserDto result = _mapper.Map<UserDto>(rawResult);
         result.ProfileImages = rawResult.ProfileImagesUrl.Replace(" ", string.Empty).Split(",") ?? [];
         return result;
@@ -46,7 +46,7 @@ public class UserRepository(IMapper mapper, UserDbContext dbContext, IUnitOfWork
         {
             return null;
         }
-        _logger.Information($"END: GetUsersByInput --> {input} <--, RESULT --> {JsonConvert.SerializeObject(rawResult)} <-- ");
+        _logger.Information($"END: GetUsersByInput RESULT --> {JsonConvert.SerializeObject(rawResult)} <-- ");
         IEnumerable<UserDto> result = _mapper.Map<IEnumerable<UserDto>>(rawResult);
         result = result.Join(rawResult, user => user.Id, raw => raw.Id, (user, raw) =>
         {

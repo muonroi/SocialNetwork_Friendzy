@@ -1,3 +1,5 @@
+using Infrastructure.Middleware;
+
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -19,6 +21,8 @@ try
     WebApplication app = builder.Build();
 
     _ = app.SeedConfigAsync();
+
+    _ = app.UseMiddleware<GlobalExceptionMiddleware>();
 
     app.AddMapGrpcServices();
 

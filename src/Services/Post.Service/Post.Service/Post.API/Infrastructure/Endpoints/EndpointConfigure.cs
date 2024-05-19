@@ -1,4 +1,6 @@
-﻿namespace Post.Service.Infrastructure.Endpoints;
+﻿using Infrastructure.Middleware;
+
+namespace Post.Service.Infrastructure.Endpoints;
 
 internal static class EndpointConfigure
 {
@@ -10,6 +12,7 @@ internal static class EndpointConfigure
             _ = app.UseSwaggerUI();
         }
         _ = app.UseAuthorization();
+        _ = app.UseMiddleware<GlobalExceptionMiddleware>();
         _ = app.MapControllers();
         _ = app.UseCors();
         _ = app.MapControllerRoute(

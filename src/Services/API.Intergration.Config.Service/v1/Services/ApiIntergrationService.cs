@@ -1,10 +1,15 @@
+using ILogger = Serilog.ILogger;
+
 namespace API.Intergration.Config.Service.v1.Services;
 
 public class ApiIntergrationService(IDapper dapper,
-IWorkContextAccessor workContextAccessor) : ApiConfigGrpcBase
+IWorkContextAccessor workContextAccessor, ILogger logger) : ApiConfigGrpcBase
 {
+    private readonly ILogger _logger = logger;
     public override async Task<ApiIntConfigReply> GetApiIntConfig(ApiIntConfigRequest request, ServerCallContext context)
     {
+        _logger.Information($"BEGIN: GetApiIntConfig REQUEST --> {JsonSerializer.Serialize(request)} <--");
+
         DapperCommand command = new()
         {
             CommandText = CustomSqlQuery.GetUserIntConfig,
@@ -19,6 +24,7 @@ IWorkContextAccessor workContextAccessor) : ApiConfigGrpcBase
                         command.Build(context.CancellationToken),
                         enableCache: true);
 
+        _logger.Information($"END: GetApiIntConfig RESULT --> {JsonSerializer.Serialize(result)} <--");
         return MappingApiIntergrationIntConfig(result);
     }
 

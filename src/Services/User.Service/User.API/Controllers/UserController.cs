@@ -23,4 +23,23 @@ public class UserController(IMediator mediator) : ControllerBase
         ApiResult<IEnumerable<UserDto>> result = await _mediator.Send(request).ConfigureAwait(false);
         return Ok(result);
     }
+
+    #region Command
+    [HttpPost("login")]
+    [ProducesResponseType(typeof(ApiResult<UserDto>), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> Login([FromQuery] string input)
+    {
+        GetUsersQuery request = new(input);
+        ApiResult<UserDto> result = await _mediator.Send(request).ConfigureAwait(false);
+        return Ok(result);
+    }
+    [HttpPost("register")]
+    [ProducesResponseType(typeof(ApiResult<UserDto>), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> Register([FromQuery] string input)
+    {
+        GetUsersQuery request = new(input);
+        ApiResult<UserDto> result = await _mediator.Send(request).ConfigureAwait(false);
+        return Ok(result);
+    }
+    #endregion Command
 }

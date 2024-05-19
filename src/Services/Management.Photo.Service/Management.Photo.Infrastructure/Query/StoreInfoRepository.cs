@@ -4,6 +4,7 @@ using Dapper.Extensions;
 using Infrastructure.Commons;
 using Management.Photo.Application.Commons.Interfaces;
 using Management.Photo.Application.Commons.Models;
+using Management.Photo.Application.Commons.Requests;
 using Management.Photo.Domain.Entities;
 using Management.Photo.Infrastructure.Persistences;
 using Management.Photo.Infrastructure.Persistences.Query;
@@ -68,7 +69,12 @@ public class StoreInfoRepository(StoreInfoDbContext dbContext, IDbContextFactory
 
     public async Task<StoreInfoDTO?> GetResourceByIdAsync(long userId, long bucketId, long storyInfoId, CancellationToken cancellationToken)
     {
-        _logger.Information($"BEGIN: GetResourceById");
+        _logger.Information($"BEGIN: GetResourceById REQUEST --> {JsonConvert.SerializeObject(new
+        {
+            userId,
+            bucketId,
+            storyInfoId
+        })} <--");
         CommandDefinition command = new(CustomSqlQuery.GetImageById, new
         {
             userId,
@@ -88,7 +94,12 @@ public class StoreInfoRepository(StoreInfoDbContext dbContext, IDbContextFactory
 
     public async Task<IEnumerable<StoreInfoDTO>> GetResourceByTypeAsync(long userId, long bucketId, StoreInfoType type, CancellationToken cancellationToken)
     {
-        _logger.Information($"BEGIN: GetResourceByType");
+        _logger.Information($"BEGIN: GetResourceByType REQUEST --> {JsonConvert.SerializeObject(new
+        {
+            userId,
+            bucketId,
+            typpe = nameof(type)
+        })} <--");
         CommandDefinition command = new(CustomSqlQuery.GetImageByType, new
         {
             userId,
