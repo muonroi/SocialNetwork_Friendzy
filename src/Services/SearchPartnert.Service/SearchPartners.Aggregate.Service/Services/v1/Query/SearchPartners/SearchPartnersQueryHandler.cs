@@ -53,7 +53,7 @@ public class SearchPartnersQueryHandler(
                 Id = workContext.UserId,
                 Latitude = request.Latitude,
                 Longtitude = request.Longitude,
-                PartnersSorted = new PagedList<UserDTOData>(
+                PartnersSorted = new PagedList<UserDataDTO>(
                    usersResult.Data,
                    distanceResult.TotalItems,
                    request.PageIndex,
@@ -68,7 +68,7 @@ public class SearchPartnersQueryHandler(
             Id = workContext.UserId,
             Latitude = request.Latitude,
             Longtitude = request.Longitude,
-            PartnersSorted = new PagedList<UserDTOData>(
+            PartnersSorted = new PagedList<UserDataDTO>(
                 [
                     userResult.Data
                 ],

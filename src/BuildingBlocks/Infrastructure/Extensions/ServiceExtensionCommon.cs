@@ -20,12 +20,11 @@ public static class ServiceExtensionCommon
         {
             _ = services.AddSingleton(minIOConfig);
         }
-        string accessKey = configuration.GetConfigHelper(ConfigurationSetting.MinIOAccessKey);
-        string secretKey = configuration.GetConfigHelper(ConfigurationSetting.MinIOSerrectKey);
 
         _ = services.AddMinio(configureClient => configureClient
             .WithEndpoint(minIOConfig!.Endpoint)
-            .WithCredentials(accessKey, secretKey)
+            .WithCredentials(configuration.GetConfigHelper(ConfigurationSetting.MinIOAccessKey),
+            configuration.GetConfigHelper(ConfigurationSetting.MinIOSerrectKey))
             .WithSSL(false));
 
         return services;

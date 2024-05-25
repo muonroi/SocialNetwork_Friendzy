@@ -1,4 +1,10 @@
-﻿namespace User.Service.Controllers;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using User.Application.Feature.v1.Users.Commands.UserLoginCommand;
+using User.Application.Feature.v1.Users.Queries.GetMultipleUsersQuery;
+using User.Application.Feature.v1.Users.Queries.GetUsersQuery;
+
+namespace User.Service.Controllers;
 
 [Route("api/v1/[controller]")]
 [ApiController]
@@ -8,6 +14,7 @@ public class UserController(IMediator mediator) : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(typeof(ApiResult<UserDto>), (int)HttpStatusCode.OK)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetUserByKey([FromQuery] string input)
     {
         GetUsersQuery request = new(input);
@@ -29,7 +36,7 @@ public class UserController(IMediator mediator) : ControllerBase
     [ProducesResponseType(typeof(ApiResult<UserDto>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Login([FromQuery] string input)
     {
-        GetUsersQuery request = new(input);
+        UserLoginCommand request = new(input);
         ApiResult<UserDto> result = await _mediator.Send(request).ConfigureAwait(false);
         return Ok(result);
     }

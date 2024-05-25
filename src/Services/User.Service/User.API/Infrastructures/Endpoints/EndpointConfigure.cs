@@ -1,19 +1,17 @@
 ﻿using Infrastructure.Middleware;
-
+using User.Application.Extensions;
 namespace User.Service.Infrastructures.Endpoints;
 
 internal static class EndpointConfigure
 {
-    internal static void ConfigureEndpoints(this WebApplication app)
+    internal static IApplicationBuilder ConfigureEndpoints(this WebApplication app, IConfiguration configuration)
     {
-        if (app.Environment.IsDevelopment())
-        {
-            _ = app.UseSwagger();
-            _ = app.UseSwaggerUI();
-        }
-        _ = app.MapControllers();
-        _ = app.UseCors();
         _ = app.UseMiddleware<GlobalExceptionMiddleware>();
+
+        _ = app.UseAuthenticationMiddleware(configuration);
+
+        _ = app.UseWorkContext();
+
         _ = app.MapControllerRoute(
                            name: "default",
                                           pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -22,6 +20,7 @@ internal static class EndpointConfigure
             context.Response.Redirect("/swagger");
             return Task.CompletedTask;
         });
-        app.Run();
+
+        return app;
     }
 }

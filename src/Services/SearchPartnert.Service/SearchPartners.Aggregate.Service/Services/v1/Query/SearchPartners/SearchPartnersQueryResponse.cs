@@ -8,7 +8,7 @@ public class SearchPartnersQueryResponse
 
     public double Latitude { get; set; }
 
-    public PagedList<UserDTOData>? PartnersSorted { get; set; }
+    public PagedList<UserDataDTO>? PartnersSorted { get; set; }
 
     public MetaData MetaData => PartnersSorted?.GetMetaData() ?? new MetaData();
 }

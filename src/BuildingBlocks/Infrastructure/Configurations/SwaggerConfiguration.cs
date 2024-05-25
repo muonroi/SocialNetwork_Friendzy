@@ -12,7 +12,9 @@ public static class SwaggerConfiguration
                 Name = "Authorization",
                 In = ParameterLocation.Header,
                 Type = SecuritySchemeType.ApiKey,
-                Scheme = "Bearer"
+                Scheme = "Bearer",
+                BearerFormat = "JWT",
+                Description = "JWT Authorization header using the Bearer scheme."
             });
 
             config.AddSecurityRequirement(new OpenApiSecurityRequirement()
@@ -24,12 +26,9 @@ public static class SwaggerConfiguration
                             {
                                 Type = ReferenceType.SecurityScheme,
                                 Id = "Bearer"
-                            },
-                            Scheme = "oauth2",
-                            Name = "Bearer",
-                            In = ParameterLocation.Header,
+                            }
                         },
-                        new List<string>()
+                        Array.Empty<string>()
                     }
             });
         });

@@ -25,7 +25,7 @@ public class PostDto
     public long CategoryId { get; set; }
     public long AuthorId { get; set; }
 
-    public CategoryDTO? Category { get; set; }
+    public CategoryDataDTO? Category { get; set; }
 
-    public UserDTO? Author { get; set; }
+    public UserDataDTO? Author { get; set; }
 }

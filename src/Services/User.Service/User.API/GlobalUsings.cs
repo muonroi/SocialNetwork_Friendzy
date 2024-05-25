@@ -14,7 +14,5 @@ global using System.Net;
 global using System.Threading.Tasks;
 global using User.Application;
 global using User.Application.Commons.Models;
-global using User.Application.Feature.v1.Users.Queries.GetMultipleUsers;
-global using User.Application.Feature.v1.Users.Queries.GetUsers;
 global using User.Infrastructure;
-global using User.Infrastructure.Persistence;
+global using User.Infrastructure.Persistance;

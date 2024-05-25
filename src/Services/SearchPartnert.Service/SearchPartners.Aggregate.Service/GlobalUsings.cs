@@ -29,4 +29,3 @@ global using User.Config.Service.Protos;
 global using static Distance.Service.Protos.DistanceService;
 global using static SearchPartners.Service.SearchPartnerService;
 global using static User.Config.Service.Protos.ApiConfigGrpc;
-global using ILogger = Serilog.ILogger;
