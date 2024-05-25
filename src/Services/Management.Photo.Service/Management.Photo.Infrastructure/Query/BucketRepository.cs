@@ -4,8 +4,8 @@ using Infrastructure.Commons;
 using Management.Photo.Application.Commons.Interfaces;
 using Management.Photo.Application.Commons.Models;
 using Management.Photo.Domain.Entities;
-using Management.Photo.Infrastructure.Persistences;
-using Management.Photo.Infrastructure.Persistences.Query;
+using Management.Photo.Infrastructure.Persistances;
+using Management.Photo.Infrastructure.Persistances.Query;
 using Newtonsoft.Json;
 using Serilog;
 

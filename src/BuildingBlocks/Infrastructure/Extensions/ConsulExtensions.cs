@@ -3,9 +3,8 @@
 public static class ConsulExtensions
 {
     private static readonly string defaultProtocol = "http";
-    private static readonly string defaultTenantId = "TenantId";
 
-    public static async Task<string> GetUriOnConsulAsync(this IConsulClient consulClient, string serviceName, string tenantId)
+    public static async Task<string> GetUriOnConsulAsync(this IConsulClient consulClient, string serviceName)
     {
         ArgumentNullException.ThrowIfNull(consulClient);
 
@@ -23,15 +22,10 @@ public static class ConsulExtensions
         {
             throw new ConsulServiceNotFoundException($"Service '{serviceName}' not found in Consul.");
         }
-        List<AgentService> tenantServices = [];
         List<AgentService> shareTenantServices = [];
         foreach (AgentService? service in filteredServices)
         {
-            if (service.Meta.Any(x => x.Key == defaultTenantId && x.Value == tenantId))
-            {
-                tenantServices.Add(service);
-            }
-            else if (!service.Meta.Any())
+            if (!service.Meta.Any())
             {
                 shareTenantServices.Add(service);
             }
@@ -42,14 +36,11 @@ public static class ConsulExtensions
         }
 
         Random random = new();
-        int choice = tenantServices.Count != 0 ? random.Next(tenantServices.Count) : random.Next(shareTenantServices.Count);
-
-        AgentService selectedService = tenantServices.Count != 0 ? tenantServices[choice] : shareTenantServices[choice];
         //var protocol = selectedService.Meta.ContainsKey("protocol")
         //    ? selectedService.Meta["protocol"]
         //    : "http";
 
-        return $"{defaultProtocol}://{selectedService.Address}:{selectedService.Port}";
+        return $"{defaultProtocol}";
     }
 
     public static IServiceCollection AddConsul(this IServiceCollection services, ConsulConfigs consulConfigs, IWebHostEnvironment environment)

@@ -2,6 +2,6 @@
 
 public static class CustomQuery
 {
-    public const string GetUserByInput = "EXEC GetUserByInput @input";
+    public const string GetUserByInput = "GetUserByInput";
     public const string GetUsersByInput = "EXEC GetUsersByInput @input";
 }

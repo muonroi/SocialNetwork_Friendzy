@@ -79,18 +79,28 @@ internal class GrpcServerInterceptor(Func<object?> workContextInfoFunc) : GrpcCo
         {
             WorkContextInfo.CorrelationId = Guid.NewGuid().ToString();
         }
-
-        grpcMetadata.Add(nameof(WorkContextInfo.CorrelationId), WorkContextInfo.CorrelationId);
-        grpcMetadata.Add(nameof(WorkContextInfo.Caller), WorkContextInfo.Caller ?? string.Empty);
-        grpcMetadata.Add(nameof(WorkContextInfo.ClientIpAddr), WorkContextInfo.ClientIpAddr ?? string.Empty);
-        grpcMetadata.Add(nameof(WorkContextInfo.Username), WorkContextInfo.Username);
-        grpcMetadata.Add("Accept-Language", WorkContextInfo.Language ?? "vi -VN");
-        grpcMetadata.Add(nameof(WorkContextInfo.Roles), WorkContextInfo.Roles);
-        grpcMetadata.Add(nameof(WorkContextInfo.AgentCode), WorkContextInfo.AgentCode);
-        grpcMetadata.Add(nameof(WorkContextInfo.LinerCode), WorkContextInfo.LinerCode);
-        grpcMetadata.Add(nameof(WorkContextInfo.UserId), WorkContextInfo.UserId.ToString());
-        grpcMetadata.Add(nameof(WorkContextInfo.IsMasterAccount), WorkContextInfo.IsMasterAccount.ToString());
-        grpcMetadata.Add(nameof(WorkContextInfo.RelatedAccounts), string.Join(",", WorkContextInfo.RelatedAccounts ?? []));
+        grpcMetadata.Add("Accept-Language", WorkContextInfo.Language ?? "vi-VN");
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.CorrelationId), WorkContextInfo.CorrelationId);
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.Caller), WorkContextInfo.Caller ?? string.Empty);
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.ClientIpAddr), WorkContextInfo.ClientIpAddr ?? string.Empty);
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.Username), WorkContextInfo.Username);
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.Roles), WorkContextInfo.Roles);
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.AgentCode), WorkContextInfo.AgentCode);
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.UserId), WorkContextInfo.UserId.ToString());
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.FirstName), WorkContextInfo.FirstName);
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.LastName), WorkContextInfo.LastName);
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.PhoneNumber), WorkContextInfo.PhoneNumber);
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.RoleIds), WorkContextInfo.RoleIds);
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.EmailAddress), WorkContextInfo.EmailAddress);
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.IsActive), WorkContextInfo.IsActive.ToString());
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.Balance), WorkContextInfo.Balance);
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.IsEmailVerify), WorkContextInfo.IsEmailVerify.ToString());
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.AccountStatus), WorkContextInfo.AccountStatus.ToString());
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.Currency), WorkContextInfo.Currency.ToString());
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.AccountType), WorkContextInfo.AccountType.ToString());
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.IsAuthenticated), WorkContextInfo.IsAuthenticated.ToString());
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.Latitude), WorkContextInfo.Latitude.ToString());
+        grpcMetadata.Add(nameof(WorkContextInfoDTO.Longitude), WorkContextInfo.Longitude.ToString());
 
         CallOptions options = context.Options.WithHeaders(grpcMetadata);
         context = new ClientInterceptorContext<TRequest, TResponse>(context.Method, context.Host, options);

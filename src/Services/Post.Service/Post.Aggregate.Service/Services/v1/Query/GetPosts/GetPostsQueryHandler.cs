@@ -8,6 +8,7 @@ public class GetPostsQueryHandler(GrpcClientFactory grpcClientFactory
 {
     private readonly IWorkContextAccessor _workContextAccessor = workContextAccessor;
     private readonly ILogger _logger = logger;
+
     private readonly PostApiServiceClient _postApiServiceClient =
         grpcClientFactory.CreateClient<PostApiServiceClient>(ServiceConstants.PostService);
 
@@ -44,7 +45,7 @@ public class GetPostsQueryHandler(GrpcClientFactory grpcClientFactory
 
         #region Get category info
 
-        CategoryDTO categorySetting = await externalClient.GetCategoryAsync(CancellationToken.None);
+        ExternalApiResponse<IEnumerable<CategoryDataDTO>> categorySetting = await externalClient.GetCategoryAsync(CancellationToken.None);
         result.Data.ToList().ForEach(x =>
         {
             x.CategoryInfo = categorySetting.Data.FirstOrDefault(c => c.Id == x.CategoryId);
@@ -57,7 +58,7 @@ public class GetPostsQueryHandler(GrpcClientFactory grpcClientFactory
         // if multiple users
         if (result.Data.Count() > 1)
         {
-            MultipleUsersDto usersResult = await externalClient.GetUsersAsync(userId, CancellationToken.None);
+            ExternalApiResponse<IEnumerable<UserDataDTO>> usersResult = await externalClient.GetUsersAsync(userId, CancellationToken.None);
 
             result.Data.ToList().ForEach(x =>
             {
@@ -67,7 +68,7 @@ public class GetPostsQueryHandler(GrpcClientFactory grpcClientFactory
             return new ApiSuccessResult<PagingResponse<IEnumerable<GetPostsQueryResponse>>>(result);
         }
 
-        UserDTO userResult = await externalClient.GetUserAsync(userId, CancellationToken.None);
+        ExternalApiResponse<UserDataDTO> userResult = await externalClient.GetUserAsync(userId, CancellationToken.None);
         result.Data.ToList().ForEach(x =>
         {
             x.UserInfo = userResult.Data;

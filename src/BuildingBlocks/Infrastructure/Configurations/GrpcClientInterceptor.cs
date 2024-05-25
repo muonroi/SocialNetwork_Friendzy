@@ -87,10 +87,7 @@ public class GrpcClientInterceptor(Func<object?> workContextFunc) : GrpcCoreInte
         grpcMetadata.Add("Accept-Language", workContext.Language ?? "vi -VN");
         grpcMetadata.Add(nameof(WorkContextInfoDTO.Roles), workContext.Roles);
         grpcMetadata.Add(nameof(WorkContextInfoDTO.AgentCode), workContext.AgentCode);
-        grpcMetadata.Add(nameof(WorkContextInfoDTO.LinerCode), workContext.LinerCode);
         grpcMetadata.Add(nameof(WorkContextInfoDTO.UserId), workContext.UserId.ToString());
-        grpcMetadata.Add(nameof(WorkContextInfoDTO.IsMasterAccount), workContext.IsMasterAccount.ToString());
-        grpcMetadata.Add(nameof(WorkContextInfoDTO.RelatedAccounts), string.Join(",", workContext.RelatedAccounts ?? []));
 
         CallOptions options = context.Options.WithHeaders(grpcMetadata);
         context = new ClientInterceptorContext<TRequest, TResponse>(context.Method, context.Host, options);

@@ -21,11 +21,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\ApiConfig.proto">
-      <GrpcServices>Client</GrpcServices>
+    
+    <Protobuf Include="..\..\API.Intergration.Config.Service\v1\Protos\apiConfig.proto" GrpcServices="Client">
+      <Link>Protos\apiConfig.proto</Link>
     </Protobuf>
-    <Protobuf Include="Protos\searchPartners.proto" GrpcServices="Client" />
-    <Protobuf Include="Protos\distance.proto" GrpcServices="Client" />
+    <Protobuf Include="..\..\Distance.Service\Protos\distance.proto" GrpcServices="Client">
+      <Link>Protos\distance.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\SearchPartners.Service\Protos\searchPartners.proto" GrpcServices="Client">
+      <Link>Protos\searchPartners.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
   <ItemGroup>

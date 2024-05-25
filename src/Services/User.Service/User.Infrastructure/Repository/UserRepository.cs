@@ -18,6 +18,7 @@ public class UserRepository(IMapper mapper, UserDbContext dbContext, IUnitOfWork
             {
                 input
             },
+            CommandType = CommandType.StoredProcedure
         };
         UserEntity? rawResult = await _dapper.QueryFirstOrDefaultAsync<UserEntity>(command.Build(cancellationToken));
         if (rawResult is null)

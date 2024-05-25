@@ -9,7 +9,7 @@ using Setting.Infrastructure.Persitence;
 
 #nullable disable
 
-namespace Setting.Infrastructure.Persistence.Migrations
+namespace Setting.Infrastructure.Persistance.Migrations
 {
     [DbContext(typeof(SettingDbContext))]
     [Migration("20240505040307_InitDb")]

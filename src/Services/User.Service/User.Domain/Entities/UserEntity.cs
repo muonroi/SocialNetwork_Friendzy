@@ -42,6 +42,4 @@ public class UserEntity : EntityAuditBase<long>
     public long Birthdate { get; set; }
 
     public Guid AccountGuid { get; set; }
-
-    public AccountEntity AccountEntity { get; set; } = null!;
 }

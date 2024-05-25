@@ -25,7 +25,7 @@ public class GetPostsQueryResponse
     public long CategoryId { get; set; }
     public long AuthorId { get; set; }
 
-    public UserDTOData? UserInfo { get; set; }
+    public UserDataDTO? UserInfo { get; set; }
 
-    public CategoryData? CategoryInfo { get; set; }
+    public CategoryDataDTO? CategoryInfo { get; set; }
 }

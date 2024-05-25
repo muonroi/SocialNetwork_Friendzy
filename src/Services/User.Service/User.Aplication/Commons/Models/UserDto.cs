@@ -3,6 +3,8 @@ namespace User.Application.Commons.Models;
 
 public record UserDto : IMapFrom<UserEntity>
 {
+    public string AccessToken { get; set; } = string.Empty;
+    public string RefreshToken { get; set; } = string.Empty;
     public long Id { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
@@ -16,4 +18,5 @@ public record UserDto : IMapFrom<UserEntity>
     public Gender Gender { get; set; }
     public long? Birthdate { get; set; }
     public Guid AccountGuid { get; set; }
+
 }

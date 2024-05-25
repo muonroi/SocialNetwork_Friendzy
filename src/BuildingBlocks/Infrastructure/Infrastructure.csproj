@@ -1,13 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <Import Project="..\Commons\Directory.Packages.props" />
+
   
   <ItemGroup>
     <ProjectReference Include="..\Commons\Commons.csproj" />
     <ProjectReference Include="..\Contracts\Contracts.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Folder Include="UploadResource\MinIO\" />
   </ItemGroup>

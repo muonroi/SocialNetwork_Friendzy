@@ -1,9 +1,11 @@
-﻿namespace Post.Aggregate.Service.Extensions;
+﻿using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
+
+namespace Post.Aggregate.Service.Extensions;
 
 public static class ServiceExtension
 {
     internal static IServiceCollection AddConfigurationSettings(this IServiceCollection services,
-        IConfiguration configuration, IWebHostEnvironment environment)
+       IConfiguration configuration, IWebHostEnvironment environment)
     {
         _ = configuration.ToBase64();
         _ = services.AddInternalService();
@@ -34,15 +36,14 @@ public static class ServiceExtension
         configuration.GetSection(nameof(GrpcServiceOptions)).Bind(grpcServiceOptions);
 
         ServiceProvider serviceProvider = services.BuildServiceProvider();
-        // required set up workcontext for GrpcClientInterceptor in project TCIS.gRPC.Interceptor.Extensions
         _ = services.AddGrpcClientDelegate(() =>
         {
             IWorkContextAccessor doWorkContext = serviceProvider.GetRequiredService<IWorkContextAccessor>();
             return doWorkContext.WorkContext;
         });
-
         _ = services.AddGrpcClientInterceptor<PostApiServiceClient>(grpcServiceOptions, ServiceConstants.PostService, environment)
-              .AddConsulMessageHandler(environment);
+            .AddConsulMessageHandler(environment);
+
         _ = services.AddGrpcClientInterceptor<ApiConfigGrpcClient>(grpcServiceOptions, ServiceConstants.ApiConfigService, environment)
               .AddConsulMessageHandler(environment);
         return services;

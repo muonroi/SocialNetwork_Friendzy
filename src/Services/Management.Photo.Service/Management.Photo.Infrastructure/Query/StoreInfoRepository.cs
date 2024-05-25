@@ -6,8 +6,8 @@ using Management.Photo.Application.Commons.Interfaces;
 using Management.Photo.Application.Commons.Models;
 using Management.Photo.Application.Commons.Requests;
 using Management.Photo.Domain.Entities;
-using Management.Photo.Infrastructure.Persistences;
-using Management.Photo.Infrastructure.Persistences.Query;
+using Management.Photo.Infrastructure.Persistances;
+using Management.Photo.Infrastructure.Persistances.Query;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Serilog;
@@ -58,7 +58,7 @@ public class StoreInfoRepository(StoreInfoDbContext dbContext, IDbContextFactory
             UserId = request.UserId,
             BucketId = bucketInfo.Id,
             StoreInfoType = request.Type
-        });
+        }, cancellationToken);
 
         long result = await SaveChangesAsync();
 

@@ -7,7 +7,7 @@ namespace Contracts.Commons.Interfaces;
 public interface IRepositoryBaseAsync<T, TK> : IRepositoryQueryBaseAsync<T, TK>
     where T : EntityBase<TK>
 {
-    Task<TK> CreateAsync(T entity);
+    Task<TK> CreateAsync(T entity, CancellationToken cancellationToken);
 
     Task<IList<TK>> CreateListAsync(IEnumerable<T> entities);
 

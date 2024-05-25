@@ -4,5 +4,6 @@
   "CategorySettingNotFound": "Không tìm thấy danh mục",
   "UserNotFound": "Không tìm thấy người dùng",
   "PostNotFound": "Không tìm thấy bài viết",
-  "PartnersNotFound": "Hiện không có người dùng gần bạn"
+  "PartnersNotFound": "Hiện không có người dùng gần bạn",
+  "AccountNotFound": "Không tìm thấy thông tin tài khoản"
 }
