@@ -1,4 +1,4 @@
-﻿namespace Distance.Service.Persistances.Configures;
+﻿namespace Distance.Service.Persistance.Configures;
 
 public class DistanceConfigure : IEntityTypeConfiguration<DistanceEntity>
 {

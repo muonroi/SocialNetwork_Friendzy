@@ -2,6 +2,7 @@
 using Contracts.Commons.Constants;
 using Grpc.Net.ClientFactory;
 using Newtonsoft.Json;
+using User.Application.Feature.v1.ApiConfigService;
 using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
 using ILogger = Serilog.ILogger;
 namespace User.Application.Extensions

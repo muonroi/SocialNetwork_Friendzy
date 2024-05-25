@@ -1,4 +1,6 @@
-﻿namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
+﻿using ExternalAPI.DTOs;
+
+namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
 
 public class SearchPartnersQueryHandler(
     GrpcClientFactory grpcClientFactory
@@ -46,7 +48,7 @@ public class SearchPartnersQueryHandler(
 
         if (partnersResult.Distancedetails.Count > 1)
         {
-            MultipleUsersDto usersResult = await externalClient.GetUsersAsync(userId, CancellationToken.None);
+            ExternalApiResponse<IEnumerable<UserDataDTO>> usersResult = await externalClient.GetUsersAsync(userId, CancellationToken.None);
 
             result = new()
             {
@@ -62,7 +64,7 @@ public class SearchPartnersQueryHandler(
             return new ApiSuccessResult<SearchPartnersQueryResponse>(result);
         }
 
-        UserDTO userResult = await externalClient.GetUserAsync(partnersResult.Distancedetails.First().UserId.ToString(), CancellationToken.None);
+        ExternalApiResponse<UserDataDTO> userResult = await externalClient.GetUserAsync(partnersResult.Distancedetails.First().UserId.ToString(), CancellationToken.None);
         result = new()
         {
             Id = workContext.UserId,

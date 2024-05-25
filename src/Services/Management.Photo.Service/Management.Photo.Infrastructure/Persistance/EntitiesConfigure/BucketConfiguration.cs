@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Management.Photo.Infrastructure.Persistances.EntitiesConfigure
+namespace Management.Photo.Infrastructure.Persistance.EntitiesConfigure
 {
     public class BucketConfiguration : IEntityTypeConfiguration<BucketEntity>
     {

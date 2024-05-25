@@ -1,4 +1,4 @@
-﻿namespace Management.Photo.Infrastructure.Persistances.Query;
+﻿namespace Management.Photo.Infrastructure.Persistance.Query;
 
 public static class CustomSqlQuery
 {

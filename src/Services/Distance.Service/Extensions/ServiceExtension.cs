@@ -1,4 +1,5 @@
 ﻿using Contracts.Commons.Constants;
+using Distance.Service.Persistance;
 
 namespace Distance.Service.Extensions;
 

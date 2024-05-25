@@ -92,7 +92,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Post.Aggregate.Service", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Post.Service", "src\Services\Post.Service\Post.Service\Post.API\Post.Service.csproj", "{4C2FA2E9-8AB2-4ADE-BE89-2C34EF6301AC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management.Photo.Service", "Management.Photo.Service", "{15773B4D-D1B3-405C-A438-FAE556D203F4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management.Photo", "Management.Photo", "{15773B4D-D1B3-405C-A438-FAE556D203F4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Photo.Application", "src\Services\Management.Photo.Service\Management.Photo.Application\Management.Photo.Application.csproj", "{5664C647-3BD5-4CCB-A2F7-28496D720BAF}"
 EndProject
@@ -102,11 +102,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Photo.Infrastruc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Photo.Service", "src\Services\Management.Photo.Service\Management.Photo.Service\Management.Photo.Service.csproj", "{977034F6-773A-4BB6-BBFF-7C38ED18CF1F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authenticate.Service", "Authenticate.Service", "{4D5F2813-3725-420D-A893-3715DA57304F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authenticate", "Authenticate", "{4D5F2813-3725-420D-A893-3715DA57304F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authenticate.Service", "src\Services\Authenticate.Service\Authenticate.Service.csproj", "{8D0ECE30-E3A7-4F45-B219-37E519057403}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Account.Service", "Account.Service", "{B266683F-D7D1-4737-9C79-8285853ECE55}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Account", "Account", "{B266683F-D7D1-4737-9C79-8285853ECE55}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Service", "src\Services\Account.Service\Account.Service\Account.Service.csproj", "{050715AE-0DA6-4A5E-B969-BCF4DD51312C}"
 EndProject

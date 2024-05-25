@@ -1,4 +1,5 @@
 ﻿using Consul;
+using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
 
 namespace SearchPartners.Aggregate.Service.Extensions;
 
@@ -46,11 +47,7 @@ public static class ServiceExtension
         {
             IConsulClient? consulClient = serviceProvider.GetService<IConsulClient>();
             IWorkContextAccessor doWorkContext = serviceProvider.GetRequiredService<IWorkContextAccessor>();
-            string doTenantID()
-            {
-                return doWorkContext.WorkContext!.UserId.ToString()!;
-            }
-            return new ConsulServiceDiscoveryMessageHandler(consulClient, environment, doTenantID);
+            return new ConsulServiceDiscoveryMessageHandler(consulClient, environment);
         });
         return builder;
     }

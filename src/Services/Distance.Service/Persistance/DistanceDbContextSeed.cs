@@ -1,4 +1,4 @@
-﻿namespace Distance.Service.Persistances;
+﻿namespace Distance.Service.Persistance;
 
 public class DistanceDbContextSeed(ILogger logger, DistanceDbContext context)
 {

@@ -1,4 +1,6 @@
-﻿namespace Distance.Service.Infrastructure;
+﻿using Distance.Service.Persistance;
+
+namespace Distance.Service.Infrastructure;
 
 public class DistanceServiceRepository(DistanceDbContext distanceDbContext, IUnitOfWork<DistanceDbContext> unitOfWork, ILogger logger, IDapper dapper) : RepositoryBaseAsync<DistanceEntity, long, DistanceDbContext>(distanceDbContext, unitOfWork), IDistanceServiceRepository
 {

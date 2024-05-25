@@ -1,4 +1,6 @@
-﻿namespace Distance.Service.Persistances;
+﻿using Distance.Service.Persistance.Configures;
+
+namespace Distance.Service.Persistance;
 
 public class DistanceDbContext(DbContextOptions<DistanceDbContext> options) : DbContext(options)
 {

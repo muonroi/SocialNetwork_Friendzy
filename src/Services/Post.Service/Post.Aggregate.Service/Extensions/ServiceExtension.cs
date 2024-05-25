@@ -55,11 +55,7 @@ public static class ServiceExtension
         {
             IConsulClient? consulClient = serviceProvider.GetService<IConsulClient>();
             IWorkContextAccessor doWorkContext = serviceProvider.GetRequiredService<IWorkContextAccessor>();
-            string doTenantID()
-            {
-                return doWorkContext.WorkContext!.UserId.ToString()!;
-            }
-            return new ConsulServiceDiscoveryMessageHandler(consulClient, environment, doTenantID);
+            return new ConsulServiceDiscoveryMessageHandler(consulClient, environment);
         });
         return builder;
     }
@@ -70,7 +66,7 @@ public static class ServiceExtension
 
     private static IServiceCollection AddInternalService(this IServiceCollection services)
     {
-        _ = services.AddScoped<IApiConfigSerivce, ApiConfigService>();
+        _ = services.AddScoped<Services.v1.ApiConfigService.IApiConfigSerivce, ApiConfigService>();
         return services;
     }
 
@@ -89,7 +85,7 @@ public static class ServiceExtension
     {
         _ = builder.AddHttpMessageHandler(serviceProvider =>
         {
-            IApiConfigSerivce apiConfigSerivce = serviceProvider.GetRequiredService<IApiConfigSerivce>();
+            Services.v1.ApiConfigService.IApiConfigSerivce apiConfigSerivce = serviceProvider.GetRequiredService<Services.v1.ApiConfigService.IApiConfigSerivce>();
             async Task<Dictionary<string, string>> _callbackApi(HttpRequestHeaders request)
             {
                 string? secretKey = configuration.GetEx("SecretKey");

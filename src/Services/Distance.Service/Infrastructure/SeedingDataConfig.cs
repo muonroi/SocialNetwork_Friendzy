@@ -1,4 +1,6 @@
-﻿namespace Distance.Service.Infrastructure;
+﻿using Distance.Service.Persistance;
+
+namespace Distance.Service.Infrastructure;
 
 public static class SeedingDataConfig
 {

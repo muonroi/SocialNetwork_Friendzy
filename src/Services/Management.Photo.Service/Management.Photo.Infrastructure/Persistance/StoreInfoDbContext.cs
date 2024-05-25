@@ -1,11 +1,11 @@
 ﻿using Contracts.Domains.Interfaces;
 using Infrastructure.Extensions;
 using Management.Photo.Domain.Entities;
-using Management.Photo.Infrastructure.Persistances.EntitiesConfigure;
+using Management.Photo.Infrastructure.Persistance.EntitiesConfigure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Management.Photo.Infrastructure.Persistances;
+namespace Management.Photo.Infrastructure.Persistance;
 
 public class StoreInfoDbContext(DbContextOptions<StoreInfoDbContext> options) : DbContext(options)
 {

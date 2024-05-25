@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Serilog;
 
-namespace Management.Photo.Infrastructure.Persistances;
+namespace Management.Photo.Infrastructure.Persistance;
 
 public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
 {

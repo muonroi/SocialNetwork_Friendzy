@@ -1,11 +1,11 @@
 ﻿using API.Intergration.Config.Service.Protos;
-using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
+
 namespace Post.Aggregate.Service.Extensions
 {
-    public class ApiConfigService(GrpcClientFactory grpcClientFactory, ILogger logger) : IApiConfigSerivce
+    public class ApiConfigService(GrpcClientFactory grpcClientFactory, ILogger logger) : Services.v1.ApiConfigService.IApiConfigSerivce
     {
         private readonly ILogger _logger = logger;
-        private readonly ApiConfigGrpcClient _apiConfigGrpc = grpcClientFactory.CreateClient<ApiConfigGrpcClient>(ServiceConstants.ApiConfigService);
+        private readonly ApiConfigGrpc.ApiConfigGrpcClient _apiConfigGrpc = grpcClientFactory.CreateClient<ApiConfigGrpc.ApiConfigGrpcClient>(ServiceConstants.ApiConfigService);
 
         public async Task<Dictionary<string, string>> GetIntegrationApiAsync(string partnerCode, string partnerType)
         {
