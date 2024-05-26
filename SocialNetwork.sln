@@ -106,7 +106,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authenticate", "Authenticat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authenticate.Service", "src\Services\Authenticate.Service\Authenticate.Service.csproj", "{8D0ECE30-E3A7-4F45-B219-37E519057403}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Account", "Account", "{B266683F-D7D1-4737-9C79-8285853ECE55}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Account.Service", "Account.Service", "{B266683F-D7D1-4737-9C79-8285853ECE55}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Service", "src\Services\Account.Service\Account.Service\Account.Service.csproj", "{050715AE-0DA6-4A5E-B969-BCF4DD51312C}"
 EndProject
