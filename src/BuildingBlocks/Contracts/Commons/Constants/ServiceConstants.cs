@@ -6,4 +6,5 @@ public static class ServiceConstants
     public const string ApiConfigService = "ApiConfigService";
     public const string DistanceService = "DistanceService";
     public const string PostService = "PostService";
+    public const string AuthenticateService = "AuthenticateService";
 }

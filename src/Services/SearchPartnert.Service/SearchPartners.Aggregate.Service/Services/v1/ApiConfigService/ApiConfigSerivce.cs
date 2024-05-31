@@ -1,28 +1,30 @@
-﻿using Contracts.Commons.Constants;
-using Grpc.Net.ClientFactory;
-using User.Config.Service.Protos;
-using static User.Config.Service.Protos.ApiConfigGrpc;
+﻿using API.Intergration.Config.Service.Protos;
+using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
+using ILogger = Serilog.ILogger;
 
-namespace SearchPartners.Aggregate.Service.Services.v1.ApiConfigService
+namespace SearchPartners.Aggregate.Service.Services.v1.ApiConfigService;
+
+public class ApiConfigService(GrpcClientFactory grpcClientFactory, ILogger logger) : IApiConfigSerivce
 {
-    public class ApiConfigService(GrpcClientFactory grpcClientFactory) : IApiConfigSerivce
+    private readonly ApiConfigGrpcClient _apiConfigGrpc = grpcClientFactory.CreateClient<ApiConfigGrpcClient>(ServiceConstants.ApiConfigService);
+
+    private readonly ILogger _logger = logger;
+
+    public async Task<Dictionary<string, string>> GetIntegrationApiAsync(string partnerCode, string partnerType)
     {
-        private readonly ApiConfigGrpcClient _apiConfigGrpc = grpcClientFactory.CreateClient<ApiConfigGrpcClient>(ServiceConstants.ApiConfigService);
-
-        public async Task<Dictionary<string, string>> GetIntegrationApiAsync(string partnerCode, string partnerType)
+        _logger.Information($"BEGIN: SortPartnersByDistance REQUEST --> {JsonConvert.SerializeObject(new { partnerCode, partnerType })} <--");
+        ApiIntConfigReply result = await _apiConfigGrpc.GetApiIntConfigAsync(new ApiIntConfigRequest
         {
-            ApiIntConfigReply result = await _apiConfigGrpc.GetApiIntConfigAsync(new ApiIntConfigRequest
-            {
-                PartnerCode = partnerCode,
-                PartnerType = partnerType
-            });
-            Dictionary<string, string> methodDictionary = [];
+            PartnerCode = partnerCode,
+            PartnerType = partnerType
+        });
+        Dictionary<string, string> methodDictionary = [];
 
-            if (result.Methods.Count != 0)
-            {
-                methodDictionary = result.Methods.ToDictionary((item) => item.MethodKey, (item) => item.MethodValue);
-            }
-            return methodDictionary;
+        if (result.Methods.Count != 0)
+        {
+            methodDictionary = result.Methods.ToDictionary((item) => item.MethodKey, (item) => item.MethodValue);
         }
+        _logger.Information($"BEGIN: SortPartnersByDistance REQUEST --> {JsonConvert.SerializeObject(methodDictionary)} <--");
+        return methodDictionary;
     }
 }

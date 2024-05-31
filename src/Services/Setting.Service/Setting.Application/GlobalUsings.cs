@@ -1,13 +1,13 @@
 global using AutoMapper;
+global using Commons.Behaviours;
 global using Contracts.Commons.Interfaces;
 global using Contracts.Domains;
+global using ExternalAPI.DTOs;
 global using FluentValidation;
 global using FluentValidation.Results;
 global using MediatR;
 global using Microsoft.Extensions.DependencyInjection;
-global using Microsoft.Extensions.Logging;
 global using Newtonsoft.Json;
-global using Setting.Application.Commons.Behaviours;
 global using Setting.Application.Commons.ErrorMessages;
 global using Setting.Application.Commons.Interfaces;
 global using Setting.Domain.Entities;

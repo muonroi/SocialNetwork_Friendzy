@@ -17,7 +17,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
   </ItemGroup>
   <ItemGroup>
-    <Protobuf Include="v1\Protos\ApiConfig.proto" GrpcServices="Server" />
+    <Protobuf Include="v1\Protos\apiConfig.proto" GrpcServices="Server" />
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 

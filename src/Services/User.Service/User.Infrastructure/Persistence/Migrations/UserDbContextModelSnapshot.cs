@@ -17,70 +17,10 @@ namespace User.Infrastructure.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("User.Domain.Entities.AccountEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("AccountType")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("CreatedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<long?>("CreatedDateTs")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Currency")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset?>("DeletedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsEmailVerified")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset?>("LastModifiedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<long?>("LastModifiedDateTs")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("LockReason")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Accounts");
-                });
 
             modelBuilder.Entity("User.Domain.Entities.UserEntity", b =>
                 {
@@ -166,28 +106,10 @@ namespace User.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountGuid");
-
                     b.HasIndex("FirstName", "LastName")
                         .HasDatabaseName("IX_Names_Descending");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("User.Domain.Entities.UserEntity", b =>
-                {
-                    b.HasOne("User.Domain.Entities.AccountEntity", "AccountEntity")
-                        .WithMany("UserEntity")
-                        .HasForeignKey("AccountGuid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AccountEntity");
-                });
-
-            modelBuilder.Entity("User.Domain.Entities.AccountEntity", b =>
-                {
-                    b.Navigation("UserEntity");
                 });
 #pragma warning restore 612, 618
         }

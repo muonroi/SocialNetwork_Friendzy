@@ -1,6 +1,4 @@
-﻿using ExternalAPI.DTOs;
-
-namespace Post.Application.Commons.Models;
+﻿namespace Post.Application.Commons.Models;
 
 public class PostDto
 {
@@ -27,7 +25,7 @@ public class PostDto
     public long CategoryId { get; set; }
     public long AuthorId { get; set; }
 
-    public CategoryDTO? Category { get; set; }
+    public CategoryDataDTO? Category { get; set; }
 
-    public UserDTO? Author { get; set; }
+    public UserDataDTO? Author { get; set; }
 }

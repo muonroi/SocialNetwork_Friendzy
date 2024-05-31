@@ -6,7 +6,7 @@ public class SettingRepository<T, TK>(SettingDbContext dbContext, IUnitOfWork<Se
 
     public async Task<T?> GetSettingByType(Expression<Func<T, bool>> expresion)
     {
-        _logger.Information($"BEGIN: GetSettingByKey");
+        _logger.Information($"BEGIN: GetSettingByKey REQUEST --> Expression<Func<T, bool>> expresion <--");
         T? result = await FindObjectByCondition(expresion);
         if (result is null)
         {

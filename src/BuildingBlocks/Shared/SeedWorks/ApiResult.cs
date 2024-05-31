@@ -6,17 +6,17 @@ public class ApiResult<T>
     {
     }
 
-    public ApiResult(bool isSucceeded, string? message = null, Languages language = Languages.vi, int statusCode = 0)
+    public ApiResult(bool isSucceeded, string? message = null, Languages language = Languages.vi, int statusCode = 0, params object[] arguments)
     {
-        Message = message?.GetValue(language);
+        Message = message?.GetValue(language, arguments);
         IsSucceeded = isSucceeded;
         StatusCode = statusCode;
     }
 
-    public ApiResult(bool isSucceeded, T data, string? message = null, Languages language = Languages.vi, int statusCode = 0)
+    public ApiResult(bool isSucceeded, T data, string? message = null, Languages language = Languages.vi, int statusCode = 0, params object[] arguments)
     {
         Data = data;
-        Message = message?.GetValue(language);
+        Message = message?.GetValue(language, arguments);
         IsSucceeded = isSucceeded;
         StatusCode = statusCode;
     }

@@ -1,7 +1,4 @@
-﻿using Calzolari.Grpc.AspNetCore.Validation.Internal;
-using Infrastructure.Extensions;
-
-namespace SearchPartners.Service.Extensions;
+﻿namespace SearchPartners.Service.Extensions;
 
 public static class ServiceExtension
 {
@@ -9,6 +6,7 @@ public static class ServiceExtension
         IConfiguration configuration)
     {
         _ = configuration.ToBase64();
+        _ = services.AddConfigurationSettingsThirdExtenal(configuration);
         services.AddGrpcServer();
         return services;
     }

@@ -10,9 +10,5 @@
     <ProjectReference Include="..\Setting.Domain\Setting.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\" />
-  </ItemGroup>
-
 
 </Project>

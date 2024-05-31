@@ -38,7 +38,7 @@ public class UserDbContextSeed(ILogger logger, UserDbContext context)
 
     public async Task TrySeedAsync()
     {
-        if (!_context.Users.Any() && !_context.Accounts.Any())
+        if (!_context.Users.Any())
         {
             // Deserialize JSON data for users
             string usersJson = @"[
@@ -117,63 +117,8 @@ public class UserDbContextSeed(ILogger logger, UserDbContext context)
 
             List<UserEntity>? users = JsonConvert.DeserializeObject<List<UserEntity>>(usersJson);
 
-            // Deserialize JSON data for accounts
-            string accountsJson = @"[{
-                                ""Id"": ""123e4567-e89b-12d3-a456-426614174000"",
-                                ""AccountType"": ""Personal"",
-                                ""Currency"": ""USD"",
-                                ""LockReason"": ""Fraudulent activity detected"",
-                                ""Balance"": 1000.00,
-                                ""IsActive"": false,
-                                ""IsEmailVerified"": true,
-                                ""Status"": ""Online""
-                            },
-                            {
-                                ""Id"": ""223e4567-e89b-12d3-a456-426614174001"",
-                                ""AccountType"": ""Business"",
-                                ""Currency"": ""EUR"",
-                                ""LockReason"": """",
-                                ""Balance"": 2500.00,
-                                ""IsActive"": true,
-                                ""IsEmailVerified"": true,
-                                ""Status"": ""Offline""
-                            },
-                            {
-                                ""Id"": ""323e4567-e89b-12d3-a456-426614174002"",
-                                ""AccountType"": ""Personal"",
-                                ""Currency"": ""USD"",
-                                ""LockReason"": """",
-                                ""Balance"": 50000.00,
-                                ""IsActive"": true,
-                                ""IsEmailVerified"": true,
-                                ""Status"": ""Offline""
-                            },
-                            {
-                                ""Id"": ""423e4567-e89b-12d3-a456-426614174003"",
-                                ""AccountType"": ""Business"",
-                                ""Currency"": ""USD"",
-                                ""LockReason"": """",
-                                ""Balance"": 15000.00,
-                                ""IsActive"": true,
-                                ""IsEmailVerified"": false,
-                                ""Status"": ""Online""
-                            },
-                            {
-                                ""Id"": ""523e4567-e89b-12d3-a456-426614174004"",
-                                ""AccountType"": ""Personal"",
-                                ""Currency"": ""EUR"",
-                                ""LockReason"": ""Account under investigation"",
-                                ""Balance"": 0.00,
-                                ""IsActive"": false,
-                                ""IsEmailVerified"": false,
-                                ""Status"": ""Busy""
-                            }]";
-
-            List<AccountEntity>? accounts = JsonConvert.DeserializeObject<List<AccountEntity>>(accountsJson);
-
-            // Add users and accounts to the context
+            // Add users to the context
             await _context.Users.AddRangeAsync(users ?? []);
-            await _context.Accounts.AddRangeAsync(accounts ?? []);
 
             // Save changes to the database
             _ = await _context.SaveChangesAsync(new CancellationToken());

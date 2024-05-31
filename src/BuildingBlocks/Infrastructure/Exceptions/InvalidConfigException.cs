@@ -1,27 +1,26 @@
-﻿namespace Infrastructure.Exceptions
+﻿namespace Infrastructure.Exceptions;
+
+[Serializable]
+public class InvalidConfigException : BaseException
 {
-    [Serializable]
-    public class InvalidConfigException : BaseException
+    public InvalidConfigException(string statusCode, string message) : base(message)
     {
-        public InvalidConfigException(string statusCode, string message) : base(message)
-        {
-            StatusCode = statusCode;
-        }
+        StatusCode = statusCode;
+    }
 
-        public InvalidConfigException(string? message, Exception? innerException) : base(message, innerException)
-        {
-        }
+    public InvalidConfigException(string? message, Exception? innerException) : base(message, innerException)
+    {
+    }
 
-        protected InvalidConfigException(string statusCode, string message, string provider, Exception? inner = null) : base(statusCode, message, provider, inner)
-        {
-        }
+    protected InvalidConfigException(string statusCode, string message, string provider, Exception? inner = null) : base(statusCode, message, provider, inner)
+    {
+    }
 
-        protected InvalidConfigException() : base()
-        {
-        }
+    protected InvalidConfigException() : base()
+    {
+    }
 
-        protected InvalidConfigException(string? message) : base(message)
-        {
-        }
+    protected InvalidConfigException(string? message) : base(message)
+    {
     }
 }

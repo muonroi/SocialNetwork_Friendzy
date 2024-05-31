@@ -1,11 +1,4 @@
-﻿using Distance.Service.Infrastructure.Interface;
-using Distance.Service.Models;
-using Distance.Service.Protos;
-using Grpc.Core;
-using Newtonsoft.Json;
-using static Distance.Service.Protos.DistanceService;
-
-namespace Distance.Service.Services;
+﻿namespace Distance.Service.Services;
 
 public class DistanceServices(ILogger<DistanceServices> logger, IDistanceServiceRepository distanceServiceRepository) : DistanceServiceBase
 {
@@ -15,14 +8,14 @@ public class DistanceServices(ILogger<DistanceServices> logger, IDistanceService
 
     public override async Task<GetDistanceInfoListReply> GetDistanceInfoList(GetDistanceInfoListRequest request, ServerCallContext context)
     {
-        _logger.LogInformation($"BEGIN: GetDistanceInfoList");
+        _logger.LogInformation($"BEGIN: GetDistanceInfoList REQUEST --> {JsonConvert.SerializeObject(request)} <--");
         DistanceResponse distances = await _distanceServiceRepository.GetDistanceAsync(new DistanceRequest
         {
             Country = request.Country,
             PageIndex = request.PageIndex,
             PageSize = request.PageSize
         });
-        _logger.LogInformation(message: $"END: GetDistanceInfoList -- RESULT -- {JsonConvert.SerializeObject(distances)}");
+
         GetDistanceInfoListReply result = new()
         {
             DistanceInfoList = { distances.Items!.Select(x => new GetDistanceInfoDetail
@@ -34,6 +27,8 @@ public class DistanceServices(ILogger<DistanceServices> logger, IDistanceService
             })},
             TotalItems = distances.TotalItems
         };
+
+        _logger.LogInformation(message: $"END: GetDistanceInfoList RESULT --> {JsonConvert.SerializeObject(result)} <--");
         return result;
     }
 }

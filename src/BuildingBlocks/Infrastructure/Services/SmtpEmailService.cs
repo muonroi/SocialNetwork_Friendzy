@@ -1,19 +1,12 @@
 ﻿namespace Infrastructure.Services;
 
-public class SmtpEmailService : ISmtpEmailService
+public class SmtpEmailService(ILogger logger, SmtpConfig smtpConfig) : ISmtpEmailService
 {
-    private readonly ILogger _logger;
+    private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-    private readonly SmtpConfig _smtpConfig;
+    private readonly SmtpConfig _smtpConfig = smtpConfig ?? throw new ArgumentNullException(nameof(smtpConfig));
 
-    private readonly SmtpClient _smtpClient;
-
-    public SmtpEmailService(ILogger logger, SmtpConfig smtpConfig)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _smtpConfig = smtpConfig ?? throw new ArgumentNullException(nameof(smtpConfig));
-        _smtpClient = new SmtpClient();
-    }
+    private readonly SmtpClient _smtpClient = new();
 
     public async Task SendEmailAsync(SendSmtpRequest smtpRequest, CancellationToken cancellationToken = new())
     {

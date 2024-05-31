@@ -1,8 +1,4 @@
-﻿using Dapper.Extensions;
-using Infrastructure.ORMs.Dapper;
-using User.Application.Commons;
-
-namespace User.Infrastructure.Repository;
+﻿namespace User.Infrastructure.Repository;
 
 public class UserRepository(IMapper mapper, UserDbContext dbContext, IUnitOfWork<UserDbContext> unitOfWork, ILogger logger, IDapper dapper) : RepositoryBaseAsync<UserEntity, long, UserDbContext>(dbContext, unitOfWork), IUserRepository
 {
@@ -22,13 +18,14 @@ public class UserRepository(IMapper mapper, UserDbContext dbContext, IUnitOfWork
             {
                 input
             },
+            CommandType = CommandType.StoredProcedure
         };
         UserEntity? rawResult = await _dapper.QueryFirstOrDefaultAsync<UserEntity>(command.Build(cancellationToken));
         if (rawResult is null)
         {
             return null;
         }
-        _logger.Information($"END: GetUserByInput --> {input} <--, RESULT --> {JsonConvert.SerializeObject(rawResult)} <-- ");
+        _logger.Information($"END: GetUserByInput RESULT --> {JsonConvert.SerializeObject(rawResult)} <-- ");
         UserDto result = _mapper.Map<UserDto>(rawResult);
         result.ProfileImages = rawResult.ProfileImagesUrl.Replace(" ", string.Empty).Split(",") ?? [];
         return result;
@@ -50,7 +47,7 @@ public class UserRepository(IMapper mapper, UserDbContext dbContext, IUnitOfWork
         {
             return null;
         }
-        _logger.Information($"END: GetUsersByInput --> {input} <--, RESULT --> {JsonConvert.SerializeObject(rawResult)} <-- ");
+        _logger.Information($"END: GetUsersByInput RESULT --> {JsonConvert.SerializeObject(rawResult)} <-- ");
         IEnumerable<UserDto> result = _mapper.Map<IEnumerable<UserDto>>(rawResult);
         result = result.Join(rawResult, user => user.Id, raw => raw.Id, (user, raw) =>
         {

@@ -1,16 +1,4 @@
-﻿using Contracts.Commons.Interfaces;
-using Dapper.Extensions;
-using Dapper.Extensions.MySql;
-using Infrastructure.Commons;
-using Infrastructure.Extensions;
-using Infrastructure.Helper;
-using Infrastructure.ORMs.Dapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Post.Application.Commons.Interfaces;
-using Post.Infrastructure.Persistence;
-using Post.Infrastructure.Repository;
+﻿using Contracts.Commons.Constants;
 
 namespace Post.Infrastructure;
 
@@ -20,7 +8,7 @@ public static class ConfigureService
     {
         _ = services.AddDbContext<PostDbContext>(options =>
         {
-            _ = options.UseMySQL(configuration.GetConnectionStringHelper(),
+            _ = options.UseMySQL(configuration.GetConfigHelper(ConfigurationSetting.ConnectionString),
                 builder => builder.MigrationsAssembly(typeof(PostDbContext).Assembly.FullName));
         });
         _ = services.AddScoped<PostDbContextSeed>();

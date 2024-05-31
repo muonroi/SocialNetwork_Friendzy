@@ -1,19 +1,14 @@
-﻿using Infrastructure.Extensions;
-using System.Data;
-
-namespace User.Infrastructure.Persistence;
+﻿namespace User.Infrastructure.Persistence;
 
 public class UserDbContext(DbContextOptions<UserDbContext> options) : DbContext(options)
 {
     public DbSet<UserEntity> Users { get; set; }
 
-    public DbSet<AccountEntity> Accounts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         _ = modelBuilder.ApplyConfiguration(new UserConfigure());
-        _ = modelBuilder.ApplyConfiguration(new AccountConfigure());
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())

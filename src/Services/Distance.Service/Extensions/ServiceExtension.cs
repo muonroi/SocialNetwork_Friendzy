@@ -1,16 +1,5 @@
-﻿using Contracts.Commons.Interfaces;
-using Dapper.Extensions;
-using Dapper.Extensions.MSSQL;
-using Distance.Service.Infrastructure;
-using Distance.Service.Infrastructure.Interface;
-using Distance.Service.Persistences;
-using Infrastructure.Commons;
-using Infrastructure.Extensions;
-using Infrastructure.Helper;
-using Infrastructure.ORMs.Dapper;
-using Infrastructure.ORMs.Dappers;
-using Infrastructure.ORMs.Dappers.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Contracts.Commons.Constants;
+using Distance.Service.Persistence;
 
 namespace Distance.Service.Extensions;
 
@@ -21,15 +10,14 @@ internal static class ServiceExtension
     {
         _ = services.AddDbContext<DistanceDbContext>(options =>
         {
-            DbContextOptionsBuilder s = options.UseSqlServer(configuration.GetConnectionStringHelper(),
+            _ = options.UseSqlServer(configuration.GetConfigHelper(ConfigurationSetting.ConnectionString),
                 builder => builder.MigrationsAssembly(typeof(DistanceDbContext).Assembly.FullName));
-            Console.WriteLine(s.IsConfigured);
         });
         _ = services.AddScoped<DistanceDbContextSeed>();
         _ = services.AddScoped(typeof(IRepositoryBaseAsync<,,>), typeof(RepositoryBaseAsync<,,>));
         _ = services.AddScoped<IDistanceServiceRepository, DistanceServiceRepository>();
         _ = services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
-        _ = services.AddScoped<IDapperCustom, DapperCustom>();
+        _ = services.AddConfigurationSettingsThirdExtenal(configuration);
         _ = services.AddDapperForMSSQL();
         _ = services.AddDapperConnectionStringProvider<ConnectionStringProvider>();
         _ = services.AddDapperCaching(configuration);

@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+option csharp_namespace = "Authenticate.Verify.Service";
+
+package authenticateVerify;
+
+service AuthenticateVerify {
+  rpc GenerateToken (GenerateTokenRequest) returns (GenerateTokenReply);
+  rpc VerifyToken (VerifyTokenRequest) returns (VerifyTokenReply);
+}
+
+message VerifyTokenRequest{
+	string access_token = 1;
+    string secretKey = 2;
+    string audience = 3;
+    string issuer = 4;
+}
+
+message VerifyTokenReply{
+  string full_name = 1;
+  string phoneNumber = 2;
+  string roleIds = 3;
+  double latitude = 4;
+  double longitude = 5;
+  int64 userId = 6;
+  string emailAddress = 7;
+  bool isActive = 8;
+  string balance = 9;
+  bool isEmailVerify = 10;
+  int32 account_status = 11;
+  int32 currency = 12;
+  int32 account_type = 13;
+  bool is_authenticated =14;
+}
+message GenerateTokenRequest {
+  GenerateTokenDetail GenerateTokenDetail = 1;
+  GenerateTokenVerify GenerateTokenVerify = 2;
+}
+message GenerateTokenVerify {
+    string secretKey = 1;
+    string audience = 2;
+    string issuer = 3;
+    int32 timeExpires = 4;
+}
+message GenerateTokenDetail {
+  string full_name = 1;
+  string account_id = 2;
+  string phoneNumber = 3;
+  string roleIds = 4;
+  double latitude = 5;
+  double longitude = 6;
+  int64 userId = 7;
+  string emailAddress = 8;
+  bool isActive = 9;
+  string balance = 10;
+  bool isEmailVerify = 11;
+  int32 account_status = 12;
+  int32 currency = 13;
+  int32 account_type = 14;
+}
+
+message GenerateTokenReply {
+  string access_token = 1;
+  string refresh_token = 2;
+}

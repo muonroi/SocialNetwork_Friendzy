@@ -39,10 +39,10 @@ public class RepositoryQueryBaseAsync<T, TK, TContext>(TContext dbContext) : IRe
         return items;
     }
 
-    public async Task<T?> GetByIdAsync(TK id)
+    public async Task<T?> GetByIdAsync(TK id, CancellationToken cancellationToken)
     {
         return await FindByCondition(x => x.Id != null && x.Id.Equals(id) && !x.IsDeleted)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(cancellationToken);
     }
 
     public async Task<T?> GetByIdAsync(TK id, params Expression<Func<T, object>>[] includeProperties)

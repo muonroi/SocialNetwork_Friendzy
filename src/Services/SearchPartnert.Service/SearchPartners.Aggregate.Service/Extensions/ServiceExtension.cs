@@ -1,16 +1,5 @@
-﻿using Calzolari.Grpc.AspNetCore.Validation.Internal;
-using Consul;
-using Contracts.Commons.Constants;
-using Contracts.Commons.Interfaces;
-using ExternalAPI;
-using Infrastructure.Commons;
-using Infrastructure.Extensions;
-using Infrastructure.Factorys;
-using SearchPartners.Aggregate.Service.Services.v1.ApiConfigService;
-using System.Net.Http.Headers;
-using static Distance.Service.Protos.DistanceService;
-using static SearchPartners.Service.SearchPartnerService;
-using static User.Config.Service.Protos.ApiConfigGrpc;
+﻿using Consul;
+using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
 
 namespace SearchPartners.Aggregate.Service.Extensions;
 
@@ -24,6 +13,7 @@ public static class ServiceExtension
         _ = services.AddTransient(typeof(GrpcConfigClientFactory<>));
         _ = services.AddGrpcClientServices(configuration, environment);
         _ = services.AddApiIntegration(configuration);
+        _ = services.AddConfigurationSettingsThirdExtenal(configuration);
         return services;
     }
 
@@ -57,11 +47,7 @@ public static class ServiceExtension
         {
             IConsulClient? consulClient = serviceProvider.GetService<IConsulClient>();
             IWorkContextAccessor doWorkContext = serviceProvider.GetRequiredService<IWorkContextAccessor>();
-            string doTenantID()
-            {
-                return doWorkContext.WorkContext!.UserId.ToString()!;
-            }
-            return new ConsulServiceDiscoveryMessageHandler(consulClient, environment, doTenantID);
+            return new ConsulServiceDiscoveryMessageHandler(consulClient, environment);
         });
         return builder;
     }

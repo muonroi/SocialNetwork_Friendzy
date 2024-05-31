@@ -1,8 +1,7 @@
-﻿namespace Commons.Pagination
+﻿namespace Commons.Pagination;
+
+public class PagingLinkResponse : LinkBaseResponse
 {
-    public class PagingLinkResponse : LinkBaseResponse
-    {
-        public LinkResponse? Next { get; set; }
-        public LinkResponse? Previous { get; set; }
-    }
+    public LinkResponse? Next { get; set; }
+    public LinkResponse? Previous { get; set; }
 }

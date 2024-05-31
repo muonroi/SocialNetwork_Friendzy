@@ -1,16 +1,4 @@
-﻿using Contracts.Commons.Constants;
-using Contracts.Commons.Interfaces;
-using Distance.Service.Protos;
-using ExternalAPI;
-using ExternalAPI.DTOs;
-using Grpc.Net.ClientFactory;
-using MediatR;
-using SearchPartners.Aggregate.Service.Infrastructure.ErrorMessages;
-using SearchPartners.Service;
-using Shared.DTOs;
-using Shared.SeedWorks;
-using static Distance.Service.Protos.DistanceService;
-using static SearchPartners.Service.SearchPartnerService;
+﻿using ExternalAPI.DTOs;
 
 namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
 
@@ -60,14 +48,14 @@ public class SearchPartnersQueryHandler(
 
         if (partnersResult.Distancedetails.Count > 1)
         {
-            MultipleUsersDto usersResult = await externalClient.GetUsersAsync(userId, CancellationToken.None);
+            ExternalApiResponse<IEnumerable<UserDataDTO>> usersResult = await externalClient.GetUsersAsync(userId, CancellationToken.None);
 
             result = new()
             {
                 Id = workContext.UserId,
                 Latitude = request.Latitude,
                 Longtitude = request.Longitude,
-                PartnersSorted = new PagedList<UserDTOData>(
+                PartnersSorted = new PagedList<UserDataDTO>(
                    usersResult.Data,
                    distanceResult.TotalItems,
                    request.PageIndex,
@@ -76,13 +64,13 @@ public class SearchPartnersQueryHandler(
             return new ApiSuccessResult<SearchPartnersQueryResponse>(result);
         }
 
-        UserDTO userResult = await externalClient.GetUserAsync(partnersResult.Distancedetails.First().UserId.ToString(), CancellationToken.None);
+        ExternalApiResponse<UserDataDTO> userResult = await externalClient.GetUserAsync(partnersResult.Distancedetails.First().UserId.ToString(), CancellationToken.None);
         result = new()
         {
             Id = workContext.UserId,
             Latitude = request.Latitude,
             Longtitude = request.Longitude,
-            PartnersSorted = new PagedList<UserDTOData>(
+            PartnersSorted = new PagedList<UserDataDTO>(
                 [
                     userResult.Data
                 ],

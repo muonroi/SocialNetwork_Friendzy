@@ -1,6 +1,3 @@
-using Commons.Logging;
-using SearchPartners.Service.Extensions;
-using SearchPartners.Service.Infrastructure.Endpoints;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -26,11 +23,11 @@ try
 
     _ = services.AddConfigurationSettings(configuration);
 
-    builder.AddAppConfigurations();
-
     _ = services.AddEndpointsApiExplorer();
 
     _ = services.AddSwaggerGen();
+
+    builder.AddAppConfigurations();
 
     WebApplication app = builder.Build();
 

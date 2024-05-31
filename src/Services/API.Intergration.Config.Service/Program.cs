@@ -1,8 +1,4 @@
-using API.Intergration.Config.Service.Extensions;
-using Commons.Logging;
-using Infrastructure.Configurations;
-using Infrastructure.Extensions;
-using Serilog;
+using Infrastructure.Middleware;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -40,7 +36,7 @@ try
     _ = app.UseConsul(consulSettings, env);
 
     app.AddMapGrpcServices();
-
+    _ = app.UseMiddleware<GlobalExceptionMiddleware>();
     app.Run();
 }
 catch (Exception ex)

@@ -3,23 +3,27 @@
   <Import Project="..\..\..\BuildingBlocks\Commons\Directory.Packages.props" />
 
   <ItemGroup>
-    <None Remove="Protos\ApiConfig.proto" />
-    <None Remove="Protos\post_service.proto" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\Commons\Commons.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\ExternalAPI\ExternalAPI.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" />
+    <Protobuf Include="..\..\Authenticate.Service\Protos\authenticate.proto" GrpcServices="Client">
+      <Link>Protos\authenticate.proto</Link>
+    </Protobuf>
+
+    <Protobuf Include="..\..\API.Intergration.Config.Service\v1\Protos\apiConfig.proto" GrpcServices="Client">
+      <Link>Protos\apiConfig.proto</Link>
+    </Protobuf>
+
+    <Protobuf Include="..\Post.Service\Post.Service\Protos\post_service.proto" GrpcServices="Client">
+      <Link>Protos\post_service.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\ApiConfig.proto" GrpcServices="Client" />
-    <Protobuf Include="Protos\post_service.proto" GrpcServices="Client" />
+    <PackageReference Include="Grpc.AspNetCore" />
   </ItemGroup>
 
 </Project>

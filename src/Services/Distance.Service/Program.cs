@@ -1,7 +1,4 @@
-using Commons.Logging;
-using Distance.Service.Extensions;
-using Distance.Service.Infrastructure;
-using Serilog;
+using Infrastructure.Middleware;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -24,6 +21,8 @@ try
     WebApplication app = builder.Build();
 
     _ = app.SeedConfigAsync();
+
+    _ = app.UseMiddleware<GlobalExceptionMiddleware>();
 
     app.AddMapGrpcServices();
 

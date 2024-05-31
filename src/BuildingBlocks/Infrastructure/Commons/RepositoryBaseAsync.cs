@@ -8,9 +8,9 @@ public class RepositoryBaseAsync<T, TK, TContext>(TContext context, IUnitOfWork<
 
     private readonly IUnitOfWork<TContext> _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
 
-    public async Task<TK> CreateAsync(T entity)
+    public async Task<TK> CreateAsync(T entity, CancellationToken cancellationToken)
     {
-        _ = await _context.Set<T>().AddAsync(entity);
+        _ = await _context.Set<T>().AddAsync(entity, cancellationToken);
         return entity.Id;
     }
 
@@ -77,7 +77,7 @@ public class RepositoryBaseAsync<T, TK, TContext>(TContext context, IUnitOfWork<
         return _context.Database.RollbackTransactionAsync();
     }
 
-    Task<IDbContextTransaction> IRepositoryBaseAsync<T, TK>.BeginTransactionAsync()
+    public Task<TK> CreateAsync(T entity)
     {
         throw new NotImplementedException();
     }

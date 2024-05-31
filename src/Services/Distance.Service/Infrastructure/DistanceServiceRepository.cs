@@ -1,15 +1,4 @@
-﻿using Contracts.Commons.Interfaces;
-using Dapper.Extensions;
-using Distance.Service.Domains;
-using Distance.Service.Infrastructure.Interface;
-using Distance.Service.Infrastructure.Query;
-using Distance.Service.Models;
-using Distance.Service.Persistences;
-using Infrastructure.Commons;
-using Infrastructure.ORMs.Dapper;
-using Newtonsoft.Json;
-using System.Data;
-using ILogger = Serilog.ILogger;
+﻿using Distance.Service.Persistence;
 
 namespace Distance.Service.Infrastructure;
 
@@ -23,7 +12,7 @@ public class DistanceServiceRepository(DistanceDbContext distanceDbContext, IUni
     {
         //remove space and convert to lower case
         request.Country = request.Country.Replace(" ", string.Empty).ToLower();
-        _logger.Information($"BEGIN: GetDistanceAsync");
+        _logger.Information($"BEGIN: GetDistanceAsync REQUEST --> {JsonConvert.SerializeObject(request)} <--");
         DapperCommand command = new()
         {
             CommandText = CustomSqlQuery.GetDistanceByCountry,
@@ -53,7 +42,7 @@ public class DistanceServiceRepository(DistanceDbContext distanceDbContext, IUni
             TotalItems = dataDistanceResult.TotalCount
         };
 
-        _logger.Information($"END: GetDistanceAsync RESULT --> {JsonConvert.SerializeObject(dataDistanceResult)} <-- ");
+        _logger.Information($"END: GetDistanceAsync RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
 
         return result;
     }

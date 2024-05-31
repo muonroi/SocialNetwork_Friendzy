@@ -1,6 +1,4 @@
-﻿using ExternalAPI.DTOs;
-
-namespace Post.Aggregate.Service.Services.v1.Query.GetPosts;
+﻿namespace Post.Aggregate.Service.Services.v1.Query.GetPosts;
 
 public class GetPostsQueryResponse
 {
@@ -27,7 +25,7 @@ public class GetPostsQueryResponse
     public long CategoryId { get; set; }
     public long AuthorId { get; set; }
 
-    public UserDTOData? UserInfo { get; set; }
+    public UserDataDTO? UserInfo { get; set; }
 
-    public CategoryData? CategoryInfo { get; set; }
+    public CategoryDataDTO? CategoryInfo { get; set; }
 }

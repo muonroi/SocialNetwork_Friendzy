@@ -1,34 +1,52 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System.Text;
+﻿using Contracts.Commons.Constants;
+using Infrastructure.Helper;
 
-namespace Infrastructure.Configurations
+namespace Infrastructure.Configurations;
+
+public static class JwtBearTokenConfiguration
 {
-    public static class JwtBearTokenConfiguration
+    public static IServiceCollection ConfigureJwtBearerToken(this IServiceCollection services, IConfiguration configuration)
     {
-        public static void ConfigureJwtBearerToken(this IServiceCollection services, IConfiguration configuration)
+        _ = services.AddAuthentication(options =>
         {
-            _ = services.AddAuthentication(
-                x =>
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = configuration[ConfigurationSetting.JwtIssuer],
+                ValidAudience = configuration[ConfigurationSetting.JwtAudience],
+                IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(configuration.GetConfigHelper(ConfigurationSetting.JwtSecrectKey)))
+            };
+
+            options.Events = new JwtBearerEvents
+            {
+                OnTokenValidated = context =>
                 {
-                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                }
-                )
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
+                    if (context.Principal?.Identity is ClaimsIdentity userClaims)
                     {
-                        ValidAudience = configuration["Jwt:Audience"],
-                        ValidIssuer = configuration["Jwt:Issuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!)),
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                    };
-                });
-            _ = services.AddAuthorization();
-        }
+                        string? roleClaims = context.Principal.FindFirst("roles")?.Value;
+                        if (roleClaims != null)
+                        {
+                            string[] roles = roleClaims.Split(',');
+                            foreach (string role in roles)
+                            {
+                                userClaims.AddClaim(new Claim(ClaimTypes.Role, role));
+                            }
+                        }
+                    }
+                    return Task.CompletedTask;
+                }
+            };
+        });
+
+        _ = services.AddAuthorization();
+        return services;
     }
 }

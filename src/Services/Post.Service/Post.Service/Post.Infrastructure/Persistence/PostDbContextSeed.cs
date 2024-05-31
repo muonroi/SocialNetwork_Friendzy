@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MySql.EntityFrameworkCore.Extensions;
-using Newtonsoft.Json;
-using Post.Domain.Entities;
-using Serilog;
-
-namespace Post.Infrastructure.Persistence;
+﻿namespace Post.Infrastructure.Persistence;
 
 public class PostDbContextSeed(ILogger logger, PostDbContext context)
 {

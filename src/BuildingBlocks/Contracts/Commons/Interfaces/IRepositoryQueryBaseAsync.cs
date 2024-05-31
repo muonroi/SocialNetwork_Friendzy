@@ -15,7 +15,7 @@ public interface IRepositoryQueryBaseAsync<T, in TK> where T : EntityBase<TK>
     IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges = false,
         params Expression<Func<T, object>>[] includeProperties);
 
-    Task<T?> GetByIdAsync(TK id);
+    Task<T?> GetByIdAsync(TK id, CancellationToken cancellationToken);
 
     Task<T?> GetByIdAsync(TK id, params Expression<Func<T, object>>[] includeProperties);
 

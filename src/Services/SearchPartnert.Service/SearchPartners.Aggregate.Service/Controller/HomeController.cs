@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace SearchPartners.Aggregate.Service.Controller;
+﻿namespace SearchPartners.Aggregate.Service.Controller;
 
 public class HomeController : ControllerBase
 {

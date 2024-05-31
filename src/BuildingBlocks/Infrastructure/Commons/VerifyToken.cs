@@ -1,22 +1,33 @@
 ﻿namespace Infrastructure.Commons;
-
 public sealed class VerifyToken(bool isAuthenticated)
 {
     public int UserId { get; set; }
 
     public bool IsAuthenticated { get; set; } = isAuthenticated;
 
-    public string Username { get; set; } = string.Empty;
-
     public string FullName { get; set; } = string.Empty;
 
     public string Role { get; set; } = string.Empty;
 
-    public string AgentCode { get; set; } = string.Empty;
+    public double Latitude { get; set; }
 
-    public string LinerCode { get; set; } = string.Empty;
+    public double Longitude { get; set; }
 
-    public bool IsMasterAccount { get; set; }
+    public string PhoneNumber { get; set; } = string.Empty;
 
-    public List<int>? RelatedAccounts { get; set; }
+    public string RoleIds { get; set; } = string.Empty;
+
+    public string EmailAddress { get; set; } = string.Empty;
+
+    public bool IsActive { get; set; }
+
+    public string Balance { get; set; } = string.Empty;
+
+    public bool IsEmailVerify { get; set; }
+
+    public int AccountStatus { get; set; }
+
+    public int Currency { get; set; }
+
+    public int AccountType { get; set; }
 }

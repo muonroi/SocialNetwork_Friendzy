@@ -1,23 +1,11 @@
-﻿using Calzolari.Grpc.AspNetCore.Validation.Internal;
-using Commons.Pagination;
-using Consul;
-using Contracts.Commons.Constants;
-using Contracts.Commons.Interfaces;
-using ExternalAPI;
-using Infrastructure.Commons;
-using Infrastructure.Extensions;
-using Infrastructure.Factorys;
-using Post.Aggregate.Service.Services.v1.ApiConfigService;
-using System.Net.Http.Headers;
-using static Post.API.Protos.PostApiService;
-using static User.Config.Service.Protos.ApiConfigGrpc;
+﻿using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
 
 namespace Post.Aggregate.Service.Extensions;
 
 public static class ServiceExtension
 {
     internal static IServiceCollection AddConfigurationSettings(this IServiceCollection services,
-        IConfiguration configuration, IWebHostEnvironment environment)
+       IConfiguration configuration, IWebHostEnvironment environment)
     {
         _ = configuration.ToBase64();
         _ = services.AddInternalService();
@@ -48,15 +36,14 @@ public static class ServiceExtension
         configuration.GetSection(nameof(GrpcServiceOptions)).Bind(grpcServiceOptions);
 
         ServiceProvider serviceProvider = services.BuildServiceProvider();
-        // required set up workcontext for GrpcClientInterceptor in project TCIS.gRPC.Interceptor.Extensions
         _ = services.AddGrpcClientDelegate(() =>
         {
             IWorkContextAccessor doWorkContext = serviceProvider.GetRequiredService<IWorkContextAccessor>();
             return doWorkContext.WorkContext;
         });
-
         _ = services.AddGrpcClientInterceptor<PostApiServiceClient>(grpcServiceOptions, ServiceConstants.PostService, environment)
-              .AddConsulMessageHandler(environment);
+            .AddConsulMessageHandler(environment);
+
         _ = services.AddGrpcClientInterceptor<ApiConfigGrpcClient>(grpcServiceOptions, ServiceConstants.ApiConfigService, environment)
               .AddConsulMessageHandler(environment);
         return services;
@@ -68,11 +55,7 @@ public static class ServiceExtension
         {
             IConsulClient? consulClient = serviceProvider.GetService<IConsulClient>();
             IWorkContextAccessor doWorkContext = serviceProvider.GetRequiredService<IWorkContextAccessor>();
-            string doTenantID()
-            {
-                return doWorkContext.WorkContext!.UserId.ToString()!;
-            }
-            return new ConsulServiceDiscoveryMessageHandler(consulClient, environment, doTenantID);
+            return new ConsulServiceDiscoveryMessageHandler(consulClient, environment);
         });
         return builder;
     }
@@ -83,7 +66,7 @@ public static class ServiceExtension
 
     private static IServiceCollection AddInternalService(this IServiceCollection services)
     {
-        _ = services.AddScoped<IApiConfigSerivce, ApiConfigService>();
+        _ = services.AddScoped<Services.v1.ApiConfigService.IApiConfigSerivce, ApiConfigService>();
         return services;
     }
 
@@ -102,7 +85,7 @@ public static class ServiceExtension
     {
         _ = builder.AddHttpMessageHandler(serviceProvider =>
         {
-            IApiConfigSerivce apiConfigSerivce = serviceProvider.GetRequiredService<IApiConfigSerivce>();
+            Services.v1.ApiConfigService.IApiConfigSerivce apiConfigSerivce = serviceProvider.GetRequiredService<Services.v1.ApiConfigService.IApiConfigSerivce>();
             async Task<Dictionary<string, string>> _callbackApi(HttpRequestHeaders request)
             {
                 string? secretKey = configuration.GetEx("SecretKey");

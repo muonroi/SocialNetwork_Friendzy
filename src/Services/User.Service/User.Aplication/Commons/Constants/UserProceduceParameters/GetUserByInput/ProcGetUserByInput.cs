@@ -1,7 +1,6 @@
-﻿namespace User.Application.Commons.Constants.UserProceduceParameters.GetUserByInput
+﻿namespace User.Application.Commons.Constants.UserProceduceParameters.GetUserByInput;
+
+public enum ProcGetUserByInput
 {
-    public enum ProcGetUserByInput
-    {
-        Input = 1
-    }
+    Input = 1
 }

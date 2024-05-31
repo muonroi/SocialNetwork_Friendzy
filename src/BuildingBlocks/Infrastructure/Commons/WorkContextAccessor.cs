@@ -1,6 +1,4 @@
-﻿using Shared.DTOs;
-
-namespace Infrastructure.Commons;
+﻿namespace Infrastructure.Commons;
 
 public class WorkContextAccessor : IWorkContextAccessor
 {

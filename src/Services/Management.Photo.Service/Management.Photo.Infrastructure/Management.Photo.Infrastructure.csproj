@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\BuildingBlocks\Commons\Directory.Packages.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\Management.Photo.Application\Management.Photo.Application.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Commons\Commons.csproj" />
+  </ItemGroup>
+
+</Project>
