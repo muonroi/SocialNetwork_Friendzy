@@ -1,4 +1,4 @@
-﻿using Account.Infrastructure.Persistance;
+﻿using Account.Infrastructure.Persistence;
 
 namespace Account.Service.Infrastructures;
 

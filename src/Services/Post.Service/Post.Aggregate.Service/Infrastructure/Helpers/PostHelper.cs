@@ -6,7 +6,7 @@ public static class PostHelper
              this GetPostApiServiceReply getPostReply,
               GetPostsQuery request)
     {
-        List<GetPostsQueryResponse> invoices = getPostReply.Details.Select(
+        List<GetPostsQueryResponse> posts = getPostReply.Details.Select(
             x => new GetPostsQueryResponse
             {
                 Id = x.Id,
@@ -23,7 +23,7 @@ public static class PostHelper
                 AuthorId = x.AuthorId,
             }).ToList();
 
-        return new(invoices,
+        return new(posts,
                     getPostReply.TotalRecords,
                     getPostReply.CurrentPage,
                     request.PageSize);

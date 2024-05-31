@@ -1,6 +1,6 @@
 ﻿#nullable disable
 
-namespace Setting.Infrastructure.Persistance.Migrations;
+namespace Setting.Infrastructure.Persistence.Migrations;
 
 /// <inheritdoc />
 public partial class InitDb : Migration

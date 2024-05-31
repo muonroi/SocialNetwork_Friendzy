@@ -1,4 +1,5 @@
 using Commons.Logging;
+using Infrastructure.Configurations;
 using Infrastructure.Extensions;
 using Management.Photo.Application;
 using Management.Photo.Infrastructure;
@@ -25,12 +26,22 @@ try
 {
     Assembly assemblyInstance = Assembly.GetExecutingAssembly();
 
+    // config appsetting
+    _ = services.Configure<ConsulConfigs>(configuration.GetSection(nameof(ConsulConfigs)));
+
+    ConsulConfigs consulSettings = ConsulConfigsExtensions.GetConfigs(configuration);
     // Add services to the container.
+    _ = services.ConfigureJwtBearerToken(configuration);
+
     _ = services.AddControllers();
+
+    _ = services.AddWorkContextAccessor();
+
+    _ = services.AddConsul(consulSettings, env);
 
     _ = services.AddInfrastructureServices(configuration);
 
-    _ = services.AddConfigurationApplication();
+    _ = services.AddConfigurationApplication(configuration, env);
 
     _ = services.AddEndpointsApiExplorer();
 
@@ -42,13 +53,18 @@ try
 
     WebApplication app = builder.Build();
 
-    _ = app.UseWorkContext();
+    if (app.Environment.IsDevelopment())
+    {
+        _ = app.UseSwagger();
+        _ = app.UseSwaggerUI();
+    }
+    _ = app.MapControllers();
 
     _ = app.SeedConfigAsync();
 
     _ = app.UseAuthorization();
 
-    app.ConfigureEndpoints();
+    _ = app.ConfigureEndpoints(configuration);
 
     app.Run();
 }

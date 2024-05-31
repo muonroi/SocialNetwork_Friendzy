@@ -1,4 +1,4 @@
-﻿using Distance.Service.Persistance;
+﻿using Distance.Service.Persistence;
 
 namespace Distance.Service.Infrastructure;
 

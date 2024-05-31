@@ -1,5 +1,5 @@
 using Account.Application.Commons.Interfaces;
-using Account.Infrastructure.Persistance;
+using Account.Infrastructure.Persistence;
 using Account.Infrastructure.Repository;
 using Contracts.Commons.Constants;
 using Contracts.Commons.Interfaces;

@@ -1,4 +1,6 @@
-﻿namespace User.Application.Feature.v1.Users.Queries.GetUsersQuery;
+﻿using Shared.Resources;
+
+namespace User.Application.Feature.v1.Users.Queries.GetUsersQuery;
 
 public class GetUserQueryHandler(IUserRepository userRepository) : IRequestHandler<GetUsersQuery, ApiResult<UserDto>>
 {
@@ -7,7 +9,7 @@ public class GetUserQueryHandler(IUserRepository userRepository) : IRequestHandl
     {
         UserDto? result = await _userRepository.GetUserByInput(request.Input, cancellationToken);
         return result is null
-            ? new ApiErrorResult<UserDto>($"{UserErrorMessages.UserNotFound}", (int)HttpStatusCode.NotFound)
+            ? new ApiErrorResult<UserDto>($"{ErrorMessageBase.UserNotFound}", (int)HttpStatusCode.NotFound)
             : new ApiSuccessResult<UserDto>(result);
     }
 }

@@ -17,7 +17,7 @@
       <Link>Protos\apiConfig.proto</Link>
     </Protobuf>
 
-    <Protobuf Include="..\Post.Service\Post.API\Protos\post_service.proto" GrpcServices="Client">
+    <Protobuf Include="..\Post.Service\Post.Service\Protos\post_service.proto" GrpcServices="Client">
       <Link>Protos\post_service.proto</Link>
     </Protobuf>
   </ItemGroup>

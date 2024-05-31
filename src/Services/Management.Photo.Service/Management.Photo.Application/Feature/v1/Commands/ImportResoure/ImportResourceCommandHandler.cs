@@ -19,8 +19,11 @@ public class ImportResourceCommandHandler(
     IBucketRepository bucketRepository) : IRequestHandler<ImportResourceCommand, ApiResult<ImportResourceCommandResponse>>
 {
     private readonly IMinIOResourceService _resourceService = resourceService ?? throw new ArgumentNullException(nameof(resourceService));
+
     private readonly IStoreInfoRepository _storeInfoRepository = storeInfoRepository ?? throw new ArgumentNullException(nameof(storeInfoRepository));
+
     private readonly IWorkContextAccessor _workContext = workContext ?? throw new ArgumentNullException(nameof(workContext));
+
     private readonly IBucketRepository _bucketRepository = bucketRepository ?? throw new ArgumentNullException(nameof(bucketRepository));
 
     public async Task<ApiResult<ImportResourceCommandResponse>> Handle(ImportResourceCommand request, CancellationToken cancellationToken)
