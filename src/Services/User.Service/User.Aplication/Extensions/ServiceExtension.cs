@@ -49,13 +49,16 @@ public static class ServiceExtension
         configuration.GetSection(nameof(GrpcServiceOptions)).Bind(grpcServiceOptions);
 
         ServiceProvider serviceProvider = services.BuildServiceProvider();
+
         _ = services.AddGrpcClientDelegate(() =>
         {
             IWorkContextAccessor doWorkContext = serviceProvider.GetRequiredService<IWorkContextAccessor>();
             return doWorkContext.WorkContext;
         });
+
         _ = services.AddGrpcClientInterceptor<ApiConfigGrpcClient>(grpcServiceOptions, ServiceConstants.ApiConfigService, environment)
               .AddConsulMessageHandler(environment);
+
         _ = services.AddGrpcClientInterceptor<AuthenticateVerifyClient>(grpcServiceOptions, ServiceConstants.AuthenticateService, environment)
               .AddConsulMessageHandler(environment);
         return services;

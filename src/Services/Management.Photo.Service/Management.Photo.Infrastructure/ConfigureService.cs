@@ -9,7 +9,7 @@ using Infrastructure.Helper;
 using Infrastructure.ORMs.Dapper;
 using Infrastructure.Services;
 using Management.Photo.Application.Commons.Interfaces;
-using Management.Photo.Infrastructure.Persistance;
+using Management.Photo.Infrastructure.Persistence;
 using Management.Photo.Infrastructure.Query;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

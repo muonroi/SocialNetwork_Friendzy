@@ -6,7 +6,7 @@ public class ApiSuccessResult<T> : ApiResult<T>
     {
     }
 
-    public ApiSuccessResult(T data, string message, int statusCode, Languages language = Languages.vi) : base(true, data, message, language, statusCode)
+    public ApiSuccessResult(T data, string message, int statusCode, Languages language = Languages.vi, params object[] arguments) : base(true, data, message, language, statusCode, arguments)
     {
     }
 }

@@ -5,5 +5,7 @@
   "UserNotFound": "Không tìm thấy người dùng",
   "PostNotFound": "Không tìm thấy bài viết",
   "PartnersNotFound": "Hiện không có người dùng gần bạn",
-  "AccountNotFound": "Không tìm thấy thông tin tài khoản"
+  "AccountNotFound": "Không tìm thấy thông tin tài khoản",
+  "FriendsMatchedsNotFound": "Không tìm thấy bạn bè với hành động {0} phù hợp",
+  "UserIsMatched": "Người dùng này đã được {0}"
 }

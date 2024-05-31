@@ -2,7 +2,7 @@
 using Account.Application.Commons.Interfaces;
 using Account.Application.DTOs;
 using Account.Domain.Entities;
-using Account.Infrastructure.Persistance;
+using Account.Infrastructure.Persistence;
 using AutoMapper;
 using Contracts.Commons.Interfaces;
 using Dapper.Extensions;

@@ -6,8 +6,8 @@ public class ApiErrorResult<T> : ApiResult<T>
     {
     }
 
-    public ApiErrorResult(string message, int statusCode, Languages languages = Languages.vi)
-        : base(false, message, languages, statusCode)
+    public ApiErrorResult(string message, int statusCode, Languages languages = Languages.vi, params object[] arguments)
+        : base(false, message, languages, statusCode, arguments)
     {
     }
 

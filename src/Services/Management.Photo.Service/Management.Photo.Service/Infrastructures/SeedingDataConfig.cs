@@ -1,4 +1,4 @@
-﻿using Management.Photo.Infrastructure.Persistance;
+﻿using Management.Photo.Infrastructure.Persistence;
 
 namespace Management.Photo.Service.Infrastructures;
 

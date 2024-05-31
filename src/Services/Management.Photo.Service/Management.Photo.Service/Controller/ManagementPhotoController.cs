@@ -4,6 +4,8 @@ using Management.Photo.Application.Feature.v1.Commands.ImportResoure;
 using Management.Photo.Application.Feature.v1.Queries.GetResource;
 using Management.Photo.Application.Feature.v1.Queries.GetResourceById;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.SeedWorks;
 using System.Net;
@@ -35,6 +37,7 @@ public class ManagementPhotoController(IMediator mediator) : ControllerBase
     #region CRUD
 
     [HttpPost("import")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ProducesResponseType(typeof(ApiResult<ImportResourceCommandResponse>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ImportResourceByType([FromForm] ImportResourceCommand request)
     {

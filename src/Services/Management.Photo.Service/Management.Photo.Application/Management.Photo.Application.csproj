@@ -20,7 +20,18 @@
     <ProjectReference Include="..\..\..\BuildingBlocks\Shared\Shared.csproj" />
     <ProjectReference Include="..\Management.Photo.Domain\Management.Photo.Domain.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" />
+  </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="..\..\Authenticate.Service\Protos\authenticate.proto" GrpcServices="Client">
+      <Link>Protos\authenticate.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\..\API.Intergration.Config.Service\v1\Protos\apiConfig.proto" GrpcServices="Client">
+      <Link>Protos\apiConfig.proto</Link>
+    </Protobuf>
+  </ItemGroup>
+  
   <ItemGroup>
     <Folder Include="Commons\Constants\StoreInfoProceduceParameters\" />
     <Folder Include="Feature\v2\" />
