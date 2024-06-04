@@ -4,9 +4,10 @@ public class RawProceduceGetUserByInput
 {
     public const string query = @"
             CREATE PROC GetUserByInput
-            @Input varchar(50)
+                @Input varchar(50)
             AS
             BEGIN
+                -- Tạo bảng tạm để lưu kết quả tìm kiếm
                 CREATE TABLE #TempUserResult (
                     FirstName varchar(50),
                     LastName varchar(50),
@@ -22,46 +23,38 @@ public class RawProceduceGetUserByInput
                     PhoneNumber varchar(20),
                     AccountGuid uniqueidentifier
                 )
-
+            
+                -- Chèn dữ liệu từ bảng Users vào bảng tạm
                 INSERT INTO #TempUserResult
-                SELECT u.FirstName,
+                SELECT 
+                    u.FirstName,
                     u.LastName,
-                    u.Address,
+                    u.[Address],
                     u.ProfileImagesUrl,
                     u.Birthdate,
                     u.EmailAddress,
                     u.Gender,
-                    u.id,
+                    u.Id,
                     u.Latitude,
                     u.Longtitude,
                     u.AvatarUrl,
                     u.PhoneNumber,
                     u.AccountGuid
-                FROM Users u LEFT JOIN Accounts acc on u.AccountGuid = acc.Id
-
-                SELECT * FROM #TempUserResult
-                WHERE LastName LIKE @Input + '%'
-
+                FROM Users u
+            
+                -- Truy vấn các bản ghi từ bảng tạm theo nhiều điều kiện
+                SELECT * FROM #TempUserResult WHERE LastName LIKE @Input + '%'
                 UNION ALL
-
-                SELECT * FROM #TempUserResult
-                WHERE FirstName LIKE @Input + '%'
-
+                SELECT * FROM #TempUserResult WHERE FirstName LIKE @Input + '%'
                 UNION ALL
-
-                SELECT * FROM #TempUserResult
-                WHERE EmailAddress = @Input
-
+                SELECT * FROM #TempUserResult WHERE EmailAddress = @Input
                 UNION ALL
-
-                SELECT * FROM #TempUserResult
-                WHERE PhoneNumber = @Input
-
+                SELECT * FROM #TempUserResult WHERE PhoneNumber = @Input
                 UNION ALL
-
-                SELECT * FROM #TempUserResult
-                WHERE id = TRY_CONVERT(int,@Input)
-
+                SELECT * FROM #TempUserResult WHERE Id = TRY_CONVERT(int, @Input)
+            
+                -- Xóa bảng tạm
                 DROP TABLE #TempUserResult
-            END";
+            END
+";
 }

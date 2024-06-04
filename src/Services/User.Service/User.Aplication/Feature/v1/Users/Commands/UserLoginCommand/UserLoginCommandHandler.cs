@@ -27,7 +27,7 @@ public class UserLoginCommandHandler(IUserRepository userRepository, IApiExterna
             EmailAddress = result.EmailAddress,
             AvatarUrl = result.AvatarUrl,
             Address = result.Address,
-            Longitude = result.Longtitude,
+            Longitude = result.Longitude,
             Latitude = result.Latitude
         }, cancellationToken);
 

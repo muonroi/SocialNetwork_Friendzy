@@ -1,4 +1,5 @@
 ﻿using Account.Application.Commons.Interfaces;
+using Account.Application.DTOs;
 using Authenticate.Verify.Service;
 using Contracts.Commons.Constants;
 using Contracts.DTOs.JwtBearerDTOs;
@@ -22,6 +23,19 @@ namespace Account.Application.Infrastructure.feature.v1.Accounts.Commands.Create
             Guid accountIdCreated = await _accountRepository.CreateAccountAsync(request, cancellationToken);
 
             GenerateTokenReply tokenResult = await GenerateToken(request, accountIdCreated, cancellationToken);
+            AccountDTO accountDto = new()
+            {
+                AccountType = request.AccountType,
+                Currency = request.Currency,
+                LockReason = request.LockReason,
+                Balance = request.Balance,
+                IsActive = request.IsActive,
+                IsEmailVerified = request.IsEmailVerified,
+                Status = request.Status,
+                RefreshToken = tokenResult.RefreshToken,
+                RefreshTokenExpiryTime = tokenResult.ExpiresIn,
+            };
+            _ = await _accountRepository.UpdateAccountAsync(accountIdCreated, accountDto, cancellationToken);
 
             CreateAccountCommandResponse? result = new()
             {

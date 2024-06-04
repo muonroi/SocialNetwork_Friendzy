@@ -33,7 +33,7 @@ public class UserEntity : EntityAuditBase<long>
 
     public string ProfileImagesUrl { get; set; } = string.Empty;
 
-    public double Longtitude { get; set; }
+    public double Longitude { get; set; }
 
     public double Latitude { get; set; }
 
@@ -41,5 +41,8 @@ public class UserEntity : EntityAuditBase<long>
 
     public long Birthdate { get; set; }
 
+    public required string CategoryId { get; set; }
+
     public Guid AccountGuid { get; set; }
+
 }

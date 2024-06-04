@@ -33,9 +33,9 @@ namespace Account.Service.Controller
 
         #region Command
 
-        [HttpPost]
+        [HttpPost("create")]
         [ProducesResponseType(typeof(ApiResult<CreateAccountCommandResponse>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> CreateAccounts([FromBody] CreateAccountCommand request)
+        public async Task<IActionResult> CreateAccount([FromBody] CreateAccountCommand request)
         {
             ApiResult<CreateAccountCommandResponse> result = await _mediator.Send(request).ConfigureAwait(false);
             return Ok(result);

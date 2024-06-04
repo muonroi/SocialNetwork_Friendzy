@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using User.Application.Feature.v1.Users.Commands.UserLoginCommand;
+using User.Application.Feature.v1.Users.Commands.UserRegisterCommand;
 using User.Application.Feature.v1.Users.Queries.GetMultipleUsersQuery;
 using User.Application.Feature.v1.Users.Queries.GetUsersQuery;
 
@@ -7,7 +8,7 @@ namespace User.Service.Controllers;
 
 [Route("api/v1/[controller]")]
 [ApiController]
-[Authorize]
+//[Authorize]
 public class UserController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
@@ -43,10 +44,9 @@ public class UserController(IMediator mediator) : ControllerBase
     [HttpPost("register")]
     [AllowAnonymous]
     [ProducesResponseType(typeof(ApiResult<UserDto>), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> Register([FromQuery] string input)
+    public async Task<IActionResult> Register([FromBody] UserRegisterCommand cmd)
     {
-        GetUsersQuery request = new(input);
-        ApiResult<UserDto> result = await _mediator.Send(request).ConfigureAwait(false);
+        ApiResult<UserDto> result = await _mediator.Send(cmd).ConfigureAwait(false);
         return Ok(result);
     }
     #endregion Command

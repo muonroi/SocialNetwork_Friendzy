@@ -15,7 +15,7 @@ namespace Authenticate.Service.Services
         public override async Task<GenerateTokenReply> GenerateToken(GenerateTokenRequest request, ServerCallContext context)
         {
             _logger.Information($"BEGIN: GenerateToken called. REQUEST --> {JsonConvert.SerializeObject(request)} <--");
-
+            DateTimeOffset refreshTokenExpriyTime = DateTime.UtcNow.AddDays(request.GenerateTokenVerify.TimeExpires);
             GenerateTokenDetail tokenInfo = request.GenerateTokenDetail;
             string secretKey = request.GenerateTokenVerify.SecretKey;
             if (secretKey.Length < 32)
@@ -49,7 +49,7 @@ namespace Authenticate.Service.Services
             SecurityTokenDescriptor accessTokenDescriptor = new()
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddDays(request.GenerateTokenVerify.TimeExpires),
+                Expires = refreshTokenExpriyTime.UtcDateTime,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(jwtKey), SecurityAlgorithms.HmacSha256Signature)
             };
 
@@ -73,7 +73,12 @@ namespace Authenticate.Service.Services
 
             _logger.Information($"END: GenerateToken called. AccessToken --> {accessTokenResult} <--, RefreshToken --> {refreshTokenResult} <--");
 
-            return await Task.FromResult(new GenerateTokenReply { AccessToken = accessTokenResult, RefreshToken = refreshTokenResult });
+            return await Task.FromResult(new GenerateTokenReply
+            {
+                AccessToken = accessTokenResult,
+                RefreshToken = refreshTokenResult,
+                ExpiresIn = refreshTokenExpriyTime.ToUnixTimeSeconds()
+            });
         }
 
         public override async Task<VerifyTokenReply> VerifyToken(VerifyTokenRequest request, ServerCallContext context)

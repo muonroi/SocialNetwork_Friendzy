@@ -45,6 +45,10 @@ namespace User.Infrastructure.Persistence.Migrations
                     b.Property<long>("Birthdate")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("CategoryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -92,7 +96,7 @@ namespace User.Infrastructure.Persistence.Migrations
                     b.Property<double>("Latitude")
                         .HasColumnType("float");
 
-                    b.Property<double>("Longtitude")
+                    b.Property<double>("Longitude")
                         .HasColumnType("float");
 
                     b.Property<string>("PhoneNumber")

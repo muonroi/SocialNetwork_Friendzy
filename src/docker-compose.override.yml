@@ -1,0 +1,726 @@
+services:
+#some services
+  PortainerFriendzy:
+    container_name: PortainerFriendzy
+    restart: always
+    ports:
+      - "8082:8082"
+      - "9002:9002"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - friendzy_portainer_data:/data
+
+#database section
+  MinioResourceDbFriendzy:
+    container_name: MinioResourceDbFriendzy
+    environment:
+      MINIO_ROOT_USER: root
+      MINIO_ROOT_PASSWORD: 0967442142Az*
+      MINIO_ACCESS_KEY: /r8zCJk8iibBn7Qe01lIsWsreJdEBQKJTQA+vLh96Zk=
+      MINIO_SECRET_KEY: YYZ6wpaLgniyR06SCKyR+twE2wZhv2KAiXa5ShydXioopwXqLq/6uBJKiWQmXxJ/
+    volumes:
+      - minio_resource_friendzy:/var/lib/minio_resource_friendzy/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    restart: always
+
+  MysqlDbFriendzy:
+    container_name: MysqlDbFriendzy
+    environment:
+      MYSQL_ROOT_PASSWORD: "0967442142Az*"
+    restart: always
+    volumes:
+      - friendzy_mysql_data:/var/lib/friendzy_mysql_data/data
+    ports:
+      - "3307:3306"
+
+  PostgresDbFriendzy:
+    container_name: PostgresDbFriendzy
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=0967442142Az*
+      - POSTGRES_DB=UserInfoDb
+    restart: always
+    volumes:
+      - friendzy_postgres_data:/var/lib/friendzy_postgres_data/data
+    ports:
+      - "5434:5432"
+
+  MSSQLDbFriendzy:
+    container_name: MSSQLDbFriendzy
+    environment:
+      SA_PASSWORD: "0967442142Az*"
+      ACCEPT_EULA: "Y"
+    restart: always
+    volumes:
+      - friendzy_mssql_data:/var/lib/friendzy_mssql_data/data
+    ports:
+      - "1434:1433"
+
+  #microservice section
+  User.Service:
+    container_name: User.Service
+    environment:
+      - "JwtBearerConfig:Issuer=${JWT_BEARER_CONFIG_ISSUER}"
+      - "JwtBearerConfig:Audience=${JWT_BEARER_CONFIG_AUDIENCE}"
+      - "JwtBearerConfig:Key=${JWT_BEARER_CONFIG_KEY}"
+      - "GrpcServiceOptions:SearchPartnersService=${GRPC_SERVICE_OPTIONS_SEARCH_PARTNERS_SERVICE}"
+      - "GrpcServiceOptions:DistanceService=${GRPC_SERVICE_OPTIONS_DISTANCE_SERVICE}"
+      - "GrpcServiceOptions:ApiConfigService=${GRPC_SERVICE_OPTIONS_API_CONFIG_SERVICE}"
+      - "GrpcServiceOptions:AuthenticateService=${GRPC_SERVICE_OPTIONS_AUTHENTICATE_SERVICE}"
+      - "GrpcServiceOptions:PostService=${GRPC_SERVICE_OPTIONS_POST_SERVICE}"
+      - "RedisConfigs:Enable=${REDIS_CONFIGS_ENABLE}"
+      - "RedisConfigs:Host=${REDIS_CONFIGS_HOST}"
+      - "RedisConfigs:Port=${REDIS_CONFIGS_PORT}"
+      - "RedisConfigs:Password=${REDIS_CONFIGS_PASSWORD}"
+      - "RedisConfigs:Expire=${REDIS_CONFIGS_EXPIRE}"
+      - "RedisConfigs:KeyPrefix=${REDIS_CONFIGS_KEYPREFIX}"
+      - "ConsulConfigs:Id=${CONSUL_CONFIGS_ID}"
+      - "ConsulConfigs:ConsulAddress=${CONSUL_CONFIGS_CONSUL_ADDRESS}"
+      - "ConsulConfigs:ServiceAddress=${CONSUL_CONFIGS_SERVICE_ADDRESS}"
+      - "ConsulConfigs:ServicePort=${CONSUL_CONFIGS_SERVICE_PORT}"
+      - "ConsulConfigs:ServiceName=${CONSUL_CONFIGS_SERVICE_NAME}"
+      - "ConsulConfigs:ServiceMetadata=${CONSUL_CONFIGS_SERVICE_METADATA}"
+      - "MinIOConfig:endpoint=${MINIO_CONFIG_ENDPOINT}"
+      - "MinIOConfig:accessKey=${MINIO_CONFIG_ACCESS_KEY}"
+      - "MinIOConfig:secretKey=${MINIO_CONFIG_SECRET_KEY}"
+      - "ApiKey=${API_KEY}"
+      - "SecretKey=${SECRET_KEY}"
+      - "SmtpConfig:From=${SMTP_CONFIG_FROM}"
+      - "SmtpConfig:DisplayName=${SMTP_CONFIG_DISPLAY_NAME}"
+      - "SmtpConfig:UserName=${SMTP_CONFIG_USERNAME}"
+      - "SmtpConfig:Password=${SMTP_CONFIG_PASSWORD}"
+      - "SmtpConfig:SmtpServer=${SMTP_CONFIG_SMTP_SERVER}"
+      - "SmtpConfig:Port=${SMTP_CONFIG_PORT}"
+      - "SmtpConfig:UseSsl=${SMTP_CONFIG_USE_SSL}"
+      - "SmtpConfig:UseDefaultCredentials=${SMTP_CONFIG_USE_DEFAULT_CREDENTIALS}"
+      - "SmtpConfig:IsBodyHtml=${SMTP_CONFIG_IS_BODY_HTML}"
+      - "SmtpConfig:EnableVerification=${SMTP_CONFIG_ENABLE_VERIFICATION}"
+      - "Serilog:Using=${SERILOG_USING}"
+      - "Serilog:MinimumLevel=${SERILOG_MINIMUM_LEVEL}"
+      - "Serilog:WriteTo__0__Name=${SERILOG_WRITETO_NAME}"
+      - "Serilog:WriteTo__0__Args__path=${SERILOG_WRITETO_ARGS_PATH}"
+      - "Serilog:WriteTo__0__Args__rollingInterval=${SERILOG_WRITETO_ARGS_ROLLING_INTERVAL}"
+      - "Serilog:WriteTo__0__Args__rollOnFileSizeLimit=${SERILOG_WRITETO_ARGS_ROLL_ON_FILE_SIZE_LIMIT}"
+      - "Serilog:WriteTo__0__Args__fileSizeLimitBytes=${SERILOG_WRITETO_ARGS_FILE_SIZE_LIMIT_BYTES}"
+      - "Serilog:WriteTo__0__Args__shared=${SERILOG_WRITETO_ARGS_SHARED}"
+      - "AllowedHosts=${ALLOWED_HOSTS}"
+      - "DatabaseConfigs:ConnectionString=n1LMM5JOFyaDPIJ7UvWOHUo2R7/96ziwsXVt4pj9TTCcWQ+orx+w8EMMympIyG3QCFlPlfrhVYkoNl54sumiPWQBbThiyCjgC54zDpvyx3modS7JoFVcpP91Nz4L+/oL6T7/gMLpBqaGA8EbVkazKJlUuC4mnD0Cmja3vZLfmTdTTWU/xt9DxQS4SRYn2Lqk"
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+    ports:
+      - "6001:80"
+    depends_on:
+        - MSSQLDbFriendzy
+    restart: always
+
+  Setting.Service:
+    container_name: Setting.Service
+    environment:
+      - "JwtBearerConfig:Issuer=${JWT_BEARER_CONFIG_ISSUER}"
+      - "JwtBearerConfig:Audience=${JWT_BEARER_CONFIG_AUDIENCE}"
+      - "JwtBearerConfig:Key=${JWT_BEARER_CONFIG_KEY}"
+      - "GrpcServiceOptions:SearchPartnersService=${GRPC_SERVICE_OPTIONS_SEARCH_PARTNERS_SERVICE}"
+      - "GrpcServiceOptions:DistanceService=${GRPC_SERVICE_OPTIONS_DISTANCE_SERVICE}"
+      - "GrpcServiceOptions:ApiConfigService=${GRPC_SERVICE_OPTIONS_API_CONFIG_SERVICE}"
+      - "GrpcServiceOptions:AuthenticateService=${GRPC_SERVICE_OPTIONS_AUTHENTICATE_SERVICE}"
+      - "GrpcServiceOptions:PostService=${GRPC_SERVICE_OPTIONS_POST_SERVICE}"
+      - "RedisConfigs:Enable=${REDIS_CONFIGS_ENABLE}"
+      - "RedisConfigs:Host=${REDIS_CONFIGS_HOST}"
+      - "RedisConfigs:Port=${REDIS_CONFIGS_PORT}"
+      - "RedisConfigs:Password=${REDIS_CONFIGS_PASSWORD}"
+      - "RedisConfigs:Expire=${REDIS_CONFIGS_EXPIRE}"
+      - "RedisConfigs:KeyPrefix=${REDIS_CONFIGS_KEYPREFIX}"
+      - "ConsulConfigs:Id=${CONSUL_CONFIGS_ID}"
+      - "ConsulConfigs:ConsulAddress=${CONSUL_CONFIGS_CONSUL_ADDRESS}"
+      - "ConsulConfigs:ServiceAddress=${CONSUL_CONFIGS_SERVICE_ADDRESS}"
+      - "ConsulConfigs:ServicePort=${CONSUL_CONFIGS_SERVICE_PORT}"
+      - "ConsulConfigs:ServiceName=${CONSUL_CONFIGS_SERVICE_NAME}"
+      - "ConsulConfigs:ServiceMetadata=${CONSUL_CONFIGS_SERVICE_METADATA}"
+      - "MinIOConfig:endpoint=${MINIO_CONFIG_ENDPOINT}"
+      - "MinIOConfig:accessKey=${MINIO_CONFIG_ACCESS_KEY}"
+      - "MinIOConfig:secretKey=${MINIO_CONFIG_SECRET_KEY}"
+      - "ApiKey=${API_KEY}"
+      - "SecretKey=${SECRET_KEY}"
+      - "SmtpConfig:From=${SMTP_CONFIG_FROM}"
+      - "SmtpConfig:DisplayName=${SMTP_CONFIG_DISPLAY_NAME}"
+      - "SmtpConfig:UserName=${SMTP_CONFIG_USERNAME}"
+      - "SmtpConfig:Password=${SMTP_CONFIG_PASSWORD}"
+      - "SmtpConfig:SmtpServer=${SMTP_CONFIG_SMTP_SERVER}"
+      - "SmtpConfig:Port=${SMTP_CONFIG_PORT}"
+      - "SmtpConfig:UseSsl=${SMTP_CONFIG_USE_SSL}"
+      - "SmtpConfig:UseDefaultCredentials=${SMTP_CONFIG_USE_DEFAULT_CREDENTIALS}"
+      - "SmtpConfig:IsBodyHtml=${SMTP_CONFIG_IS_BODY_HTML}"
+      - "SmtpConfig:EnableVerification=${SMTP_CONFIG_ENABLE_VERIFICATION}"
+      - "Serilog:Using=${SERILOG_USING}"
+      - "Serilog:MinimumLevel=${SERILOG_MINIMUM_LEVEL}"
+      - "Serilog:WriteTo__0__Name=${SERILOG_WRITETO_NAME}"
+      - "Serilog:WriteTo__0__Args__path=${SERILOG_WRITETO_ARGS_PATH}"
+      - "Serilog:WriteTo__0__Args__rollingInterval=${SERILOG_WRITETO_ARGS_ROLLING_INTERVAL}"
+      - "Serilog:WriteTo__0__Args__rollOnFileSizeLimit=${SERILOG_WRITETO_ARGS_ROLL_ON_FILE_SIZE_LIMIT}"
+      - "Serilog:WriteTo__0__Args__fileSizeLimitBytes=${SERILOG_WRITETO_ARGS_FILE_SIZE_LIMIT_BYTES}"
+      - "Serilog:WriteTo__0__Args__shared=${SERILOG_WRITETO_ARGS_SHARED}"
+      - "AllowedHosts=${ALLOWED_HOSTS}"
+      - "DatabaseConfigs:ConnectionString=n1LMM5JOFyaDPIJ7UvWOHUo2R7/96ziwsXVt4pj9TTDN61Ea7nhUpB1hmBcBB79dILsMjrA4QuP/zjmRPt1hw0RBaWLhfvxBI8K4KENeb1IWIESmNSyjmzquU38ptNpD6FNIZ2EiviS/jWIh8QkstScF6iyI/CEWfNxRTsptj/Xgt+bpsMox2BgGeteezxqC"
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+    ports:
+      - "6002:80"
+    depends_on:
+        - MSSQLDbFriendzy
+    restart: always
+
+  Post.Service:
+    container_name: Post.Service
+    environment:
+      - "JwtBearerConfig:Issuer=${JWT_BEARER_CONFIG_ISSUER}"
+      - "JwtBearerConfig:Audience=${JWT_BEARER_CONFIG_AUDIENCE}"
+      - "JwtBearerConfig:Key=${JWT_BEARER_CONFIG_KEY}"
+      - "GrpcServiceOptions:SearchPartnersService=${GRPC_SERVICE_OPTIONS_SEARCH_PARTNERS_SERVICE}"
+      - "GrpcServiceOptions:DistanceService=${GRPC_SERVICE_OPTIONS_DISTANCE_SERVICE}"
+      - "GrpcServiceOptions:ApiConfigService=${GRPC_SERVICE_OPTIONS_API_CONFIG_SERVICE}"
+      - "GrpcServiceOptions:AuthenticateService=${GRPC_SERVICE_OPTIONS_AUTHENTICATE_SERVICE}"
+      - "GrpcServiceOptions:PostService=${GRPC_SERVICE_OPTIONS_POST_SERVICE}"
+      - "RedisConfigs:Enable=${REDIS_CONFIGS_ENABLE}"
+      - "RedisConfigs:Host=${REDIS_CONFIGS_HOST}"
+      - "RedisConfigs:Port=${REDIS_CONFIGS_PORT}"
+      - "RedisConfigs:Password=${REDIS_CONFIGS_PASSWORD}"
+      - "RedisConfigs:Expire=${REDIS_CONFIGS_EXPIRE}"
+      - "RedisConfigs:KeyPrefix=${REDIS_CONFIGS_KEYPREFIX}"
+      - "ConsulConfigs:Id=${CONSUL_CONFIGS_ID}"
+      - "ConsulConfigs:ConsulAddress=${CONSUL_CONFIGS_CONSUL_ADDRESS}"
+      - "ConsulConfigs:ServiceAddress=${CONSUL_CONFIGS_SERVICE_ADDRESS}"
+      - "ConsulConfigs:ServicePort=${CONSUL_CONFIGS_SERVICE_PORT}"
+      - "ConsulConfigs:ServiceName=${CONSUL_CONFIGS_SERVICE_NAME}"
+      - "ConsulConfigs:ServiceMetadata=${CONSUL_CONFIGS_SERVICE_METADATA}"
+      - "MinIOConfig:endpoint=${MINIO_CONFIG_ENDPOINT}"
+      - "MinIOConfig:accessKey=${MINIO_CONFIG_ACCESS_KEY}"
+      - "MinIOConfig:secretKey=${MINIO_CONFIG_SECRET_KEY}"
+      - "ApiKey=${API_KEY}"
+      - "SecretKey=${SECRET_KEY}"
+      - "SmtpConfig:From=${SMTP_CONFIG_FROM}"
+      - "SmtpConfig:DisplayName=${SMTP_CONFIG_DISPLAY_NAME}"
+      - "SmtpConfig:UserName=${SMTP_CONFIG_USERNAME}"
+      - "SmtpConfig:Password=${SMTP_CONFIG_PASSWORD}"
+      - "SmtpConfig:SmtpServer=${SMTP_CONFIG_SMTP_SERVER}"
+      - "SmtpConfig:Port=${SMTP_CONFIG_PORT}"
+      - "SmtpConfig:UseSsl=${SMTP_CONFIG_USE_SSL}"
+      - "SmtpConfig:UseDefaultCredentials=${SMTP_CONFIG_USE_DEFAULT_CREDENTIALS}"
+      - "SmtpConfig:IsBodyHtml=${SMTP_CONFIG_IS_BODY_HTML}"
+      - "SmtpConfig:EnableVerification=${SMTP_CONFIG_ENABLE_VERIFICATION}"
+      - "Serilog:Using=${SERILOG_USING}"
+      - "Serilog:MinimumLevel=${SERILOG_MINIMUM_LEVEL}"
+      - "Serilog:WriteTo__0__Name=${SERILOG_WRITETO_NAME}"
+      - "Serilog:WriteTo__0__Args__path=${SERILOG_WRITETO_ARGS_PATH}"
+      - "Serilog:WriteTo__0__Args__rollingInterval=${SERILOG_WRITETO_ARGS_ROLLING_INTERVAL}"
+      - "Serilog:WriteTo__0__Args__rollOnFileSizeLimit=${SERILOG_WRITETO_ARGS_ROLL_ON_FILE_SIZE_LIMIT}"
+      - "Serilog:WriteTo__0__Args__fileSizeLimitBytes=${SERILOG_WRITETO_ARGS_FILE_SIZE_LIMIT_BYTES}"
+      - "Serilog:WriteTo__0__Args__shared=${SERILOG_WRITETO_ARGS_SHARED}"
+      - "AllowedHosts=${ALLOWED_HOSTS}"
+      - "DatabaseConfigs:ConnectionString=hgHRo4D1vCQ23uDYkoTaQzgfyZvJ0iA3+d3Q+s2z2vs5WQSeUsUX/MSy1VVlodIai18fr4sD56JLIkXRZEVWqZ7vnr1H6gQCEIBHXKsDPME="
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+    ports:
+      - "6003:80"
+    restart: always
+    depends_on:
+        - MysqlDbFriendzy
+
+  SearchPartners.Service:
+    container_name: SearchPartners.Service
+    environment:
+      - "JwtBearerConfig:Issuer=${JWT_BEARER_CONFIG_ISSUER}"
+      - "JwtBearerConfig:Audience=${JWT_BEARER_CONFIG_AUDIENCE}"
+      - "JwtBearerConfig:Key=${JWT_BEARER_CONFIG_KEY}"
+      - "GrpcServiceOptions:SearchPartnersService=${GRPC_SERVICE_OPTIONS_SEARCH_PARTNERS_SERVICE}"
+      - "GrpcServiceOptions:DistanceService=${GRPC_SERVICE_OPTIONS_DISTANCE_SERVICE}"
+      - "GrpcServiceOptions:ApiConfigService=${GRPC_SERVICE_OPTIONS_API_CONFIG_SERVICE}"
+      - "GrpcServiceOptions:AuthenticateService=${GRPC_SERVICE_OPTIONS_AUTHENTICATE_SERVICE}"
+      - "GrpcServiceOptions:PostService=${GRPC_SERVICE_OPTIONS_POST_SERVICE}"
+      - "RedisConfigs:Enable=${REDIS_CONFIGS_ENABLE}"
+      - "RedisConfigs:Host=${REDIS_CONFIGS_HOST}"
+      - "RedisConfigs:Port=${REDIS_CONFIGS_PORT}"
+      - "RedisConfigs:Password=${REDIS_CONFIGS_PASSWORD}"
+      - "RedisConfigs:Expire=${REDIS_CONFIGS_EXPIRE}"
+      - "RedisConfigs:KeyPrefix=${REDIS_CONFIGS_KEYPREFIX}"
+      - "ConsulConfigs:Id=${CONSUL_CONFIGS_ID}"
+      - "ConsulConfigs:ConsulAddress=${CONSUL_CONFIGS_CONSUL_ADDRESS}"
+      - "ConsulConfigs:ServiceAddress=${CONSUL_CONFIGS_SERVICE_ADDRESS}"
+      - "ConsulConfigs:ServicePort=${CONSUL_CONFIGS_SERVICE_PORT}"
+      - "ConsulConfigs:ServiceName=${CONSUL_CONFIGS_SERVICE_NAME}"
+      - "ConsulConfigs:ServiceMetadata=${CONSUL_CONFIGS_SERVICE_METADATA}"
+      - "MinIOConfig:endpoint=${MINIO_CONFIG_ENDPOINT}"
+      - "MinIOConfig:accessKey=${MINIO_CONFIG_ACCESS_KEY}"
+      - "MinIOConfig:secretKey=${MINIO_CONFIG_SECRET_KEY}"
+      - "ApiKey=${API_KEY}"
+      - "SecretKey=${SECRET_KEY}"
+      - "SmtpConfig:From=${SMTP_CONFIG_FROM}"
+      - "SmtpConfig:DisplayName=${SMTP_CONFIG_DISPLAY_NAME}"
+      - "SmtpConfig:UserName=${SMTP_CONFIG_USERNAME}"
+      - "SmtpConfig:Password=${SMTP_CONFIG_PASSWORD}"
+      - "SmtpConfig:SmtpServer=${SMTP_CONFIG_SMTP_SERVER}"
+      - "SmtpConfig:Port=${SMTP_CONFIG_PORT}"
+      - "SmtpConfig:UseSsl=${SMTP_CONFIG_USE_SSL}"
+      - "SmtpConfig:UseDefaultCredentials=${SMTP_CONFIG_USE_DEFAULT_CREDENTIALS}"
+      - "SmtpConfig:IsBodyHtml=${SMTP_CONFIG_IS_BODY_HTML}"
+      - "SmtpConfig:EnableVerification=${SMTP_CONFIG_ENABLE_VERIFICATION}"
+      - "Serilog:Using=${SERILOG_USING}"
+      - "Serilog:MinimumLevel=${SERILOG_MINIMUM_LEVEL}"
+      - "Serilog:WriteTo__0__Name=${SERILOG_WRITETO_NAME}"
+      - "Serilog:WriteTo__0__Args__path=${SERILOG_WRITETO_ARGS_PATH}"
+      - "Serilog:WriteTo__0__Args__rollingInterval=${SERILOG_WRITETO_ARGS_ROLLING_INTERVAL}"
+      - "Serilog:WriteTo__0__Args__rollOnFileSizeLimit=${SERILOG_WRITETO_ARGS_ROLL_ON_FILE_SIZE_LIMIT}"
+      - "Serilog:WriteTo__0__Args__fileSizeLimitBytes=${SERILOG_WRITETO_ARGS_FILE_SIZE_LIMIT_BYTES}"
+      - "Serilog:WriteTo__0__Args__shared=${SERILOG_WRITETO_ARGS_SHARED}"
+      - "AllowedHosts=${ALLOWED_HOSTS}"
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+    ports:
+      - "6004:80"
+    restart: always
+
+  SearchPartners.Aggregate.Service:
+    container_name: SearchPartners.Agg.Service
+    environment:
+      - "JwtBearerConfig:Issuer=${JWT_BEARER_CONFIG_ISSUER}"
+      - "JwtBearerConfig:Audience=${JWT_BEARER_CONFIG_AUDIENCE}"
+      - "JwtBearerConfig:Key=${JWT_BEARER_CONFIG_KEY}"
+      - "GrpcServiceOptions:SearchPartnersService=${GRPC_SERVICE_OPTIONS_SEARCH_PARTNERS_SERVICE}"
+      - "GrpcServiceOptions:DistanceService=${GRPC_SERVICE_OPTIONS_DISTANCE_SERVICE}"
+      - "GrpcServiceOptions:ApiConfigService=${GRPC_SERVICE_OPTIONS_API_CONFIG_SERVICE}"
+      - "GrpcServiceOptions:AuthenticateService=${GRPC_SERVICE_OPTIONS_AUTHENTICATE_SERVICE}"
+      - "GrpcServiceOptions:PostService=${GRPC_SERVICE_OPTIONS_POST_SERVICE}"
+      - "RedisConfigs:Enable=${REDIS_CONFIGS_ENABLE}"
+      - "RedisConfigs:Host=${REDIS_CONFIGS_HOST}"
+      - "RedisConfigs:Port=${REDIS_CONFIGS_PORT}"
+      - "RedisConfigs:Password=${REDIS_CONFIGS_PASSWORD}"
+      - "RedisConfigs:Expire=${REDIS_CONFIGS_EXPIRE}"
+      - "RedisConfigs:KeyPrefix=${REDIS_CONFIGS_KEYPREFIX}"
+      - "ConsulConfigs:Id=${CONSUL_CONFIGS_ID}"
+      - "ConsulConfigs:ConsulAddress=${CONSUL_CONFIGS_CONSUL_ADDRESS}"
+      - "ConsulConfigs:ServiceAddress=${CONSUL_CONFIGS_SERVICE_ADDRESS}"
+      - "ConsulConfigs:ServicePort=${CONSUL_CONFIGS_SERVICE_PORT}"
+      - "ConsulConfigs:ServiceName=${CONSUL_CONFIGS_SERVICE_NAME}"
+      - "ConsulConfigs:ServiceMetadata=${CONSUL_CONFIGS_SERVICE_METADATA}"
+      - "MinIOConfig:endpoint=${MINIO_CONFIG_ENDPOINT}"
+      - "MinIOConfig:accessKey=${MINIO_CONFIG_ACCESS_KEY}"
+      - "MinIOConfig:secretKey=${MINIO_CONFIG_SECRET_KEY}"
+      - "ApiKey=${API_KEY}"
+      - "SecretKey=${SECRET_KEY}"
+      - "SmtpConfig:From=${SMTP_CONFIG_FROM}"
+      - "SmtpConfig:DisplayName=${SMTP_CONFIG_DISPLAY_NAME}"
+      - "SmtpConfig:UserName=${SMTP_CONFIG_USERNAME}"
+      - "SmtpConfig:Password=${SMTP_CONFIG_PASSWORD}"
+      - "SmtpConfig:SmtpServer=${SMTP_CONFIG_SMTP_SERVER}"
+      - "SmtpConfig:Port=${SMTP_CONFIG_PORT}"
+      - "SmtpConfig:UseSsl=${SMTP_CONFIG_USE_SSL}"
+      - "SmtpConfig:UseDefaultCredentials=${SMTP_CONFIG_USE_DEFAULT_CREDENTIALS}"
+      - "SmtpConfig:IsBodyHtml=${SMTP_CONFIG_IS_BODY_HTML}"
+      - "SmtpConfig:EnableVerification=${SMTP_CONFIG_ENABLE_VERIFICATION}"
+      - "Serilog:Using=${SERILOG_USING}"
+      - "Serilog:MinimumLevel=${SERILOG_MINIMUM_LEVEL}"
+      - "Serilog:WriteTo__0__Name=${SERILOG_WRITETO_NAME}"
+      - "Serilog:WriteTo__0__Args__path=${SERILOG_WRITETO_ARGS_PATH}"
+      - "Serilog:WriteTo__0__Args__rollingInterval=${SERILOG_WRITETO_ARGS_ROLLING_INTERVAL}"
+      - "Serilog:WriteTo__0__Args__rollOnFileSizeLimit=${SERILOG_WRITETO_ARGS_ROLL_ON_FILE_SIZE_LIMIT}"
+      - "Serilog:WriteTo__0__Args__fileSizeLimitBytes=${SERILOG_WRITETO_ARGS_FILE_SIZE_LIMIT_BYTES}"
+      - "Serilog:WriteTo__0__Args__shared=${SERILOG_WRITETO_ARGS_SHARED}"
+      - "AllowedHosts=${ALLOWED_HOSTS}"
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+    ports:
+      - "6005:80"
+    restart: always
+    depends_on:
+        - SearchPartners.Service
+
+  Distance.Service:
+    container_name: Distance.Service
+    environment:
+      - "JwtBearerConfig:Issuer=${JWT_BEARER_CONFIG_ISSUER}"
+      - "JwtBearerConfig:Audience=${JWT_BEARER_CONFIG_AUDIENCE}"
+      - "JwtBearerConfig:Key=${JWT_BEARER_CONFIG_KEY}"
+      - "GrpcServiceOptions:SearchPartnersService=${GRPC_SERVICE_OPTIONS_SEARCH_PARTNERS_SERVICE}"
+      - "GrpcServiceOptions:DistanceService=${GRPC_SERVICE_OPTIONS_DISTANCE_SERVICE}"
+      - "GrpcServiceOptions:ApiConfigService=${GRPC_SERVICE_OPTIONS_API_CONFIG_SERVICE}"
+      - "GrpcServiceOptions:AuthenticateService=${GRPC_SERVICE_OPTIONS_AUTHENTICATE_SERVICE}"
+      - "GrpcServiceOptions:PostService=${GRPC_SERVICE_OPTIONS_POST_SERVICE}"
+      - "RedisConfigs:Enable=${REDIS_CONFIGS_ENABLE}"
+      - "RedisConfigs:Host=${REDIS_CONFIGS_HOST}"
+      - "RedisConfigs:Port=${REDIS_CONFIGS_PORT}"
+      - "RedisConfigs:Password=${REDIS_CONFIGS_PASSWORD}"
+      - "RedisConfigs:Expire=${REDIS_CONFIGS_EXPIRE}"
+      - "RedisConfigs:KeyPrefix=${REDIS_CONFIGS_KEYPREFIX}"
+      - "ConsulConfigs:Id=${CONSUL_CONFIGS_ID}"
+      - "ConsulConfigs:ConsulAddress=${CONSUL_CONFIGS_CONSUL_ADDRESS}"
+      - "ConsulConfigs:ServiceAddress=${CONSUL_CONFIGS_SERVICE_ADDRESS}"
+      - "ConsulConfigs:ServicePort=${CONSUL_CONFIGS_SERVICE_PORT}"
+      - "ConsulConfigs:ServiceName=${CONSUL_CONFIGS_SERVICE_NAME}"
+      - "ConsulConfigs:ServiceMetadata=${CONSUL_CONFIGS_SERVICE_METADATA}"
+      - "MinIOConfig:endpoint=${MINIO_CONFIG_ENDPOINT}"
+      - "MinIOConfig:accessKey=${MINIO_CONFIG_ACCESS_KEY}"
+      - "MinIOConfig:secretKey=${MINIO_CONFIG_SECRET_KEY}"
+      - "ApiKey=${API_KEY}"
+      - "SecretKey=${SECRET_KEY}"
+      - "SmtpConfig:From=${SMTP_CONFIG_FROM}"
+      - "SmtpConfig:DisplayName=${SMTP_CONFIG_DISPLAY_NAME}"
+      - "SmtpConfig:UserName=${SMTP_CONFIG_USERNAME}"
+      - "SmtpConfig:Password=${SMTP_CONFIG_PASSWORD}"
+      - "SmtpConfig:SmtpServer=${SMTP_CONFIG_SMTP_SERVER}"
+      - "SmtpConfig:Port=${SMTP_CONFIG_PORT}"
+      - "SmtpConfig:UseSsl=${SMTP_CONFIG_USE_SSL}"
+      - "SmtpConfig:UseDefaultCredentials=${SMTP_CONFIG_USE_DEFAULT_CREDENTIALS}"
+      - "SmtpConfig:IsBodyHtml=${SMTP_CONFIG_IS_BODY_HTML}"
+      - "SmtpConfig:EnableVerification=${SMTP_CONFIG_ENABLE_VERIFICATION}"
+      - "Serilog:Using=${SERILOG_USING}"
+      - "Serilog:MinimumLevel=${SERILOG_MINIMUM_LEVEL}"
+      - "Serilog:WriteTo__0__Name=${SERILOG_WRITETO_NAME}"
+      - "Serilog:WriteTo__0__Args__path=${SERILOG_WRITETO_ARGS_PATH}"
+      - "Serilog:WriteTo__0__Args__rollingInterval=${SERILOG_WRITETO_ARGS_ROLLING_INTERVAL}"
+      - "Serilog:WriteTo__0__Args__rollOnFileSizeLimit=${SERILOG_WRITETO_ARGS_ROLL_ON_FILE_SIZE_LIMIT}"
+      - "Serilog:WriteTo__0__Args__fileSizeLimitBytes=${SERILOG_WRITETO_ARGS_FILE_SIZE_LIMIT_BYTES}"
+      - "Serilog:WriteTo__0__Args__shared=${SERILOG_WRITETO_ARGS_SHARED}"
+      - "AllowedHosts=${ALLOWED_HOSTS}"
+      - "DatabaseConfigs:ConnectionString=n1LMM5JOFyaDPIJ7UvWOHUo2R7/96ziwsXVt4pj9TTCpE3KfNzhef+LxGY8l6Z5I2JoZl4hqhfR82N8o8wY63O6ACPWEptL7/XFu7E5fijcwCHyF0lbPBglyweHOO00y39sKl1TdXfxA3aV3AslXiqORbv1OWdRuWt2iLc8549b2ViRlTmjGp+EN+KxXz8cY"
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+    ports:
+      - "6007:80"
+    depends_on:
+        - MSSQLDbFriendzy
+    restart: always
+
+  API.Intergration.Config.Service:
+    container_name: API.Intergration.Config.Service
+    environment:
+      - "JwtBearerConfig:Issuer=${JWT_BEARER_CONFIG_ISSUER}"
+      - "JwtBearerConfig:Audience=${JWT_BEARER_CONFIG_AUDIENCE}"
+      - "JwtBearerConfig:Key=${JWT_BEARER_CONFIG_KEY}"
+      - "GrpcServiceOptions:SearchPartnersService=${GRPC_SERVICE_OPTIONS_SEARCH_PARTNERS_SERVICE}"
+      - "GrpcServiceOptions:DistanceService=${GRPC_SERVICE_OPTIONS_DISTANCE_SERVICE}"
+      - "GrpcServiceOptions:ApiConfigService=${GRPC_SERVICE_OPTIONS_API_CONFIG_SERVICE}"
+      - "GrpcServiceOptions:AuthenticateService=${GRPC_SERVICE_OPTIONS_AUTHENTICATE_SERVICE}"
+      - "GrpcServiceOptions:PostService=${GRPC_SERVICE_OPTIONS_POST_SERVICE}"
+      - "RedisConfigs:Enable=${REDIS_CONFIGS_ENABLE}"
+      - "RedisConfigs:Host=${REDIS_CONFIGS_HOST}"
+      - "RedisConfigs:Port=${REDIS_CONFIGS_PORT}"
+      - "RedisConfigs:Password=${REDIS_CONFIGS_PASSWORD}"
+      - "RedisConfigs:Expire=${REDIS_CONFIGS_EXPIRE}"
+      - "RedisConfigs:KeyPrefix=${REDIS_CONFIGS_KEYPREFIX}"
+      - "ConsulConfigs:Id=${CONSUL_CONFIGS_ID}"
+      - "ConsulConfigs:ConsulAddress=${CONSUL_CONFIGS_CONSUL_ADDRESS}"
+      - "ConsulConfigs:ServiceAddress=${CONSUL_CONFIGS_SERVICE_ADDRESS}"
+      - "ConsulConfigs:ServicePort=${CONSUL_CONFIGS_SERVICE_PORT}"
+      - "ConsulConfigs:ServiceName=${CONSUL_CONFIGS_SERVICE_NAME}"
+      - "ConsulConfigs:ServiceMetadata=${CONSUL_CONFIGS_SERVICE_METADATA}"
+      - "MinIOConfig:endpoint=${MINIO_CONFIG_ENDPOINT}"
+      - "MinIOConfig:accessKey=${MINIO_CONFIG_ACCESS_KEY}"
+      - "MinIOConfig:secretKey=${MINIO_CONFIG_SECRET_KEY}"
+      - "ApiKey=${API_KEY}"
+      - "SecretKey=${SECRET_KEY}"
+      - "SmtpConfig:From=${SMTP_CONFIG_FROM}"
+      - "SmtpConfig:DisplayName=${SMTP_CONFIG_DISPLAY_NAME}"
+      - "SmtpConfig:UserName=${SMTP_CONFIG_USERNAME}"
+      - "SmtpConfig:Password=${SMTP_CONFIG_PASSWORD}"
+      - "SmtpConfig:SmtpServer=${SMTP_CONFIG_SMTP_SERVER}"
+      - "SmtpConfig:Port=${SMTP_CONFIG_PORT}"
+      - "SmtpConfig:UseSsl=${SMTP_CONFIG_USE_SSL}"
+      - "SmtpConfig:UseDefaultCredentials=${SMTP_CONFIG_USE_DEFAULT_CREDENTIALS}"
+      - "SmtpConfig:IsBodyHtml=${SMTP_CONFIG_IS_BODY_HTML}"
+      - "SmtpConfig:EnableVerification=${SMTP_CONFIG_ENABLE_VERIFICATION}"
+      - "Serilog:Using=${SERILOG_USING}"
+      - "Serilog:MinimumLevel=${SERILOG_MINIMUM_LEVEL}"
+      - "Serilog:WriteTo__0__Name=${SERILOG_WRITETO_NAME}"
+      - "Serilog:WriteTo__0__Args__path=${SERILOG_WRITETO_ARGS_PATH}"
+      - "Serilog:WriteTo__0__Args__rollingInterval=${SERILOG_WRITETO_ARGS_ROLLING_INTERVAL}"
+      - "Serilog:WriteTo__0__Args__rollOnFileSizeLimit=${SERILOG_WRITETO_ARGS_ROLL_ON_FILE_SIZE_LIMIT}"
+      - "Serilog:WriteTo__0__Args__fileSizeLimitBytes=${SERILOG_WRITETO_ARGS_FILE_SIZE_LIMIT_BYTES}"
+      - "Serilog:WriteTo__0__Args__shared=${SERILOG_WRITETO_ARGS_SHARED}"
+      - "AllowedHosts=${ALLOWED_HOSTS}"
+      - "DatabaseConfigs:ConnectionString=jdEfMEcJsgPx+WScJ/W8+HWQYt/j8RrhiTaWyscrfPEck+2dSKKQCeYIjxAH0z1Bc9/Q8IkYbkh/QgXnYqKGohJMZmqgDo2NWSkS7lqv3s7wWREBbNm9Sjt5OenpB8O0"
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+    ports:
+      - "6008:80"
+    restart: always
+    depends_on:
+        - PostgresDbFriendzy
+
+  Post.Aggregate.Service:
+    container_name: Post.Agg.Service
+    environment:
+      - "JwtBearerConfig:Issuer=${JWT_BEARER_CONFIG_ISSUER}"
+      - "JwtBearerConfig:Audience=${JWT_BEARER_CONFIG_AUDIENCE}"
+      - "JwtBearerConfig:Key=${JWT_BEARER_CONFIG_KEY}"
+      - "GrpcServiceOptions:SearchPartnersService=${GRPC_SERVICE_OPTIONS_SEARCH_PARTNERS_SERVICE}"
+      - "GrpcServiceOptions:DistanceService=${GRPC_SERVICE_OPTIONS_DISTANCE_SERVICE}"
+      - "GrpcServiceOptions:ApiConfigService=${GRPC_SERVICE_OPTIONS_API_CONFIG_SERVICE}"
+      - "GrpcServiceOptions:AuthenticateService=${GRPC_SERVICE_OPTIONS_AUTHENTICATE_SERVICE}"
+      - "GrpcServiceOptions:PostService=${GRPC_SERVICE_OPTIONS_POST_SERVICE}"
+      - "RedisConfigs:Enable=${REDIS_CONFIGS_ENABLE}"
+      - "RedisConfigs:Host=${REDIS_CONFIGS_HOST}"
+      - "RedisConfigs:Port=${REDIS_CONFIGS_PORT}"
+      - "RedisConfigs:Password=${REDIS_CONFIGS_PASSWORD}"
+      - "RedisConfigs:Expire=${REDIS_CONFIGS_EXPIRE}"
+      - "RedisConfigs:KeyPrefix=${REDIS_CONFIGS_KEYPREFIX}"
+      - "ConsulConfigs:Id=${CONSUL_CONFIGS_ID}"
+      - "ConsulConfigs:ConsulAddress=${CONSUL_CONFIGS_CONSUL_ADDRESS}"
+      - "ConsulConfigs:ServiceAddress=${CONSUL_CONFIGS_SERVICE_ADDRESS}"
+      - "ConsulConfigs:ServicePort=${CONSUL_CONFIGS_SERVICE_PORT}"
+      - "ConsulConfigs:ServiceName=${CONSUL_CONFIGS_SERVICE_NAME}"
+      - "ConsulConfigs:ServiceMetadata=${CONSUL_CONFIGS_SERVICE_METADATA}"
+      - "MinIOConfig:endpoint=${MINIO_CONFIG_ENDPOINT}"
+      - "MinIOConfig:accessKey=${MINIO_CONFIG_ACCESS_KEY}"
+      - "MinIOConfig:secretKey=${MINIO_CONFIG_SECRET_KEY}"
+      - "ApiKey=${API_KEY}"
+      - "SecretKey=${SECRET_KEY}"
+      - "SmtpConfig:From=${SMTP_CONFIG_FROM}"
+      - "SmtpConfig:DisplayName=${SMTP_CONFIG_DISPLAY_NAME}"
+      - "SmtpConfig:UserName=${SMTP_CONFIG_USERNAME}"
+      - "SmtpConfig:Password=${SMTP_CONFIG_PASSWORD}"
+      - "SmtpConfig:SmtpServer=${SMTP_CONFIG_SMTP_SERVER}"
+      - "SmtpConfig:Port=${SMTP_CONFIG_PORT}"
+      - "SmtpConfig:UseSsl=${SMTP_CONFIG_USE_SSL}"
+      - "SmtpConfig:UseDefaultCredentials=${SMTP_CONFIG_USE_DEFAULT_CREDENTIALS}"
+      - "SmtpConfig:IsBodyHtml=${SMTP_CONFIG_IS_BODY_HTML}"
+      - "SmtpConfig:EnableVerification=${SMTP_CONFIG_ENABLE_VERIFICATION}"
+      - "Serilog:Using=${SERILOG_USING}"
+      - "Serilog:MinimumLevel=${SERILOG_MINIMUM_LEVEL}"
+      - "Serilog:WriteTo__0__Name=${SERILOG_WRITETO_NAME}"
+      - "Serilog:WriteTo__0__Args__path=${SERILOG_WRITETO_ARGS_PATH}"
+      - "Serilog:WriteTo__0__Args__rollingInterval=${SERILOG_WRITETO_ARGS_ROLLING_INTERVAL}"
+      - "Serilog:WriteTo__0__Args__rollOnFileSizeLimit=${SERILOG_WRITETO_ARGS_ROLL_ON_FILE_SIZE_LIMIT}"
+      - "Serilog:WriteTo__0__Args__fileSizeLimitBytes=${SERILOG_WRITETO_ARGS_FILE_SIZE_LIMIT_BYTES}"
+      - "Serilog:WriteTo__0__Args__shared=${SERILOG_WRITETO_ARGS_SHARED}"
+      - "AllowedHosts=${ALLOWED_HOSTS}"
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+    ports:
+      - "6009:80"
+    restart: always
+    depends_on:
+        - Post.Service
+
+  Management.Photo.Service:
+    container_name: Management.Photo.Service
+    environment:
+      - "JwtBearerConfig:Issuer=${JWT_BEARER_CONFIG_ISSUER}"
+      - "JwtBearerConfig:Audience=${JWT_BEARER_CONFIG_AUDIENCE}"
+      - "JwtBearerConfig:Key=${JWT_BEARER_CONFIG_KEY}"
+      - "GrpcServiceOptions:SearchPartnersService=${GRPC_SERVICE_OPTIONS_SEARCH_PARTNERS_SERVICE}"
+      - "GrpcServiceOptions:DistanceService=${GRPC_SERVICE_OPTIONS_DISTANCE_SERVICE}"
+      - "GrpcServiceOptions:ApiConfigService=${GRPC_SERVICE_OPTIONS_API_CONFIG_SERVICE}"
+      - "GrpcServiceOptions:AuthenticateService=${GRPC_SERVICE_OPTIONS_AUTHENTICATE_SERVICE}"
+      - "GrpcServiceOptions:PostService=${GRPC_SERVICE_OPTIONS_POST_SERVICE}"
+      - "RedisConfigs:Enable=${REDIS_CONFIGS_ENABLE}"
+      - "RedisConfigs:Host=${REDIS_CONFIGS_HOST}"
+      - "RedisConfigs:Port=${REDIS_CONFIGS_PORT}"
+      - "RedisConfigs:Password=${REDIS_CONFIGS_PASSWORD}"
+      - "RedisConfigs:Expire=${REDIS_CONFIGS_EXPIRE}"
+      - "RedisConfigs:KeyPrefix=${REDIS_CONFIGS_KEYPREFIX}"
+      - "ConsulConfigs:Id=${CONSUL_CONFIGS_ID}"
+      - "ConsulConfigs:ConsulAddress=${CONSUL_CONFIGS_CONSUL_ADDRESS}"
+      - "ConsulConfigs:ServiceAddress=${CONSUL_CONFIGS_SERVICE_ADDRESS}"
+      - "ConsulConfigs:ServicePort=${CONSUL_CONFIGS_SERVICE_PORT}"
+      - "ConsulConfigs:ServiceName=${CONSUL_CONFIGS_SERVICE_NAME}"
+      - "ConsulConfigs:ServiceMetadata=${CONSUL_CONFIGS_SERVICE_METADATA}"
+      - "MinIOConfig:endpoint=${MINIO_CONFIG_ENDPOINT}"
+      - "MinIOConfig:accessKey=${MINIO_CONFIG_ACCESS_KEY}"
+      - "MinIOConfig:secretKey=${MINIO_CONFIG_SECRET_KEY}"
+      - "ApiKey=${API_KEY}"
+      - "SecretKey=${SECRET_KEY}"
+      - "SmtpConfig:From=${SMTP_CONFIG_FROM}"
+      - "SmtpConfig:DisplayName=${SMTP_CONFIG_DISPLAY_NAME}"
+      - "SmtpConfig:UserName=${SMTP_CONFIG_USERNAME}"
+      - "SmtpConfig:Password=${SMTP_CONFIG_PASSWORD}"
+      - "SmtpConfig:SmtpServer=${SMTP_CONFIG_SMTP_SERVER}"
+      - "SmtpConfig:Port=${SMTP_CONFIG_PORT}"
+      - "SmtpConfig:UseSsl=${SMTP_CONFIG_USE_SSL}"
+      - "SmtpConfig:UseDefaultCredentials=${SMTP_CONFIG_USE_DEFAULT_CREDENTIALS}"
+      - "SmtpConfig:IsBodyHtml=${SMTP_CONFIG_IS_BODY_HTML}"
+      - "SmtpConfig:EnableVerification=${SMTP_CONFIG_ENABLE_VERIFICATION}"
+      - "Serilog:Using=${SERILOG_USING}"
+      - "Serilog:MinimumLevel=${SERILOG_MINIMUM_LEVEL}"
+      - "Serilog:WriteTo__0__Name=${SERILOG_WRITETO_NAME}"
+      - "Serilog:WriteTo__0__Args__path=${SERILOG_WRITETO_ARGS_PATH}"
+      - "Serilog:WriteTo__0__Args__rollingInterval=${SERILOG_WRITETO_ARGS_ROLLING_INTERVAL}"
+      - "Serilog:WriteTo__0__Args__rollOnFileSizeLimit=${SERILOG_WRITETO_ARGS_ROLL_ON_FILE_SIZE_LIMIT}"
+      - "Serilog:WriteTo__0__Args__fileSizeLimitBytes=${SERILOG_WRITETO_ARGS_FILE_SIZE_LIMIT_BYTES}"
+      - "Serilog:WriteTo__0__Args__shared=${SERILOG_WRITETO_ARGS_SHARED}"
+      - "AllowedHosts=${ALLOWED_HOSTS}"
+      - "DatabaseConfigs:ConnectionString=n1LMM5JOFyaDPIJ7UvWOHUo2R7/96ziwsXVt4pj9TTD5KYWiQyCM3hg5WS8qg+dgc4iakAhQDluQ0vO2nzOT2mgGWc9NA84Q44+g8Syz2CTIDYm5BT60QixkvFTeeAtFG/gMfWGS3Sn21hzO32gh7hWo7H9fGVb+u9hxeIphMQfMQV2mGqoWn6njFx3dSA8ojELzrG0bSl635KVXAejL0w=="
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+    ports:
+      - "6010:80"
+    restart: always
+    depends_on:
+        - MinioResourceDbFriendzy
+        - MSSQLDbFriendzy
+
+  Authenticate.Service:
+    container_name: Authenticate.Service
+    environment:
+      - "JwtBearerConfig:Issuer=${JWT_BEARER_CONFIG_ISSUER}"
+      - "JwtBearerConfig:Audience=${JWT_BEARER_CONFIG_AUDIENCE}"
+      - "JwtBearerConfig:Key=${JWT_BEARER_CONFIG_KEY}"
+      - "GrpcServiceOptions:SearchPartnersService=${GRPC_SERVICE_OPTIONS_SEARCH_PARTNERS_SERVICE}"
+      - "GrpcServiceOptions:DistanceService=${GRPC_SERVICE_OPTIONS_DISTANCE_SERVICE}"
+      - "GrpcServiceOptions:ApiConfigService=${GRPC_SERVICE_OPTIONS_API_CONFIG_SERVICE}"
+      - "GrpcServiceOptions:AuthenticateService=${GRPC_SERVICE_OPTIONS_AUTHENTICATE_SERVICE}"
+      - "GrpcServiceOptions:PostService=${GRPC_SERVICE_OPTIONS_POST_SERVICE}"
+      - "RedisConfigs:Enable=${REDIS_CONFIGS_ENABLE}"
+      - "RedisConfigs:Host=${REDIS_CONFIGS_HOST}"
+      - "RedisConfigs:Port=${REDIS_CONFIGS_PORT}"
+      - "RedisConfigs:Password=${REDIS_CONFIGS_PASSWORD}"
+      - "RedisConfigs:Expire=${REDIS_CONFIGS_EXPIRE}"
+      - "RedisConfigs:KeyPrefix=${REDIS_CONFIGS_KEYPREFIX}"
+      - "ConsulConfigs:Id=${CONSUL_CONFIGS_ID}"
+      - "ConsulConfigs:ConsulAddress=${CONSUL_CONFIGS_CONSUL_ADDRESS}"
+      - "ConsulConfigs:ServiceAddress=${CONSUL_CONFIGS_SERVICE_ADDRESS}"
+      - "ConsulConfigs:ServicePort=${CONSUL_CONFIGS_SERVICE_PORT}"
+      - "ConsulConfigs:ServiceName=${CONSUL_CONFIGS_SERVICE_NAME}"
+      - "ConsulConfigs:ServiceMetadata=${CONSUL_CONFIGS_SERVICE_METADATA}"
+      - "MinIOConfig:endpoint=${MINIO_CONFIG_ENDPOINT}"
+      - "MinIOConfig:accessKey=${MINIO_CONFIG_ACCESS_KEY}"
+      - "MinIOConfig:secretKey=${MINIO_CONFIG_SECRET_KEY}"
+      - "ApiKey=${API_KEY}"
+      - "SecretKey=${SECRET_KEY}"
+      - "SmtpConfig:From=${SMTP_CONFIG_FROM}"
+      - "SmtpConfig:DisplayName=${SMTP_CONFIG_DISPLAY_NAME}"
+      - "SmtpConfig:UserName=${SMTP_CONFIG_USERNAME}"
+      - "SmtpConfig:Password=${SMTP_CONFIG_PASSWORD}"
+      - "SmtpConfig:SmtpServer=${SMTP_CONFIG_SMTP_SERVER}"
+      - "SmtpConfig:Port=${SMTP_CONFIG_PORT}"
+      - "SmtpConfig:UseSsl=${SMTP_CONFIG_USE_SSL}"
+      - "SmtpConfig:UseDefaultCredentials=${SMTP_CONFIG_USE_DEFAULT_CREDENTIALS}"
+      - "SmtpConfig:IsBodyHtml=${SMTP_CONFIG_IS_BODY_HTML}"
+      - "SmtpConfig:EnableVerification=${SMTP_CONFIG_ENABLE_VERIFICATION}"
+      - "Serilog:Using=${SERILOG_USING}"
+      - "Serilog:MinimumLevel=${SERILOG_MINIMUM_LEVEL}"
+      - "Serilog:WriteTo__0__Name=${SERILOG_WRITETO_NAME}"
+      - "Serilog:WriteTo__0__Args__path=${SERILOG_WRITETO_ARGS_PATH}"
+      - "Serilog:WriteTo__0__Args__rollingInterval=${SERILOG_WRITETO_ARGS_ROLLING_INTERVAL}"
+      - "Serilog:WriteTo__0__Args__rollOnFileSizeLimit=${SERILOG_WRITETO_ARGS_ROLL_ON_FILE_SIZE_LIMIT}"
+      - "Serilog:WriteTo__0__Args__fileSizeLimitBytes=${SERILOG_WRITETO_ARGS_FILE_SIZE_LIMIT_BYTES}"
+      - "Serilog:WriteTo__0__Args__shared=${SERILOG_WRITETO_ARGS_SHARED}"
+      - "AllowedHosts=${ALLOWED_HOSTS}"
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+    ports:
+      - "6011:80"
+    restart: always
+
+  Account.Service:
+    container_name: Account.Service
+    environment:
+      - "JwtBearerConfig:Issuer=${JWT_BEARER_CONFIG_ISSUER}"
+      - "JwtBearerConfig:Audience=${JWT_BEARER_CONFIG_AUDIENCE}"
+      - "JwtBearerConfig:Key=${JWT_BEARER_CONFIG_KEY}"
+      - "GrpcServiceOptions:SearchPartnersService=${GRPC_SERVICE_OPTIONS_SEARCH_PARTNERS_SERVICE}"
+      - "GrpcServiceOptions:DistanceService=${GRPC_SERVICE_OPTIONS_DISTANCE_SERVICE}"
+      - "GrpcServiceOptions:ApiConfigService=${GRPC_SERVICE_OPTIONS_API_CONFIG_SERVICE}"
+      - "GrpcServiceOptions:AuthenticateService=${GRPC_SERVICE_OPTIONS_AUTHENTICATE_SERVICE}"
+      - "GrpcServiceOptions:PostService=${GRPC_SERVICE_OPTIONS_POST_SERVICE}"
+      - "RedisConfigs:Enable=${REDIS_CONFIGS_ENABLE}"
+      - "RedisConfigs:Host=${REDIS_CONFIGS_HOST}"
+      - "RedisConfigs:Port=${REDIS_CONFIGS_PORT}"
+      - "RedisConfigs:Password=${REDIS_CONFIGS_PASSWORD}"
+      - "RedisConfigs:Expire=${REDIS_CONFIGS_EXPIRE}"
+      - "RedisConfigs:KeyPrefix=${REDIS_CONFIGS_KEYPREFIX}"
+      - "ConsulConfigs:Id=${CONSUL_CONFIGS_ID}"
+      - "ConsulConfigs:ConsulAddress=${CONSUL_CONFIGS_CONSUL_ADDRESS}"
+      - "ConsulConfigs:ServiceAddress=${CONSUL_CONFIGS_SERVICE_ADDRESS}"
+      - "ConsulConfigs:ServicePort=${CONSUL_CONFIGS_SERVICE_PORT}"
+      - "ConsulConfigs:ServiceName=${CONSUL_CONFIGS_SERVICE_NAME}"
+      - "ConsulConfigs:ServiceMetadata=${CONSUL_CONFIGS_SERVICE_METADATA}"
+      - "MinIOConfig:endpoint=${MINIO_CONFIG_ENDPOINT}"
+      - "MinIOConfig:accessKey=${MINIO_CONFIG_ACCESS_KEY}"
+      - "MinIOConfig:secretKey=${MINIO_CONFIG_SECRET_KEY}"
+      - "ApiKey=${API_KEY}"
+      - "SecretKey=${SECRET_KEY}"
+      - "SmtpConfig:From=${SMTP_CONFIG_FROM}"
+      - "SmtpConfig:DisplayName=${SMTP_CONFIG_DISPLAY_NAME}"
+      - "SmtpConfig:UserName=${SMTP_CONFIG_USERNAME}"
+      - "SmtpConfig:Password=${SMTP_CONFIG_PASSWORD}"
+      - "SmtpConfig:SmtpServer=${SMTP_CONFIG_SMTP_SERVER}"
+      - "SmtpConfig:Port=${SMTP_CONFIG_PORT}"
+      - "SmtpConfig:UseSsl=${SMTP_CONFIG_USE_SSL}"
+      - "SmtpConfig:UseDefaultCredentials=${SMTP_CONFIG_USE_DEFAULT_CREDENTIALS}"
+      - "SmtpConfig:IsBodyHtml=${SMTP_CONFIG_IS_BODY_HTML}"
+      - "SmtpConfig:EnableVerification=${SMTP_CONFIG_ENABLE_VERIFICATION}"
+      - "Serilog:Using=${SERILOG_USING}"
+      - "Serilog:MinimumLevel=${SERILOG_MINIMUM_LEVEL}"
+      - "Serilog:WriteTo__0__Name=${SERILOG_WRITETO_NAME}"
+      - "Serilog:WriteTo__0__Args__path=${SERILOG_WRITETO_ARGS_PATH}"
+      - "Serilog:WriteTo__0__Args__rollingInterval=${SERILOG_WRITETO_ARGS_ROLLING_INTERVAL}"
+      - "Serilog:WriteTo__0__Args__rollOnFileSizeLimit=${SERILOG_WRITETO_ARGS_ROLL_ON_FILE_SIZE_LIMIT}"
+      - "Serilog:WriteTo__0__Args__fileSizeLimitBytes=${SERILOG_WRITETO_ARGS_FILE_SIZE_LIMIT_BYTES}"
+      - "Serilog:WriteTo__0__Args__shared=${SERILOG_WRITETO_ARGS_SHARED}"
+      - "AllowedHosts=${ALLOWED_HOSTS}"
+      - "DatabaseConfigs:ConnectionString=n1LMM5JOFyaDPIJ7UvWOHUo2R7/96ziwsXVt4pj9TTAuIL3cpV7kbBXcGTbaNNpIyndoxxB6PZz349WrOh8/5aH42q9E1PmM/DFaIjagdnSkeamBrFdAe92TdaCBGmXfz3yeJifWv8izMDH5ch+cH4owoUKEf3XspTqGnqf+pAAEY6C2rP8MnEYkmP55fPnN"
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+    ports:
+      - "6012:80"
+    restart: always
+    depends_on:
+      - MSSQLDbFriendzy
+
+  Matched.Friend.Service:
+    container_name: Matched.Friend.Service
+    environment:
+      - "JwtBearerConfig:Issuer=${JWT_BEARER_CONFIG_ISSUER}"
+      - "JwtBearerConfig:Audience=${JWT_BEARER_CONFIG_AUDIENCE}"
+      - "JwtBearerConfig:Key=${JWT_BEARER_CONFIG_KEY}"
+      - "GrpcServiceOptions:SearchPartnersService=${GRPC_SERVICE_OPTIONS_SEARCH_PARTNERS_SERVICE}"
+      - "GrpcServiceOptions:DistanceService=${GRPC_SERVICE_OPTIONS_DISTANCE_SERVICE}"
+      - "GrpcServiceOptions:ApiConfigService=${GRPC_SERVICE_OPTIONS_API_CONFIG_SERVICE}"
+      - "GrpcServiceOptions:AuthenticateService=${GRPC_SERVICE_OPTIONS_AUTHENTICATE_SERVICE}"
+      - "GrpcServiceOptions:PostService=${GRPC_SERVICE_OPTIONS_POST_SERVICE}"
+      - "RedisConfigs:Enable=${REDIS_CONFIGS_ENABLE}"
+      - "RedisConfigs:Host=${REDIS_CONFIGS_HOST}"
+      - "RedisConfigs:Port=${REDIS_CONFIGS_PORT}"
+      - "RedisConfigs:Password=${REDIS_CONFIGS_PASSWORD}"
+      - "RedisConfigs:Expire=${REDIS_CONFIGS_EXPIRE}"
+      - "RedisConfigs:KeyPrefix=${REDIS_CONFIGS_KEYPREFIX}"
+      - "ConsulConfigs:Id=${CONSUL_CONFIGS_ID}"
+      - "ConsulConfigs:ConsulAddress=${CONSUL_CONFIGS_CONSUL_ADDRESS}"
+      - "ConsulConfigs:ServiceAddress=${CONSUL_CONFIGS_SERVICE_ADDRESS}"
+      - "ConsulConfigs:ServicePort=${CONSUL_CONFIGS_SERVICE_PORT}"
+      - "ConsulConfigs:ServiceName=${CONSUL_CONFIGS_SERVICE_NAME}"
+      - "ConsulConfigs:ServiceMetadata=${CONSUL_CONFIGS_SERVICE_METADATA}"
+      - "MinIOConfig:endpoint=${MINIO_CONFIG_ENDPOINT}"
+      - "MinIOConfig:accessKey=${MINIO_CONFIG_ACCESS_KEY}"
+      - "MinIOConfig:secretKey=${MINIO_CONFIG_SECRET_KEY}"
+      - "ApiKey=${API_KEY}"
+      - "SecretKey=${SECRET_KEY}"
+      - "SmtpConfig:From=${SMTP_CONFIG_FROM}"
+      - "SmtpConfig:DisplayName=${SMTP_CONFIG_DISPLAY_NAME}"
+      - "SmtpConfig:UserName=${SMTP_CONFIG_USERNAME}"
+      - "SmtpConfig:Password=${SMTP_CONFIG_PASSWORD}"
+      - "SmtpConfig:SmtpServer=${SMTP_CONFIG_SMTP_SERVER}"
+      - "SmtpConfig:Port=${SMTP_CONFIG_PORT}"
+      - "SmtpConfig:UseSsl=${SMTP_CONFIG_USE_SSL}"
+      - "SmtpConfig:UseDefaultCredentials=${SMTP_CONFIG_USE_DEFAULT_CREDENTIALS}"
+      - "SmtpConfig:IsBodyHtml=${SMTP_CONFIG_IS_BODY_HTML}"
+      - "SmtpConfig:EnableVerification=${SMTP_CONFIG_ENABLE_VERIFICATION}"
+      - "Serilog:Using=${SERILOG_USING}"
+      - "Serilog:MinimumLevel=${SERILOG_MINIMUM_LEVEL}"
+      - "Serilog:WriteTo__0__Name=${SERILOG_WRITETO_NAME}"
+      - "Serilog:WriteTo__0__Args__path=${SERILOG_WRITETO_ARGS_PATH}"
+      - "Serilog:WriteTo__0__Args__rollingInterval=${SERILOG_WRITETO_ARGS_ROLLING_INTERVAL}"
+      - "Serilog:WriteTo__0__Args__rollOnFileSizeLimit=${SERILOG_WRITETO_ARGS_ROLL_ON_FILE_SIZE_LIMIT}"
+      - "Serilog:WriteTo__0__Args__fileSizeLimitBytes=${SERILOG_WRITETO_ARGS_FILE_SIZE_LIMIT_BYTES}"
+      - "Serilog:WriteTo__0__Args__shared=${SERILOG_WRITETO_ARGS_SHARED}"
+      - "AllowedHosts=${ALLOWED_HOSTS}"
+      - "DatabaseConfigs:ConnectionString=hgHRo4D1vCQ23uDYkoTaQzgfyZvJ0iA3+d3Q+s2z2vvipp+7jlnytqZbf6eRhSq8To6g/07pO0vSxplubGwgWMD56hxth7WZGHG63mFiDVbGhWHu6efUTDCj6SkJ+CCn"
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=${ASPNETCORE_URLS}
+    ports:
+      - "6013:80"
+    restart: always
+    depends_on:
+        - MysqlDbFriendzy
+

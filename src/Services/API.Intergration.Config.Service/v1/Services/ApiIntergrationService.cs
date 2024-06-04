@@ -9,13 +9,12 @@ IWorkContextAccessor workContextAccessor, ILogger logger) : ApiConfigGrpcBase
     public override async Task<ApiIntConfigReply> GetApiIntConfig(ApiIntConfigRequest request, ServerCallContext context)
     {
         _logger.Information($"BEGIN: GetApiIntConfig REQUEST --> {JsonSerializer.Serialize(request)} <--");
-
         DapperCommand command = new()
         {
             CommandText = CustomSqlQuery.GetUserIntConfig,
             Parameters = new
             {
-                userID = workContextAccessor!.WorkContext!.UserId!,
+                userID = 1, //change after
                 partnercode = request.PartnerCode,
                 partnertype = request.PartnerType
             }

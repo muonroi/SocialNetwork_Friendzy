@@ -20,4 +20,8 @@ public interface IApiExternalClient
     [Header(HeaderConstants.MethodKey, "verify-account")]
     [Post]
     Task<ExternalApiResponse<AccountDataDTO>> VerifyAccountAsync([Body] AccountRequestBase accountRequestBase, CancellationToken cancellationtoken);
+
+    [Header(HeaderConstants.MethodKey, "create-account")]
+    [Post]
+    Task<ExternalApiResponse<AccountDataDTO>> CreateAccountAsync([Body] CreateAccountDto accountData, CancellationToken cancellationtoken);
 }
