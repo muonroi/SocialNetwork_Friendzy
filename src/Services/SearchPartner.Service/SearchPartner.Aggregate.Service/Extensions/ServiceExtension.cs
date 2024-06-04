@@ -25,7 +25,7 @@ public static class ServiceExtension
         configuration.GetSection(nameof(GrpcServiceOptions)).Bind(grpcServiceOptions);
 
         ServiceProvider serviceProvider = services.BuildServiceProvider();
-        // required set up workcontext for GrpcClientInterceptor in project TCIS.gRPC.Interceptor.Extensions
+        Console.Write(string.Join(",", grpcServiceOptions));
         _ = services.AddGrpcClientDelegate(() =>
         {
             IWorkContextAccessor doWorkContext = serviceProvider.GetRequiredService<IWorkContextAccessor>();
@@ -34,11 +34,30 @@ public static class ServiceExtension
 
         _ = services.AddGrpcClientInterceptor<DistanceServiceClient>(grpcServiceOptions, ServiceConstants.DistanceService, environment)
               .AddConsulMessageHandler(environment);
+
         _ = services.AddGrpcClientInterceptor<SearchPartnerServiceClient>(grpcServiceOptions, ServiceConstants.SearchPartnersService, environment)
                 .AddConsulMessageHandler(environment);
+
         _ = services.AddGrpcClientInterceptor<ApiConfigGrpcClient>(grpcServiceOptions, ServiceConstants.ApiConfigService, environment)
               .AddConsulMessageHandler(environment);
+
         return services;
+    }
+
+    private static string ServiceUri(Dictionary<string, string> grpcServiceOptions, string serviceName, IWebHostEnvironment environment)
+    {
+        string defaultProtocol = "http";
+
+        if (grpcServiceOptions.TryGetValue(serviceName, out string? serviceUri))
+        {
+            if (!environment.IsDevelopment())
+            {
+                serviceUri = $"{defaultProtocol}://{serviceUri}";
+            }
+        }
+        return string.IsNullOrEmpty(serviceUri)
+            ? throw new KeyNotFoundException($"Service '{serviceName}' not found in grpcServiceOptions dictionary.")
+            : serviceUri;
     }
 
     private static IHttpClientBuilder AddConsulMessageHandler(this IHttpClientBuilder builder, IWebHostEnvironment environment)

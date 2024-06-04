@@ -8,7 +8,7 @@ public static class CustomSqlQuery
                                                 ui.partner_type AS PartnerType,
                                                 jsonb_agg(jsonb_build_object('MethodKey', ui.method_key, 'MethodValue', ui.method_value)) AS MethodGroup
                                             FROM
-                                                user_info.""user"".user_infomation_config ui
+                                                ""userinfodb"".""user"".user_infomation_config ui
                                             WHERE
                                                 ui.is_deleted = false
                                                 AND ui.user_id = @userID

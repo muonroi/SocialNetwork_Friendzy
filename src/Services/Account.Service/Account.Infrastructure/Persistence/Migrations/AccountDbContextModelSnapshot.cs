@@ -74,6 +74,13 @@ namespace Account.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("RefreshTokenExpiryTime")
+                        .HasColumnType("float");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 

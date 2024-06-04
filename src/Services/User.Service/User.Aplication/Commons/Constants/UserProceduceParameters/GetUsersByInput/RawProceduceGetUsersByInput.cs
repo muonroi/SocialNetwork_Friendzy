@@ -6,6 +6,7 @@ public class RawProceduceGetUsersByInput
                                     @Input varchar(50)
                                     AS
                                     BEGIN
+                                        -- Tạo bảng tạm để lưu kết quả tìm kiếm
                                         CREATE TABLE #TempUserResult (
                                             FirstName varchar(50),
                                             LastName varchar(50),
@@ -21,31 +22,37 @@ public class RawProceduceGetUsersByInput
                                             PhoneNumber varchar(20),
                                             AccountGuid uniqueidentifier
                                         )
-
+                                    
+                                        -- Chèn dữ liệu từ bảng Users vào bảng tạm
                                         INSERT INTO #TempUserResult
-                                        SELECT u.FirstName,
+                                        SELECT 
+                                            u.FirstName,
                                             u.LastName,
-                                            u.Address,
+                                            u.[Address],
                                             u.ProfileImagesUrl,
                                             u.Birthdate,
                                             u.EmailAddress,
                                             u.Gender,
-                                            u.id,
+                                            u.Id,
                                             u.Latitude,
                                             u.Longtitude,
                                             u.AvatarUrl,
                                             u.PhoneNumber,
                                             u.AccountGuid
-                                        FROM Users u LEFT JOIN Accounts acc on u.AccountGuid = acc.Id
-
+                                        FROM Users u 
+                                    
+                                        -- Truy vấn các bản ghi từ bảng tạm theo điều kiện PhoneNumber
                                         SELECT * FROM #TempUserResult
                                         WHERE PhoneNumber IN (SELECT value FROM STRING_SPLIT(@Input, ','))
-
+                                    
                                         UNION ALL
-
+                                    
+                                        -- Truy vấn các bản ghi từ bảng tạm theo điều kiện Id
                                         SELECT * FROM #TempUserResult
-                                        WHERE id IN (SELECT value FROM STRING_SPLIT(@Input, ','))
-
+                                        WHERE Id IN (SELECT value FROM STRING_SPLIT(@Input, ','))
+                                    
+                                        -- Xóa bảng tạm
                                         DROP TABLE #TempUserResult
-                                    END";
+                                    END
+                                    ";
 }

@@ -23,5 +23,10 @@ namespace Account.Application.DTOs
         public AccountStatus Status { get; set; }
 
         public string Roles { get; set; } = string.Empty;
+
+        public string RefreshToken { get; set; } = string.Empty;
+
+        public double RefreshTokenExpiryTime { get; set; }
+
     }
 }

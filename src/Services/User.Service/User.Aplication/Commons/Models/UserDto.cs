@@ -13,10 +13,13 @@ public record UserDto : IMapFrom<UserEntity>
     public string AvatarUrl { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
     public IEnumerable<string> ProfileImages { get; set; } = [];
-    public double Longtitude { get; set; }
+    public double Longitude { get; set; }
     public double Latitude { get; set; }
     public Gender Gender { get; set; }
     public long? Birthdate { get; set; }
     public Guid AccountGuid { get; set; }
+
+    public required string CategoryId { get; set; }
+
 
 }

@@ -28,6 +28,7 @@ public class UserDbContextSeed(ILogger logger, UserDbContext context)
         {
             await TrySeedAsync();
             _ = await _context.SaveChangesAsync(new CancellationToken());
+            await PostSeedProcessAsync();
         }
         catch (Exception ex)
         {
@@ -36,7 +37,7 @@ public class UserDbContextSeed(ILogger logger, UserDbContext context)
         }
     }
 
-    public async Task TrySeedAsync()
+    private async Task TrySeedAsync()
     {
         if (!_context.Users.Any())
         {
@@ -54,7 +55,8 @@ public class UserDbContextSeed(ILogger logger, UserDbContext context)
                         ""Latitude"": -74.006,
                         ""Gender"": ""Male"",
                         ""Birthdate"": 955548496,
-                        ""AccountGuid"": ""123e4567-e89b-12d3-a456-426614174000""
+                        ""AccountGuid"": ""123e4567-e89b-12d3-a456-426614174000"",
+                        ""CategoryId"": ""1,3"",
                     },
                     {
                         ""FirstName"": ""Jane"",
@@ -68,7 +70,8 @@ public class UserDbContextSeed(ILogger logger, UserDbContext context)
                         ""Latitude"": -118.2437,
                         ""Gender"": ""Female"",
                         ""Birthdate"": 955658496,
-                        ""AccountGuid"": ""223e4567-e89b-12d3-a456-426614174001""
+                        ""AccountGuid"": ""223e4567-e89b-12d3-a456-426614174001"",
+                        ""CategoryId"": ""1,2"",
                     },
                     {
                         ""FirstName"": ""Michael"",
@@ -82,7 +85,8 @@ public class UserDbContextSeed(ILogger logger, UserDbContext context)
                         ""Latitude"": -0.1278,
                         ""Gender"": ""Male"",
                         ""Birthdate"": 988668496,
-                        ""AccountGuid"": ""323e4567-e89b-12d3-a456-426614174002""
+                        ""AccountGuid"": ""323e4567-e89b-12d3-a456-426614174002"",
+                        ""CategoryId"": ""1,2"",
                     },
                     {
                         ""FirstName"": ""Emily"",
@@ -96,7 +100,8 @@ public class UserDbContextSeed(ILogger logger, UserDbContext context)
                         ""Latitude"": 4.8945,
                         ""Gender"": ""Female"",
                         ""Birthdate"": 988987496,
-                        ""AccountGuid"": ""423e4567-e89b-12d3-a456-426614174003""
+                        ""AccountGuid"": ""423e4567-e89b-12d3-a456-426614174003"",
+                        ""CategoryId"": ""3,2"",
                     },
                     {
                         ""FirstName"": ""David"",
@@ -110,7 +115,8 @@ public class UserDbContextSeed(ILogger logger, UserDbContext context)
                         ""Latitude"": 2.3522,
                         ""Gender"": ""Male"",
                         ""Birthdate"": 988487496,
-                        ""AccountGuid"": ""523e4567-e89b-12d3-a456-426614174004""
+                        ""AccountGuid"": ""523e4567-e89b-12d3-a456-426614174004"",
+                        ""CategoryId"": ""3,1"",
                     }
                 ]
 ";
@@ -123,5 +129,127 @@ public class UserDbContextSeed(ILogger logger, UserDbContext context)
             // Save changes to the database
             _ = await _context.SaveChangesAsync(new CancellationToken());
         }
+    }
+
+    private async Task PostSeedProcessAsync()
+    {
+        _logger.Information("Data seeding completed successfully.");
+
+        string createProcedureGetUserByInputQuery = @"
+                CREATE PROC GetUserByInput
+                @Input varchar(50)
+                AS
+                BEGIN
+                    -- Tạo bảng tạm để lưu kết quả tìm kiếm
+                    CREATE TABLE #TempUserResult (
+                        FirstName varchar(50),
+                        LastName varchar(50),
+                        [Address] varchar(255),
+                        ProfileImagesUrl varchar(255),
+                        Birthdate bigint,
+                        EmailAddress varchar(100),
+                        Gender int,
+                        Id bigint,
+                        Latitude decimal(10, 6),
+                        Longitude decimal(10, 6),
+                        AvatarUrl varchar(255),
+                        PhoneNumber varchar(20),
+                        AccountGuid uniqueidentifier
+                    )
+                
+                    -- Chèn dữ liệu từ bảng Users vào bảng tạm
+                    INSERT INTO #TempUserResult
+                    SELECT 
+                        u.FirstName,
+                        u.LastName,
+                        u.[Address],
+                        u.ProfileImagesUrl,
+                        u.Birthdate,
+                        u.EmailAddress,
+                        u.Gender,
+                        u.Id,
+                        u.Latitude,
+                        u.Longitude,
+                        u.AvatarUrl,
+                        u.PhoneNumber,
+                        u.AccountGuid
+                    FROM Users u
+                
+                    -- Truy vấn các bản ghi từ bảng tạm theo nhiều điều kiện
+                    SELECT * FROM #TempUserResult WHERE LastName LIKE @Input + '%'
+                    UNION ALL
+                    SELECT * FROM #TempUserResult WHERE FirstName LIKE @Input + '%'
+                    UNION ALL
+                    SELECT * FROM #TempUserResult WHERE EmailAddress = @Input
+                    UNION ALL
+                    SELECT * FROM #TempUserResult WHERE PhoneNumber = @Input
+                    UNION ALL
+                    SELECT * FROM #TempUserResult WHERE Id = TRY_CONVERT(int, @Input)
+                
+                    -- Xóa bảng tạm
+                    DROP TABLE #TempUserResult
+                END
+";
+
+        string createProcedureGetUsersByInputQuery = @"
+                    CREATE PROC GetUsersByInput
+                        @Input varchar(50)
+                    AS
+                    BEGIN
+                        -- Tạo bảng tạm để lưu kết quả tìm kiếm
+                        CREATE TABLE #TempUserResult (
+                            FirstName varchar(50),
+                            LastName varchar(50),
+                            [Address] varchar(255),
+                            ProfileImagesUrl varchar(255),
+                            Birthdate bigint,
+                            EmailAddress varchar(100),
+                            Gender int,
+                            Id bigint,
+                            Latitude decimal(10, 6),
+                            Longitude decimal(10, 6),
+                            AvatarUrl varchar(255),
+                            PhoneNumber varchar(20),
+                            AccountGuid uniqueidentifier
+                        )
+                    
+                        -- Chèn dữ liệu từ bảng Users vào bảng tạm
+                        INSERT INTO #TempUserResult
+                        SELECT 
+                            u.FirstName,
+                            u.LastName,
+                            u.[Address],
+                            u.ProfileImagesUrl,
+                            u.Birthdate,
+                            u.EmailAddress,
+                            u.Gender,
+                            u.Id,
+                            u.Latitude,
+                            u.Longitude,
+                            u.AvatarUrl,
+                            u.PhoneNumber,
+                            u.AccountGuid
+                        FROM Users u 
+                    
+                        -- Truy vấn các bản ghi từ bảng tạm theo điều kiện PhoneNumber
+                        SELECT * FROM #TempUserResult
+                        WHERE PhoneNumber IN (SELECT value FROM STRING_SPLIT(@Input, ','))
+                    
+                        UNION ALL
+                    
+                        -- Truy vấn các bản ghi từ bảng tạm theo điều kiện Id
+                        SELECT * FROM #TempUserResult
+                        WHERE Id IN (SELECT value FROM STRING_SPLIT(@Input, ','))
+                    
+                        -- Xóa bảng tạm
+                        DROP TABLE #TempUserResult
+                    END
+                    ";
+
+
+        _ = await _context.Database.ExecuteSqlRawAsync(createProcedureGetUsersByInputQuery);
+
+        _ = await _context.Database.ExecuteSqlRawAsync(createProcedureGetUserByInputQuery);
+
     }
 }

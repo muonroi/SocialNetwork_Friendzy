@@ -27,7 +27,8 @@ public static class GrpcExtensions
         return services;
     }
 
-    public static IHttpClientBuilder AddGrpcClientInterceptor<TClient>(this IServiceCollection services
+    public static IHttpClientBuilder AddGrpcClientInterceptor<
+    TClient>(this IServiceCollection services
            , Dictionary<string, string> grpcServiceOptions
            , string serviceName, IWebHostEnvironment environment) where TClient : class
     {
@@ -78,6 +79,59 @@ public static class GrpcExtensions
          .AddInterceptor<GrpcClientInterceptor>(InterceptorScope.Client);
     }
 
+    public static void AddGrpcClientInterceptor2<
+    TClient>(this IServiceCollection services
+           , Dictionary<string, string> grpcServiceOptions
+           , string serviceName, IWebHostEnvironment environment)
+    {
+        _ = ServiceUri(grpcServiceOptions, serviceName, environment);
+
+        //return services.AddGrpcClient<TClient>(serviceName, o =>
+        //{
+        //    AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+        //    AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2Support", true);
+        //    o.Address = new Uri(serviceUri);
+        //    MethodConfig defaultMethodConfig = new()
+        //    {
+        //        Names = { MethodName.Default },
+        //        RetryPolicy = new RetryPolicy
+        //        {
+        //            MaxAttempts = 2,
+        //            InitialBackoff = TimeSpan.FromSeconds(3),
+        //            MaxBackoff = TimeSpan.FromSeconds(3),
+        //            BackoffMultiplier = 1,
+        //            RetryableStatusCodes =
+        //                {
+        //                   StatusCode.NotFound,
+        //                   StatusCode.Unavailable,
+        //                }
+        //        }
+        //    };
+        //    o.ChannelOptionsActions.Add(options =>
+        //    {
+        //        options.DisposeHttpClient = true;
+        //        options.MaxSendMessageSize = 100 * 1024 * 1024;
+        //        options.MaxReceiveMessageSize = 100 * 1024 * 1024;
+        //        options.ServiceConfig = new ServiceConfig { MethodConfigs = { defaultMethodConfig } };
+        //    });
+        //})
+        // .EnableCallContextPropagation(
+        //     o => o.SuppressContextNotFoundErrors = true
+        // )
+        // .ConfigurePrimaryHttpMessageHandler(() =>
+        // {
+        //     HttpClientHandler handler = new()
+        //     {
+        //         MaxConnectionsPerServer = 300,
+        //         AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
+        //         ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+        //     };
+        //     return handler;
+        // })
+        // .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+        // .AddInterceptor<GrpcClientInterceptor>(InterceptorScope.Client);
+    }
+
     private static string ServiceUri(Dictionary<string, string> grpcServiceOptions, string serviceName, IWebHostEnvironment environment)
     {
         string defaultProtocol = "http";
@@ -93,6 +147,8 @@ public static class GrpcExtensions
             ? throw new KeyNotFoundException($"Service '{serviceName}' not found in grpcServiceOptions dictionary.")
             : serviceUri;
     }
+
+
 
     public static string GetByKey(this Metadata metadata, string key)
     {

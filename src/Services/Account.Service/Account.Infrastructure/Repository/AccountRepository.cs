@@ -114,7 +114,8 @@ public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnit
             return false;
         }
         _logger.Information($"BEGIN: UpdateAccountAsync REQUEST --> {JsonConvert.SerializeObject(account)} <-- REQUEST");
-
+        accountResult.RefreshToken = account.RefreshToken;
+        accountResult.RefreshTokenExpiryTime = account.RefreshTokenExpiryTime;
         accountResult.AccountType = account.AccountType;
         accountResult.Currency = account.Currency;
         accountResult.LockReason = account.LockReason;

@@ -6,10 +6,13 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{07A357DB-E126-4B77-827F-07BA30462E9E}"
 	ProjectSection(SolutionItems) = preProject
 		SolutionItems\.dockerignore = SolutionItems\.dockerignore
+		src\.env = src\.env
 		SolutionItems\.gitattributes = SolutionItems\.gitattributes
 		.gitignore = .gitignore
+		src\docker-compose.override.yml = src\docker-compose.override.yml
+		src\docker-compose.push.yml = src\docker-compose.push.yml
 		src\docker-compose.yml = src\docker-compose.yml
-		src\docker-override-compose.yml = src\docker-override-compose.yml
+		docker_develop.yml = docker_develop.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E4848414-3A13-4195-A766-6453182A4BB2}"
@@ -38,35 +41,35 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExternalAPI", "src\Building
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{570F558C-C0EA-4ADF-A042-056291323E11}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Account.Service", "Account.Service", "{34B0CD8A-A045-42D2-BB66-01838FF61E16}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Account", "Account", "{34B0CD8A-A045-42D2-BB66-01838FF61E16}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API.Intergration.Config.Service", "API.Intergration.Config.Service", "{5B6CC274-7997-49F3-80AF-5C26A1293393}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API.Intergration.Config", "API.Intergration.Config", "{5B6CC274-7997-49F3-80AF-5C26A1293393}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authenticate.Service", "Authenticate.Service", "{D0A48A27-EF73-4630-A849-AB9092532D5A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authenticate", "Authenticate", "{D0A48A27-EF73-4630-A849-AB9092532D5A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Distance.Service", "Distance.Service", "{980A96FF-E843-41F6-9083-FCF6E331EDD8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Distance", "Distance", "{980A96FF-E843-41F6-9083-FCF6E331EDD8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hangfire.Service", "Hangfire.Service", "{0C72C54B-8AC5-4B64-B8AB-D00AF8950E87}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hangfire", "Hangfire", "{0C72C54B-8AC5-4B64-B8AB-D00AF8950E87}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management.Photo.Service", "Management.Photo.Service", "{5912870D-A7A9-4DF2-8ACA-AB0C9D25C8ED}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management.Photo", "Management.Photo", "{5912870D-A7A9-4DF2-8ACA-AB0C9D25C8ED}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Matched.Friend.Service", "Matched.Friend.Service", "{47B59876-4EC5-4C0A-9655-33FBDFA0E66A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Matched.Friend", "Matched.Friend", "{47B59876-4EC5-4C0A-9655-33FBDFA0E66A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Post.Service", "Post.Service", "{DA9F3480-A031-4DCF-A3B1-7F8516CC78A4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Post", "Post", "{DA9F3480-A031-4DCF-A3B1-7F8516CC78A4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchPartnert.Service", "SearchPartnert.Service", "{6D448DD1-CAD8-4843-9EFF-9779CA335422}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchPartner", "SearchPartner", "{6D448DD1-CAD8-4843-9EFF-9779CA335422}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setting.Service", "Setting.Service", "{D81BA5D2-34B8-48F6-BAC2-381E8658D164}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setting", "Setting", "{D81BA5D2-34B8-48F6-BAC2-381E8658D164}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User.Service", "User.Service", "{DADFD80B-C5FD-4524-BE3D-6D7C397E61C6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{DADFD80B-C5FD-4524-BE3D-6D7C397E61C6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Post.Aggregate.Service", "Post.Aggregate.Service", "{B2D02C83-CB09-4D46-9A63-D75259D89872}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Post.Aggregate", "Post.Aggregate", "{B2D02C83-CB09-4D46-9A63-D75259D89872}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Post.Service", "Post.Service", "{CB75A96F-6153-4B46-9EDF-6C57F80E7282}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Post", "Post", "{CB75A96F-6153-4B46-9EDF-6C57F80E7282}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchPartners.Aggregate.Service", "SearchPartners.Aggregate.Service", "{C088FF83-79D6-4F7B-9F00-F19E59774435}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchPartners.Aggregate", "SearchPartners.Aggregate", "{C088FF83-79D6-4F7B-9F00-F19E59774435}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchPartners.Service", "SearchPartners.Service", "{7AAA9389-07C9-4D21-B704-E925C36D6328}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchPartner", "SearchPartner", "{7AAA9389-07C9-4D21-B704-E925C36D6328}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.Service", "src\Services\User.Service\User.Service\User.Service.csproj", "{55674524-FC61-4937-83CB-5E93E2A8DAD9}"
 EndProject
@@ -83,10 +86,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Setting.Domain", "src\Services\Setting.Service\Setting.Domain\Setting.Domain.csproj", "{7FD7B912-C4CC-4A99-953B-3FE5F914A174}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Setting.Application", "src\Services\Setting.Service\Setting.Application\Setting.Application.csproj", "{8A170841-449A-4340-BC36-2265DD4E85F1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchPartners.Service", "src\Services\SearchPartnert.Service\SearchPartners.Service\SearchPartners.Service.csproj", "{E18747C0-66B4-49A4-8234-A928250945F3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchPartners.Aggregate.Service", "src\Services\SearchPartnert.Service\SearchPartners.Aggregate.Service\SearchPartners.Aggregate.Service.csproj", "{56F7C634-2B6B-498A-B133-D3C08F1E415A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Post.Service", "src\Services\Post.Service\Post.Service\Post.Service\Post.Service.csproj", "{03E0D446-64BA-4090-841D-88638976C89D}"
 EndProject
@@ -129,6 +128,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Domain", "src\Services\Account.Service\Account.Domain\Account.Domain.csproj", "{EF3762E6-BFB6-48B0-8464-59F50AB700A2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Application", "src\Services\Account.Service\Account.Application\Account.Application.csproj", "{F756096F-C6CB-429A-859A-9C004AACE911}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchPartners.Service", "src\Services\SearchPartner.Service\SearchPartner.Service\SearchPartners.Service.csproj", "{4DACCAFB-5E71-4008-9DB3-BB565EFE166B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchPartners.Aggregate.Service", "src\Services\SearchPartner.Service\SearchPartner.Aggregate.Service\SearchPartners.Aggregate.Service.csproj", "{8F7DB56F-F9DC-40EF-B409-48BBB9DEDD6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -196,14 +199,6 @@ Global
 		{8A170841-449A-4340-BC36-2265DD4E85F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A170841-449A-4340-BC36-2265DD4E85F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A170841-449A-4340-BC36-2265DD4E85F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E18747C0-66B4-49A4-8234-A928250945F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E18747C0-66B4-49A4-8234-A928250945F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E18747C0-66B4-49A4-8234-A928250945F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E18747C0-66B4-49A4-8234-A928250945F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{56F7C634-2B6B-498A-B133-D3C08F1E415A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56F7C634-2B6B-498A-B133-D3C08F1E415A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56F7C634-2B6B-498A-B133-D3C08F1E415A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56F7C634-2B6B-498A-B133-D3C08F1E415A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{03E0D446-64BA-4090-841D-88638976C89D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{03E0D446-64BA-4090-841D-88638976C89D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03E0D446-64BA-4090-841D-88638976C89D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -288,6 +283,14 @@ Global
 		{F756096F-C6CB-429A-859A-9C004AACE911}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F756096F-C6CB-429A-859A-9C004AACE911}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F756096F-C6CB-429A-859A-9C004AACE911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DACCAFB-5E71-4008-9DB3-BB565EFE166B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DACCAFB-5E71-4008-9DB3-BB565EFE166B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DACCAFB-5E71-4008-9DB3-BB565EFE166B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DACCAFB-5E71-4008-9DB3-BB565EFE166B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F7DB56F-F9DC-40EF-B409-48BBB9DEDD6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F7DB56F-F9DC-40EF-B409-48BBB9DEDD6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F7DB56F-F9DC-40EF-B409-48BBB9DEDD6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F7DB56F-F9DC-40EF-B409-48BBB9DEDD6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -327,8 +330,6 @@ Global
 		{21F54AA7-B590-442D-A59D-2D48BEB235EB} = {D81BA5D2-34B8-48F6-BAC2-381E8658D164}
 		{7FD7B912-C4CC-4A99-953B-3FE5F914A174} = {D81BA5D2-34B8-48F6-BAC2-381E8658D164}
 		{8A170841-449A-4340-BC36-2265DD4E85F1} = {D81BA5D2-34B8-48F6-BAC2-381E8658D164}
-		{E18747C0-66B4-49A4-8234-A928250945F3} = {7AAA9389-07C9-4D21-B704-E925C36D6328}
-		{56F7C634-2B6B-498A-B133-D3C08F1E415A} = {C088FF83-79D6-4F7B-9F00-F19E59774435}
 		{03E0D446-64BA-4090-841D-88638976C89D} = {CB75A96F-6153-4B46-9EDF-6C57F80E7282}
 		{0594BC4C-4809-4260-AF23-23EE8069B532} = {CB75A96F-6153-4B46-9EDF-6C57F80E7282}
 		{BFCA6E78-8E6E-46FE-A3F2-835D71F126B1} = {CB75A96F-6153-4B46-9EDF-6C57F80E7282}
@@ -350,6 +351,8 @@ Global
 		{7656FF61-F136-4882-8582-1673DEC8D2BC} = {34B0CD8A-A045-42D2-BB66-01838FF61E16}
 		{EF3762E6-BFB6-48B0-8464-59F50AB700A2} = {34B0CD8A-A045-42D2-BB66-01838FF61E16}
 		{F756096F-C6CB-429A-859A-9C004AACE911} = {34B0CD8A-A045-42D2-BB66-01838FF61E16}
+		{4DACCAFB-5E71-4008-9DB3-BB565EFE166B} = {7AAA9389-07C9-4D21-B704-E925C36D6328}
+		{8F7DB56F-F9DC-40EF-B409-48BBB9DEDD6D} = {C088FF83-79D6-4F7B-9F00-F19E59774435}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {70492B5C-778F-4934-AF28-85BA58775A20}

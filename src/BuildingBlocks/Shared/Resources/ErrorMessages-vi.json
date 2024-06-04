@@ -7,5 +7,6 @@
   "PartnersNotFound": "Hiện không có người dùng gần bạn",
   "AccountNotFound": "Không tìm thấy thông tin tài khoản",
   "FriendsMatchedsNotFound": "Không tìm thấy bạn bè với hành động {0} phù hợp",
-  "UserIsMatched": "Người dùng này đã được {0}"
+  "UserIsMatched": "Người dùng này đã được {0}",
+  "UserHasRegisted": "Số điện thoại {0} đã được đăng kí"
 }

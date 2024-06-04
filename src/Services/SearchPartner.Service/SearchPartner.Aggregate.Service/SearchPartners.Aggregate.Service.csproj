@@ -1,18 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..\..</DockerfileContext>
+  </PropertyGroup>
 
-  <Import Project="..\..\..\BuildingBlocks\Commons\Directory.Packages.props" />
-
-  <ItemGroup>
-    <Content Remove="appsettings.Development.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Protos\ApiConfig.proto" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="appsettings.Development.json" />
-  </ItemGroup>
+  <!--<Import Project="..\..\..\BuildingBlocks\Commons\Directory.Packages.props" />-->
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\Commons\Commons.csproj" />
@@ -21,21 +19,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    
+    <PackageReference Include="Grpc.AspNetCore" Version="2.62.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+
     <Protobuf Include="..\..\API.Intergration.Config.Service\v1\Protos\apiConfig.proto" GrpcServices="Client">
       <Link>Protos\apiConfig.proto</Link>
     </Protobuf>
+
     <Protobuf Include="..\..\Distance.Service\Protos\distance.proto" GrpcServices="Client">
       <Link>Protos\distance.proto</Link>
     </Protobuf>
-    <Protobuf Include="..\SearchPartners.Service\Protos\searchPartners.proto" GrpcServices="Client">
+    
+    <Protobuf Include="..\SearchPartner.Service\Protos\searchPartners.proto" GrpcServices="Client">
       <Link>Protos\searchPartners.proto</Link>
     </Protobuf>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="DocumentFormat.OpenXml" />
-    <PackageReference Include="Grpc.AspNetCore" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,13 @@
+services:
+    MysqlFriendzyDevelop:
+        image: mysql:8.0.29
+        volumes:
+            - mysql_data_friendzy_develop:/var/lib/mysql_data_friendzy_develop/data
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: "0967442142Az*"
+        ports:
+            - "3306:3306"
+volumes:
+    mysql_data_friendzy_develop:
+        name: mysql_data_friendzy_develop

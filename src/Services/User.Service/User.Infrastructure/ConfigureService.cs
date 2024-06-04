@@ -15,7 +15,7 @@ public static class ConfigureService
         });
         _ = services.AddScoped<UserDbContextSeed>();
         _ = services.AddScoped(typeof(IRepositoryBaseAsync<,,>), typeof(RepositoryBaseAsync<,,>));
-        _ = services.AddScoped<IUserRepository, UserRepository>();
+        _ = services.AddTransient<IUserRepository, UserRepository>();
         _ = services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
         _ = services.AddScoped(typeof(ISmtpEmailService), typeof(SmtpEmailService));
         return services;
