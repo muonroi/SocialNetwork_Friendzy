@@ -1,6 +1,4 @@
-﻿using Infrastructure.Middleware;
-
-namespace Post.Aggregate.Service.Infrastructure.Endpoints;
+﻿namespace Post.Aggregate.Service.Infrastructure.Endpoints;
 
 internal static class EndpointConfigure
 {

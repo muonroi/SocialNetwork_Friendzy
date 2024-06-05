@@ -1,6 +1,5 @@
-﻿namespace User.Application.Feature.v1.Users.Commands.UserRegisterCommand
+﻿namespace User.Application.Feature.v1.Users.Commands.UserRegisterCommand;
+
+public class UserRegisterCommandValidator
 {
-    public class UserRegisterCommandValidator
-    {
-    }
 }

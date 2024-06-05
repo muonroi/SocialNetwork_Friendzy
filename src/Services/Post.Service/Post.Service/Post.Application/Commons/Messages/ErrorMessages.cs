@@ -1,4 +1,4 @@
-﻿namespace Post.Application.Commons.ErrorMessages;
+﻿namespace Post.Application.Commons.Messages;
 
 public enum ErrorMessages
 {

@@ -78,10 +78,10 @@ public class DistanceDbContextSeed(ILogger logger, DistanceDbContext context)
         }
         _ = await _context.SaveChangesAsync(new CancellationToken());
     }
+
     private async Task DistanceSeedProcessAsync()
     {
         _logger.Information("Data seeding completed successfully.");
-
 
         string createProcedureGetDistanceByCountry = @"
                 CREATE PROC GetDistanceByCountry
@@ -105,7 +105,6 @@ public class DistanceDbContextSeed(ILogger logger, DistanceDbContext context)
             FETCH NEXT @PageSize ROWS ONLY;
         END;
 ";
-
 
         string createProcedureGetDistanceByCountryCount = @"
                 CREATE PROC GetDistanceByCountryCount

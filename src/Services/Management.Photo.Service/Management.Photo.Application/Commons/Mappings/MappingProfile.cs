@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using System.Reflection;
-
-namespace Management.Photo.Application.Commons.Mappings;
+﻿namespace Management.Photo.Application.Commons.Mappings;
 
 public class MappingProfile : Profile
 {

@@ -2,9 +2,8 @@
 
 public static class CustomSqlQuery
 {
-
     public const string GetImageByType = @"
-                                            SELECT 
+                                            SELECT
                                                 sti.Id,
                                                 sti.StoreName,
                                                 sti.StoreDescription,
@@ -13,18 +12,17 @@ public static class CustomSqlQuery
                                                 sti.StoreInfoType,
                                                 be.BucketName,
                                                 be.BucketDescription
-                                            FROM 
+                                            FROM
                                                 StoreInfoEntities sti
-                                            LEFT JOIN 
-                                                BucketEntities be 
-                                            ON 
+                                            LEFT JOIN
+                                                BucketEntities be
+                                            ON
                                                 sti.BucketId = be.Id
-                                            WHERE 
+                                            WHERE
                                                 sti.UserId = @userId
                                                 AND be.Id =  @bucketId
                                                 AND sti.StoreInfoType = @storeInfoType
                                         ";
-
 
     public const string GetImageById = @"
 
@@ -37,18 +35,17 @@ public static class CustomSqlQuery
                                             sti.StoreInfoType,
                                             be.BucketName,
                                             be.BucketDescription
-                                        FROM 
+                                        FROM
                                             StoreInfoEntities sti
-                                        LEFT JOIN 
-                                            BucketEntities be 
-                                        ON 
+                                        LEFT JOIN
+                                            BucketEntities be
+                                        ON
                                             sti.BucketId = be.Id
-                                        WHERE 
-                                            sti.UserId = @userId 
+                                        WHERE
+                                            sti.UserId = @userId
                                             AND sti.Id = @storyInfoId
                                             AND be.Id =  @bucketId
                                         ";
-
 
     public const string GetBuckets = @"SELECT be.Id, be.BucketName, be.BucketDescription FROM BucketEntities be";
     public const string GetBucketById = @"SELECT be.Id, be.BucketName, be.BucketDescription FROM BucketEntities be WHERE be.Id = @id";

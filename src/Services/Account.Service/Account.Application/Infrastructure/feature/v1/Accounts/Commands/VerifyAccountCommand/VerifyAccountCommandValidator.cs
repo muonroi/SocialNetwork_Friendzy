@@ -1,6 +1,5 @@
-﻿namespace Account.Application.Infrastructure.feature.v1.Accounts.Commands.VerifyAccountCommand
+﻿namespace Account.Application.Infrastructure.feature.v1.Accounts.Commands.VerifyAccountCommand;
+
+internal class VerifyAccountCommandValidator
 {
-    internal class VerifyAccountCommandValidator
-    {
-    }
 }

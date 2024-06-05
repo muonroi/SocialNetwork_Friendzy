@@ -1,9 +1,4 @@
-﻿using Management.Photo.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using Serilog;
-
-namespace Management.Photo.Infrastructure.Persistence;
+﻿namespace Management.Photo.Infrastructure.Persistence;
 
 public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
 {
@@ -81,7 +76,6 @@ public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
                    ""StoreUrl"": ""https://example.com/storeInfo1.jpg"",
                    ""StoreInfoType"": 2,
                    ""BucketId"": 2,
-
                  },
                  {
                    ""UserId"": 3,
@@ -90,7 +84,6 @@ public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
                    ""StoreUrl"": ""https://example.com/storeInfo1.jpg"",
                    ""StoreInfoType"": 3,
                    ""BucketId"": 3,
-
                  },
                  {
                    ""UserId"": 1,
@@ -99,7 +92,6 @@ public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
                    ""StoreUrl"": ""https://example.com/storeInfo1.jpg"",
                    ""StoreInfoType"": 1,
                    ""BucketId"": 1,
-
                  },
                  {
                    ""UserId"": 2,

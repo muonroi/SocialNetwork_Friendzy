@@ -1,3 +1,4 @@
+global using Contracts.Commons.Constants;
 global using Contracts.Commons.Interfaces;
 global using Contracts.Domains.Interfaces;
 global using Dapper.Extensions;

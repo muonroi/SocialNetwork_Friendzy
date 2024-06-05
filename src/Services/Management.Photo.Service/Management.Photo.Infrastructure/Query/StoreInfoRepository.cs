@@ -1,20 +1,4 @@
-﻿using Contracts.Commons.Interfaces;
-using Dapper;
-using Dapper.Extensions;
-using Infrastructure.Commons;
-using Management.Photo.Application.Commons.Interfaces;
-using Management.Photo.Application.Commons.Models;
-using Management.Photo.Application.Commons.Requests;
-using Management.Photo.Domain.Entities;
-using Management.Photo.Infrastructure.Persistence;
-using Management.Photo.Infrastructure.Persistence.Query;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using Serilog;
-using Shared.Enums;
-using System.Data;
-
-namespace Management.Photo.Infrastructure.Query;
+﻿namespace Management.Photo.Infrastructure.Query;
 
 public class StoreInfoRepository(StoreInfoDbContext dbContext, IDbContextFactory<StoreInfoDbContext> dbContextFactory, IUnitOfWork<StoreInfoDbContext> unitOfWork, ILogger logger, IDapper dapper, IBucketRepository bucketRepository) : RepositoryBaseAsync<StoreInfoEntity, long, StoreInfoDbContext>(dbContext, unitOfWork), IStoreInfoRepository
 {

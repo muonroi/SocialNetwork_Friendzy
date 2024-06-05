@@ -1,9 +1,8 @@
-﻿namespace Shared.Enums
+﻿namespace Shared.Enums;
+
+public enum RoleConstants
 {
-    public enum RoleConstants
-    {
-        Admin,
-        User,
-        Guest
-    }
+    Admin,
+    User,
+    Guest
 }

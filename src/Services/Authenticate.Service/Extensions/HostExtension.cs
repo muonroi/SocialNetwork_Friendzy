@@ -1,6 +1,4 @@
-﻿using Authenticate.Service.Services;
-
-namespace Authenticate.Service.Extensions;
+﻿namespace Authenticate.Service.Extensions;
 
 internal static class HostExtension
 {

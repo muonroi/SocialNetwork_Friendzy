@@ -1,8 +1,4 @@
-﻿
-
-
-
-namespace Commons.Behaviours;
+﻿namespace Commons.Behaviours;
 
 public class PerformanceBehaviours<TRequest, TResponse>(Stopwatch timer, ILogger<TRequest> logger) :
     IPipelineBehavior<TRequest, TResponse>

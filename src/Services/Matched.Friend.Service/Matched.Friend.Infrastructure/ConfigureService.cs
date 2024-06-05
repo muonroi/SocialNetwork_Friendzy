@@ -1,14 +1,3 @@
-using Contracts.Commons.Constants;
-using Contracts.Commons.Interfaces;
-using Infrastructure.Commons;
-using Infrastructure.Helper;
-using Matched.Friend.Application.Commons.Interfaces;
-using Matched.Friend.Infrastructure.Persistence;
-using Matched.Friend.Infrastructure.Repository;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace Matched.Friend.Infrastructure;
 
 public static class ConfigureService

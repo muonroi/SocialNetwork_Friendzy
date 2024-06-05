@@ -14,3 +14,4 @@ global using Infrastructure.ORMs.Dapper;
 global using Serilog;
 global using System.Text.Json;
 global using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
+global using ILogger = Serilog.ILogger;global using Infrastructure.Middleware;

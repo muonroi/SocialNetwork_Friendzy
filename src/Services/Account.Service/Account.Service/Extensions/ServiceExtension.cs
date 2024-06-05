@@ -1,11 +1,4 @@
-﻿using Contracts.Commons.Constants;
-using Contracts.DTOs.JwtBearerDTOs;
-using Dapper.Extensions;
-using Dapper.Extensions.MSSQL;
-using Infrastructure.Extensions;
-using Infrastructure.Helper;
-using Infrastructure.ORMs.Dapper;
-namespace Account.Service.Extensions;
+﻿namespace Account.Service.Extensions;
 
 public static class ServiceExtension
 {

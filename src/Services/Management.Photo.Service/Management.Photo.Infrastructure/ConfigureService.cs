@@ -1,21 +1,4 @@
-﻿using Contracts.Commons.Constants;
-using Contracts.Commons.Interfaces;
-using Contracts.Services;
-using Dapper.Extensions;
-using Dapper.Extensions.MSSQL;
-using Infrastructure.Commons;
-using Infrastructure.Extensions;
-using Infrastructure.Helper;
-using Infrastructure.ORMs.Dapper;
-using Infrastructure.Services;
-using Management.Photo.Application.Commons.Interfaces;
-using Management.Photo.Infrastructure.Persistence;
-using Management.Photo.Infrastructure.Query;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Management.Photo.Infrastructure;
+﻿namespace Management.Photo.Infrastructure;
 
 public static class ConfigureService
 {

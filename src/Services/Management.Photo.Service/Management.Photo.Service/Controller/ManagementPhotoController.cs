@@ -1,16 +1,4 @@
-﻿using Management.Photo.Application.Commons.Models;
-using Management.Photo.Application.Feature.v1.Commands.ImportMultipleResource;
-using Management.Photo.Application.Feature.v1.Commands.ImportResoure;
-using Management.Photo.Application.Feature.v1.Queries.GetResource;
-using Management.Photo.Application.Feature.v1.Queries.GetResourceById;
-using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Shared.SeedWorks;
-using System.Net;
-
-namespace Management.Photo.Service.Controller;
+﻿namespace Management.Photo.Service.Controller;
 
 [Route("api/v1/[controller]")]
 [ApiController]
@@ -37,7 +25,7 @@ public class ManagementPhotoController(IMediator mediator) : ControllerBase
     #region CRUD
 
     [HttpPost("import")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     [ProducesResponseType(typeof(ApiResult<ImportResourceCommandResponse>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ImportResourceByType([FromForm] ImportResourceCommand request)
     {
@@ -53,5 +41,5 @@ public class ManagementPhotoController(IMediator mediator) : ControllerBase
         return Ok(result);
     }
 
-    #endregion
+    #endregion CRUD
 }

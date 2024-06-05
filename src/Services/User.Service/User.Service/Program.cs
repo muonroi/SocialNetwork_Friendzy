@@ -1,9 +1,3 @@
-using Infrastructure.Configurations;
-using User.Application.Infrastructure;
-using User.Service.Extensions;
-using User.Service.Infrastructures;
-using User.Service.Infrastructures.Endpoints;
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -45,7 +39,6 @@ try
     services.SwaggerConfig();
 
     _ = services.AuthorizationRoles();
-
 
     builder.AddAppConfigurations();
 

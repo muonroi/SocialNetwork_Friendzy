@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using System.Reflection;
-
-namespace Matched.Friend.Application.Commons.Mappings;
+﻿namespace Matched.Friend.Application.Commons.Mappings;
 
 public class MappingProfile : Profile
 {

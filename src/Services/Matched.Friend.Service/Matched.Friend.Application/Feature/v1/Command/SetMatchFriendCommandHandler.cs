@@ -1,16 +1,4 @@
-﻿using Contracts.Commons.Interfaces;
-using ExternalAPI;
-using ExternalAPI.DTOs;
-using Matched.Friend.Application.Commons.Interfaces;
-using Matched.Friend.Application.Messages;
-using MediatR;
-using Newtonsoft.Json;
-using Serilog;
-using Shared.DTOs;
-using Shared.Resources;
-using Shared.SeedWorks;
-using System.Net;
-namespace Matched.Friend.Application.Feature.v1.Command;
+﻿namespace Matched.Friend.Application.Feature.v1.Command;
 
 public class SetMatchFriendCommandHandler(
     IWorkContextAccessor workContextAccessor,
@@ -25,6 +13,7 @@ public class SetMatchFriendCommandHandler(
     private readonly IFriendsMatchedRepository _friendMatchedRepository = friendMatchedRepository;
 
     private readonly IApiExternalClient _externalClient = externalClient;
+
     public async Task<ApiResult<bool>> Handle(SetMatchFriendCommand request, CancellationToken cancellationToken)
     {
         WorkContextInfoDTO userInfo = _workContextAccessor.WorkContext!;
@@ -35,7 +24,7 @@ public class SetMatchFriendCommandHandler(
             return new ApiErrorResult<bool>(nameof(ErrorMessageBase.UserNotFound), (int)HttpStatusCode.NotFound);
         }
 
-        bool isFriendMatchedByAction = await _friendMatchedRepository.isExistFriendAction(userInfo.UserId, request.FriendId, request.ActionMatched, cancellationToken);
+        bool isFriendMatchedByAction = await _friendMatchedRepository.IsExistFriendAction(userInfo.UserId, request.FriendId, request.ActionMatched, cancellationToken);
 
         if (!isFriendMatchedByAction)
         {

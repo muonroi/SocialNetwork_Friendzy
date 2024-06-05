@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Management.Photo.Service.Controller;
+﻿namespace Management.Photo.Service.Controller;
 
 public class HomeController : ControllerBase
 {

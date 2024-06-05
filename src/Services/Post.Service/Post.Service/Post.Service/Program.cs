@@ -1,6 +1,3 @@
-using Post.Application;
-using Post.Service.Extentions;
-using Post.Service.Infrastructure;
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();

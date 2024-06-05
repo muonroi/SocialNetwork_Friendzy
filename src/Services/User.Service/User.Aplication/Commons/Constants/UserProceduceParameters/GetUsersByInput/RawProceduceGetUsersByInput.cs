@@ -22,10 +22,10 @@ public class RawProceduceGetUsersByInput
                                             PhoneNumber varchar(20),
                                             AccountGuid uniqueidentifier
                                         )
-                                    
+
                                         -- Chèn dữ liệu từ bảng Users vào bảng tạm
                                         INSERT INTO #TempUserResult
-                                        SELECT 
+                                        SELECT
                                             u.FirstName,
                                             u.LastName,
                                             u.[Address],
@@ -39,18 +39,18 @@ public class RawProceduceGetUsersByInput
                                             u.AvatarUrl,
                                             u.PhoneNumber,
                                             u.AccountGuid
-                                        FROM Users u 
-                                    
+                                        FROM Users u
+
                                         -- Truy vấn các bản ghi từ bảng tạm theo điều kiện PhoneNumber
                                         SELECT * FROM #TempUserResult
                                         WHERE PhoneNumber IN (SELECT value FROM STRING_SPLIT(@Input, ','))
-                                    
+
                                         UNION ALL
-                                    
+
                                         -- Truy vấn các bản ghi từ bảng tạm theo điều kiện Id
                                         SELECT * FROM #TempUserResult
                                         WHERE Id IN (SELECT value FROM STRING_SPLIT(@Input, ','))
-                                    
+
                                         -- Xóa bảng tạm
                                         DROP TABLE #TempUserResult
                                     END

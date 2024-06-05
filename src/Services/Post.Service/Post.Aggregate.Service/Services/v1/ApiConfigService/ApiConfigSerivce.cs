@@ -1,7 +1,4 @@
-﻿using API.Intergration.Config.Service.Protos;
-using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
-
-namespace Post.Aggregate.Service.Services.v1.ApiConfigService;
+﻿namespace Post.Aggregate.Service.Services.v1.ApiConfigService;
 
 public class ApiConfigService(GrpcClientFactory grpcClientFactory, ILogger logger) : IApiConfigSerivce
 {

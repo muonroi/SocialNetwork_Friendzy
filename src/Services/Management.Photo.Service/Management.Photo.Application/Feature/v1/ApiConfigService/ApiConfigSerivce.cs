@@ -1,11 +1,4 @@
-﻿using API.Intergration.Config.Service.Protos;
-using Contracts.Commons.Constants;
-using Grpc.Net.ClientFactory;
-using Newtonsoft.Json;
-using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
-using ILogger = Serilog.ILogger;
-
-namespace Management.Photo.Application.Feature.v1.ApiConfigService;
+﻿namespace Management.Photo.Application.Feature.v1.ApiConfigService;
 
 public class ApiConfigService(GrpcClientFactory grpcClientFactory, ILogger logger) : IApiConfigSerivce
 {

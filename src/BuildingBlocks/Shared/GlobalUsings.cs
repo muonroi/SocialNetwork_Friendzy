@@ -1,5 +1,7 @@
+global using Dapper.Extensions;
 global using Microsoft.AspNetCore.Http;
 global using Newtonsoft.Json;
+global using Shared.Enums;
 global using Shared.Resources;
 global using System;
 global using System.ComponentModel.DataAnnotations;

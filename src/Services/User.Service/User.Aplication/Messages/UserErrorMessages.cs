@@ -1,5 +1,5 @@
 ﻿namespace User.Application.Messages;
 
-public enum ErrorMessages
+public enum UserErrorMessages
 {
 }

@@ -1,12 +1,3 @@
-using Commons.Logging;
-using Infrastructure.Configurations;
-using Infrastructure.Extensions;
-using Management.Photo.Application;
-using Management.Photo.Infrastructure;
-using Management.Photo.Service.Infrastructures;
-using Management.Photo.Service.Infrastructures.Endpoints;
-using Serilog;
-using System.Reflection;
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();

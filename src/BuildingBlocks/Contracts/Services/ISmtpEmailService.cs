@@ -1,7 +1,4 @@
-﻿using Contracts.Services.Interfaces;
-using Shared.Services.Emails;
-
-namespace Contracts.Services;
+﻿namespace Contracts.Services;
 
 public interface ISmtpEmailService : IEmailService<SendSmtpRequest>
 { }

@@ -1,7 +1,4 @@
-﻿using ExternalAPI.DTOs;
-using Matched.Friend.Domain.Infrastructure.Enums;
-
-namespace Matched.Friend.Application.Commons.Models;
+﻿namespace Matched.Friend.Application.Commons.Models;
 
 public record FriendsMatchedPagingResponse
 {
@@ -12,7 +9,6 @@ public record FriendsMatchedPagingResponse
     public int TotalPages { get; set; }
     public bool HasNextPage { get; set; }
     public bool HasPreviousPage { get; set; }
-
 }
 
 public record FriendsMatchedsDto

@@ -1,8 +1,4 @@
-﻿using Contracts.Commons.Constants;
-using Dapper.Extensions;
-using Infrastructure.ORMs.Dapper;
-
-namespace Setting.Infrastructure;
+﻿namespace Setting.Infrastructure;
 
 public static class ConfigureService
 {

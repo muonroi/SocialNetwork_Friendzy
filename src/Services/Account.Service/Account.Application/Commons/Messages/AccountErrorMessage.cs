@@ -1,7 +1,6 @@
-﻿namespace Account.Application.Commons.ErrorMessages
+﻿namespace Account.Application.Commons.Messages;
+
+public enum AccountErrorMessage
 {
-    public enum AccountErrorMessage
-    {
-        AccountNotFound = 1,
-    }
+    AccountNotFound = 1,
 }

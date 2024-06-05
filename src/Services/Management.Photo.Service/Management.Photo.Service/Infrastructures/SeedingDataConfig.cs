@@ -1,6 +1,4 @@
-﻿using Management.Photo.Infrastructure.Persistence;
-
-namespace Management.Photo.Service.Infrastructures;
+﻿namespace Management.Photo.Service.Infrastructures;
 
 public static class SeedingDataConfig
 {

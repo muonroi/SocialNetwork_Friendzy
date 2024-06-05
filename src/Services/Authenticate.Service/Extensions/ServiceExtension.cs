@@ -1,5 +1,4 @@
-﻿using Infrastructure.Extensions;
-namespace Authenticate.Service.Extensions;
+﻿namespace Authenticate.Service.Extensions;
 
 internal static class ServiceExtension
 {

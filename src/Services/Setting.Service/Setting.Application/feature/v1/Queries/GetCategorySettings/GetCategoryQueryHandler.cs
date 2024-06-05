@@ -10,12 +10,12 @@ public class GetCategoryQueryHandler(ISettingRepository<SettingEntity, long> set
         SettingEntity? categoriesSetting = await _settingRepository.GetSettingByType(x => x.Type == request.Type);
         if (categoriesSetting is null)
         {
-            return new ApiErrorResult<IEnumerable<CategoryDataDTO>>($"{ErrorMessages.CategorySettingNotFound}", (int)HttpStatusCode.NotFound);
+            return new ApiErrorResult<IEnumerable<CategoryDataDTO>>($"{SettingErrorMessages.CategorySettingNotFound}", (int)HttpStatusCode.NotFound);
         }
 
         IEnumerable<CategoryDataDTO> result = JsonConvert.DeserializeObject<IEnumerable<CategoryDataDTO>>(categoriesSetting.Content) ?? [];
         return result is null
-            ? new ApiErrorResult<IEnumerable<CategoryDataDTO>>($"{ErrorMessages.CategorySettingNotFound}", (int)HttpStatusCode.NotFound)
+            ? new ApiErrorResult<IEnumerable<CategoryDataDTO>>($"{SettingErrorMessages.CategorySettingNotFound}", (int)HttpStatusCode.NotFound)
             : new ApiSuccessResult<IEnumerable<CategoryDataDTO>>(result);
     }
 }

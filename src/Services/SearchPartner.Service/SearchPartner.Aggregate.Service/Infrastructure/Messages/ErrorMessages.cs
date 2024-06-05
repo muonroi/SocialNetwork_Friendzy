@@ -1,6 +1,6 @@
-﻿namespace SearchPartners.Aggregate.Service.Infrastructure.ErrorMessages;
+﻿namespace SearchPartners.Aggregate.Service.Infrastructure.Messages;
 
-public enum ErrorMessages
+public enum SearchPartnersErrorMessages
 {
     PartnersNotFound = 1,
 }

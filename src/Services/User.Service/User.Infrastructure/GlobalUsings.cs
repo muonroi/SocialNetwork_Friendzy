@@ -1,11 +1,14 @@
 global using AutoMapper;
+global using Contracts.Commons.Constants;
 global using Contracts.Commons.Interfaces;
 global using Contracts.Domains.Interfaces;
+global using Contracts.Services;
 global using Dapper.Extensions;
 global using Infrastructure.Commons;
 global using Infrastructure.Extensions;
 global using Infrastructure.Helper;
 global using Infrastructure.ORMs.Dapper;
+global using Infrastructure.Services;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Microsoft.EntityFrameworkCore.Migrations;

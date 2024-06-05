@@ -1,6 +1,4 @@
-﻿using Account.Infrastructure.Persistence;
-
-namespace Account.Service.Infrastructures;
+﻿namespace Account.Service.Infrastructures;
 
 public static class SeedingDataConfig
 {

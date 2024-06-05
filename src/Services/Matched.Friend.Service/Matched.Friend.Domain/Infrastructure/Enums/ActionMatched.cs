@@ -1,9 +1,8 @@
-﻿namespace Matched.Friend.Domain.Infrastructure.Enums
+﻿namespace Matched.Friend.Domain.Infrastructure.Enums;
+
+public enum ActionMatched
 {
-    public enum ActionMatched
-    {
-        Like = 0,
-        Dislike = 1,
-        Favorite = 2
-    }
+    Like = 0,
+    Dislike = 1,
+    Favorite = 2
 }

@@ -1,10 +1,13 @@
+global using Contracts.Commons.Constants;
 global using Contracts.Commons.Interfaces;
 global using Contracts.Domains;
 global using Contracts.Domains.Interfaces;
+global using Dapper.Extensions;
 global using Dapper.Extensions.MSSQL;
 global using Infrastructure.Commons;
 global using Infrastructure.Extensions;
 global using Infrastructure.Helper;
+global using Infrastructure.ORMs.Dapper;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.ChangeTracking;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;

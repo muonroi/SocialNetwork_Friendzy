@@ -1,6 +1,4 @@
-﻿using Contracts.Commons.Constants;
-
-namespace Post.Infrastructure;
+﻿namespace Post.Infrastructure;
 
 public static class ConfigureService
 {

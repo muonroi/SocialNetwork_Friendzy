@@ -1,7 +1,3 @@
-using Contracts.Commons.Constants;
-using Contracts.Services;
-using Infrastructure.Services;
-
 namespace User.Infrastructure;
 
 public static class ConfigureService

@@ -1,8 +1,4 @@
-﻿using Contracts.Domains;
-using Shared.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Account.Domain.Entities;
+﻿namespace Account.Domain.Entities;
 
 public class AccountEntity : EntityAuditBase<Guid>
 {
@@ -27,5 +23,4 @@ public class AccountEntity : EntityAuditBase<Guid>
     public AccountStatus Status { get; set; }
 
     public IEnumerable<AccountRolesEntity>? AccountRoles { get; set; }
-
 }

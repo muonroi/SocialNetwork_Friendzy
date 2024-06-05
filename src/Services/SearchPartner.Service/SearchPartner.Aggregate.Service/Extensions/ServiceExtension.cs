@@ -1,5 +1,5 @@
-﻿using Consul;
-using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
+﻿
+
 
 namespace SearchPartners.Aggregate.Service.Extensions;
 

@@ -5,13 +5,15 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.63.0" />
+  </ItemGroup>
   
   <PropertyGroup>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..\..</DockerfileContext>
   </PropertyGroup>
-
-  <!--<Import Project="..\..\..\BuildingBlocks\Commons\Directory.Packages.props" />-->
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\Commons\Commons.csproj" />
@@ -34,8 +36,5 @@
 
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.62.0" />
-  </ItemGroup>
 
 </Project>

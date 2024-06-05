@@ -1,6 +1,4 @@
-﻿using Shared.DTOs;
-
-namespace Contracts.Commons.Interfaces;
+﻿namespace Contracts.Commons.Interfaces;
 
 public interface IWorkContextAccessor
 {

@@ -1,12 +1,4 @@
-﻿using Contracts.Commons.Interfaces;
-using Management.Photo.Application.Commons.Interfaces;
-using Management.Photo.Application.Commons.Models;
-using MediatR;
-using Shared.DTOs;
-using Shared.SeedWorks;
-using System.Net;
-
-namespace Management.Photo.Application.Feature.v1.Queries.GetResource;
+﻿namespace Management.Photo.Application.Feature.v1.Queries.GetResource;
 
 public class GetResourceQueryHandler(IStoreInfoRepository storeInfoRepository, IWorkContextAccessor workContext) : IRequestHandler<GetResourceQuery, ApiResult<IEnumerable<StoreInfoDTO>>>
 {

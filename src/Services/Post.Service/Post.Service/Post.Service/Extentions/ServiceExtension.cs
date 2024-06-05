@@ -1,6 +1,4 @@
-﻿using Contracts.Commons.Constants;
-
-namespace Post.Service.Extentions;
+﻿namespace Post.Service.Extentions;
 
 public static class ServiceExtension
 {

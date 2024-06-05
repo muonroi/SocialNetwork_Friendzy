@@ -23,10 +23,10 @@ public class RawProceduceGetUserByInput
                     PhoneNumber varchar(20),
                     AccountGuid uniqueidentifier
                 )
-            
+
                 -- Chèn dữ liệu từ bảng Users vào bảng tạm
                 INSERT INTO #TempUserResult
-                SELECT 
+                SELECT
                     u.FirstName,
                     u.LastName,
                     u.[Address],
@@ -41,7 +41,7 @@ public class RawProceduceGetUserByInput
                     u.PhoneNumber,
                     u.AccountGuid
                 FROM Users u
-            
+
                 -- Truy vấn các bản ghi từ bảng tạm theo nhiều điều kiện
                 SELECT * FROM #TempUserResult WHERE LastName LIKE @Input + '%'
                 UNION ALL
@@ -52,7 +52,7 @@ public class RawProceduceGetUserByInput
                 SELECT * FROM #TempUserResult WHERE PhoneNumber = @Input
                 UNION ALL
                 SELECT * FROM #TempUserResult WHERE Id = TRY_CONVERT(int, @Input)
-            
+
                 -- Xóa bảng tạm
                 DROP TABLE #TempUserResult
             END

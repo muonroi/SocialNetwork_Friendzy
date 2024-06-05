@@ -1,6 +1,4 @@
-﻿using CommandFlags = Dapper.CommandFlags;
-
-namespace Infrastructure.ORMs.Dapper;
+﻿namespace Infrastructure.ORMs.Dapper;
 
 public class DapperCommand
 {

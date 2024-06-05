@@ -1,9 +1,4 @@
-﻿using Dapper.Extensions;
-using Dapper.Extensions.MySql;
-using Infrastructure.Extensions;
-using Infrastructure.ORMs.Dapper;
-
-namespace Matched.Friend.Service.Extensions;
+﻿namespace Matched.Friend.Service.Extensions;
 
 public static class ServiceExtension
 {

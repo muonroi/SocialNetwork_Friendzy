@@ -1,6 +1,4 @@
-﻿using ValidationFailure = FluentValidation.Results.ValidationFailure;
-
-namespace Infrastructure.Exceptions;
+﻿namespace Infrastructure.Exceptions;
 
 public class ValidationException : ApplicationException
 {

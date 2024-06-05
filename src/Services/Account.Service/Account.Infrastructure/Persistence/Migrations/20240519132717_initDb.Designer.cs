@@ -12,7 +12,7 @@ namespace Account.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(AccountDbContext))]
     [Migration("20240519132717_initDb")]
-    partial class initDb
+    partial class InitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

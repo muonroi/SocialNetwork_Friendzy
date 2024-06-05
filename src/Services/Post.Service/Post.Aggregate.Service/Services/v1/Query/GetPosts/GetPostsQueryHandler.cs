@@ -1,4 +1,6 @@
-﻿namespace Post.Aggregate.Service.Services.v1.Query.GetPosts;
+﻿using Post.Aggregate.Service.Infrastructure.Messages;
+
+namespace Post.Aggregate.Service.Services.v1.Query.GetPosts;
 
 public class GetPostsQueryHandler(GrpcClientFactory grpcClientFactory
     , IWorkContextAccessor workContextAccessor

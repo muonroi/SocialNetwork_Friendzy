@@ -1,8 +1,4 @@
-﻿using Management.Photo.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Management.Photo.Infrastructure.Persistence.EntitiesConfigure;
+﻿namespace Management.Photo.Infrastructure.Persistence.EntitiesConfigure;
 
 public class StoreInfoConfigure : IEntityTypeConfiguration<StoreInfoEntity>
 {

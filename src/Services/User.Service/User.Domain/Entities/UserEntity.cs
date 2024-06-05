@@ -41,8 +41,7 @@ public class UserEntity : EntityAuditBase<long>
 
     public long Birthdate { get; set; }
 
-    public required string CategoryId { get; set; }
+    public string CategoryId { get; set; } = string.Empty;
 
     public Guid AccountGuid { get; set; }
-
 }

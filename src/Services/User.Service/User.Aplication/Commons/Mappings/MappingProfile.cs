@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace User.Application.Commons.Mappings;
+﻿namespace User.Application.Commons.Mappings;
 
 public class MappingProfile : Profile
 {

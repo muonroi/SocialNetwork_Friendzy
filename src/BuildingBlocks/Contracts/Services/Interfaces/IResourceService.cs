@@ -1,6 +1,4 @@
-﻿using Contracts.DTOs.ResourceDTOs;
-
-namespace Contracts.Services.Interfaces;
+﻿namespace Contracts.Services.Interfaces;
 
 public interface IResourceService<T> where T : class
 {

@@ -1,17 +1,4 @@
-﻿using Commons.Pagination;
-using Contracts.Commons.Interfaces;
-using Dapper.Extensions;
-using Infrastructure.Commons;
-using Infrastructure.ORMs.Dapper;
-using Matched.Friend.Application.Commons.Interfaces;
-using Matched.Friend.Application.Commons.Models;
-using Matched.Friend.Domain.Entities;
-using Matched.Friend.Domain.Infrastructure.Enums;
-using Matched.Friend.Infrastructure.Persistence;
-using Matched.Friend.Infrastructure.Persistence.Query;
-using Newtonsoft.Json;
-using Serilog;
-namespace Matched.Friend.Infrastructure.Repository;
+﻿namespace Matched.Friend.Infrastructure.Repository;
 
 public class FriendsMatchedRepository(FriendsMatchedDbContext dbContext, IUnitOfWork<FriendsMatchedDbContext> unitOfWork, ILogger logger, IDapper dapper) : RepositoryBaseAsync<FriendsMatchedEntity, long, FriendsMatchedDbContext>(dbContext, unitOfWork), IFriendsMatchedRepository
 {
@@ -71,7 +58,7 @@ public class FriendsMatchedRepository(FriendsMatchedDbContext dbContext, IUnitOf
         return result;
     }
 
-    public async Task<bool> isExistFriendAction(long userId, long friendId, ActionMatched actionMatched, CancellationToken cancellationToken)
+    public async Task<bool> IsExistFriendAction(long userId, long friendId, ActionMatched actionMatched, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: isExistFriendByAction REQUEST --> {JsonConvert.SerializeObject(new { userId, friendId, actionMatched = nameof(actionMatched) })} <--");
         FriendsMatchedEntity? isExistMatchedByAction = await FindObjectByCondition(x => x.FriendId == friendId && x.UserId == userId);

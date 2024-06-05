@@ -1,6 +1,4 @@
-﻿using Infrastructure.Middleware;
-
-namespace Setting.Service.Infrastructures.Endpoints;
+﻿namespace Setting.Service.Infrastructures.Endpoints;
 
 internal static class EndpointConfigure
 {

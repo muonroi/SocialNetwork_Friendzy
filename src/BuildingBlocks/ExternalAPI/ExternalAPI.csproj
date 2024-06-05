@@ -1,4 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Commons\Commons.csproj" />
     <ProjectReference Include="..\Contracts\Contracts.csproj" />
@@ -7,5 +13,5 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
   </ItemGroup>
-  <Import Project="..\Commons\Directory.Packages.props" />
+  
 </Project>

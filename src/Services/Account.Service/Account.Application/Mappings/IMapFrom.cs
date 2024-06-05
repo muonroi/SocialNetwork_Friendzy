@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace Account.Application.Mappings;
+﻿namespace Account.Application.Mappings;
 
 public interface IMapFrom<T>
 {

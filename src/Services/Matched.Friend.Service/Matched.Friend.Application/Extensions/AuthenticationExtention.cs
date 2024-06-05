@@ -1,17 +1,4 @@
-﻿using Authenticate.Verify.Service;
-using Contracts.Commons.Constants;
-using Grpc.Net.ClientFactory;
-using Infrastructure.Commons;
-using Infrastructure.Helper;
-using Infrastructure.Middleware;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using static Authenticate.Verify.Service.AuthenticateVerify;
-
-namespace Matched.Friend.Application.Extensions;
-
+﻿namespace Matched.Friend.Application.Extensions;
 
 public static class AuthenticationExtention
 {
@@ -71,5 +58,4 @@ public static class AuthenticationExtention
 
         return app;
     }
-
 }

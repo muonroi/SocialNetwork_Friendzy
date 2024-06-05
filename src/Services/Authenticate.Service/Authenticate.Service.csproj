@@ -5,8 +5,15 @@
     <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
-  <Import Project="..\..\BuildingBlocks\Commons\Directory.Packages.props" />
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" version ="2.63.0"/>
+  </ItemGroup>
   <ItemGroup>
     <None Remove="Protos\authenticate.proto" />
   </ItemGroup>
@@ -16,10 +23,6 @@
     <ProjectReference Include="..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
-  </ItemGroup>
 
   <ItemGroup>
     <Protobuf Include="Protos\authenticate.proto" GrpcServices="Server" />

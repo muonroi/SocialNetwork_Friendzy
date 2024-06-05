@@ -1,6 +1,4 @@
-﻿using Shared.Resources;
-
-namespace User.Application.Feature.v1.Users.Queries.GetMultipleUsersQuery;
+﻿namespace User.Application.Feature.v1.Users.Queries.GetMultipleUsersQuery;
 
 public class GetMultipleUsersQueryHandler(IUserRepository userRepository) : IRequestHandler<GetMultipleUsersQuery, ApiResult<IEnumerable<UserDto>>>
 {
