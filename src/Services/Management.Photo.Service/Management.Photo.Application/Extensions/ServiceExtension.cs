@@ -1,21 +1,4 @@
-﻿using Calzolari.Grpc.AspNetCore.Validation.Internal;
-using Commons.Pagination;
-using Consul;
-using Contracts.Commons.Constants;
-using Contracts.Commons.Interfaces;
-using ExternalAPI;
-using Infrastructure.Commons;
-using Infrastructure.Extensions;
-using Infrastructure.Factorys;
-using Management.Photo.Application.Feature.v1.ApiConfigService;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System.Net.Http.Headers;
-using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
-using static Authenticate.Verify.Service.AuthenticateVerify;
-
-namespace Management.Photo.Application.Extensions;
+﻿namespace Management.Photo.Application.Extensions;
 
 public static class ServiceExtension
 {
@@ -91,7 +74,7 @@ public static class ServiceExtension
 
     public static IServiceCollection AddApiIntegration(this IServiceCollection services, IConfiguration configuration)
     {
-        _ = services.RegisterServiceForwarder<IApiExternalClient>(ApiPartnerConstants.PartnerName)
+        _ = services.RegisterServiceForwarder<ExternalAPI.IApiExternalClient>(ApiPartnerConstants.PartnerName)
             .AddRestEaseMessageHandler(configuration, ApiPartnerConstants.ApiCode, ApiPartnerConstants.APIType);
         return services;
     }

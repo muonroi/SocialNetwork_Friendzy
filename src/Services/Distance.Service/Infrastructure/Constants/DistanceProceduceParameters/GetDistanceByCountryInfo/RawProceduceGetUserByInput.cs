@@ -11,7 +11,7 @@ public class RawProceduceGetDistanceByCountry
         BEGIN
             DECLARE @Offset INT;
             SET @Offset = @PageSize * (@PageIndex - 1);
-        
+
             SELECT distance.Id,
                    distance.Country,
                    distance.Latitude,

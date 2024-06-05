@@ -1,6 +1,4 @@
-﻿using ExternalAPI.DTOs;
-
-namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
+﻿namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
 
 public class SearchPartnersQueryHandler(
     GrpcClientFactory grpcClientFactory
@@ -42,7 +40,7 @@ public class SearchPartnersQueryHandler(
 
         if (partnersResult.Distancedetails.Count == 0)
         {
-            return new ApiErrorResult<SearchPartnersQueryResponse>(nameof(ErrorMessages.PartnersNotFound), StatusCodes.Status404NotFound);
+            return new ApiErrorResult<SearchPartnersQueryResponse>(nameof(SearchPartnersErrorMessages.PartnersNotFound), StatusCodes.Status404NotFound);
         }
         string userId = partnersResult.Distancedetails.Count > 1 ? string.Join(",", partnersResult.Distancedetails.Select(x => x.UserId)) : partnersResult.Distancedetails.First().UserId.ToString();
 

@@ -1,13 +1,13 @@
-using ILogger = Serilog.ILogger;
-
 namespace API.Intergration.Config.Service.v1.Services;
 
 public class ApiIntergrationService(IDapper dapper,
 IWorkContextAccessor workContextAccessor, ILogger logger) : ApiConfigGrpcBase
 {
     private readonly ILogger _logger = logger;
+
     public override async Task<ApiIntConfigReply> GetApiIntConfig(ApiIntConfigRequest request, ServerCallContext context)
     {
+        _ = workContextAccessor.WorkContext;
         _logger.Information($"BEGIN: GetApiIntConfig REQUEST --> {JsonSerializer.Serialize(request)} <--");
         DapperCommand command = new()
         {

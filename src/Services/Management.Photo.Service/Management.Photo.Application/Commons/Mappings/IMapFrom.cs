@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace Management.Photo.Application.Commons.Mappings;
+﻿namespace Management.Photo.Application.Commons.Mappings;
 
 public interface IMapFrom<T>
 {

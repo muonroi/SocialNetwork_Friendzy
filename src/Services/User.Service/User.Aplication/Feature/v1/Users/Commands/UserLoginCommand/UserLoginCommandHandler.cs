@@ -1,8 +1,4 @@
-﻿using ExternalAPI;
-using ExternalAPI.DTOs;
-using Shared.Resources;
-
-namespace User.Application.Feature.v1.Users.Commands.UserLoginCommand;
+﻿namespace User.Application.Feature.v1.Users.Commands.UserLoginCommand;
 
 public class UserLoginCommandHandler(IUserRepository userRepository, IApiExternalClient externalClient) : IRequestHandler<UserLoginCommand, ApiResult<UserDto>>
 {

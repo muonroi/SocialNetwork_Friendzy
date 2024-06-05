@@ -1,4 +1,4 @@
-﻿using Infrastructure.Middleware;
+﻿
 
 namespace SearchPartners.Service.Infrastructure.Endpoints;
 

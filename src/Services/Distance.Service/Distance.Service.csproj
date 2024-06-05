@@ -5,19 +5,20 @@
     <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
-  <Import Project="..\..\BuildingBlocks\Commons\Directory.Packages.props" />
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" version ="2.63.0"/>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BuildingBlocks\Commons\Commons.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
-  </ItemGroup>
 
   <ItemGroup>
     <Protobuf Include="Protos\distance.proto" GrpcServices="Server" />

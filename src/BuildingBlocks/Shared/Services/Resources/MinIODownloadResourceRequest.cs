@@ -1,7 +1,6 @@
-﻿namespace Shared.Services.Resources
+﻿namespace Shared.Services.Resources;
+
+public record MinIODownloadResourceRequest
 {
-    public record MinIODownloadResourceRequest
-    {
-        public string FileName { get; set; } = string.Empty;
-    }
+    public string FileName { get; set; } = string.Empty;
 }

@@ -1,10 +1,3 @@
-using Authenticate.Service.Extensions;
-using Commons.Logging;
-using Infrastructure.Extensions;
-using Infrastructure.Middleware;
-using Serilog;
-
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -13,7 +6,6 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog(SerilogAction.Configure);
 
 IServiceCollection services = builder.Services;
-
 
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 try

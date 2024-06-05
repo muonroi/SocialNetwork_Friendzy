@@ -1,42 +1,39 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿#nullable disable
 
-#nullable disable
+namespace Account.Infrastructure.Persistence.Migrations;
 
-namespace Account.Infrastructure.Persistence.Migrations
+/// <inheritdoc />
+public partial class edit_foreign_key : Migration
 {
     /// <inheritdoc />
-    public partial class edit_foreign_key : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropForeignKey(
-                name: "FK_AccountRoles_Accounts_RoleId",
-                table: "AccountRoles");
+        migrationBuilder.DropForeignKey(
+            name: "FK_AccountRoles_Accounts_RoleId",
+            table: "AccountRoles");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_AccountRoles_Accounts_AccountId",
-                table: "AccountRoles",
-                column: "AccountId",
-                principalTable: "Accounts",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-        }
+        migrationBuilder.AddForeignKey(
+            name: "FK_AccountRoles_Accounts_AccountId",
+            table: "AccountRoles",
+            column: "AccountId",
+            principalTable: "Accounts",
+            principalColumn: "Id",
+            onDelete: ReferentialAction.Cascade);
+    }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropForeignKey(
-                name: "FK_AccountRoles_Accounts_AccountId",
-                table: "AccountRoles");
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.DropForeignKey(
+            name: "FK_AccountRoles_Accounts_AccountId",
+            table: "AccountRoles");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_AccountRoles_Accounts_RoleId",
-                table: "AccountRoles",
-                column: "RoleId",
-                principalTable: "Accounts",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-        }
+        migrationBuilder.AddForeignKey(
+            name: "FK_AccountRoles_Accounts_RoleId",
+            table: "AccountRoles",
+            column: "RoleId",
+            principalTable: "Accounts",
+            principalColumn: "Id",
+            onDelete: ReferentialAction.Cascade);
     }
 }

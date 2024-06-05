@@ -5,65 +5,61 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <OutputType>Library</OutputType>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
+    <PackageReference Include="Calzolari.Grpc.AspNetCore.Validation" Version="8.0.0" />
+    <PackageReference Include="Calzolari.Grpc.Domain" Version="8.0.0" />
+    <PackageReference Include="Calzolari.Grpc.Net.Client.Validation" Version="8.0.0" />
+    <PackageReference Include="Consul" Version="1.7.14.3" />
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="Dapper.Extensions.Caching.Redis" Version="5.1.4" />
+    <PackageReference Include="Dapper.Extensions.MSSQL" Version="5.1.4" />
+    <PackageReference Include="Dapper.Extensions.MySQL" Version="5.1.4" />
+    <PackageReference Include="Dapper.Extensions.NetCore" Version="5.1.4" />
+    <PackageReference Include="Dapper.Extensions.PostgreSQL" Version="5.1.4" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.27.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.63.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.63.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.63.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.64.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Minio" Version="6.0.2" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.2" />
+    <PackageReference Include="RestEase" Version="1.6.4" />
+    <PackageReference Include="Serilog" Version="4.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.3.0" />
+    <PackageReference Include="Serilog.Formatting.Compact" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="MailKit" Version="4.6.0" />
+    <PackageReference Include="MimeKit" Version="4.6.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="FluentValidation" Version="11.9.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+  </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BCrypt.Net-Core" />
-    <PackageReference Include="Calzolari.Grpc.AspNetCore.Validation" />
-    <PackageReference Include="Calzolari.Grpc.Domain" />
-    <PackageReference Include="Calzolari.Grpc.Net.Client.Validation" />
-    <PackageReference Include="Consul" />
-    <PackageReference Include="Dapper" />
-    <PackageReference Include="Dapper.Extensions.Caching.Redis" />
-    <PackageReference Include="Dapper.Extensions.MSSQL" />
-    <PackageReference Include="Dapper.Extensions.MySQL" />
-    <PackageReference Include="Dapper.Extensions.NetCore" />
-    <PackageReference Include="Dapper.Extensions.PostgreSQL" />
-    <PackageReference Include="FluentValidation.AspNetCore" />
-    <PackageReference Include="Google.Protobuf" />
-    <PackageReference Include="Grpc.AspNetCore" />
-    <PackageReference Include="Grpc.Net.Client" />
-    <PackageReference Include="Grpc.Net.ClientFactory" />
-    <PackageReference Include="Grpc.Tools">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
-    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
-    <PackageReference Include="Minio" />
-    <PackageReference Include="MySql.EntityFrameworkCore" />
-    <PackageReference Include="RestEase" />
-    <PackageReference Include="Serilog" />
-    <PackageReference Include="Serilog.AspNetCore" />
-    <PackageReference Include="Serilog.Enrichers.Environment" />
-    <PackageReference Include="Serilog.Formatting.Compact" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" />
-    <PackageReference Include="AutoMapper" />
-    <PackageReference Include="MailKit" />
-    <PackageReference Include="MimeKit" />
-    <PackageReference Include="Newtonsoft.Json" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="MediatR" />
-    <PackageReference Include="FluentValidation" />
-    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
-    <PackageReference Include="Swashbuckle.AspNetCore" />
-    <PackageReference Include="System.Linq.Async" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Directory.Packages.props">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 </Project>

@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace Matched.Friend.Application.Commons.Mappings;
+﻿namespace Matched.Friend.Application.Commons.Mappings;
 
 public interface IMapFrom<T>
 {

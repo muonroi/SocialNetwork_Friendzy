@@ -79,7 +79,6 @@ public class UserRepository(IMapper mapper, UserDbContext dbContext, IUnitOfWork
         _ = await SaveChangesAsync();
         _logger.Information($"END: CreateUserByPhone RESULT --> {JsonConvert.SerializeObject(entity)} <-- ");
         return _mapper.Map<UserDto>(entity);
-
     }
 
     public async Task<bool> UpdateUserByPhone(UserDto user, string input, CancellationToken cancellationToken)

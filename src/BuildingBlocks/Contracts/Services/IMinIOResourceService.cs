@@ -1,7 +1,4 @@
-﻿using Contracts.Services.Interfaces;
-using Shared.Services.Resources;
-
-namespace Contracts.Services;
+﻿namespace Contracts.Services;
 
 public interface IMinIOResourceService : IResourceService<MinIOUploadRequest>
 {

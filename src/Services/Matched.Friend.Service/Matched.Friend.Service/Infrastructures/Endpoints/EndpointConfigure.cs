@@ -1,7 +1,4 @@
-﻿using Infrastructure.Extensions;
-using Infrastructure.Middleware;
-using Matched.Friend.Application.Extensions;
-namespace Matched.Friend.Service.Infrastructures.Endpoints;
+﻿namespace Matched.Friend.Service.Infrastructures.Endpoints;
 
 internal static class EndpointConfigure
 {

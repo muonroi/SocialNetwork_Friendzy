@@ -1,5 +1,3 @@
-using Infrastructure.Middleware;
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -12,16 +10,14 @@ IServiceCollection services = builder.Services;
 
 IWebHostEnvironment env = builder.Environment;
 
-IConfiguration configuration = builder.Configuration;
-
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 try
 {
-    _ = services.Configure<ConsulConfigs>(configuration.GetSection(nameof(ConsulConfigs)));
+    _ = services.Configure<ConsulConfigs>(builder.Configuration.GetSection(nameof(ConsulConfigs)));
 
-    ConsulConfigs consulSettings = ConsulConfigsExtensions.GetConfigs(configuration);
+    ConsulConfigs consulSettings = ConsulConfigsExtensions.GetConfigs(builder.Configuration);
 
-    _ = services.AddConfigurationSettings(configuration);
+    _ = services.AddConfigurationSettings(builder.Configuration);
 
     builder.AddAppConfigurations();
 

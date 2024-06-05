@@ -1,4 +1,4 @@
-﻿using ExternalAPI.DTOs;
+﻿
 
 namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
 

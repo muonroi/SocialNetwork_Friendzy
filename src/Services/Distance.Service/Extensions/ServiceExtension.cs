@@ -1,7 +1,4 @@
-﻿using Contracts.Commons.Constants;
-using Distance.Service.Persistence;
-
-namespace Distance.Service.Extensions;
+﻿namespace Distance.Service.Extensions;
 
 internal static class ServiceExtension
 {

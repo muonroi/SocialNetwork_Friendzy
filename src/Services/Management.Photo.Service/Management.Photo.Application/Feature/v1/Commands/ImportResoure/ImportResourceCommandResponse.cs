@@ -1,6 +1,4 @@
-﻿using Shared.Enums;
-
-namespace Management.Photo.Application.Feature.v1.Commands.ImportResoure;
+﻿namespace Management.Photo.Application.Feature.v1.Commands.ImportResoure;
 
 public class ImportResourceCommandResponse
 {

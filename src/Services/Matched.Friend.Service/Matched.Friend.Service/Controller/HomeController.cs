@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Matched.Friend.Service.Controller;
+﻿namespace Matched.Friend.Service.Controller;
 
 public class HomeController : ControllerBase
 {

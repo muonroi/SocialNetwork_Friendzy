@@ -1,10 +1,10 @@
 global using AutoMapper;
+global using Contracts.Commons.Interfaces;
 global using ExternalAPI.DTOs;
 global using FluentValidation;
-global using FluentValidation.Results;
-global using MediatR;
+global using Grpc.Core;
+global using Infrastructure.Extensions;
 global using Microsoft.Extensions.DependencyInjection;
-global using Microsoft.Extensions.Logging;
-global using Post.Application.Commons.Behaviours;
-global using System.Diagnostics;
-global using System.Reflection;
+global using Post.Application.Commons.Models;
+global using Post.Domain.Entities;
+global using System.Reflection;global using Dapper.Extensions;

@@ -1,11 +1,4 @@
-﻿using Contracts.Domains.Interfaces;
-using Infrastructure.Extensions;
-using Matched.Friend.Domain.Entities;
-using Matched.Friend.Infrastructure.Persistence.EntitiesConfigure;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-
-namespace Matched.Friend.Infrastructure.Persistence;
+﻿namespace Matched.Friend.Infrastructure.Persistence;
 
 public class FriendsMatchedDbContext(DbContextOptions<FriendsMatchedDbContext> options) : DbContext(options)
 {

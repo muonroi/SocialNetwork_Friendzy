@@ -1,15 +1,3 @@
-using Commons.Logging;
-using Infrastructure.Configurations;
-using Infrastructure.Extensions;
-using Matched.Friend.Application;
-using Matched.Friend.Application.Infrastructure;
-using Matched.Friend.Infrastructure;
-using Matched.Friend.Service.Extensions;
-using Matched.Friend.Service.Infrastructures;
-using Matched.Friend.Service.Infrastructures.Endpoints;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Serilog;
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -59,7 +47,6 @@ try
 
     _ = services.AddInfrastructureServices(configuration);
 
-
     _ = services.AddConfigurationApplication(configuration, env);
 
     _ = services.AddEndpointsApiExplorer();
@@ -67,7 +54,6 @@ try
     services.SwaggerConfig();
 
     _ = services.AuthorizationRoles();
-
 
     builder.AddAppConfigurations();
 

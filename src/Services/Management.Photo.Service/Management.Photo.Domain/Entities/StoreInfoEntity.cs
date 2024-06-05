@@ -1,7 +1,4 @@
-﻿using Contracts.Domains;
-using Shared.Enums;
-
-namespace Management.Photo.Domain.Entities;
+﻿namespace Management.Photo.Domain.Entities;
 
 public class StoreInfoEntity : EntityAuditBase<long>
 {

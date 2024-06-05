@@ -1,39 +1,36 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿#nullable disable
 
-#nullable disable
+namespace User.Infrastructure.Persistence.Migrations;
 
-namespace User.Infrastructure.Persistence.Migrations
+/// <inheritdoc />
+public partial class AddCategoryIdProperty : Migration
 {
     /// <inheritdoc />
-    public partial class AddCategoryIdProperty : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.RenameColumn(
-                name: "Longtitude",
-                table: "Users",
-                newName: "Longitude");
+        migrationBuilder.RenameColumn(
+            name: "Longtitude",
+            table: "Users",
+            newName: "Longitude");
 
-            migrationBuilder.AddColumn<string>(
-                name: "CategoryId",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-        }
+        migrationBuilder.AddColumn<string>(
+            name: "CategoryId",
+            table: "Users",
+            type: "nvarchar(max)",
+            nullable: false,
+            defaultValue: "");
+    }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "CategoryId",
-                table: "Users");
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.DropColumn(
+            name: "CategoryId",
+            table: "Users");
 
-            migrationBuilder.RenameColumn(
-                name: "Longitude",
-                table: "Users",
-                newName: "Longtitude");
-        }
+        migrationBuilder.RenameColumn(
+            name: "Longitude",
+            table: "Users",
+            newName: "Longtitude");
     }
 }

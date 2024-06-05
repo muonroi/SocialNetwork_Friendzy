@@ -1,13 +1,3 @@
-using Account.Application;
-using Account.Application.Infrastructure;
-using Account.Infrastructure;
-using Account.Service.Extensions;
-using Account.Service.Infrastructures;
-using Account.Service.Infrastructures.Endpoints;
-using Commons.Logging;
-using Infrastructure.Configurations;
-using Infrastructure.Extensions;
-using Serilog;
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();

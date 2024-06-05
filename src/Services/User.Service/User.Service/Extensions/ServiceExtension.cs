@@ -1,7 +1,4 @@
-﻿using Dapper.Extensions;
-using Infrastructure.ORMs.Dapper;
-
-namespace User.Service.Extensions;
+﻿namespace User.Service.Extensions;
 
 public static class ServiceExtension
 {

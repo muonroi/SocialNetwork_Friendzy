@@ -1,7 +1,5 @@
-﻿using Contracts.Domains;
-using Matched.Friend.Domain.Infrastructure.Enums;
+﻿namespace Matched.Friend.Domain.Entities;
 
-namespace Matched.Friend.Domain.Entities;
 public class FriendsMatchedEntity : EntityAuditBase<long>
 {
     public long UserId { get; set; }

@@ -1,10 +1,5 @@
-﻿using Account.Application.Infrastructure.feature.v1.Accounts.Queries.Base;
+﻿namespace Account.Application.Infrastructure.feature.v1.Accounts.Commands.VerifyAccountCommand;
 
-namespace Account.Application.Infrastructure.feature.v1.Accounts.Commands.VerifyAccountCommand
+public class VerifyAccountCommandResponse : AccountCommandResponseBase
 {
-    public class VerifyAccountCommandResponse : AccountCommandResponseBase
-    {
-
-
-    }
 }

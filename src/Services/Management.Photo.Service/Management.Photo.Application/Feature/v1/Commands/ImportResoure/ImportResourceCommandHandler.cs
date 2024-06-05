@@ -1,16 +1,4 @@
-﻿using Contracts.Commons.Interfaces;
-using Contracts.DTOs.ResourceDTOs;
-using Contracts.Services;
-using Management.Photo.Application.Commons.Interfaces;
-using Management.Photo.Application.Commons.Models;
-using Management.Photo.Application.Commons.Requests;
-using MediatR;
-using Shared.DTOs;
-using Shared.SeedWorks;
-using Shared.Services.Resources;
-using System.Net;
-
-namespace Management.Photo.Application.Feature.v1.Commands.ImportResoure;
+﻿namespace Management.Photo.Application.Feature.v1.Commands.ImportResoure;
 
 public class ImportResourceCommandHandler(
     IStoreInfoRepository storeInfoRepository,

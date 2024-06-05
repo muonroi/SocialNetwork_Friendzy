@@ -1,12 +1,5 @@
-﻿using Contracts.Commons.Interfaces;
-using Management.Photo.Application.Commons.Interfaces;
-using Management.Photo.Application.Commons.Models;
-using MediatR;
-using Shared.DTOs;
-using Shared.SeedWorks;
-using System.Net;
+﻿namespace Management.Photo.Application.Feature.v1.Queries.GetResourceById;
 
-namespace Management.Photo.Application.Feature.v1.Queries.GetResourceById;
 public class GetResourceByIdQueryHandler(IStoreInfoRepository storeInfoRepository, IWorkContextAccessor workContext) : IRequestHandler<GetResourceByIdQuery, ApiResult<StoreInfoDTO>>
 {
     private readonly IStoreInfoRepository _storeInfoRepository = storeInfoRepository ?? throw new ArgumentNullException(nameof(storeInfoRepository));

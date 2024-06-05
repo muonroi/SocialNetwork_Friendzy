@@ -1,10 +1,4 @@
-﻿using Matched.Friend.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using MySql.EntityFrameworkCore.Extensions;
-using Newtonsoft.Json;
-using Serilog;
-
-namespace Matched.Friend.Infrastructure.Persistence;
+﻿namespace Matched.Friend.Infrastructure.Persistence;
 
 public class FriendsMatchedDbContextSeed(ILogger logger, FriendsMatchedDbContext context)
 {

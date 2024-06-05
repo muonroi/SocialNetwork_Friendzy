@@ -8,7 +8,7 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["BuildingBlocks/Commons/Directory.Packages.props", "BuildingBlocks/Commons/"]
+
 COPY ["Services/Setting.Service/Setting.Service/Setting.Service.csproj", "Services/Setting.Service/Setting.Service/"]
 COPY ["BuildingBlocks/Commons/Commons.csproj", "BuildingBlocks/Commons/"]
 COPY ["BuildingBlocks/ExternalAPI/ExternalAPI.csproj", "BuildingBlocks/ExternalAPI/"]

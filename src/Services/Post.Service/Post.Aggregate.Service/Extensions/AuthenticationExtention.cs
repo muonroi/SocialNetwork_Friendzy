@@ -1,9 +1,4 @@
-﻿using Authenticate.Verify.Service;
-using Infrastructure.Helper;
-using Infrastructure.Middleware;
-using static Authenticate.Verify.Service.AuthenticateVerify;
-namespace Post.Aggregate.Service.Extensions;
-
+﻿namespace Post.Aggregate.Service.Extensions;
 
 public static class AuthenticationExtention
 {
@@ -61,5 +56,4 @@ public static class AuthenticationExtention
 
         return app;
     }
-
 }

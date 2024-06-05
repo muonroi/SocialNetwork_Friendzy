@@ -1,16 +1,4 @@
-﻿using Calzolari.Grpc.AspNetCore.Validation.Internal;
-using Consul;
-using Contracts.Commons.Constants;
-using Contracts.Commons.Interfaces;
-using Infrastructure.Commons;
-using Infrastructure.Extensions;
-using Infrastructure.Factorys;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using static Authenticate.Verify.Service.AuthenticateVerify;
-
-namespace Account.Application.Commons.Extensions;
+﻿namespace Account.Application.Commons.Extensions;
 
 public static class ServiceExtension
 {

@@ -1,4 +1,4 @@
-﻿namespace Post.Aggregate.Service.Infrastructure.ErrorMessages;
+﻿namespace Post.Aggregate.Service.Infrastructure.Messages;
 
 public enum ErrorMessages
 {

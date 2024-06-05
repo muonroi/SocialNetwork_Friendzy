@@ -1,13 +1,3 @@
-using Account.Application.Commons.Interfaces;
-using Account.Infrastructure.Persistence;
-using Account.Infrastructure.Repository;
-using Contracts.Commons.Constants;
-using Contracts.Commons.Interfaces;
-using Infrastructure.Commons;
-using Infrastructure.Helper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 namespace Account.Infrastructure;
 
 public static class ConfigureService

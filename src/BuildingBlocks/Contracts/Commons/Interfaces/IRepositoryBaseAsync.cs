@@ -1,8 +1,4 @@
-﻿using Contracts.Domains;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-
-namespace Contracts.Commons.Interfaces;
+﻿namespace Contracts.Commons.Interfaces;
 
 public interface IRepositoryBaseAsync<T, TK> : IRepositoryQueryBaseAsync<T, TK>
     where T : EntityBase<TK>

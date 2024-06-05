@@ -1,17 +1,4 @@
-﻿using Account.Application.Commons;
-using Account.Application.Commons.Interfaces;
-using Account.Application.DTOs;
-using Account.Domain.Entities;
-using Account.Infrastructure.Persistence;
-using AutoMapper;
-using Contracts.Commons.Interfaces;
-using Dapper.Extensions;
-using Infrastructure.Commons;
-using Infrastructure.ORMs.Dapper;
-using Newtonsoft.Json;
-using Serilog;
-
-namespace Account.Infrastructure.Repository;
+﻿namespace Account.Infrastructure.Repository;
 
 public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnitOfWork<AccountDbContext> unitOfWork, ILogger logger, IDapper dapper) : RepositoryBaseAsync<AccountEntity, Guid, AccountDbContext>(dbContext, unitOfWork), IAccountRepository
 {
@@ -62,7 +49,6 @@ public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnit
 
     public async Task<AccountDTO?> GetAccountByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-
         _logger.Information($"BEGIN: GetAccountByIdAsync REQUEST --> {id} <-- REQUEST");
         DapperCommand command = new()
         {
@@ -81,7 +67,6 @@ public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnit
         _logger.Information($"END: GetAccountByIdAsync RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
 
         return result;
-
     }
 
     public async Task<IEnumerable<AccountDTO>?> GetAccountsAsync(CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10)

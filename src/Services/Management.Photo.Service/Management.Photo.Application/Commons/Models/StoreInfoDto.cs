@@ -1,6 +1,4 @@
-﻿using Shared.Enums;
-
-namespace Management.Photo.Application.Commons.Models;
+﻿namespace Management.Photo.Application.Commons.Models;
 
 public class StoreInfoDTO
 {

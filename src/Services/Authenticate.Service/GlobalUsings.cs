@@ -1,0 +1,14 @@
+global using Authenticate.Service.Extensions;
+global using Authenticate.Service.Services;
+global using Authenticate.Verify.Service;
+global using Commons.Logging;
+global using Grpc.Core;
+global using Infrastructure.Extensions;
+global using Infrastructure.Middleware;
+global using Microsoft.IdentityModel.Tokens;
+global using Newtonsoft.Json;
+global using Serilog;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using static Authenticate.Verify.Service.AuthenticateVerify;
+global using ILogger = Serilog.ILogger;

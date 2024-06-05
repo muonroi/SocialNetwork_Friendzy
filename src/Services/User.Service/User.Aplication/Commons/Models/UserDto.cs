@@ -1,5 +1,4 @@
-﻿using User.Application.Commons.Mappings;
-namespace User.Application.Commons.Models;
+﻿namespace User.Application.Commons.Models;
 
 public record UserDto : IMapFrom<UserEntity>
 {
@@ -20,6 +19,4 @@ public record UserDto : IMapFrom<UserEntity>
     public Guid AccountGuid { get; set; }
 
     public required string CategoryId { get; set; }
-
-
 }

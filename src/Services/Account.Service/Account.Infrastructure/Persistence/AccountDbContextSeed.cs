@@ -1,56 +1,51 @@
-﻿using Account.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using Serilog;
+﻿namespace Account.Infrastructure.Persistence;
 
-namespace Account.Infrastructure.Persistence
+public class AccountDbContextSeed
 {
-    public class AccountDbContextSeed
+    private readonly ILogger _logger;
+    private readonly AccountDbContext _context;
+
+    public AccountDbContextSeed(ILogger logger, AccountDbContext context)
     {
-        private readonly ILogger _logger;
-        private readonly AccountDbContext _context;
+        _logger = logger;
+        _context = context;
+    }
 
-        public AccountDbContextSeed(ILogger logger, AccountDbContext context)
+    public async Task InitialiseAsync()
+    {
+        try
         {
-            _logger = logger;
-            _context = context;
-        }
-
-        public async Task InitialiseAsync()
-        {
-            try
+            if (_context.Database.IsSqlServer())
             {
-                if (_context.Database.IsSqlServer())
-                {
-                    await _context.Database.MigrateAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "An error occurred while initializing the database.");
-                throw;
+                await _context.Database.MigrateAsync();
             }
         }
-
-        public async Task SeedAsync()
+        catch (Exception ex)
         {
-            try
-            {
-                await TrySeedAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "An error occurred while seeding the database.");
-                throw;
-            }
+            _logger.Error(ex, "An error occurred while initializing the database.");
+            throw;
         }
+    }
 
-        private async Task TrySeedAsync()
+    public async Task SeedAsync()
+    {
+        try
         {
-            // Seed accounts
-            if (!_context.Accounts.Any())
-            {
-                string accountsJson = @"[
+            await TrySeedAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "An error occurred while seeding the database.");
+            throw;
+        }
+    }
+
+    private async Task TrySeedAsync()
+    {
+        // Seed accounts
+        if (!_context.Accounts.Any())
+        {
+            string accountsJson = @"[
                     {
                         ""Id"": ""123e4567-e89b-12d3-a456-426614174000"",
                         ""AccountType"": ""Personal"",
@@ -103,49 +98,48 @@ namespace Account.Infrastructure.Persistence
                     }
                 ]";
 
-                List<AccountEntity>? accounts = JsonConvert.DeserializeObject<List<AccountEntity>>(accountsJson);
-                if (accounts != null)
-                {
-                    await _context.Accounts.AddRangeAsync(accounts);
-                    _ = await _context.SaveChangesAsync(); // Ensure account IDs are generated
-                    _logger.Information("Seeded Accounts: {@Accounts}", accounts);
-                }
-            }
-
-            // Seed roles
-            if (!_context.RoleEntities.Any())
+            List<AccountEntity>? accounts = JsonConvert.DeserializeObject<List<AccountEntity>>(accountsJson);
+            if (accounts != null)
             {
-                List<RoleEntity> roles =
-                [
-                    new RoleEntity { Name = "Admin" },
-                    new RoleEntity { Name = "User" },
-                    new RoleEntity { Name = "Guest" }
-                ];
-
-                await _context.RoleEntities.AddRangeAsync(roles);
-                _ = await _context.SaveChangesAsync(); // Ensure role IDs are generated
-                _logger.Information("Seeded Roles: {@Roles}", roles);
+                await _context.Accounts.AddRangeAsync(accounts);
+                _ = await _context.SaveChangesAsync(); // Ensure account IDs are generated
+                _logger.Information("Seeded Accounts: {@Accounts}", accounts);
             }
+        }
 
-            // Seed account roles
-            if (!_context.AccountRoles.Any() && _context.Accounts.Any() && _context.RoleEntities.Any())
-            {
-                List<AccountEntity> accounts = await _context.Accounts.ToListAsync();
-                List<RoleEntity> roles = await _context.RoleEntities.ToListAsync();
+        // Seed roles
+        if (!_context.RoleEntities.Any())
+        {
+            List<RoleEntity> roles =
+            [
+                new RoleEntity { Name = "Admin" },
+                new RoleEntity { Name = "User" },
+                new RoleEntity { Name = "Guest" }
+            ];
 
-                RoleEntity adminRole = roles.First(r => r.Name == "Admin");
-                RoleEntity userRole = roles.First(r => r.Name == "User");
+            await _context.RoleEntities.AddRangeAsync(roles);
+            _ = await _context.SaveChangesAsync(); // Ensure role IDs are generated
+            _logger.Information("Seeded Roles: {@Roles}", roles);
+        }
 
-                List<AccountRolesEntity> accountRoles =
-                [
-                    new AccountRolesEntity { AccountId = accounts[0].Id, RoleId = adminRole.Id },
-                    new AccountRolesEntity { AccountId = accounts[1].Id, RoleId = userRole.Id }
-                ];
+        // Seed account roles
+        if (!_context.AccountRoles.Any() && _context.Accounts.Any() && _context.RoleEntities.Any())
+        {
+            List<AccountEntity> accounts = await _context.Accounts.ToListAsync();
+            List<RoleEntity> roles = await _context.RoleEntities.ToListAsync();
 
-                await _context.AccountRoles.AddRangeAsync(accountRoles);
-                _ = await _context.SaveChangesAsync();
-                _logger.Information("Seeded AccountRoles: {@AccountRoles}", accountRoles);
-            }
+            RoleEntity adminRole = roles.First(r => r.Name == "Admin");
+            RoleEntity userRole = roles.First(r => r.Name == "User");
+
+            List<AccountRolesEntity> accountRoles =
+            [
+                new AccountRolesEntity { AccountId = accounts[0].Id, RoleId = adminRole.Id },
+                new AccountRolesEntity { AccountId = accounts[1].Id, RoleId = userRole.Id }
+            ];
+
+            await _context.AccountRoles.AddRangeAsync(accountRoles);
+            _ = await _context.SaveChangesAsync();
+            _logger.Information("Seeded AccountRoles: {@AccountRoles}", accountRoles);
         }
     }
 }
