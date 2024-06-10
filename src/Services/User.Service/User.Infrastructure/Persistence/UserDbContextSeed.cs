@@ -144,8 +144,8 @@ public class UserDbContextSeed(ILogger logger, UserDbContext context, ISerialize
                                         BEGIN
                                             CREATE TABLE #TempUserResult (
                                         		Id bigint,
-                                                FirstName nvarchar(50),
-                                                LastName nvarchar(50),
+                                                FirstName nvarchar(255),
+                                                LastName nvarchar(255),
                                                 PhoneNumber varchar(20),
                                                 EmailAddress nvarchar(255),
                                                 AvatarUrl nvarchar(1000),
@@ -210,86 +210,67 @@ public class UserDbContextSeed(ILogger logger, UserDbContext context, ISerialize
 
         string createProcedureGetUsersByInputQuery = @"
                     
-                                    CREATE PROC GetUsersByInput
-                                    @Input varchar(50),
-                                    @PageNumber int,
-                                    @PageSize int
-                                    AS
-                                    BEGIN
-                                        CREATE TABLE #TempUserResult (
-                                            Id bigint,
-                                            FirstName nvarchar(50),
-                                            LastName nvarchar(50),
-                                            PhoneNumber varchar(20),
-                                            EmailAddress nvarchar(255),
-                                            AvatarUrl nvarchar(1000),
-                                            [Address] nvarchar(max),
-                                            ProfileImagesUrl varchar(max),
-                                            Longitude float,
-                                            Latitude float,
-                                            Gender int,
-                                            Birthdate bigint,
-                                            CategoryId varchar(255),
-                                            AccountGuid uniqueidentifier,
-                                            CreatedDate datetimeoffset,
-                                            LastModifiedDate datetimeoffset,
-                                            DeletedDate datetimeoffset,
-                                            CreatedBy nvarchar(255),
-                                            LastModifiedBy nvarchar(255),
-                                            DeletedBy nvarchar(255),
-                                            CreatedDateTs bigint,
-                                            LastModifiedDateTs bigint
-                                        )
                                     
-                                        INSERT INTO #TempUserResult
-                                        SELECT
-                                            u.Id,
-                                            u.FirstName,
-                                            u.LastName,
-                                            u.PhoneNumber,
-                                            u.EmailAddress,
-                                            u.AvatarUrl,
-                                            u.[Address],
-                                            u.ProfileImagesUrl,
-                                            u.Longitude,
-                                            u.Latitude,
-                                            u.Gender,
-                                            u.Birthdate,
-                                            u.CategoryId,
-                                            u.AccountGuid,
-                                            u.CreatedDate,
-                                            u.LastModifiedDate,
-                                            u.DeletedDate,
-                                            u.CreatedBy,
-                                            u.LastModifiedBy,
-                                            u.DeletedBy,
-                                            u.CreatedDateTs,
-                                            u.LastModifiedDateTs
-                                        FROM Users u
-                                    
-                                        DECLARE @Offset int = (@PageNumber - 1) * @PageSize
-                                    
-                                        SELECT * FROM #TempUserResult
-                                        WHERE LastName LIKE @Input + '%'
-                                        UNION ALL
-                                        SELECT * FROM #TempUserResult
-                                        WHERE FirstName LIKE @Input + '%'
-                                        UNION ALL
-                                        SELECT * FROM #TempUserResult
-                                        WHERE EmailAddress = @Input
-                                        UNION ALL
-                                        SELECT * FROM #TempUserResult
-                                        WHERE PhoneNumber = @Input
-                                        UNION ALL
-                                        SELECT * FROM #TempUserResult
-                                        WHERE AccountGuid = TRY_CONVERT(uniqueidentifier, @Input)
-                                        ORDER BY Id
-                                        OFFSET @Offset ROWS
-                                        FETCH NEXT @PageSize ROWS ONLY
-                                    
-                                        DROP TABLE #TempUserResult
-                                    END
+CREATE PROC GetUsersByInput
+    @Input varchar(50),
+    @PageNumber int,
+    @PageSize int
+AS
+BEGIN
+    -- Create a temporary table to store search results
+    CREATE TABLE #TempUserResult (
+        FirstName nvarchar(255),
+        LastName nvarchar(255),
+        [Address] varchar(max),
+        ProfileImagesUrl varchar(max),
+        Birthdate bigint,
+        EmailAddress varchar(100),
+        Gender int,
+        Id bigint,
+        Latitude float,
+        Longitude float,
+        AvatarUrl varchar(max),
+        PhoneNumber varchar(20),
+        AccountGuid uniqueidentifier,
+        CategoryId varchar(255)
+    )
 
+    -- Insert data from Users table into the temporary table
+    INSERT INTO #TempUserResult
+    SELECT
+        u.FirstName,
+        u.LastName,
+        u.[Address],
+        u.ProfileImagesUrl,
+        u.Birthdate,
+        u.EmailAddress,
+        u.Gender,
+        u.Id,
+        u.Latitude,
+        u.Longitude,
+        u.AvatarUrl,
+        u.PhoneNumber,
+        u.AccountGuid,
+        u.CategoryId
+    FROM Users u
+
+    -- Calculate the number of records to skip
+    DECLARE @Offset int = (@PageNumber - 1) * @PageSize
+
+    -- Query records from the temporary table based on PhoneNumber and paginate
+    SELECT * FROM #TempUserResult
+    WHERE PhoneNumber IN (SELECT value FROM STRING_SPLIT(@Input, ','))
+    UNION ALL
+    -- Query records from the temporary table based on Id and paginate
+    SELECT * FROM #TempUserResult
+    WHERE Id IN (SELECT value FROM STRING_SPLIT(@Input, ','))
+    ORDER BY Id -- Order by Id, can be changed as needed
+    OFFSET @Offset ROWS
+    FETCH NEXT @PageSize ROWS ONLY
+
+    -- Drop the temporary table
+    DROP TABLE #TempUserResult
+END
 
                     ";
 

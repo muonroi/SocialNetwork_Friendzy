@@ -9,9 +9,9 @@ CREATE PROC GetUserByInput
                                 BEGIN
                                     -- Tạo bảng tạm để lưu kết quả tìm kiếm
                                     CREATE TABLE #TempUserResult (
-                                        FirstName varchar(50),
-                                        LastName varchar(50),
-                                        [Address] varchar(255),
+                                        FirstName nvarchar(255),
+                                        LastName nvarchar(255),
+                                        [Address] nvarchar(max),
                                         ProfileImagesUrl varchar(max),
                                         Birthdate bigint,
                                         EmailAddress varchar(100),

@@ -101,7 +101,7 @@ public class DistanceDbContextSeed(ILogger logger, DistanceDbContext context, IS
                    distance.Longitude,
                    distance.UserId
             FROM DistanceEntities distance
-            WHERE distance.Country = @Country
+            WHERE distance.Country like @Country
             ORDER BY distance.Id
             OFFSET @Offset ROWS
             FETCH NEXT @PageSize ROWS ONLY;
@@ -115,7 +115,7 @@ public class DistanceDbContextSeed(ILogger logger, DistanceDbContext context, IS
             BEGIN
                 SELECT COUNT(*)
                 FROM DistanceEntities distance
-                WHERE distance.Country = @Country
+                WHERE distance.Country like @Country
             END;
 ";
         _ = await _context.Database.ExecuteSqlRawAsync(createProcedureGetDistanceByCountry);

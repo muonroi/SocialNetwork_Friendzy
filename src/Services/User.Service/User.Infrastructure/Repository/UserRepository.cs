@@ -43,7 +43,7 @@ public class UserRepository(IMapper mapper, UserDbContext dbContext, IUnitOfWork
             Parameters = new
             {
                 input,
-                pageIndex,
+                pageNumber = pageIndex,
                 pageSize
             },
         };

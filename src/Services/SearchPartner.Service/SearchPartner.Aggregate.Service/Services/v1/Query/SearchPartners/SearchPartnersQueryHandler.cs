@@ -27,6 +27,7 @@ public class SearchPartnersQueryHandler(
     {
         WorkContextInfoDTO workContext = _workContextAccessor.WorkContext!;
         SearchPartnersQueryResponse result = new();
+
         GetDistanceInfoListReply distanceResult = await _distanceServiceClient.GetDistanceInfoListAsync(new GetDistanceInfoListRequest
         {
             Country = request.Country,

@@ -13,18 +13,27 @@ namespace Account.Infrastructure.Repository
 
         public async Task<bool> AssignAccountToRoleId(Guid accountId, Guid roleId, CancellationToken cancellationToken)
         {
-            _logger.Information($"BEGIN: CreateAccountAsync REQUEST --> {_serializeService.Serialize(new { accountId, roleId })} <-- REQUEST");
-            _ = await CreateAsync(new AccountRolesEntity
+            try
             {
-                AccountId = accountId,
-                RoleId = roleId
-            }, cancellationToken);
+                _logger.Information($"BEGIN: CreateAccountAsync REQUEST --> {_serializeService.Serialize(new { accountId, roleId })} <-- REQUEST");
+                _ = await CreateAsync(new AccountRolesEntity
+                {
+                    AccountId = accountId,
+                    RoleId = roleId
+                }, cancellationToken);
 
-            int result = await SaveChangesAsync();
+                int result = await SaveChangesAsync();
 
-            _logger.Information($"END: CreateAccountAsync RESULT --> {_serializeService.Serialize(result)} <-- ");
+                _logger.Information($"END: CreateAccountAsync RESULT --> {_serializeService.Serialize(result)} <-- ");
 
-            return result > 0;
+                return result > 0;
+            }
+            catch (Exception ex)
+            {
+                _ = ex.Message;
+                throw;
+            }
+
         }
     }
 }

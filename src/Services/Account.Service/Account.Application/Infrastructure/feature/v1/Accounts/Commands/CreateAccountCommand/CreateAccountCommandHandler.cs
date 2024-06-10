@@ -34,6 +34,8 @@ GrpcClientFactory grpcClientFactory, IAccountRepository accountRepository, IAcco
         _ = await _accountRepository.UpdateAccountAsync(accountIdCreated, accountDto, cancellationToken);
 
         //assign account to role user
+        //F9E297B9-15D2-4DD6-61FC-08DC781F4659
+        //A06E8089-CDD0-466C-B6C7-08DC8891B9B7
         _ = await _accountRoleRepository.AssignAccountToRoleId(accountIdCreated, Guid.Parse("A06E8089-CDD0-466C-B6C7-08DC8891B9B7"), cancellationToken); // edit after, this is role user hardcode
 
         CreateAccountCommandResponse? result = new()

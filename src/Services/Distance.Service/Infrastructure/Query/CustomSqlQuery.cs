@@ -2,6 +2,6 @@
 
 public static class CustomSqlQuery
 {
-    public const string GetDistanceByCountry = "EXEC GetDistanceByCountry @Country, @pageIndex, @pageIndex";
+    public const string GetDistanceByCountry = "EXEC GetDistanceByCountry @Country,@pageSize,@pageIndex";
     public const string GetDistanceCountInfo = "SELECT COUNT(*) FROM DistanceEntities distance WHERE distance.Country = @Country";
 }
