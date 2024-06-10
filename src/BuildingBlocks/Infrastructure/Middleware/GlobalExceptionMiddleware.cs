@@ -4,6 +4,7 @@ namespace Infrastructure.Middleware
     public class GlobalExceptionMiddleware(RequestDelegate next, ILogger logger)
     {
         private readonly RequestDelegate _next = next;
+
         private readonly ILogger _logger = logger;
 
         public async Task InvokeAsync(HttpContext context)
@@ -19,7 +20,7 @@ namespace Infrastructure.Middleware
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception ex)
+        private Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.OK;
@@ -32,8 +33,7 @@ namespace Infrastructure.Middleware
                     details = ex.Message
                 }
             };
-
-            return context.Response.WriteAsync(JsonConvert.SerializeObject(response));
+            return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
         }
     }
 

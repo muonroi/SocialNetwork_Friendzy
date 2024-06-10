@@ -1,3 +1,6 @@
+using Contracts.Commons.Interfaces;
+using Infrastructure.Commons;
+
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -6,32 +9,32 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog(SerilogAction.Configure);
 
-IServiceCollection services = builder.Services;
-
-IWebHostEnvironment env = builder.Environment;
-
 ConfigurationManager configuration = builder.Configuration;
 
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 
 try
 {
-    // Add services to the container.
-    _ = services.AddControllers();
+    IServiceCollection services = builder.Services;
+    {
+        _ = services.AddConfigurationSettings(configuration);
 
-    _ = services.AddConfigurationSettings(configuration);
+        _ = services.AddWorkContextAccessor();
 
-    _ = services.AddEndpointsApiExplorer();
+        _ = services.AddScoped<ISerializeService, SerializeService>();
 
-    _ = services.AddSwaggerGen();
+        builder.AddAppConfigurations();
 
-    builder.AddAppConfigurations();
+    }
 
     WebApplication app = builder.Build();
+    {
+        app.AddMapGrpcServices();
+    }
 
-    app.AddMapGrpcServices();
+    _ = app.ConfigureEndpoints(configuration);
 
-    EndpointConfigure.ConfigureEndpoints(app);
+    app.Run();
 }
 catch (Exception ex)
 {
@@ -46,7 +49,7 @@ catch (Exception ex)
 }
 finally
 {
-    Log.Information("Shut down SearchPartners Service complete");
+    Log.Information("Shut down Search Partners Service complete");
 
     Log.CloseAndFlush();
 }

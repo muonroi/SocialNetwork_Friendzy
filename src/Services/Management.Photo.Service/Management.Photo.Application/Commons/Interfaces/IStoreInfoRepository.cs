@@ -6,5 +6,5 @@ public interface IStoreInfoRepository : IRepositoryBaseAsync<StoreInfoEntity, lo
 
     Task<bool> CreateResourceAsync(CreateResourceRequest request, CancellationToken cancellationToken);
 
-    Task<StoreInfoDTO?> GetResourceByIdAsync(long userId, long bucketId, long storyInfoId, CancellationToken cancellationToken);
+    Task<StoreInfoDTO?> GetResourceByIdAsync(long userId, long bucketId, long storeInfoId, CancellationToken cancellationToken);
 }

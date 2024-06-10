@@ -3,14 +3,15 @@
 public static class ServiceExtension
 {
     internal static IServiceCollection AddConfigurationSettings(this IServiceCollection services,
-       IConfiguration configuration, IWebHostEnvironment environment, IHttpContextAccessor httpContextAccessor)
+       IConfiguration configuration, IWebHostEnvironment environment)
     {
         _ = configuration.ToBase64();
         _ = services.AddInternalService();
+        _ = services.AddScoped<ISerializeService, SerializeService>();
         _ = services.AddTransient(typeof(GrpcConfigClientFactory<>));
         _ = services.AddGrpcClientServices(configuration, environment);
         _ = services.AddPaginationConfigs(configuration);
-        _ = services.AddApiIntegration(configuration, httpContextAccessor);
+        _ = services.AddApiIntegration(configuration);
         return services;
     }
 
@@ -71,14 +72,14 @@ public static class ServiceExtension
 
     #region Create API Integration
 
-    public static IServiceCollection AddApiIntegration(this IServiceCollection services, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+    public static IServiceCollection AddApiIntegration(this IServiceCollection services, IConfiguration configuration)
     {
         _ = services.RegisterServiceForwarder<IApiExternalClient>(ApiPartnerConstants.PartnerName)
-            .AddRestEaseMessageHandler(configuration, ApiPartnerConstants.ApiCode, ApiPartnerConstants.APIType, httpContextAccessor);
+            .AddRestEaseMessageHandler(configuration, ApiPartnerConstants.ApiCode, ApiPartnerConstants.APIType);
         return services;
     }
 
-    private static IHttpClientBuilder AddRestEaseMessageHandler(this IHttpClientBuilder builder, IConfiguration configuration, string partnerCode, string partnerType, IHttpContextAccessor httpContextAccessor)
+    private static IHttpClientBuilder AddRestEaseMessageHandler(this IHttpClientBuilder builder, IConfiguration configuration, string partnerCode, string partnerType)
     {
         _ = builder.AddHttpMessageHandler(serviceProvider =>
         {
@@ -86,13 +87,10 @@ public static class ServiceExtension
             async Task<Dictionary<string, string>> _callbackApi(HttpRequestHeaders request)
             {
                 string? secretKey = configuration.GetEx("SecretKey");
-                IHeaderDictionary? token = httpContextAccessor.HttpContext?.Request.Headers;
-
-                string? accessToken = token?.Authorization.FirstOrDefault(header => header?.StartsWith("Bearer ") == true)?["Bearer ".Length..];
-
+                string? apiKey = configuration.GetEx("ApiKey", secretKey!);
                 IWorkContextAccessor doWorkContext = serviceProvider.GetRequiredService<IWorkContextAccessor>();
 
-                request.Add("Authorization", accessToken);
+                request.Add("API-Key", apiKey);
                 request.Add("Request-Id", Guid.NewGuid().ToString());
                 return await apiConfigSerivce.GetIntegrationApiAsync(partnerCode, partnerType);
             }

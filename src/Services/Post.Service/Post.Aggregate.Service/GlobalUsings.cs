@@ -17,15 +17,11 @@ global using Infrastructure.Helper;
 global using Infrastructure.Middleware;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
-global using Newtonsoft.Json;
-global using Newtonsoft.Json.Converters;
 global using Post.Aggregate.Service.Extensions;
 global using Post.Aggregate.Service.Infrastructure;
 global using Post.Aggregate.Service.Infrastructure.Endpoints;
 global using Post.Aggregate.Service.Infrastructure.Helpers;
-global
-
-using Post.Aggregate.Service.Services.v1.ApiConfigService;
+global using Post.Aggregate.Service.Services.v1.ApiConfigService;
 global using Post.Aggregate.Service.Services.v1.Query.GetPosts;
 global using Post.API.Protos;
 global using Serilog;

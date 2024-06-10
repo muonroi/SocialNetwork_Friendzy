@@ -1,11 +1,12 @@
 ﻿namespace Matched.Friend.Infrastructure.Persistence;
 
-public class FriendsMatchedDbContextSeed(ILogger logger, FriendsMatchedDbContext context)
+public class FriendsMatchedDbContextSeed(ILogger logger, FriendsMatchedDbContext context, ISerializeService serializeService)
 {
     private readonly ILogger _logger = logger;
 
     private readonly FriendsMatchedDbContext _context = context;
 
+    private readonly ISerializeService _serializeService = serializeService;
     public async Task InitialiseAsync()
     {
         try
@@ -51,7 +52,7 @@ public class FriendsMatchedDbContextSeed(ILogger logger, FriendsMatchedDbContext
                       ""FriendId"": 3,
                     },
                 ]";
-            List<FriendsMatchedEntity>? matchedsFriendDatas = JsonConvert.DeserializeObject<List<FriendsMatchedEntity>>(FriendsMatcheds);
+            List<FriendsMatchedEntity>? matchedsFriendDatas = _serializeService.Deserialize<List<FriendsMatchedEntity>>(FriendsMatcheds);
 
             // Add users to the context
             await _context.FriendsMatcheds.AddRangeAsync(matchedsFriendDatas ?? []);

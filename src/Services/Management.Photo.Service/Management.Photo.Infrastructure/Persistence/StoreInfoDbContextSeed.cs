@@ -1,10 +1,12 @@
 ﻿namespace Management.Photo.Infrastructure.Persistence;
 
-public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
+public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context, ISerializeService serializeService)
 {
     private readonly ILogger _logger = logger;
 
     private readonly StoreInfoDbContext _context = context;
+
+    private readonly ISerializeService _serializeService = serializeService;
 
     public async Task InitialiseAsync()
     {
@@ -54,7 +56,7 @@ public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
                     ""BucketDescription"": ""Store sort-videos""
                 }
             ]";
-            List<BucketEntity>? bucketEntities = JsonConvert.DeserializeObject<List<BucketEntity>>(bucketJson);
+            List<BucketEntity>? bucketEntities = _serializeService.Deserialize<List<BucketEntity>>(bucketJson);
             await _context.BucketEntities.AddRangeAsync(bucketEntities ?? []);
         }
 
@@ -102,7 +104,7 @@ public class StoreInfoDbContextSeed(ILogger logger, StoreInfoDbContext context)
                    ""BucketId"": 2,
                  },
             ]";
-            List<StoreInfoEntity>? storeInfo = JsonConvert.DeserializeObject<List<StoreInfoEntity>>(StoreInfoJson);
+            List<StoreInfoEntity>? storeInfo = _serializeService.Deserialize<List<StoreInfoEntity>>(StoreInfoJson);
             await _context.StoreInfoEntities.AddRangeAsync(storeInfo ?? []);
         }
     }

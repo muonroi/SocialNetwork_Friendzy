@@ -2,6 +2,7 @@
 
 [Route("api/v1/[controller]")]
 [ApiController]
+//[Authorize]
 public class ManagementPhotoController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
@@ -22,10 +23,9 @@ public class ManagementPhotoController(IMediator mediator) : ControllerBase
         return Ok(result);
     }
 
-    #region CRUD
+    #region Command
 
     [HttpPost("import")]
-    [Authorize]
     [ProducesResponseType(typeof(ApiResult<ImportResourceCommandResponse>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> ImportResourceByType([FromForm] ImportResourceCommand request)
     {
@@ -35,7 +35,7 @@ public class ManagementPhotoController(IMediator mediator) : ControllerBase
 
     [HttpPost("import/multiple")]
     [ProducesResponseType(typeof(ApiResult<IEnumerable<ImportMultipleResourceCommandResponse>>), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> ImportMultipleResource([FromQuery] ImportMultipleResourceCommand request)
+    public async Task<IActionResult> ImportMultipleResource([FromForm] ImportMultipleResourceCommand request)
     {
         ApiResult<IEnumerable<ImportMultipleResourceCommandResponse>> result = await _mediator.Send(request).ConfigureAwait(false);
         return Ok(result);

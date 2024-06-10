@@ -6,7 +6,7 @@ public class GetMultipleUsersQueryHandler(IUserRepository userRepository) : IReq
 
     public async Task<ApiResult<IEnumerable<UserDto>>> Handle(GetMultipleUsersQuery request, CancellationToken cancellationToken)
     {
-        IEnumerable<UserDto>? result = await _userRepository.GetUsersByInput(request.Input, cancellationToken);
+        IEnumerable<UserDto>? result = await _userRepository.GetUsersByInput(request.Input, request.PageIndex, request.PageSize, cancellationToken);
         return result is null
             ? new ApiErrorResult<IEnumerable<UserDto>>($"{ErrorMessageBase.UserNotFound}", (int)HttpStatusCode.NotFound)
             : new ApiSuccessResult<IEnumerable<UserDto>>(result);

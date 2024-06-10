@@ -2,11 +2,11 @@
 
 public static class SwaggerConfiguration
 {
-    public static void SwaggerConfig(this IServiceCollection services)
+    public static IServiceCollection SwaggerConfig(this IServiceCollection services)
     {
         _ = services.AddSwaggerGen(config =>
         {
-            config.SwaggerDoc("v1", new OpenApiInfo { Title = "Your api title", Version = "v1" });
+            config.SwaggerDoc("v1", new OpenApiInfo { Title = "User Service", Version = "v1" });
             config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Name = "Authorization",
@@ -32,5 +32,6 @@ public static class SwaggerConfiguration
                     }
             });
         });
+        return services;
     }
 }

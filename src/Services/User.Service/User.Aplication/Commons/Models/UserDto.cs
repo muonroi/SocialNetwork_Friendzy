@@ -17,6 +17,5 @@ public record UserDto : IMapFrom<UserEntity>
     public Gender Gender { get; set; }
     public long? Birthdate { get; set; }
     public Guid AccountGuid { get; set; }
-
-    public required string CategoryId { get; set; }
+    public IEnumerable<string> CategoryIds { get; set; } = [];
 }

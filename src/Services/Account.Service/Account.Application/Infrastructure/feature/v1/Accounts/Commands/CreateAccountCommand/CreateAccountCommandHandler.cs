@@ -1,9 +1,13 @@
 ﻿namespace Account.Application.Infrastructure.feature.v1.Accounts.Commands.CreateAccountCommand;
 
 public class CreateAccountCommandHandler(
-GrpcClientFactory grpcClientFactory, IAccountRepository accountRepository, JwtBearerConfig jwtBearerConfig) : IRequestHandler<CreateAccountCommand, ApiResult<CreateAccountCommandResponse>>
+GrpcClientFactory grpcClientFactory, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, JwtBearerConfig jwtBearerConfig) : IRequestHandler<CreateAccountCommand, ApiResult<CreateAccountCommandResponse>>
 {
     private readonly IAccountRepository _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
+
+
+    private readonly IAccountRoleRepository _accountRoleRepository = accountRoleRepository ?? throw new ArgumentNullException(nameof(accountRoleRepository));
+
     private readonly JwtBearerConfig _jwtBearerConfig = jwtBearerConfig ?? throw new ArgumentNullException(nameof(jwtBearerConfig));
 
     private readonly AuthenticateVerifyClient _authenticateClient =
@@ -14,6 +18,7 @@ GrpcClientFactory grpcClientFactory, IAccountRepository accountRepository, JwtBe
         Guid accountIdCreated = await _accountRepository.CreateAccountAsync(request, cancellationToken);
 
         GenerateTokenReply tokenResult = await GenerateToken(request, accountIdCreated, cancellationToken);
+
         AccountDTO accountDto = new()
         {
             AccountType = request.AccountType,
@@ -27,6 +32,9 @@ GrpcClientFactory grpcClientFactory, IAccountRepository accountRepository, JwtBe
             RefreshTokenExpiryTime = tokenResult.ExpiresIn,
         };
         _ = await _accountRepository.UpdateAccountAsync(accountIdCreated, accountDto, cancellationToken);
+
+        //assign account to role user
+        _ = await _accountRoleRepository.AssignAccountToRoleId(accountIdCreated, Guid.Parse("A06E8089-CDD0-466C-B6C7-08DC8891B9B7"), cancellationToken); // edit after, this is role user hardcode
 
         CreateAccountCommandResponse? result = new()
         {
@@ -46,7 +54,9 @@ GrpcClientFactory grpcClientFactory, IAccountRepository accountRepository, JwtBe
             GenerateTokenVerify = new GenerateTokenVerify
             {
                 SecretKey = _jwtBearerConfig.Key,
-                TimeExpires = 365  //change before
+                TimeExpires = 365,  //change before
+                Audience = _jwtBearerConfig.Audience,
+                Issuer = _jwtBearerConfig.Issuer,
             },
             GenerateTokenDetail = new GenerateTokenDetail
             {

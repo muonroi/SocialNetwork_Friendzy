@@ -10,9 +10,8 @@ internal static class EndpointConfigure
 
         _ = app.UseWorkContext();
 
-        _ = app.MapControllerRoute(
-                           name: "default",
-                                          pattern: "{controller=Home}/{action=Index}/{id?}");
+        _ = app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+
         _ = app.MapGet("/", context =>
         {
             context.Response.Redirect("/swagger");

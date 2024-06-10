@@ -8,5 +8,8 @@
   "AccountNotFound": "Không tìm thấy thông tin tài khoản",
   "FriendsMatchedsNotFound": "Không tìm thấy bạn bè với hành động {0} phù hợp",
   "UserIsMatched": "Người dùng này đã được {0}",
-  "UserHasRegisted": "Số điện thoại {0} đã được đăng kí"
+  "UserHasRegisted": "Số điện thoại {0} đã được đăng kí",
+  "UserUpdateFailed": "Cập nhật thông tin người dùng thất bại",
+  "CreateAccountError": "Tạo tài khoản thất bại",
+  "InsertDistanceError": "Khoảng cách giữa bạn và người dùng khác không được lưu"
 }

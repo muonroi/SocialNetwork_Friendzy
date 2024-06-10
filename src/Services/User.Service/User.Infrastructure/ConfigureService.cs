@@ -9,11 +9,12 @@ public static class ConfigureService
             _ = options.UseSqlServer(configuration.GetConfigHelper(ConfigurationSetting.ConnectionString),
                 builder => builder.MigrationsAssembly(typeof(UserDbContext).Assembly.FullName));
         });
+        _ = services.AddScoped<ISerializeService, SerializeService>();
         _ = services.AddScoped<UserDbContextSeed>();
         _ = services.AddScoped(typeof(IRepositoryBaseAsync<,,>), typeof(RepositoryBaseAsync<,,>));
-        _ = services.AddTransient<IUserRepository, UserRepository>();
         _ = services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
         _ = services.AddScoped(typeof(ISmtpEmailService), typeof(SmtpEmailService));
+        _ = services.AddTransient<IUserRepository, UserRepository>();
         return services;
     }
 }

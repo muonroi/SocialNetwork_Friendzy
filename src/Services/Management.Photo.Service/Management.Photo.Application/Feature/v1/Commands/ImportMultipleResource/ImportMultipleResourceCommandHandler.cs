@@ -29,6 +29,7 @@ IBucketRepository bucketRepository) : IRequestHandler<ImportMultipleResourceComm
         });
 
         IEnumerable<ImportObjectResourceDTO>? resourceUrl = await _resourceService.ImportMultipleResourceAsync(getBucketResult.BucketName, uploadRequests, cancellationToken);
+
         if (resourceUrl is null || !resourceUrl.Any())
         {
             return new ApiErrorResult<IEnumerable<ImportMultipleResourceCommandResponse>>("Resource not found", (int)HttpStatusCode.NotFound);

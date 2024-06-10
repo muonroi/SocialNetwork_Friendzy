@@ -11,4 +11,5 @@ public interface IAccountRepository
     Task<bool> UpdateAccountAsync(Guid id, AccountDTO account, CancellationToken cancellationToken);
 
     Task<bool> DeleteAccountAsync(Guid id, CancellationToken cancellationToken);
+
 }

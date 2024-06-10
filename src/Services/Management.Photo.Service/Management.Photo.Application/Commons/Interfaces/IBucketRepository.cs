@@ -5,4 +5,5 @@ public interface IBucketRepository
     Task<IEnumerable<BucketDto>?> GetBucketsAsync(CancellationToken cancellationToken);
 
     Task<BucketDto?> GetBucketByIdAsync(long bucketId, CancellationToken cancellationToken);
+
 }

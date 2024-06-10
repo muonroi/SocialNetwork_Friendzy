@@ -8,5 +8,5 @@ public interface IUserRepository : IRepositoryBaseAsync<UserEntity, long>
 
     Task<bool> UpdateUserByPhone(UserDto user, string input, CancellationToken cancellationToken);
 
-    Task<IEnumerable<UserDto>?> GetUsersByInput(string input, CancellationToken cancellationToken);
+    Task<IEnumerable<UserDto>?> GetUsersByInput(string input, int pageIndex, int pageSize, CancellationToken cancellationToken);
 }

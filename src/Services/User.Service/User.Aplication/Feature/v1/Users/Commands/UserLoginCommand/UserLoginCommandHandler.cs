@@ -29,7 +29,7 @@ public class UserLoginCommandHandler(IUserRepository userRepository, IApiExterna
 
         if (accountResponse.Data is null)
         {
-            return new ApiErrorResult<UserDto>($"{ErrorMessageBase.UserNotFound}", (int)HttpStatusCode.NotFound);
+            return new ApiErrorResult<UserDto>();
         }
         result.AccountGuid = accountResponse.Data.AccountId;
         result.AccessToken = accountResponse.Data.AccessToken;

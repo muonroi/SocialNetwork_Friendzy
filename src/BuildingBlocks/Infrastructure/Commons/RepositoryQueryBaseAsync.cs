@@ -4,6 +4,7 @@ public class RepositoryQueryBaseAsync<T, TK, TContext>(TContext dbContext) : IRe
     where T : EntityBase<TK>
     where TContext : DbContext
 {
+
     private readonly TContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
     public IQueryable<T> FindAll(bool trackChanges = false)

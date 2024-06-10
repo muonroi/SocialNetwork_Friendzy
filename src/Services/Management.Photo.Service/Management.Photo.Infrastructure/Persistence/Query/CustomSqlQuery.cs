@@ -8,6 +8,7 @@ public static class CustomSqlQuery
                                                 sti.StoreName,
                                                 sti.StoreDescription,
                                                 sti.StoreUrl,
+                                                sti.Index,
                                                 sti.UserId,
                                                 sti.StoreInfoType,
                                                 be.BucketName,
@@ -31,6 +32,7 @@ public static class CustomSqlQuery
                                             sti.StoreName,
                                             sti.StoreDescription,
                                             sti.StoreUrl,
+                                            sti.Index,
                                             sti.UserId,
                                             sti.StoreInfoType,
                                             be.BucketName,
@@ -48,5 +50,6 @@ public static class CustomSqlQuery
                                         ";
 
     public const string GetBuckets = @"SELECT be.Id, be.BucketName, be.BucketDescription FROM BucketEntities be";
+
     public const string GetBucketById = @"SELECT be.Id, be.BucketName, be.BucketDescription FROM BucketEntities be WHERE be.Id = @id";
 }

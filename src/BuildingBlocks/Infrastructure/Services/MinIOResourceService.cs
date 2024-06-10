@@ -1,40 +1,35 @@
-﻿using Contracts.DTOs.ResourceDTOs;
-using Infrastructure.Helper;
-using Minio;
-using Minio.DataModel.Args;
-using Minio.DataModel.Response;
-using Shared.Services.Resources;
-namespace Infrastructure.Services;
+﻿namespace Infrastructure.Services;
 
-public class MinIOResourceService(ILogger logger, IMinioClient minioClient) : IMinIOResourceService
+public class MinIOResourceService(ILogger logger, IMinioClient minioClient, ISerializeService serializeService) : IMinIOResourceService
 {
+    private readonly ISerializeService _serializeService = serializeService ?? throw new ArgumentNullException(nameof(serializeService));
     private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     private readonly IMinioClient _minioClient = minioClient ?? throw new ArgumentNullException(nameof(minioClient));
 
 
     public async Task<string> GetUrlObject(string bucketName, string objectName, CancellationToken cancellationToken)
     {
-        _logger.Information($"BEGIN: GetUrlObject REQUEST --> {JsonConvert.SerializeObject(new { bucketName, objectName })} <--");
+        _logger.Information($"BEGIN: GetUrlObject REQUEST --> {_serializeService.Serialize(new { bucketName, objectName })} <--");
         PresignedGetObjectArgs args = new PresignedGetObjectArgs()
                                     .WithBucket(bucketName)
                                     .WithObject(objectName)
                                     .WithExpiry(60);
         string result = await _minioClient.PresignedGetObjectAsync(args);
-        _logger.Information($"END: GetUrlObject RESULT --> {JsonConvert.SerializeObject(result.Length)} <-- ");
+        _logger.Information($"END: GetUrlObject RESULT --> {_serializeService.Serialize(result.Length)} <-- ");
         return result;
     }
 
     public async Task<Stream> DownloadResourceStreamAsync(string bucketName, string objectName, CancellationToken cancellationToken)
     {
-        _logger.Information($"BEGIN: DownloadResourceStreamAsync REQUEST --> {JsonConvert.SerializeObject(new { bucketName, objectName })} <--");
+        _logger.Information($"BEGIN: DownloadResourceStreamAsync REQUEST --> {_serializeService.Serialize(new { bucketName, objectName })} <--");
         Stream result = await _minioClient.DownloadBucketStreamAsync(bucketName, objectName, cancellationToken);
-        _logger.Information($"END: DownloadResourceStreamAsync RESULT --> {JsonConvert.SerializeObject(result.Length)} <-- ");
+        _logger.Information($"END: DownloadResourceStreamAsync RESULT --> {_serializeService.Serialize(result.Length)} <-- ");
         return result;
     }
 
     public async Task<ImportObjectResourceDTO?> ImportResourceAsync(string bucketName, MinIOUploadRequest request, CancellationToken cancellationToken)
     {
-        _logger.Information($"BEGIN: ImportResourceAsync REQUEST --> {JsonConvert.SerializeObject(new { bucketName, request = JsonConvert.SerializeObject(request) })} <--");
+        _logger.Information($"BEGIN: ImportResourceAsync REQUEST --> {_serializeService.Serialize(new { bucketName, request = _serializeService.Serialize(request) })} <--");
 
         if (request.FormFile is null || request.FormFile.Length is 0)
         {
@@ -50,14 +45,14 @@ public class MinIOResourceService(ILogger logger, IMinioClient minioClient) : IM
 
         PutObjectResponse statObj = await _minioClient.UploadStreamObjectAsync(bucketName, request, cancellationToken);
 
-        _logger.Information($"END: ImportResourceAsync RESULT --> {JsonConvert.SerializeObject(statObj)} <-- ");
+        _logger.Information($"END: ImportResourceAsync RESULT --> {_serializeService.Serialize(statObj)} <-- ");
         ImportObjectResourceDTO result = new(await GetUrlObject(bucketName, request.FileName, cancellationToken), statObj.ObjectName);
         return result;
     }
 
     public async Task<IEnumerable<ImportObjectResourceDTO>?> ImportMultipleResourceAsync(string bucketName, IEnumerable<MinIOUploadRequest> requests, CancellationToken cancellationToken)
     {
-        _logger.Information($"BEGIN: ImportMultipleResourceAsync REQUEST --> {JsonConvert.SerializeObject(new { bucketName, request = JsonConvert.SerializeObject(requests) })} <--");
+        _logger.Information($"BEGIN: ImportMultipleResourceAsync REQUEST --> {_serializeService.Serialize(new { bucketName, request = _serializeService.Serialize(requests) })} <--");
 
         if (requests.Any(x => x.FormFile is null || x.FormFile.Length == 0))
         {
@@ -74,14 +69,14 @@ public class MinIOResourceService(ILogger logger, IMinioClient minioClient) : IM
         IEnumerable<Task<string>> uploadTasks = requests.Select(async request =>
         {
             PutObjectResponse statObj = await _minioClient.UploadStreamObjectAsync(bucketName, request, cancellationToken);
-            _logger.Information($"Uploaded Object: {JsonConvert.SerializeObject(statObj)}");
+            _logger.Information($"Uploaded Object: {_serializeService.Serialize(statObj)}");
 
             return statObj.Size > 0 ? await GetUrlObject(bucketName, request.FileName, cancellationToken) : string.Empty;
         });
 
         string[] uploadResult = await Task.WhenAll(uploadTasks);
 
-        _logger.Information($"END: ImportMultipleResourceAsync RESULT --> {JsonConvert.SerializeObject(uploadResult)} <-- ");
+        _logger.Information($"END: ImportMultipleResourceAsync RESULT --> {_serializeService.Serialize(uploadResult)} <-- ");
 
         IEnumerable<ImportObjectResourceDTO> result = requests.Zip(uploadResult, (request, url) => new ImportObjectResourceDTO(url, request.FileName));
 
@@ -90,7 +85,7 @@ public class MinIOResourceService(ILogger logger, IMinioClient minioClient) : IM
 
     public async Task RemoveResourceAsync(string bucketName, string objectName, CancellationToken cancellationToken)
     {
-        _logger.Information($"BEGIN: RemoveResourceAsync REQUEST --> {JsonConvert.SerializeObject(new { bucketName, objectName })} <--");
+        _logger.Information($"BEGIN: RemoveResourceAsync REQUEST --> {_serializeService.Serialize(new { bucketName, objectName })} <--");
         await _minioClient.RemoveObjectAsync(bucketName, objectName, cancellationToken);
         _logger.Information($"END: RemoveResourceAsync RESULT --> none <-- ");
     }

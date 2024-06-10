@@ -1,7 +1,10 @@
 ﻿namespace Management.Photo.Infrastructure.Query;
 
-public class StoreInfoRepository(StoreInfoDbContext dbContext, IDbContextFactory<StoreInfoDbContext> dbContextFactory, IUnitOfWork<StoreInfoDbContext> unitOfWork, ILogger logger, IDapper dapper, IBucketRepository bucketRepository) : RepositoryBaseAsync<StoreInfoEntity, long, StoreInfoDbContext>(dbContext, unitOfWork), IStoreInfoRepository
+public class StoreInfoRepository(StoreInfoDbContext dbContext, IDbContextFactory<StoreInfoDbContext> dbContextFactory, IUnitOfWork<StoreInfoDbContext> unitOfWork, ILogger logger, IDapper dapper, IBucketRepository bucketRepository, IWorkContextAccessor workContextAccessor, ISerializeService serializeService) : RepositoryBaseAsync<StoreInfoEntity, long, StoreInfoDbContext>(dbContext, unitOfWork, workContextAccessor), IStoreInfoRepository
 {
+
+    private readonly ISerializeService _serializeService = serializeService;
+
     private readonly IDbContextFactory<StoreInfoDbContext> _dbContextFactory = dbContextFactory;
 
     private readonly ILogger _logger = logger;
@@ -12,12 +15,12 @@ public class StoreInfoRepository(StoreInfoDbContext dbContext, IDbContextFactory
 
     public async Task<bool> CreateResourceAsync(CreateResourceRequest request, CancellationToken cancellationToken)
     {
-        _logger.Information($"BEGIN: CreateResourceAsync REQUEST --> {JsonConvert.SerializeObject(request)} <-- REQUEST");
+        _logger.Information($"BEGIN: CreateResourceAsync REQUEST --> {_serializeService.Serialize(request)} <-- REQUEST");
         StoreInfoDbContext? storeInfoDbContext = request.IsMultiple ? _dbContextFactory.CreateDbContext() : null;
         BucketDto? bucketInfo = await _bucketRepository.GetBucketByIdAsync(request.BucketId, cancellationToken);
         if (bucketInfo is null)
         {
-            _logger.Information($"END: CreateResourceAsync RESULT --> {JsonConvert.SerializeObject(false)} <-- ");
+            _logger.Information($"END: CreateResourceAsync RESULT --> {_serializeService.Serialize(false)} <-- ");
             return false;
         }
         if (storeInfoDbContext is not null)
@@ -26,7 +29,7 @@ public class StoreInfoRepository(StoreInfoDbContext dbContext, IDbContextFactory
             {
                 StoreName = request.ObjectName,
                 StoreDescription = $"{request.UserId}_{request.ObjectName}_{bucketInfo.BucketName}",
-                StoreUrl = request.ObjectUrl,
+                StoreUrl = request.ObjectUrl.StringToBase64(),
                 UserId = request.UserId,
                 BucketId = bucketInfo.Id,
                 StoreInfoType = request.Type
@@ -38,7 +41,7 @@ public class StoreInfoRepository(StoreInfoDbContext dbContext, IDbContextFactory
         {
             StoreName = request.ObjectName,
             StoreDescription = $"{request.UserId}_{request.ObjectName}_{bucketInfo.BucketName}",
-            StoreUrl = request.ObjectUrl,
+            StoreUrl = request.ObjectUrl.StringToBase64(),
             UserId = request.UserId,
             BucketId = bucketInfo.Id,
             StoreInfoType = request.Type
@@ -46,14 +49,14 @@ public class StoreInfoRepository(StoreInfoDbContext dbContext, IDbContextFactory
 
         long result = await SaveChangesAsync();
 
-        _logger.Information($"END: CreateResourceAsync RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
+        _logger.Information($"END: CreateResourceAsync RESULT --> {_serializeService.Serialize(result)} <-- ");
 
         return result > 0;
     }
 
     public async Task<StoreInfoDTO?> GetResourceByIdAsync(long userId, long bucketId, long storyInfoId, CancellationToken cancellationToken)
     {
-        _logger.Information($"BEGIN: GetResourceById REQUEST --> {JsonConvert.SerializeObject(new
+        _logger.Information($"BEGIN: GetResourceById REQUEST --> {_serializeService.Serialize(new
         {
             userId,
             bucketId,
@@ -67,18 +70,19 @@ public class StoreInfoRepository(StoreInfoDbContext dbContext, IDbContextFactory
         }, commandType: CommandType.Text);
 
         StoreInfoDTO? result = await _dapper.QueryFirstOrDefaultAsync<StoreInfoDTO>(command);
+        result.StoreUrl = result.StoreUrl.Base64ToString();
         if (result is null)
         {
-            _logger.Information($"END: GetResourceById RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
+            _logger.Information($"END: GetResourceById RESULT --> {_serializeService.Serialize(result)} <-- ");
             return null;
         }
-        _logger.Information($"END: GetResourceById RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
+        _logger.Information($"END: GetResourceById RESULT --> {_serializeService.Serialize(result)} <-- ");
         return result;
     }
 
     public async Task<IEnumerable<StoreInfoDTO>> GetResourceByTypeAsync(long userId, long bucketId, StoreInfoType type, CancellationToken cancellationToken)
     {
-        _logger.Information($"BEGIN: GetResourceByType REQUEST --> {JsonConvert.SerializeObject(new
+        _logger.Information($"BEGIN: GetResourceByType REQUEST --> {_serializeService.Serialize(new
         {
             userId,
             bucketId,
@@ -92,12 +96,13 @@ public class StoreInfoRepository(StoreInfoDbContext dbContext, IDbContextFactory
         }, commandType: CommandType.Text);
 
         List<StoreInfoDTO> result = await _dapper.QueryAsync<StoreInfoDTO>(command);
+
         if (result.Count == 0)
         {
-            _logger.Information($"END: GetResourceByType RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
+            _logger.Information($"END: GetResourceByType RESULT --> {_serializeService.Serialize(result)} <-- ");
             return [];
         }
-        _logger.Information($"END: GetResourceByType RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
+        _logger.Information($"END: GetResourceByType RESULT --> {_serializeService.Serialize(result)} <-- ");
         return result;
     }
 }

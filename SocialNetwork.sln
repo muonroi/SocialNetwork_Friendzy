@@ -10,7 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 		SolutionItems\.gitattributes = SolutionItems\.gitattributes
 		.gitignore = .gitignore
 		src\docker-compose.override.yml = src\docker-compose.override.yml
-		src\docker-compose.push.yml = src\docker-compose.push.yml
 		src\docker-compose.yml = src\docker-compose.yml
 		docker_develop.yml = docker_develop.yml
 	EndProjectSection
@@ -55,7 +54,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management.Photo", "Managem
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Matched.Friend", "Matched.Friend", "{47B59876-4EC5-4C0A-9655-33FBDFA0E66A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Post", "Post", "{DA9F3480-A031-4DCF-A3B1-7F8516CC78A4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Post.Service", "Post.Service", "{DA9F3480-A031-4DCF-A3B1-7F8516CC78A4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchPartner", "SearchPartner", "{6D448DD1-CAD8-4843-9EFF-9779CA335422}"
 EndProject
@@ -65,7 +64,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{DADFD80B-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Post.Aggregate", "Post.Aggregate", "{B2D02C83-CB09-4D46-9A63-D75259D89872}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Post", "Post", "{CB75A96F-6153-4B46-9EDF-6C57F80E7282}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Post.Service", "Post.Service", "{CB75A96F-6153-4B46-9EDF-6C57F80E7282}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchPartners.Aggregate", "SearchPartners.Aggregate", "{C088FF83-79D6-4F7B-9F00-F19E59774435}"
 EndProject

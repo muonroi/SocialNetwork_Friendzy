@@ -1,15 +1,12 @@
 ﻿namespace Account.Infrastructure.Persistence;
 
-public class AccountDbContextSeed
+public class AccountDbContextSeed(ILogger logger, AccountDbContext context, ISerializeService serializeService)
 {
-    private readonly ILogger _logger;
-    private readonly AccountDbContext _context;
+    private readonly ILogger _logger = logger;
 
-    public AccountDbContextSeed(ILogger logger, AccountDbContext context)
-    {
-        _logger = logger;
-        _context = context;
-    }
+    private readonly AccountDbContext _context = context;
+
+    private readonly ISerializeService _serializeService = serializeService;
 
     public async Task InitialiseAsync()
     {
@@ -98,7 +95,7 @@ public class AccountDbContextSeed
                     }
                 ]";
 
-            List<AccountEntity>? accounts = JsonConvert.DeserializeObject<List<AccountEntity>>(accountsJson);
+            List<AccountEntity>? accounts = _serializeService.Deserialize<List<AccountEntity>>(accountsJson);
             if (accounts != null)
             {
                 await _context.Accounts.AddRangeAsync(accounts);

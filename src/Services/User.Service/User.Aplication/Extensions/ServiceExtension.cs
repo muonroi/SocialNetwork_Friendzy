@@ -1,4 +1,6 @@
-﻿namespace User.Application.Extensions;
+﻿using static Distance.Service.Protos.DistanceService;
+
+namespace User.Application.Extensions;
 
 public static class ServiceExtension
 {
@@ -46,6 +48,9 @@ public static class ServiceExtension
 
         _ = services.AddGrpcClientInterceptor<AuthenticateVerifyClient>(grpcServiceOptions, ServiceConstants.AuthenticateService, environment)
               .AddConsulMessageHandler(environment);
+
+        _ = services.AddGrpcClientInterceptor<DistanceServiceClient>(grpcServiceOptions, ServiceConstants.DistanceService, environment)
+      .AddConsulMessageHandler(environment);
         return services;
     }
 

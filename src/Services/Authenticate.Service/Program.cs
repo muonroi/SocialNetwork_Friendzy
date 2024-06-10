@@ -1,3 +1,7 @@
+using Authenticate.Service.Infrastructure.Endpoints;
+using Contracts.Commons.Interfaces;
+using Infrastructure.Commons;
+
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -5,20 +9,27 @@ Log.Logger = new LoggerConfiguration()
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog(SerilogAction.Configure);
 
-IServiceCollection services = builder.Services;
+IConfiguration configuration = builder.Configuration;
 
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 try
 {
-    _ = services.AddConfigurationSettings();
+    IServiceCollection services = builder.Services;
+    {
+        _ = services.AddConfigurationSettings(configuration);
 
-    builder.AddAppConfigurations();
+        _ = services.AddScoped<ISerializeService, SerializeService>();
+
+        builder.AddAppConfigurations();
+
+    }
 
     WebApplication app = builder.Build();
+    {
+        app.AddMapGrpcServices();
+    }
 
-    _ = app.UseMiddleware<GlobalExceptionMiddleware>();
-
-    app.AddMapGrpcServices();
+    _ = app.ConfigureEndpoints(configuration);
 
     app.Run();
 }

@@ -7,6 +7,7 @@ public static class ServiceExtension
     {
         _ = configuration.ToBase64();
         _ = services.AddInternalService();
+        _ = services.AddScoped<ISerializeService, SerializeService>();
         _ = services.AddTransient(typeof(GrpcConfigClientFactory<>));
         _ = services.AddGrpcClientServices(configuration, environment);
         _ = services.AddPaginationConfigs(configuration);

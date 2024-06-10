@@ -11,6 +11,7 @@ public static class ServiceExtension
         _ = services.AddGrpcClientServices(configuration, environment);
         _ = services.AddPaginationConfigs(configuration);
         _ = services.AddApiIntegration(configuration);
+        _ = services.AddScoped<ISerializeService, SerializeService>();
         return services;
     }
 

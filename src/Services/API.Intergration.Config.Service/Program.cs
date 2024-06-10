@@ -1,3 +1,6 @@
+using API.Intergration.Config.Service.Infrastructure.Endpoints;
+using Infrastructure.Commons;
+
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -6,33 +9,30 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog(SerilogAction.Configure);
 
-IServiceCollection services = builder.Services;
-
-IWebHostEnvironment env = builder.Environment;
+IConfiguration configuration = builder.Configuration;
 
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 try
 {
-    _ = services.Configure<ConsulConfigs>(builder.Configuration.GetSection(nameof(ConsulConfigs)));
+    IServiceCollection services = builder.Services;
+    {
+        _ = services.AddConfigurationSettings(configuration);
 
-    ConsulConfigs consulSettings = ConsulConfigsExtensions.GetConfigs(builder.Configuration);
+        _ = services.AddWorkContextAccessor();
 
-    _ = services.AddConfigurationSettings(builder.Configuration);
+        _ = services.AddScoped<ISerializeService, SerializeService>();
 
-    builder.AddAppConfigurations();
+        builder.AddAppConfigurations();
 
-    _ = services.AddConsul(consulSettings, env);
-
-    _ = services.AddWorkContextAccessor();
+    }
 
     WebApplication app = builder.Build();
+    {
+        app.AddMapGrpcServices();
+    }
 
-    _ = app.UseWorkContext();
+    _ = app.ConfigureEndpoints(configuration);
 
-    _ = app.UseConsul(consulSettings, env);
-
-    app.AddMapGrpcServices();
-    _ = app.UseMiddleware<GlobalExceptionMiddleware>();
     app.Run();
 }
 catch (Exception ex)

@@ -40,7 +40,7 @@ services:
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=0967442142Az*
-      - POSTGRES_DB=UserInfoDb
+      - POSTGRES_DB=userinfodb
     restart: always
     volumes:
       - friendzy_postgres_data:/var/lib/friendzy_postgres_data/data

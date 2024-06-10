@@ -11,11 +11,13 @@ public static class ConfigureService
         });
         _ = services.AddScoped<PostDbContextSeed>();
         _ = services.AddScoped(typeof(IRepositoryBaseAsync<,,>), typeof(RepositoryBaseAsync<,,>));
-        _ = services.AddScoped(typeof(IPostRepository), typeof(PostRepository));
         _ = services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+        _ = services.AddScoped(typeof(IPostRepository), typeof(PostRepository));
         _ = services.AddDapperForMySQL();
         _ = services.AddDapperConnectionStringProvider<ConnectionStringProvider>();
         _ = services.AddDapperCaching(configuration);
+        _ = services.AddScoped<ISerializeService, SerializeService>();
+
         return services;
     }
 }

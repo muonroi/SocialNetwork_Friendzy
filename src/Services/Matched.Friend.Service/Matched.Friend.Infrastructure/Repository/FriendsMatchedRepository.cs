@@ -1,14 +1,16 @@
 ﻿namespace Matched.Friend.Infrastructure.Repository;
 
-public class FriendsMatchedRepository(FriendsMatchedDbContext dbContext, IUnitOfWork<FriendsMatchedDbContext> unitOfWork, ILogger logger, IDapper dapper) : RepositoryBaseAsync<FriendsMatchedEntity, long, FriendsMatchedDbContext>(dbContext, unitOfWork), IFriendsMatchedRepository
+public class FriendsMatchedRepository(FriendsMatchedDbContext dbContext, IUnitOfWork<FriendsMatchedDbContext> unitOfWork, ILogger logger, IDapper dapper, IWorkContextAccessor workContextAccessor, ISerializeService serializeService) : RepositoryBaseAsync<FriendsMatchedEntity, long, FriendsMatchedDbContext>(dbContext, unitOfWork, workContextAccessor), IFriendsMatchedRepository
 {
     private readonly ILogger _logger = logger;
 
     private readonly IDapper _dapper = dapper;
 
+    private readonly ISerializeService _serializeService = serializeService;
+
     public async Task<FriendsMatchedPagingResponse> GetFriendsMatchedByAction(long userId, ActionMatched actionMatched, int pageIndex, int pageSize, CancellationToken cancellationToken)
     {
-        _logger.Information($"BEGIN: GetFriendsMatchedsByUserId REQUEST --> {JsonConvert.SerializeObject(new { pageIndex, pageSize })} <--");
+        _logger.Information($"BEGIN: GetFriendsMatchedsByUserId REQUEST --> {_serializeService.Serialize(new { pageIndex, pageSize })} <--");
         DapperCommand command = new()
         {
             CommandText = CustomSqlQuery.GetFriendsMatchedByUserId,
@@ -53,26 +55,26 @@ public class FriendsMatchedRepository(FriendsMatchedDbContext dbContext, IUnitOf
 
         result.FriendsMatcheds?.AddRange(paging.Data);
 
-        _logger.Information($"END: GetFriendsMatchedsByUserId RESULT --> {JsonConvert.SerializeObject(friendsMatchedResult)} <-- ");
+        _logger.Information($"END: GetFriendsMatchedsByUserId RESULT --> {_serializeService.Serialize(friendsMatchedResult)} <-- ");
 
         return result;
     }
 
     public async Task<bool> IsExistFriendAction(long userId, long friendId, ActionMatched actionMatched, CancellationToken cancellationToken)
     {
-        _logger.Information($"BEGIN: isExistFriendByAction REQUEST --> {JsonConvert.SerializeObject(new { userId, friendId, actionMatched = nameof(actionMatched) })} <--");
+        _logger.Information($"BEGIN: isExistFriendByAction REQUEST --> {_serializeService.Serialize(new { userId, friendId, actionMatched = nameof(actionMatched) })} <--");
         FriendsMatchedEntity? isExistMatchedByAction = await FindObjectByCondition(x => x.FriendId == friendId && x.UserId == userId);
         if (isExistMatchedByAction is null)
         {
             return true;
         }
-        _logger.Information($"END: isExistFriendByAction RESULT --> {JsonConvert.SerializeObject(new { result = true })} <-- ");
+        _logger.Information($"END: isExistFriendByAction RESULT --> {_serializeService.Serialize(new { result = true })} <-- ");
         return false;
     }
 
     public async Task<bool> SetMatchFriendByAction(long userId, long friendId, ActionMatched actionMatched, CancellationToken cancellationToken)
     {
-        _logger.Information($"BEGIN: SetMatchFriendByAction REQUEST --> {JsonConvert.SerializeObject(new { userId, friendId, actionMatched = nameof(actionMatched) })} <--");
+        _logger.Information($"BEGIN: SetMatchFriendByAction REQUEST --> {_serializeService.Serialize(new { userId, friendId, actionMatched = nameof(actionMatched) })} <--");
         _ = await CreateAsync(new FriendsMatchedEntity
         {
             UserId = userId,
@@ -81,7 +83,7 @@ public class FriendsMatchedRepository(FriendsMatchedDbContext dbContext, IUnitOf
         }, cancellationToken);
 
         int result = await SaveChangesAsync();
-        _logger.Information($"END: SetMatchFriendByAction RESULT --> {JsonConvert.SerializeObject(new { result = result > 0 })} <-- ");
+        _logger.Information($"END: SetMatchFriendByAction RESULT --> {_serializeService.Serialize(new { result = result > 0 })} <-- ");
         return result > 0;
     }
 }

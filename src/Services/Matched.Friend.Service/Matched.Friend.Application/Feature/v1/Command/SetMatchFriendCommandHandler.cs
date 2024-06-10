@@ -4,7 +4,8 @@ public class SetMatchFriendCommandHandler(
     IWorkContextAccessor workContextAccessor,
     ILogger logger,
     IFriendsMatchedRepository friendMatchedRepository,
-    IApiExternalClient externalClient) : IRequestHandler<SetMatchFriendCommand, ApiResult<bool>>
+    IApiExternalClient externalClient,
+    ISerializeService serializeService) : IRequestHandler<SetMatchFriendCommand, ApiResult<bool>>
 {
     private readonly ILogger _logger = logger;
 
@@ -14,10 +15,12 @@ public class SetMatchFriendCommandHandler(
 
     private readonly IApiExternalClient _externalClient = externalClient;
 
+    private readonly ISerializeService _serializeService = serializeService;
+
     public async Task<ApiResult<bool>> Handle(SetMatchFriendCommand request, CancellationToken cancellationToken)
     {
         WorkContextInfoDTO userInfo = _workContextAccessor.WorkContext!;
-        _logger.Information($"BEGIN: SetMatchFriendCommandHandler REQUEST --> {JsonConvert.SerializeObject(request)} <--");
+        _logger.Information($"BEGIN: SetMatchFriendCommandHandler REQUEST --> {_serializeService.Serialize(request)} <--");
         ExternalApiResponse<UserDataDTO> friendInfoResult = await _externalClient.GetUserAsync(request.FriendId.ToString(), cancellationToken);
         if (friendInfoResult.Data is null)
         {
@@ -35,7 +38,7 @@ public class SetMatchFriendCommandHandler(
 
         ApiSuccessResult<bool> result = new(setResult);
 
-        _logger.Information($"END: SetMatchFriendCommandHandler RESULT --> {JsonConvert.SerializeObject(result)} <--");
+        _logger.Information($"END: SetMatchFriendCommandHandler RESULT --> {_serializeService.Serialize(result)} <--");
         return result;
     }
 }

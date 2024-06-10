@@ -30,4 +30,8 @@
     <ProjectReference Include="..\Post.Infrastructure\Post.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="logs\" />
+  </ItemGroup>
+
 </Project>

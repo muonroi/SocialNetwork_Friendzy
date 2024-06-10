@@ -1,11 +1,21 @@
-﻿namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
+﻿using Distance.Service.Protos;
+using SearchPartners.Service;
+using static Distance.Service.Protos.DistanceService;
+using static SearchPartners.Service.SearchPartnerService;
+
+namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
 
 public class SearchPartnersQueryHandler(
     GrpcClientFactory grpcClientFactory
     , IWorkContextAccessor workContextAccessor
-    , IApiExternalClient externalClient) : IRequestHandler<SearchPartnersQuery, ApiResult<SearchPartnersQueryResponse>>
+    , IApiExternalClient externalClient
+    , ISerializeService serializeService) : IRequestHandler<SearchPartnersQuery, ApiResult<SearchPartnersQueryResponse>>
 {
     private readonly IWorkContextAccessor _workContextAccessor = workContextAccessor;
+
+    private readonly IApiExternalClient _externalClient = externalClient;
+
+    private readonly ISerializeService _serializeService = serializeService;
 
     private readonly SearchPartnerServiceClient _searchPartnersClient =
         grpcClientFactory.CreateClient<SearchPartnerServiceClient>(ServiceConstants.SearchPartnersService);
@@ -46,7 +56,7 @@ public class SearchPartnersQueryHandler(
 
         if (partnersResult.Distancedetails.Count > 1)
         {
-            ExternalApiResponse<IEnumerable<UserDataDTO>> usersResult = await externalClient.GetUsersAsync(userId, CancellationToken.None);
+            ExternalApiResponse<IEnumerable<UserDataDTO>> usersResult = await _externalClient.GetUsersAsync(userId, CancellationToken.None);
 
             result = new()
             {
@@ -62,7 +72,7 @@ public class SearchPartnersQueryHandler(
             return new ApiSuccessResult<SearchPartnersQueryResponse>(result);
         }
 
-        ExternalApiResponse<UserDataDTO> userResult = await externalClient.GetUserAsync(partnersResult.Distancedetails.First().UserId.ToString(), CancellationToken.None);
+        ExternalApiResponse<UserDataDTO> userResult = await _externalClient.GetUserAsync(partnersResult.Distancedetails.First().UserId.ToString(), CancellationToken.None);
         result = new()
         {
             Id = workContext.UserId,

@@ -6,8 +6,20 @@ package DistanceService;
 
 service DistanceService {
   rpc GetDistanceInfoList (GetDistanceInfoListRequest) returns (GetDistanceInfoListReply);
+  rpc CreateDistanceInfo (CreateDistanceInfoRequest) returns (CreateDistanceInfoReply);
 }
 
+message CreateDistanceInfoRequest {
+
+  int64 userId = 1;
+  double latitude  = 2;
+  double longitude  = 3;
+  string country  = 4;
+}
+
+message CreateDistanceInfoReply {
+  bool is_success = 1;
+}
 message GetDistanceInfoListRequest {
   string country = 1;
   int32 pageIndex = 2;

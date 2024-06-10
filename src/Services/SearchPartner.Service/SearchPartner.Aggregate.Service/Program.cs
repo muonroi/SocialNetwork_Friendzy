@@ -4,8 +4,6 @@ Log.Logger = new LoggerConfiguration()
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-IServiceCollection services = builder.Services;
-
 IWebHostEnvironment env = builder.Environment;
 
 ConfigurationManager configuration = builder.Configuration;
@@ -16,53 +14,51 @@ Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 
 try
 {
-    _ = services.Configure<ConsulConfigs>(configuration.GetSection(nameof(ConsulConfigs)));
-
     ConsulConfigs consulSettings = ConsulConfigsExtensions.GetConfigs(configuration);
 
-    // Add services to the container.
-    _ = services.AddControllers().AddNewtonsoftJson(options =>
+    IServiceCollection services = builder.Services;
     {
-        options.SerializerSettings.Converters.Add(new StringEnumConverter());
+        _ = services.Configure<ConsulConfigs>(configuration.GetSection(nameof(ConsulConfigs)));
 
-        options.SerializerSettings.Converters.Add(new CustomUnixDateTimeConverter());
-    });
-    JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-    {
-        Converters =
-                [
-                    new StringEnumConverter(),
+        _ = services.ConfigureJwtBearerToken(configuration);
 
-                   new CustomUnixDateTimeConverter()
-                ]
-    };
-    services.ConfigureJwtBearerToken(configuration);
+        _ = services.AddControllers();
 
-    _ = services.AddConfigurationApplication();
+        _ = services.AddWorkContextAccessor();
 
-    _ = services.AddWorkContextAccessor();
+        _ = services.AddConsul(consulSettings, env);
 
-    _ = services.AddConsul(consulSettings, env);
+        _ = services.AddConfigurationApplication(configuration, env);
 
-    _ = services.AddConfigurationSettings(configuration, env);
+        _ = services.AddEndpointsApiExplorer();
+
+        _ = services.SwaggerConfig();
+
+    }
 
     builder.AddAppConfigurations();
 
-    _ = services.AddEndpointsApiExplorer();
-
-    services.SwaggerConfig();
-
     WebApplication app = builder.Build();
+    {
+        if (app.Environment.IsDevelopment())
+        {
+            _ = app.UseSwagger();
+            _ = app.UseSwaggerUI();
+        }
+        _ = app.MapControllers();
 
-    _ = app.UseAuthentication();
+        _ = app.UseCors();
 
-    _ = app.UseAuthorization();
+        _ = app.ConfigureEndpoints(configuration);
 
-    _ = app.UseWorkContext();
+        _ = app.UseConsul(consulSettings, env);
 
-    _ = app.UseConsul(consulSettings, env);
+        _ = app.UseAuthentication();
 
-    EndpointConfigure.ConfigureEndpoints(app);
+        _ = app.UseAuthorization();
+
+        app.Run();
+    }
 }
 catch (Exception ex)
 {
@@ -77,7 +73,7 @@ catch (Exception ex)
 }
 finally
 {
-    Log.Information("Shut down SearchPartnersAggregate Service complete");
+    Log.Information("Shut down SearchPartners Aggregate Service complete");
 
     Log.CloseAndFlush();
 }

@@ -1,10 +1,11 @@
+using Infrastructure.Configurations;
+using Setting.Service.Extentions;
+
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-
-IServiceCollection services = builder.Services;
 
 IWebHostEnvironment env = builder.Environment;
 
@@ -15,27 +16,55 @@ builder.Host.UseSerilog(SerilogAction.Configure);
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 try
 {
-    Assembly assemblyInstance = Assembly.GetExecutingAssembly();
+    ConsulConfigs consulSettings = ConsulConfigsExtensions.GetConfigs(configuration);
 
-    _ = services.AddControllers();
+    IServiceCollection services = builder.Services;
+    {
+        _ = services.Configure<ConsulConfigs>(configuration.GetSection(nameof(ConsulConfigs)));
 
-    _ = services.AddInfrastructureServices(configuration);
+        _ = services.ConfigureJwtBearerToken(configuration);
 
-    _ = services.AddConfigurationApplication();
+        _ = services.AddControllers();
 
-    _ = services.AddEndpointsApiExplorer();
+        _ = services.AddWorkContextAccessor();
 
-    _ = services.AddSwaggerGen();
+        _ = services.AddConsul(consulSettings, env);
+
+        _ = services.AddConfigurationSettings(configuration);
+
+        _ = services.AddInfrastructureServices(configuration);
+
+        _ = services.AddConfigurationApplication(configuration, env);
+
+        _ = services.AddEndpointsApiExplorer();
+
+        _ = services.SwaggerConfig();
+    }
+
 
     builder.AddAppConfigurations();
 
     WebApplication app = builder.Build();
+    {
+        _ = app.SeedConfigAsync();
 
-    _ = app.UseAuthorization();
+        if (app.Environment.IsDevelopment())
+        {
+            _ = app.UseSwagger();
+            _ = app.UseSwaggerUI();
+        }
+        _ = app.MapControllers();
 
-    _ = app.SeedConfigAsync();
+        _ = app.UseCors();
 
-    app.ConfigureEndpoints();
+        _ = app.ConfigureEndpoints(configuration);
+
+        _ = app.UseConsul(consulSettings, env);
+
+        _ = app.UseAuthentication();
+
+        _ = app.UseAuthorization();
+    }
 
     app.Run();
 }
@@ -53,6 +82,5 @@ catch (Exception ex)
 finally
 {
     Log.Information("Shut down Setting Service complete");
-
     Log.CloseAndFlush();
 }

@@ -1,10 +1,12 @@
 ﻿namespace Distance.Service.Persistence;
 
-public class DistanceDbContextSeed(ILogger logger, DistanceDbContext context)
+public class DistanceDbContextSeed(ILogger logger, DistanceDbContext context, ISerializeService serializeService)
 {
     private readonly ILogger _logger = logger;
 
     private readonly DistanceDbContext _context = context;
+
+    private readonly ISerializeService _serializeService = serializeService;
 
     public async Task InitialiseAsync()
     {
@@ -28,7 +30,7 @@ public class DistanceDbContextSeed(ILogger logger, DistanceDbContext context)
         {
             await TrySeedAsync();
             _ = await _context.SaveChangesAsync(new CancellationToken());
-            await DistanceSeedProcessAsync();
+            //await DistanceSeedProcessAsync();
         }
         catch (Exception ex)
         {
@@ -73,7 +75,7 @@ public class DistanceDbContextSeed(ILogger logger, DistanceDbContext context)
                    ""Country"": ""Vietnam"",
                  }
             ]";
-            List<DistanceEntity>? distances = JsonConvert.DeserializeObject<List<DistanceEntity>>(distancesJson);
+            List<DistanceEntity>? distances = _serializeService.Deserialize<List<DistanceEntity>>(distancesJson);
             await _context.DistanceEntities.AddRangeAsync(distances ?? []);
         }
         _ = await _context.SaveChangesAsync(new CancellationToken());

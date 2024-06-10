@@ -4,7 +4,8 @@ public class GetFriendsMatchedByUserQueryHandler(IFriendsMatchedRepository frien
 IWorkContextAccessor workContextAccessor
 , PaginationConfigs paginationConfigs
 , IApiExternalClient externalClient
-, ILogger logger) : IRequestHandler<GetFriendsMatchedByUserQuery, ApiResult<PagingResponse<IEnumerable<GetFriendsMatchedByUserQueryResponse>>>>
+, ILogger logger
+, ISerializeService serializeService) : IRequestHandler<GetFriendsMatchedByUserQuery, ApiResult<PagingResponse<IEnumerable<GetFriendsMatchedByUserQueryResponse>>>>
 {
     private readonly IFriendsMatchedRepository _friendMatchedRepository = friendMatchedRepository;
 
@@ -13,6 +14,8 @@ IWorkContextAccessor workContextAccessor
     private readonly ILogger _logger = logger;
 
     private readonly IApiExternalClient _externalClient = externalClient;
+
+    private readonly ISerializeService _serializeService = serializeService;
 
     public async Task<ApiResult<PagingResponse<IEnumerable<GetFriendsMatchedByUserQueryResponse>>>> Handle(GetFriendsMatchedByUserQuery request, CancellationToken cancellationToken)
     {
@@ -25,7 +28,7 @@ IWorkContextAccessor workContextAccessor
         {
             request.PageSize = paginationConfigs.DefaultPageSize;
         }
-        _logger.Information($"BEGIN: GetFriendsMatchedByUserQuery REQUEST --> {JsonConvert.SerializeObject(request)} <--");
+        _logger.Information($"BEGIN: GetFriendsMatchedByUserQuery REQUEST --> {_serializeService.Serialize(request)} <--");
 
         FriendsMatchedPagingResponse getFriendsMatchedByActionResult = await _friendMatchedRepository.GetFriendsMatchedByAction(workContext.UserId, request.ActionMatched, request.PageIndex, request.PageSize, cancellationToken);
 
@@ -39,7 +42,7 @@ IWorkContextAccessor workContextAccessor
         }
         PagingResponse<IEnumerable<GetFriendsMatchedByUserQueryResponse>> result = await getFriendsMatchedByActionResult.Mapping(request, _externalClient);
 
-        _logger.Information($"END: GetFriendsMatchedByUserQuery RESULT --> {JsonConvert.SerializeObject(result)} <--");
+        _logger.Information($"END: GetFriendsMatchedByUserQuery RESULT --> {_serializeService.Serialize(result)} <--");
 
         return new ApiSuccessResult<PagingResponse<IEnumerable<GetFriendsMatchedByUserQueryResponse>>>(result);
     }

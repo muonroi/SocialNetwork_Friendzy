@@ -1,5 +1,5 @@
-﻿
-
+﻿using static Distance.Service.Protos.DistanceService;
+using static SearchPartners.Service.SearchPartnerService;
 
 namespace SearchPartners.Aggregate.Service.Extensions;
 
@@ -14,6 +14,7 @@ public static class ServiceExtension
         _ = services.AddGrpcClientServices(configuration, environment);
         _ = services.AddApiIntegration(configuration);
         _ = services.AddConfigurationSettingsThirdExtenal(configuration);
+        _ = services.AddScoped<ISerializeService, SerializeService>();
         return services;
     }
 
