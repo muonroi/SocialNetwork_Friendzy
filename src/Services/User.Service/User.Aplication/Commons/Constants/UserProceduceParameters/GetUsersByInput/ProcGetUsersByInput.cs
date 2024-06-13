@@ -2,5 +2,7 @@
 
 public enum ProcGetUsersByInput
 {
-    Input = 1
+    Input = 1,
+    PageIndex = 2,
+    PageSize = 3
 }

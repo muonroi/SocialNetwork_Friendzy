@@ -1,10 +1,12 @@
 ﻿namespace Setting.Infrastructure.Persitence;
 
-public class SettingDbContextSeed(ILogger logger, SettingDbContext context)
+public class SettingDbContextSeed(ILogger logger, SettingDbContext context, ISerializeService serializeService)
 {
     private readonly ILogger _logger = logger;
 
     private readonly SettingDbContext _context = context;
+
+    private readonly ISerializeService _serializeService = serializeService;
 
     public async Task InitialiseAsync()
     {
@@ -48,7 +50,7 @@ public class SettingDbContextSeed(ILogger logger, SettingDbContext context)
                     ""Type"": 2
                 },
             ]";
-            List<SettingEntity>? settings = JsonConvert.DeserializeObject<List<SettingEntity>>(settingsJson);
+            List<SettingEntity>? settings = _serializeService.Deserialize<List<SettingEntity>>(settingsJson);
             await _context.SettingEntities.AddRangeAsync(settings ?? []);
         }
         _ = await _context.SaveChangesAsync(new CancellationToken());

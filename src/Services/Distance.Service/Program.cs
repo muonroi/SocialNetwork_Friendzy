@@ -1,3 +1,5 @@
+using Distance.Service.Infrastructure.Endpoints;
+
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -5,24 +7,30 @@ Log.Logger = new LoggerConfiguration()
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog(SerilogAction.Configure);
 
-IServiceCollection services = builder.Services;
-
 IConfiguration configuration = builder.Configuration;
 
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 try
 {
-    _ = services.AddConfigurationSettings(configuration);
+    IServiceCollection services = builder.Services;
+    {
+        _ = services.AddConfigurationSettings(configuration);
 
-    builder.AddAppConfigurations();
+        _ = services.AddWorkContextAccessor();
+
+        _ = services.AddScoped<ISerializeService, SerializeService>();
+
+        builder.AddAppConfigurations();
+
+    }
 
     WebApplication app = builder.Build();
+    {
+        await app.SeedConfigAsync();
+        app.AddMapGrpcServices();
+    }
 
-    _ = app.SeedConfigAsync();
-
-    _ = app.UseMiddleware<GlobalExceptionMiddleware>();
-
-    app.AddMapGrpcServices();
+    _ = app.ConfigureEndpoints(configuration);
 
     app.Run();
 }

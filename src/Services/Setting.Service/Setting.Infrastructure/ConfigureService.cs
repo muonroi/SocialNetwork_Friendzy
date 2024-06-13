@@ -14,9 +14,7 @@ public static class ConfigureService
         _ = services.AddScoped(typeof(ISettingRepository<,>), typeof(SettingRepository<,>));
         _ = services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
         _ = services.AddConfigurationSettingsThirdExtenal(configuration);
-        _ = services.AddDapperForMSSQL();
-        _ = services.AddDapperConnectionStringProvider<ConnectionStringProvider>();
-        _ = services.AddDapperCaching(configuration);
+        _ = services.AddScoped<ISerializeService, SerializeService>();
 
         return services;
     }

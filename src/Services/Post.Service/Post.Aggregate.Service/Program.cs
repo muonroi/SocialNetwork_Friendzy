@@ -4,8 +4,6 @@ Log.Logger = new LoggerConfiguration()
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-IServiceCollection services = builder.Services;
-
 IWebHostEnvironment env = builder.Environment;
 
 ConfigurationManager configuration = builder.Configuration;
@@ -15,61 +13,51 @@ builder.Host.UseSerilog(SerilogAction.Configure);
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 try
 {
-    // config appsetting
-    _ = services.Configure<ConsulConfigs>(configuration.GetSection(nameof(ConsulConfigs)));
-
     ConsulConfigs consulSettings = ConsulConfigsExtensions.GetConfigs(configuration);
-    // Add services to the container.
-    _ = services.ConfigureJwtBearerToken(configuration);
 
-    _ = services.AddControllers().AddNewtonsoftJson(options =>
-        {
-            options.SerializerSettings.Converters.Add(new StringEnumConverter());
-
-            options.SerializerSettings.Converters.Add(new CustomUnixDateTimeConverter());
-        });
-    JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+    IServiceCollection services = builder.Services;
     {
-        Converters =
-                [
-                    new StringEnumConverter(),
+        _ = services.Configure<ConsulConfigs>(configuration.GetSection(nameof(ConsulConfigs)));
 
-                       new CustomUnixDateTimeConverter()
-                ]
-    };
+        _ = services.ConfigureJwtBearerToken(configuration);
 
-    _ = services.AddWorkContextAccessor();
+        _ = services.AddControllersConfig();
 
-    _ = services.AddConsul(consulSettings, env);
+        _ = services.AddWorkContextAccessor();
 
-    _ = services.AddConfigurationApplication(configuration, env);
+        _ = services.AddConsul(consulSettings, env);
 
-    _ = services.AddEndpointsApiExplorer();
+        _ = services.AddConfigurationApplication(configuration, env);
 
-    services.SwaggerConfig();
+        _ = services.AddEndpointsApiExplorer();
+
+        _ = services.SwaggerConfig();
+
+    }
 
     builder.AddAppConfigurations();
 
     WebApplication app = builder.Build();
-
-    if (app.Environment.IsDevelopment())
     {
-        _ = app.UseSwagger();
-        _ = app.UseSwaggerUI();
+        if (app.Environment.IsDevelopment())
+        {
+            _ = app.UseSwagger();
+            _ = app.UseSwaggerUI();
+        }
+        _ = app.MapControllers();
+
+        _ = app.UseCors();
+
+        _ = app.ConfigureEndpoints(configuration);
+
+        _ = app.UseConsul(consulSettings, env);
+
+        _ = app.UseAuthentication();
+
+        _ = app.UseAuthorization();
+
+        app.Run();
     }
-    _ = app.MapControllers();
-
-    _ = app.UseCors();
-
-    _ = app.ConfigureEndpoints(configuration);
-
-    _ = app.UseConsul(consulSettings, env);
-
-    _ = app.UseAuthentication();
-
-    _ = app.UseAuthorization();
-
-    app.Run();
 }
 catch (Exception ex)
 {
@@ -84,6 +72,6 @@ catch (Exception ex)
 }
 finally
 {
-    Log.Information("Shut down User Service complete");
+    Log.Information("Shut down Post Agg Service complete");
     Log.CloseAndFlush();
 }

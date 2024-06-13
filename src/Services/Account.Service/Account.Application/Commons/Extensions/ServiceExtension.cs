@@ -9,6 +9,7 @@ public static class ServiceExtension
         _ = services.AddTransient(typeof(GrpcConfigClientFactory<>));
         _ = services.AddGrpcClientServices(configuration, environment);
         _ = services.AddConfigurationSettingsThirdExtenal(configuration);
+
         return services;
     }
 

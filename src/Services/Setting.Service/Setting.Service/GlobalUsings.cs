@@ -1,5 +1,6 @@
 global using Commons.Logging;
 global using ExternalAPI.DTOs;
+global using Infrastructure.Extensions;
 global using Infrastructure.Middleware;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,7 @@ global using Setting.Application.feature.v1.Queries.GetCategorySettings;
 global using Setting.Domain.Enums;
 global using Setting.Infrastructure;
 global using Setting.Infrastructure.Persitence;
-global using Shared.SeedWorks;
-global using System.Net;global using System.Reflection;
-global using Infrastructure.Extensions;
 global using Setting.Service.Infrastructures;
 global using Setting.Service.Infrastructures.Endpoints;
+global using Shared.SeedWorks;
+global using System.Net;

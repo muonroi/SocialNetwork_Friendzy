@@ -21,6 +21,6 @@ public class CreateAccountCommandValidator : AbstractValidator<CreateAccountComm
 
         _ = RuleFor(x => x.Address)
             .NotEmpty().WithMessage("Address is required.")
-            .MaximumLength(100).WithMessage("Address must be less than 100 characters.");
+            .MaximumLength(1000).WithMessage("Address must be less than 100 characters.");
     }
 }

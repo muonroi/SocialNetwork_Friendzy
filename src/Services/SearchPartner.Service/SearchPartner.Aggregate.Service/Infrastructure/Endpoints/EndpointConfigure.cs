@@ -4,27 +4,22 @@ namespace SearchPartners.Aggregate.Service.Infrastructure.Endpoints;
 
 internal static class EndpointConfigure
 {
-    internal static void ConfigureEndpoints(this WebApplication app)
+    internal static IApplicationBuilder ConfigureEndpoints(this WebApplication app, IConfiguration configuration)
     {
-        if (app.Environment.IsDevelopment())
-        {
-            _ = app.UseSwagger();
-            _ = app.UseSwaggerUI();
-        }
-
-        _ = app.UseAuthorization();
-
-        _ = app.MapControllers();
         _ = app.UseMiddleware<GlobalExceptionMiddleware>();
-        _ = app.UseCors();
-        _ = app.MapControllerRoute(
-                           name: "default",
-                                          pattern: "{controller=Home}/{action=Index}/{id?}");
+
+        _ = app.UseAuthenticationMiddleware(configuration);
+
+        _ = app.UseWorkContext();
+
+        _ = app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+
         _ = app.MapGet("/", context =>
         {
             context.Response.Redirect("/swagger");
             return Task.CompletedTask;
         });
-        app.Run();
+
+        return app;
     }
 }

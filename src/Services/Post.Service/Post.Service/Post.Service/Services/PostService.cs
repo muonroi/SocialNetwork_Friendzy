@@ -1,9 +1,10 @@
 ﻿namespace Post.Service.Services;
 
-public class PostService(ILogger logger, IDapper dapper) : PostApiServiceBase
+public class PostService(ILogger logger, IDapper dapper, ISerializeService serializeService) : PostApiServiceBase
 {
     private readonly ILogger _logger = logger;
     private readonly IDapper _dapper = dapper;
+    private readonly ISerializeService _serializeService = serializeService;
 
     public override async Task<GetPostApiServiceReply> GetPostApiService(GetPostApiServiceRequest request, ServerCallContext context)
     {
@@ -46,7 +47,7 @@ public class PostService(ILogger logger, IDapper dapper) : PostApiServiceBase
             HasPreviousPage = paging.HasPreviousPage,
         };
         result.Details.Add(paging.Data);
-        _logger.Information($"END: GetPersonalPostsAsync RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
+        _logger.Information($"END: GetPersonalPostsAsync RESULT --> {_serializeService.Serialize(result)} <-- ");
         return result;
     }
 }

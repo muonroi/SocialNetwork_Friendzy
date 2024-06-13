@@ -32,6 +32,10 @@
     <Protobuf Include="..\..\API.Intergration.Config.Service\v1\Protos\apiConfig.proto" GrpcServices="Client">
       <Link>Protos\apiConfig.proto</Link>
     </Protobuf>
+
+    <Protobuf Include="..\..\Distance.Service\Protos\distance.proto" GrpcServices="Client">
+      <Link>Protos\distance.proto</Link>
+    </Protobuf>
   </ItemGroup>
   
   

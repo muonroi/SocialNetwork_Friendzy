@@ -31,6 +31,7 @@ public class UserEntity : EntityAuditBase<long>
     [Column(TypeName = "nvarchar(max)")]
     public string Address { get; set; } = string.Empty;
 
+    [Column(TypeName = "varchar(max)")]
     public string ProfileImagesUrl { get; set; } = string.Empty;
 
     public double Longitude { get; set; }

@@ -4,7 +4,6 @@ Log.Logger = new LoggerConfiguration()
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-IServiceCollection services = builder.Services;
 
 IWebHostEnvironment env = builder.Environment;
 
@@ -15,70 +14,55 @@ builder.Host.UseSerilog(SerilogAction.Configure);
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 try
 {
-    // config appsetting
-    _ = services.Configure<ConsulConfigs>(configuration.GetSection(nameof(ConsulConfigs)));
-
     ConsulConfigs consulSettings = ConsulConfigsExtensions.GetConfigs(configuration);
 
-    // Add services to the container.
-    _ = services.ConfigureJwtBearerToken(configuration);
-
-    _ = services.AddControllers().AddNewtonsoftJson(options =>
+    IServiceCollection services = builder.Services;
     {
-        options.SerializerSettings.Converters.Add(new StringEnumConverter());
+        _ = services.Configure<ConsulConfigs>(configuration.GetSection(nameof(ConsulConfigs)));
 
-        options.SerializerSettings.Converters.Add(new CustomUnixDateTimeConverter());
-    });
-    JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-    {
-        Converters =
-                [
-                    new StringEnumConverter(),
+        _ = services.ConfigureJwtBearerToken(configuration);
 
-                   new CustomUnixDateTimeConverter()
-                ]
-    };
+        _ = services.AddControllers();
 
-    _ = services.AddWorkContextAccessor();
+        _ = services.AddWorkContextAccessor();
 
-    _ = services.AddConsul(consulSettings, env);
+        _ = services.AddConsul(consulSettings, env);
 
-    _ = services.AddConfigurationSettings(configuration);
+        _ = services.AddInfrastructureServices(configuration);
 
-    _ = services.AddInfrastructureServices(configuration);
+        _ = services.AddConfigurationApplication(configuration, env);
 
-    _ = services.AddConfigurationApplication(configuration, env);
+        _ = services.AddEndpointsApiExplorer();
 
-    _ = services.AddEndpointsApiExplorer();
+        _ = services.SwaggerConfig();
 
-    services.SwaggerConfig();
-
-    _ = services.AuthorizationRoles();
+    }
 
     builder.AddAppConfigurations();
 
     WebApplication app = builder.Build();
-
-    _ = app.SeedConfigAsync();
-
-    if (app.Environment.IsDevelopment())
     {
-        _ = app.UseSwagger();
-        _ = app.UseSwaggerUI();
+        _ = app.SeedConfigAsync();
+
+        if (app.Environment.IsDevelopment())
+        {
+            _ = app.UseSwagger();
+            _ = app.UseSwaggerUI();
+        }
+        _ = app.MapControllers();
+
+        _ = app.UseCors();
+
+        _ = app.ConfigureEndpoints(configuration);
+
+        _ = app.UseConsul(consulSettings, env);
+
+        _ = app.UseAuthentication();
+
+        _ = app.UseAuthorization();
+
+        app.Run();
     }
-    _ = app.MapControllers();
-
-    _ = app.UseCors();
-
-    _ = app.ConfigureEndpoints(configuration);
-
-    _ = app.UseConsul(consulSettings, env);
-
-    _ = app.UseAuthentication();
-
-    _ = app.UseAuthorization();
-
-    app.Run();
 }
 catch (Exception ex)
 {

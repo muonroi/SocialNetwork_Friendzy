@@ -4,8 +4,6 @@ Log.Logger = new LoggerConfiguration()
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-IServiceCollection services = builder.Services;
-
 IWebHostEnvironment env = builder.Environment;
 
 ConfigurationManager configuration = builder.Configuration;
@@ -15,45 +13,59 @@ builder.Host.UseSerilog(SerilogAction.Configure);
 Log.Information($"Starting {builder.Environment.ApplicationName} API up");
 try
 {
-    // config appsetting
-    _ = services.Configure<ConsulConfigs>(configuration.GetSection(nameof(ConsulConfigs)));
-
     ConsulConfigs consulSettings = ConsulConfigsExtensions.GetConfigs(configuration);
-    // Add services to the container.
 
-    _ = services.AddControllers();
+    IServiceCollection services = builder.Services;
+    {
 
-    _ = services.AddWorkContextAccessor();
+        _ = services.Configure<ConsulConfigs>(configuration.GetSection(nameof(ConsulConfigs)));
 
-    _ = services.AddConsul(consulSettings, env);
+        _ = services.ConfigureJwtBearerToken(configuration);
 
-    _ = services.AddConfigurationSettings(configuration);
+        _ = services.AddControllers();
 
-    _ = services.AddInfrastructureServices(configuration);
+        _ = services.AddWorkContextAccessor();
 
-    _ = services.AddConfigurationApplication(configuration, env);
+        _ = services.AddConsul(consulSettings, env);
 
-    _ = services.AddEndpointsApiExplorer();
+        _ = services.AddConfigurationSettings(configuration);
 
-    _ = services.AddSwaggerGen();
+        _ = services.AddInfrastructureServices(configuration);
 
-    _ = services.AuthorizationRoles();
+        _ = services.AddConfigurationApplication(configuration, env);
+
+        _ = services.AddEndpointsApiExplorer();
+
+        _ = services.SwaggerConfig();
+
+        _ = services.AuthorizationRoles();
+    }
 
     builder.AddAppConfigurations();
 
     WebApplication app = builder.Build();
+    {
+        _ = app.SeedConfigAsync();
 
-    _ = app.SeedConfigAsync();
+        if (app.Environment.IsDevelopment())
+        {
+            _ = app.UseSwagger();
+            _ = app.UseSwaggerUI();
+        }
+        _ = app.MapControllers();
 
-    _ = app.UseWorkContext();
+        _ = app.UseCors();
 
-    _ = app.UseConsul(consulSettings, env);
+        _ = app.ConfigureEndpoints(configuration);
 
-    _ = app.UseAuthorization();
+        _ = app.UseConsul(consulSettings, env);
 
-    app.ConfigureEndpoints();
+        _ = app.UseAuthentication();
 
-    app.Run();
+        _ = app.UseAuthorization();
+
+        app.Run();
+    }
 }
 catch (Exception ex)
 {

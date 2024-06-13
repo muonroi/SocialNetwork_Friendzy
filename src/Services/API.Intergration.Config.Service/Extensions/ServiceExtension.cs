@@ -2,10 +2,8 @@
 
 internal static class ServiceExtension
 {
-    internal static IServiceCollection AddConfigurationSettings(this IServiceCollection services,
-    IConfiguration configuration)
+    internal static IServiceCollection AddConfigurationSettings(this IServiceCollection services, IConfiguration configuration)
     {
-        _ = services.AddConfigurationSettingsThirdExtenal(configuration);
         _ = services.AddDapperForPostgreSQL();
         _ = services.AddDapperConnectionStringProvider<ConnectionStringProvider>();
         _ = services.AddDapperCaching(configuration);

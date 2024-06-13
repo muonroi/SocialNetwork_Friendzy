@@ -21,7 +21,7 @@ public partial class InitDb : Migration
                 AvatarUrl = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                 Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                 ProfileImagesUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                Longtitude = table.Column<double>(type: "float", nullable: false),
+                Longitude = table.Column<double>(type: "float", nullable: false),
                 Latitude = table.Column<double>(type: "float", nullable: false),
                 Gender = table.Column<int>(type: "int", nullable: false),
                 Birthdate = table.Column<long>(type: "bigint", nullable: false),

@@ -14,7 +14,7 @@ IBucketRepository bucketRepository) : IRequestHandler<ImportMultipleResourceComm
     public async Task<ApiResult<IEnumerable<ImportMultipleResourceCommandResponse>>> Handle(ImportMultipleResourceCommand request, CancellationToken cancellationToken)
     {
         WorkContextInfoDTO workContext = _workContext.WorkContext!;
-
+        string prefixFileName = $"{Guid.NewGuid()}";
         //Get bucket info
         BucketDto? getBucketResult = await _bucketRepository.GetBucketByIdAsync((int)request.Type, cancellationToken);
         if (getBucketResult is null)
@@ -24,11 +24,13 @@ IBucketRepository bucketRepository) : IRequestHandler<ImportMultipleResourceComm
         // Upload the file to the MinIO server
         IEnumerable<MinIOUploadRequest> uploadRequests = request.Files.Select(x => new MinIOUploadRequest
         {
+            FileName = $"{prefixFileName}_{x.FileName}",
             FormFile = x,
             Type = request.Type,
         });
 
         IEnumerable<ImportObjectResourceDTO>? resourceUrl = await _resourceService.ImportMultipleResourceAsync(getBucketResult.BucketName, uploadRequests, cancellationToken);
+
         if (resourceUrl is null || !resourceUrl.Any())
         {
             return new ApiErrorResult<IEnumerable<ImportMultipleResourceCommandResponse>>("Resource not found", (int)HttpStatusCode.NotFound);

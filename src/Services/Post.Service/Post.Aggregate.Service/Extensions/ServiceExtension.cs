@@ -11,6 +11,9 @@ public static class ServiceExtension
         _ = services.AddGrpcClientServices(configuration, environment);
         _ = services.AddPaginationConfigs(configuration);
         _ = services.AddApiIntegration(configuration);
+        _ = services.AddScoped<ISerializeService, SerializeService>();
+        _ = services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
         return services;
     }
 
@@ -102,12 +105,18 @@ public static class ServiceExtension
         _ = builder.AddHttpMessageHandler(serviceProvider =>
         {
             IApiConfigSerivce apiConfigSerivce = serviceProvider.GetRequiredService<IApiConfigSerivce>();
+            IHttpContextAccessor httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
+
             async Task<Dictionary<string, string>> _callbackApi(HttpRequestHeaders request)
             {
+                string? accessToken = httpContextAccessor.HttpContext?.Request.Headers.Authorization.ToString().Replace("Bearer ", "");
                 string? secretKey = configuration.GetEx("SecretKey");
                 string? apiKey = configuration.GetEx("ApiKey", secretKey!);
                 IWorkContextAccessor doWorkContext = serviceProvider.GetRequiredService<IWorkContextAccessor>();
-
+                if (!string.IsNullOrEmpty(accessToken))
+                {
+                    request.Add("Authorization", accessToken);
+                }
                 request.Add("API-Key", apiKey);
                 request.Add("Request-Id", Guid.NewGuid().ToString());
                 return await apiConfigSerivce.GetIntegrationApiAsync(partnerCode, partnerType);

@@ -1,12 +1,16 @@
-﻿namespace Authenticate.Service.Services;
+﻿using Contracts.Commons.Interfaces;
 
-public class AuthenticateService(ILogger logger) : AuthenticateVerifyBase
+namespace Authenticate.Service.Services;
+
+public class AuthenticateService(ILogger logger, ISerializeService serializeService) : AuthenticateVerifyBase
 {
     private readonly ILogger _logger = logger;
 
+    private readonly ISerializeService _serializeService = serializeService;
+
     public override async Task<GenerateTokenReply> GenerateToken(GenerateTokenRequest request, ServerCallContext context)
     {
-        _logger.Information($"BEGIN: GenerateToken called. REQUEST --> {JsonConvert.SerializeObject(request)} <--");
+        _logger.Information($"BEGIN: GenerateToken called. REQUEST --> {_serializeService.Serialize(request)} <--");
         DateTimeOffset refreshTokenExpriyTime = DateTime.UtcNow.AddDays(request.GenerateTokenVerify.TimeExpires);
         GenerateTokenDetail tokenInfo = request.GenerateTokenDetail;
         string secretKey = request.GenerateTokenVerify.SecretKey;

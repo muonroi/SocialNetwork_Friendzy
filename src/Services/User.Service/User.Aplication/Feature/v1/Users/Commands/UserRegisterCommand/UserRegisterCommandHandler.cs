@@ -1,10 +1,19 @@
-﻿namespace User.Application.Feature.v1.Users.Commands.UserRegisterCommand;
+﻿using Distance.Service.Protos;
+using User.Application.Messages;
+using static Distance.Service.Protos.DistanceService;
 
-public class UserRegisterCommandHandler(IUserRepository userRepository, IApiExternalClient externalClient) : IRequestHandler<UserRegisterCommand, ApiResult<UserDto>>
+namespace User.Application.Feature.v1.Users.Commands.UserRegisterCommand;
+
+public class UserRegisterCommandHandler(GrpcClientFactory grpcClientFactory
+    , IUserRepository userRepository, IApiExternalClient externalClient) : IRequestHandler<UserRegisterCommand, ApiResult<UserDto>>
 {
     private readonly IUserRepository _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
 
     private readonly IApiExternalClient _externalClient = externalClient;
+
+
+    private readonly DistanceServiceClient _distanceServiceClient =
+        grpcClientFactory.CreateClient<DistanceServiceClient>(ServiceConstants.DistanceService);
 
     public async Task<ApiResult<UserDto>> Handle(UserRegisterCommand request, CancellationToken cancellationToken)
     {
@@ -22,10 +31,13 @@ public class UserRegisterCommandHandler(IUserRepository userRepository, IApiExte
             PhoneNumber = request.PhoneNumber,
             EmailAddress = request.EmailAddress ?? string.Empty,
             AvatarUrl = request.AvatarUrl,
+            Birthdate = request.Birthdate,
+            ProfileImages = request.ProfileImagesUrl.Split(','),
             Address = request.Address,
             Longitude = request.Longitude,
             Latitude = request.Latitude,
-            CategoryId = request.CategoryId
+            CategoryIds = request.CategoryId.Split(','),
+            Gender = request.Gender
         };
         _ = await _userRepository.CreateUserByPhone(result, cancellationToken);
 
@@ -59,7 +71,20 @@ public class UserRegisterCommandHandler(IUserRepository userRepository, IApiExte
 
         if (accountResponse.Data is null)
         {
-            return new ApiErrorResult<UserDto>($"{ErrorMessageBase.UserNotFound}", (int)HttpStatusCode.NotFound);
+            return new ApiErrorResult<UserDto>($"{UserErrorMessages.CreateAccountError}", (int)HttpStatusCode.NotFound);
+        }
+
+        CreateDistanceInfoReply distanceResult = await _distanceServiceClient.CreateDistanceInfoAsync(new CreateDistanceInfoRequest
+        {
+            Latitude = request.Latitude,
+            Longitude = request.Longitude,
+            Country = "Viet nam",
+            UserId = userCreated.Id
+        }, cancellationToken: cancellationToken);
+
+        if (!distanceResult.IsSuccess)
+        {
+            return new ApiErrorResult<UserDto>($"{UserErrorMessages.InsertDistanceError}", (int)HttpStatusCode.NotFound);
         }
 
         result.AccountGuid = accountResponse.Data.AccountId;

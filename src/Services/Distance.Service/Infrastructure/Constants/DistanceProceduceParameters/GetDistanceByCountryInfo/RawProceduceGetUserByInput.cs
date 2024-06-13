@@ -18,7 +18,7 @@ public class RawProceduceGetDistanceByCountry
                    distance.Longitude,
                    distance.UserId
             FROM DistanceEntities distance
-            WHERE distance.Country = @Country
+            WHERE distance.Country like @Country
             ORDER BY distance.Id
             OFFSET @Offset ROWS
             FETCH NEXT @PageSize ROWS ONLY;

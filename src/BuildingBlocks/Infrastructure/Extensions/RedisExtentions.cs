@@ -1,5 +1,4 @@
-﻿using Dapper.Extensions.Caching;
-
+﻿
 namespace Infrastructure.Extensions;
 
 public static class RedisExtentions
@@ -47,23 +46,6 @@ public static class RedisExtentions
 
         return services;
     }
-
-    //private static IServiceCollection AddDapperCaching(this IServiceCollection service, CacheConfiguration config, RedisClient client)
-    //{
-    //    ArgumentNullException.ThrowIfNull(config);
-    //    ArgumentNullException.ThrowIfNull(client);
-    //    service.AddSingleton<ICacheKeyBuilder, DefaultCacheKeyBuilder>();
-    //    service.AddSingleton(new CacheConfiguration
-    //    {
-    //        AllMethodsEnableCache = config.AllMethodsEnableCache,
-    //        Expire = config.Expire,
-    //        KeyPrefix = config.KeyPrefix
-    //    });
-    //    service.AddSingleton(client);
-    //    service.AddSingleton<global::Dapper.Extensions.Caching.ICacheProvider, RedisCacheProvider>();
-    //    service.AddSingleton<IDataSerializer, DataSerializer>();
-    //    return service;
-    //}
 
     public static IServiceCollection AddRedis(this IServiceCollection services, IConfiguration configuration)
     {

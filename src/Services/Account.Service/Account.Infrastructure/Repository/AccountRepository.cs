@@ -1,6 +1,6 @@
 ﻿namespace Account.Infrastructure.Repository;
 
-public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnitOfWork<AccountDbContext> unitOfWork, ILogger logger, IDapper dapper) : RepositoryBaseAsync<AccountEntity, Guid, AccountDbContext>(dbContext, unitOfWork), IAccountRepository
+public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnitOfWork<AccountDbContext> unitOfWork, ILogger logger, IDapper dapper, IWorkContextAccessor workContextAccessor, ISerializeService serializeService) : RepositoryBaseAsync<AccountEntity, Guid, AccountDbContext>(dbContext, unitOfWork, workContextAccessor), IAccountRepository
 {
     private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
@@ -8,9 +8,11 @@ public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnit
 
     private readonly IDapper _dapper = dapper;
 
+    private readonly ISerializeService _serializeService = serializeService;
+
     public async Task<Guid> CreateAccountAsync<T>(T account, CancellationToken cancellationToken) where T : AccountDTO
     {
-        _logger.Information($"BEGIN: CreateAccountAsync REQUEST --> {JsonConvert.SerializeObject(account)} <-- REQUEST");
+        _logger.Information($"BEGIN: CreateAccountAsync REQUEST --> {_serializeService.Serialize(account)} <-- REQUEST");
         Guid result = Guid.NewGuid();
         _ = await CreateAsync(new AccountEntity
         {
@@ -26,10 +28,11 @@ public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnit
 
         _ = await SaveChangesAsync();
 
-        _logger.Information($"END: CreateAccountAsync RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
+        _logger.Information($"END: CreateAccountAsync RESULT --> {_serializeService.Serialize(result)} <-- ");
 
         return result;
     }
+
 
     public async Task<bool> DeleteAccountAsync(Guid id, CancellationToken cancellationToken)
     {
@@ -43,7 +46,7 @@ public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnit
         account.IsDeleted = true;
         await UpdateAsync(account);
         long result = await SaveChangesAsync();
-        _logger.Information($"END: DeleteAccountAsync RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
+        _logger.Information($"END: DeleteAccountAsync RESULT --> {_serializeService.Serialize(result)} <-- ");
         return result > 0;
     }
 
@@ -64,14 +67,14 @@ public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnit
             return null;
         }
 
-        _logger.Information($"END: GetAccountByIdAsync RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
+        _logger.Information($"END: GetAccountByIdAsync RESULT --> {_serializeService.Serialize(result)} <-- ");
 
         return result;
     }
 
     public async Task<IEnumerable<AccountDTO>?> GetAccountsAsync(CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10)
     {
-        _logger.Information($"BEGIN: GetAccountsAsync --> {JsonConvert.SerializeObject(new { pageIndex, pageSize })} <-- ");
+        _logger.Information($"BEGIN: GetAccountsAsync --> {_serializeService.Serialize(new { pageIndex, pageSize })} <-- ");
         DapperCommand command = new()
         {
             CommandText = CustomQuery.GetAccountsPaging,
@@ -86,7 +89,7 @@ public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnit
         {
             return null;
         }
-        _logger.Information($"END: GetAccountsAsync RESULT --> {JsonConvert.SerializeObject(rawResult)} <-- ");
+        _logger.Information($"END: GetAccountsAsync RESULT --> {_serializeService.Serialize(rawResult)} <-- ");
         IEnumerable<AccountDTO> result = _mapper.Map<IEnumerable<AccountDTO>>(rawResult);
         return result;
     }
@@ -98,7 +101,8 @@ public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnit
         {
             return false;
         }
-        _logger.Information($"BEGIN: UpdateAccountAsync REQUEST --> {JsonConvert.SerializeObject(account)} <-- REQUEST");
+        _logger.Information($"BEGIN: UpdateAccountAsync REQUEST --> {_serializeService.Serialize(account)} <-- REQUEST");
+
         accountResult.RefreshToken = account.RefreshToken;
         accountResult.RefreshTokenExpiryTime = account.RefreshTokenExpiryTime;
         accountResult.AccountType = account.AccountType;
@@ -113,7 +117,7 @@ public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnit
 
         long result = await SaveChangesAsync();
 
-        _logger.Information($"END: UpdateAccountAsync RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
+        _logger.Information($"END: UpdateAccountAsync RESULT --> {_serializeService.Serialize(result)} <-- ");
 
         return result > 0;
     }

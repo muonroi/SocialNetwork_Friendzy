@@ -1,8 +1,10 @@
 ﻿namespace Setting.Infrastructure.Repository;
 
-public class SettingRepository<T, TK>(SettingDbContext dbContext, IUnitOfWork<SettingDbContext> unitOfWork, ILogger logger) : RepositoryBaseAsync<T, TK, SettingDbContext>(dbContext, unitOfWork), ISettingRepository<T, TK> where T : EntityBase<TK>
+public class SettingRepository<T, TK>(SettingDbContext dbContext, IUnitOfWork<SettingDbContext> unitOfWork, ILogger logger, IWorkContextAccessor workContextAccessor, ISerializeService serializeService) : RepositoryBaseAsync<T, TK, SettingDbContext>(dbContext, unitOfWork, workContextAccessor), ISettingRepository<T, TK> where T : EntityAuditBase<TK>
 {
     private readonly ILogger _logger = logger;
+
+    private readonly ISerializeService _serializeService = serializeService;
 
     public async Task<T?> GetSettingByType(Expression<Func<T, bool>> expresion)
     {
@@ -12,7 +14,7 @@ public class SettingRepository<T, TK>(SettingDbContext dbContext, IUnitOfWork<Se
         {
             return null;
         }
-        _logger.Information($"END: GetSettingByKey RESULT --> {JsonConvert.SerializeObject(result)} <-- ");
+        _logger.Information($"END: GetSettingByKey RESULT --> {_serializeService.Serialize(result)} <-- ");
         return result;
     }
 }

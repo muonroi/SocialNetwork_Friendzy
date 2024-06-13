@@ -5,6 +5,9 @@ public record UserDataDTO
     [JsonProperty("id")]
     public long Id { get; set; }
 
+    [JsonProperty("fullName")]
+    public string FullName => $"{FirstName} {LastName}";
+
     [JsonProperty("firstName")]
     public string FirstName { get; set; } = string.Empty;
 
@@ -26,8 +29,8 @@ public record UserDataDTO
     [JsonProperty("profileImages")]
     public string[] ProfileImages { get; set; } = [];
 
-    [JsonProperty("longtitude")]
-    public long Longtitude { get; set; }
+    [JsonProperty("longitude")]
+    public long Longitude { get; set; }
 
     [JsonProperty("latitude")]
     public double Latitude { get; set; }
@@ -40,4 +43,7 @@ public record UserDataDTO
 
     [JsonProperty("accountGuid")]
     public Guid AccountGuid { get; set; }
+
+    [JsonProperty("matchScore")]
+    public double MatchScore { get; set; }
 }
