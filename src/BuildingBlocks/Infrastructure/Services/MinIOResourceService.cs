@@ -13,7 +13,7 @@ public class MinIOResourceService(ILogger logger, IMinioClient minioClient, ISer
         PresignedGetObjectArgs args = new PresignedGetObjectArgs()
                                     .WithBucket(bucketName)
                                     .WithObject(objectName)
-                                    .WithExpiry(60);
+                                    .WithExpiry(604799);
         string result = await _minioClient.PresignedGetObjectAsync(args);
         _logger.Information($"END: GetUrlObject RESULT --> {_serializeService.Serialize(result.Length)} <-- ");
         return result;
@@ -43,10 +43,10 @@ public class MinIOResourceService(ILogger logger, IMinioClient minioClient, ISer
             await _minioClient.CreateBucketAsync(bucketName, cancellationToken).ConfigureAwait(false);
         }
 
-        PutObjectResponse statObj = await _minioClient.UploadStreamObjectAsync(bucketName, request, cancellationToken);
+        await _minioClient.UploadStreamObjectAsync(bucketName, request, cancellationToken);
 
-        _logger.Information($"END: ImportResourceAsync RESULT --> {_serializeService.Serialize(statObj)} <-- ");
-        ImportObjectResourceDTO result = new(await GetUrlObject(bucketName, request.FileName, cancellationToken), statObj.ObjectName);
+        _logger.Information($"END: ImportResourceAsync RESULT --> {_serializeService.Serialize(request)} <-- ");
+        ImportObjectResourceDTO result = new(await GetUrlObject(bucketName, request.FileName, cancellationToken), request.FileName);
         return result;
     }
 
@@ -68,10 +68,10 @@ public class MinIOResourceService(ILogger logger, IMinioClient minioClient, ISer
 
         IEnumerable<Task<string>> uploadTasks = requests.Select(async request =>
         {
-            PutObjectResponse statObj = await _minioClient.UploadStreamObjectAsync(bucketName, request, cancellationToken);
-            _logger.Information($"Uploaded Object: {_serializeService.Serialize(statObj)}");
+            await _minioClient.UploadStreamObjectAsync(bucketName, request, cancellationToken);
+            _logger.Information($"Uploaded Object: {_serializeService.Serialize(request)}");
 
-            return statObj.Size > 0 ? await GetUrlObject(bucketName, request.FileName, cancellationToken) : string.Empty;
+            return await GetUrlObject(bucketName, request.FileName, cancellationToken);
         });
 
         string[] uploadResult = await Task.WhenAll(uploadTasks);

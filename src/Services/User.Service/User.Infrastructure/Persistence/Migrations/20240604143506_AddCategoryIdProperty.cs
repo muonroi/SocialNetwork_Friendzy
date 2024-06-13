@@ -9,7 +9,7 @@ public partial class AddCategoryIdProperty : Migration
     protected override void Up(MigrationBuilder migrationBuilder)
     {
         migrationBuilder.RenameColumn(
-            name: "Longtitude",
+            name: "Longitude",
             table: "Users",
             newName: "Longitude");
 
@@ -31,6 +31,6 @@ public partial class AddCategoryIdProperty : Migration
         migrationBuilder.RenameColumn(
             name: "Longitude",
             table: "Users",
-            newName: "Longtitude");
+            newName: "Longitude");
     }
 }

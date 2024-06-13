@@ -1,13 +1,10 @@
-﻿
-
-
-namespace Shared.Services.Resources;
+﻿namespace Shared.Services.Resources;
 
 public abstract record BaseResourceRequest
 {
     public required IFormFile FormFile { get; set; }
 
-    public string FileName => $"{DateTime.UtcNow.ToTimestamp()}_{Guid.NewGuid()}_{FormFile.FileName}";
+    public string FileName { get; set; } = string.Empty;
 
     public string ContentType => FormFile.ContentType;
 

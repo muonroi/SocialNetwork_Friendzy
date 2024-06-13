@@ -18,6 +18,8 @@ public class ImportResourceCommandHandler(
     {
         WorkContextInfoDTO workContext = _workContext.WorkContext!;
 
+        string prefixFileName = $"{Guid.NewGuid()}";
+
         //Get bucket info
         BucketDto? getBucketResult = await _bucketRepository.GetBucketByIdAsync((int)request.Type, cancellationToken);
         if (getBucketResult is null)
@@ -28,6 +30,7 @@ public class ImportResourceCommandHandler(
         // Upload the file to the MinIO server
         MinIOUploadRequest uploadRequest = new()
         {
+            FileName = $"{prefixFileName}_{request.File.FileName}",
             FormFile = request.File,
             Type = request.Type,
         };

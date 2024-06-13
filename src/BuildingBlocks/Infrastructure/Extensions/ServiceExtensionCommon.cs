@@ -1,8 +1,4 @@
-﻿using Contracts.Commons.Constants;
-using Infrastructure.Helper;
-using Minio;
-
-namespace Infrastructure.Extensions;
+﻿namespace Infrastructure.Extensions;
 
 public static class ServiceExtensionCommon
 {
@@ -20,12 +16,15 @@ public static class ServiceExtensionCommon
         {
             _ = services.AddSingleton(minIOConfig);
         }
-
-        _ = services.AddMinio(configureClient => configureClient
-            .WithEndpoint(minIOConfig!.Endpoint)
-            .WithCredentials(configuration.GetConfigHelper(ConfigurationSetting.MinIOAccessKey),
+        _ = services.AddSingleton<IMinioClient, MinioClient>(sp =>
+        {
+            return new MinioClient()
+                .WithEndpoint(minIOConfig!.Endpoint)
+                .WithCredentials(configuration.GetConfigHelper(ConfigurationSetting.MinIOAccessKey),
             configuration.GetConfigHelper(ConfigurationSetting.MinIOSerrectKey))
-            .WithSSL(false));
+                .WithSSL()
+                .Build();
+        });
 
         return services;
     }

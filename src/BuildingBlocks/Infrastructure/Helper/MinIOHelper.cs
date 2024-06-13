@@ -1,9 +1,4 @@
-﻿using Minio;
-using Minio.DataModel.Args;
-using Minio.DataModel.Response;
-using Shared.Services.Resources;
-
-namespace Infrastructure.Helper
+﻿namespace Infrastructure.Helper
 {
     public static class MinIOHelper
     {
@@ -29,7 +24,7 @@ namespace Infrastructure.Helper
             await minioClient.SetVersioningAsync(svArgs, cancellationToken).ConfigureAwait(false);
         }
 
-        public static async Task<PutObjectResponse> UploadStreamObjectAsync<T>(this IMinioClient minioClient, string bucketName, T content, CancellationToken cancellationToken) where T : BaseResourceRequest
+        public static async Task UploadStreamObjectAsync<T>(this IMinioClient minioClient, string bucketName, T content, CancellationToken cancellationToken) where T : BaseResourceRequest
         {
             using Stream memoryStream = content.FormFile.OpenReadStream();
 
@@ -42,12 +37,12 @@ namespace Infrastructure.Helper
                 .WithObjectSize(memoryStream.Length)
                 .WithContentType(content.ContentType);
 
-            return await minioClient.PutObjectAsync(putAnotherObjectArgs, cancellationToken);
+            await minioClient.PutObjectAsync(putAnotherObjectArgs, cancellationToken);
         }
 
-        public static async Task<PutObjectResponse[]> UploadMultipleStreamObjectsAsync<T>(this IMinioClient minioClient, string bucketName, IEnumerable<T> contents, CancellationToken cancellationToken) where T : BaseResourceRequest
+        public static async Task UploadMultipleStreamObjectsAsync<T>(this IMinioClient minioClient, string bucketName, IEnumerable<T> contents, CancellationToken cancellationToken) where T : BaseResourceRequest
         {
-            IEnumerable<Task<PutObjectResponse>> tasks = contents.Select(async content =>
+            IEnumerable<Task> tasks = contents.Select(async content =>
             {
                 using Stream memoryStream = content.FormFile.OpenReadStream();
                 memoryStream.Position = 0;
@@ -58,10 +53,9 @@ namespace Infrastructure.Helper
                     .WithStreamData(memoryStream)
                     .WithObjectSize(memoryStream.Length)
                     .WithContentType(content.ContentType);
-
-                return await minioClient.PutObjectAsync(putObjectArgs, cancellationToken).ConfigureAwait(false);
+                await minioClient.PutObjectAsync(putObjectArgs, cancellationToken).ConfigureAwait(false);
             });
-            return await Task.WhenAll(tasks).ConfigureAwait(false);
+            await Task.WhenAll(tasks).ConfigureAwait(false);
         }
 
         public static async Task<Stream> DownloadBucketStreamAsync(this IMinioClient minioClient, string bucketName, string objectName, CancellationToken cancellationToken)

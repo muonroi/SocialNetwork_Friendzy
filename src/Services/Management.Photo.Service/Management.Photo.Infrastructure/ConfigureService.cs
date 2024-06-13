@@ -15,6 +15,7 @@ public static class ConfigureService
             _ = options.UseSqlServer(configuration.GetConfigHelper(ConfigurationSetting.ConnectionString),
                 builder => builder.MigrationsAssembly(typeof(StoreInfoDbContext).Assembly.FullName));
         }, ServiceLifetime.Transient);
+
         _ = services.AddScoped<StoreInfoDbContextSeed>();
         _ = services.AddTransient(typeof(IRepositoryBaseAsync<,,>), typeof(RepositoryBaseAsync<,,>));
         _ = services.AddTransient(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
