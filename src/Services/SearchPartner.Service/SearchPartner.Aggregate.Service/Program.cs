@@ -32,7 +32,7 @@ try
 
         _ = services.AddEndpointsApiExplorer();
 
-        _ = services.SwaggerConfig();
+        _ = services.SwaggerConfig(builder.Environment.ApplicationName);
 
     }
 

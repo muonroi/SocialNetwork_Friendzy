@@ -1,4 +1,5 @@
 ﻿using Distance.Service.Protos;
+using ExternalAPI.Models;
 using SearchPartners.Service;
 using static Distance.Service.Protos.DistanceService;
 using static SearchPartners.Service.SearchPartnerService;
@@ -57,14 +58,17 @@ public class SearchPartnersQueryHandler(
 
         if (partnersResult.Distancedetails.Count > 1)
         {
-            ExternalApiResponse<IEnumerable<UserDataDTO>> usersResult = await _externalClient.GetUsersAsync(userId, CancellationToken.None);
-
+            ExternalApiResponse<IEnumerable<UserDataModel>> usersResult = await _externalClient.GetUsersAsync(userId, CancellationToken.None);
+            if (!usersResult.IsSucceeded)
+            {
+                return new ApiErrorResult<SearchPartnersQueryResponse>(nameof(SearchPartnersErrorMessages.PartnersNotFound), StatusCodes.Status404NotFound);
+            }
             result = new()
             {
                 Id = workContext.UserId,
                 Latitude = request.Latitude,
                 Longitude = request.Longitude,
-                PartnersSorted = new PagedList<UserDataDTO>(
+                PartnersSorted = new PagedList<UserDataModel>(
                    usersResult.Data,
                    distanceResult.TotalItems,
                    request.PageIndex,
@@ -73,13 +77,13 @@ public class SearchPartnersQueryHandler(
             return new ApiSuccessResult<SearchPartnersQueryResponse>(result);
         }
 
-        ExternalApiResponse<UserDataDTO> userResult = await _externalClient.GetUserAsync(partnersResult.Distancedetails.First().UserId.ToString(), CancellationToken.None);
+        ExternalApiResponse<UserDataModel> userResult = await _externalClient.GetUserAsync(partnersResult.Distancedetails.First().UserId.ToString(), CancellationToken.None);
         result = new()
         {
             Id = workContext.UserId,
             Latitude = request.Latitude,
             Longitude = request.Longitude,
-            PartnersSorted = new PagedList<UserDataDTO>(
+            PartnersSorted = new PagedList<UserDataModel>(
                 [
                     userResult.Data
                 ],

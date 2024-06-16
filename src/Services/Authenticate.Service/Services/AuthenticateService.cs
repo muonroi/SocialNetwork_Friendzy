@@ -1,4 +1,5 @@
 ﻿using Contracts.Commons.Interfaces;
+using System.Text;
 
 namespace Authenticate.Service.Services;
 
@@ -16,18 +17,17 @@ public class AuthenticateService(ILogger logger, ISerializeService serializeServ
         string secretKey = request.GenerateTokenVerify.SecretKey;
         if (secretKey.Length < 32)
         {
-            // Pad the key to ensure it's at least 32 bytes
             secretKey = secretKey.PadRight(32, '0');
         }
-        byte[] jwtKey = Convert.FromBase64String(secretKey);
+        byte[] jwtKey = Encoding.ASCII.GetBytes(secretKey);
 
-        // Create the claims for the access token
         List<Claim> claims =
         [
             new(ClaimTypes.MobilePhone, tokenInfo.PhoneNumber ?? string.Empty),
             new(ClaimTypes.Email, tokenInfo.EmailAddress ?? string.Empty),
-            new Claim(JwtRegisteredClaimNames.Iss, request.GenerateTokenVerify.Issuer),
-            new Claim(JwtRegisteredClaimNames.Aud, request.GenerateTokenVerify.Audience),
+            new(ClaimTypes.NameIdentifier, tokenInfo.AccountId.ToString()),
+            new(JwtRegisteredClaimNames.Iss, request.GenerateTokenVerify.Issuer),
+            new(JwtRegisteredClaimNames.Aud, request.GenerateTokenVerify.Audience),
             new("Roles",string.Join(",", tokenInfo.RoleIds)),
             new("Latitude", tokenInfo.Latitude.ToString()),
             new("Longitude", tokenInfo.Longitude.ToString()),
@@ -38,25 +38,28 @@ public class AuthenticateService(ILogger logger, ISerializeService serializeServ
             new("AccountStatus", tokenInfo.AccountStatus.ToString()),
             new("Currency", tokenInfo.Currency.ToString()),
             new("AccountType", tokenInfo.AccountType.ToString()),
-            new("FullName", tokenInfo.FullName.ToString()),
-
+            new("FullName", tokenInfo.FullName.ToString())
         ];
+
+        // Thêm kid vào header
+        SigningCredentials signingCredentials = new(new SymmetricSecurityKey(jwtKey), SecurityAlgorithms.HmacSha256Signature);
+        signingCredentials.Key.KeyId = secretKey;
 
         SecurityTokenDescriptor accessTokenDescriptor = new()
         {
             Subject = new ClaimsIdentity(claims),
             Expires = refreshTokenExpriyTime.UtcDateTime,
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(jwtKey), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials = signingCredentials
         };
 
         SecurityTokenDescriptor refreshTokenDescriptor = new()
         {
-            Subject = new ClaimsIdentity(new[]
-            {
-                new Claim("UserId", tokenInfo.UserId.ToString())
-            }),
+            Subject = new ClaimsIdentity(
+            [
+            new Claim("UserId", tokenInfo.UserId.ToString())
+            ]),
             Expires = DateTime.UtcNow.AddYears(1),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(jwtKey), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials = signingCredentials
         };
 
         JwtSecurityTokenHandler tokenHandler = new();
@@ -77,6 +80,8 @@ public class AuthenticateService(ILogger logger, ISerializeService serializeServ
         });
     }
 
+
+
     public override async Task<VerifyTokenReply> VerifyToken(VerifyTokenRequest request, ServerCallContext context)
     {
         string token = request.AccessToken.Replace("Bearer ", string.Empty);
@@ -88,37 +93,46 @@ public class AuthenticateService(ILogger logger, ISerializeService serializeServ
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-
             ValidIssuer = request.Issuer,
             ValidAudience = request.Audience,
-            IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(request.SecretKey))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(request.SecretKey))
         };
 
         VerifyTokenReply verifyTokenReply = new();
 
-        TokenValidationResult claimsPrincipal = await tokenHandler.ValidateTokenAsync(token, validationParameters);
-
-        verifyTokenReply.IsAuthenticated = claimsPrincipal.IsValid;
-
-        if (!claimsPrincipal.IsValid)
+        try
         {
-            return verifyTokenReply;
+            TokenValidationResult claimsPrincipal = await tokenHandler.ValidateTokenAsync(token, validationParameters);
+
+            verifyTokenReply.IsAuthenticated = claimsPrincipal.IsValid;
+
+            if (!claimsPrincipal.IsValid)
+            {
+                return verifyTokenReply;
+            }
+            JwtPayload payload = new JwtSecurityTokenHandler().ReadJwtToken(token).Payload;
+            verifyTokenReply.FullName = payload["FullName"]?.ToString() ?? string.Empty;
+            verifyTokenReply.PhoneNumber = payload[ClaimTypes.MobilePhone]?.ToString() ?? string.Empty;
+            verifyTokenReply.EmailAddress = payload["email"]?.ToString() ?? string.Empty;
+            verifyTokenReply.RoleIds = payload["Roles"]?.ToString() ?? string.Empty;
+            verifyTokenReply.Latitude = double.Parse(payload["Latitude"]?.ToString()!);
+            verifyTokenReply.Longitude = double.Parse(payload["Longitude"]?.ToString()!);
+            verifyTokenReply.UserId = int.Parse(payload["UserId"]?.ToString()!);
+            verifyTokenReply.IsActive = bool.Parse(payload["IsActive"]?.ToString()!);
+            verifyTokenReply.Balance = payload["Balance"]?.ToString()!;
+            verifyTokenReply.IsEmailVerify = bool.Parse(payload["IsEmailVerify"]?.ToString()!);
+            verifyTokenReply.AccountStatus = int.Parse(payload["AccountStatus"]?.ToString()!);
+            verifyTokenReply.Currency = int.Parse(payload["Currency"]?.ToString()!);
+            verifyTokenReply.AccountType = (int)double.Parse(payload["AccountType"]?.ToString()!);
+            verifyTokenReply.AccountId = payload["nameid"]?.ToString()!;
+        }
+        catch (Exception ex)
+        {
+            _logger.Error($"Token validation failed: {ex.Message}");
+            verifyTokenReply.IsAuthenticated = false;
         }
 
-        JwtPayload payload = new JwtSecurityTokenHandler().ReadJwtToken(token).Payload;
-        verifyTokenReply.FullName = payload["FullName"]?.ToString() ?? string.Empty;
-        verifyTokenReply.PhoneNumber = payload[ClaimTypes.MobilePhone]?.ToString() ?? string.Empty;
-        verifyTokenReply.EmailAddress = payload["email"]?.ToString() ?? string.Empty;
-        verifyTokenReply.RoleIds = payload["Roles"]?.ToString() ?? string.Empty;
-        verifyTokenReply.Latitude = double.Parse(payload["Latitude"]?.ToString()!);
-        verifyTokenReply.Longitude = double.Parse(payload["Longitude"]?.ToString()!);
-        verifyTokenReply.UserId = int.Parse(payload["UserId"]?.ToString()!);
-        verifyTokenReply.IsActive = bool.Parse(payload["IsActive"]?.ToString()!);
-        verifyTokenReply.Balance = payload["Balance"]?.ToString()!;
-        verifyTokenReply.IsEmailVerify = bool.Parse(payload["IsEmailVerify"]?.ToString()!);
-        verifyTokenReply.AccountStatus = int.Parse(payload["AccountStatus"]?.ToString()!);
-        verifyTokenReply.Currency = int.Parse(payload["Currency"]?.ToString()!);
-        verifyTokenReply.AccountType = (int)double.Parse(payload["AccountType"]?.ToString()!);
         return verifyTokenReply;
     }
+
 }

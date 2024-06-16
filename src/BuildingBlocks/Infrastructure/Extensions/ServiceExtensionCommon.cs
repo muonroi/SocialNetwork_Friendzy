@@ -22,7 +22,7 @@ public static class ServiceExtensionCommon
                 .WithEndpoint(minIOConfig!.Endpoint)
                 .WithCredentials(configuration.GetConfigHelper(ConfigurationSetting.MinIOAccessKey),
             configuration.GetConfigHelper(ConfigurationSetting.MinIOSerrectKey))
-                .WithSSL()
+                .WithSSL(false)
                 .Build();
         });
 

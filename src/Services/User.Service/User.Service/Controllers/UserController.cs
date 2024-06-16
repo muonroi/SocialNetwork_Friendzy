@@ -1,4 +1,5 @@
 ﻿using User.Application.Feature.v1.Users.Commands.UserUpdateInfoCommand;
+using User.Application.Feature.v1.Users.Queries.GetUserQuery;
 
 namespace User.Service.Controllers;
 
@@ -10,6 +11,7 @@ public class UserController(IMediator mediator) : ControllerBase
     private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(ApiResult<UserDto>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> GetUserByKey([FromQuery] string input)
     {
@@ -19,6 +21,7 @@ public class UserController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet("list")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(ApiResult<IEnumerable<UserDto>>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> GetUserByKeys([FromQuery] string input)
     {

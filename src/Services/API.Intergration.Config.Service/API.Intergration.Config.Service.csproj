@@ -12,17 +12,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" version ="2.63.0"/>
+    <Compile Remove="v1\NewFolder\**" />
+    <Content Remove="v1\NewFolder\**" />
+    <EmbeddedResource Remove="v1\NewFolder\**" />
+    <None Remove="v1\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="v1\Protos\apiConfig.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" version="2.63.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BuildingBlocks\Commons\Commons.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
-
-  
   <ItemGroup>
     <Protobuf Include="v1\Protos\apiConfig.proto" GrpcServices="Server" />
   </ItemGroup>
+
 
 
 </Project>

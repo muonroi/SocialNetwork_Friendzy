@@ -6,6 +6,7 @@ global using Account.Application.Infrastructure.Constants;
 global using Account.Application.Infrastructure.feature.v1.Accounts.Queries.Base;
 global using Account.Application.Mappings;
 global using Account.Domain.Entities;
+global using API.Intergration.Config.Service.Protos;
 global using Authenticate.Verify.Service;
 global using AutoMapper;
 global using Calzolari.Grpc.AspNetCore.Validation.Internal;
@@ -32,4 +33,7 @@ global using System.Net;
 global using System.Reflection;
 global using System.Threading;
 global using System.Threading.Tasks;
+global
+using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
 global using static Authenticate.Verify.Service.AuthenticateVerify;
+

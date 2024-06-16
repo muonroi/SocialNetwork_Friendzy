@@ -115,6 +115,7 @@ services:
         - MSSQLDbFriendzy
     restart: always
 
+  #setting
   Setting.Service:
     container_name: Setting.Service
     environment:
@@ -171,6 +172,7 @@ services:
         - MSSQLDbFriendzy
     restart: always
 
+  #post.service
   Post.Service:
     container_name: Post.Service
     environment:
@@ -227,6 +229,7 @@ services:
     depends_on:
         - MysqlDbFriendzy
 
+  #searchpartner.service
   SearchPartners.Service:
     container_name: SearchPartners.Service
     environment:
@@ -280,6 +283,7 @@ services:
       - "6004:80"
     restart: always
 
+  #searchpartner.aggregate.service
   SearchPartners.Aggregate.Service:
     container_name: SearchPartners.Agg.Service
     environment:
@@ -335,6 +339,7 @@ services:
     depends_on:
         - SearchPartners.Service
 
+  #distance.service
   Distance.Service:
     container_name: Distance.Service
     environment:
@@ -391,6 +396,7 @@ services:
         - MSSQLDbFriendzy
     restart: always
 
+  #config api service
   API.Intergration.Config.Service:
     container_name: API.Intergration.Config.Service
     environment:
@@ -447,6 +453,7 @@ services:
     depends_on:
         - PostgresDbFriendzy
 
+  #post.aggregate.service
   Post.Aggregate.Service:
     container_name: Post.Agg.Service
     environment:
@@ -502,6 +509,7 @@ services:
     depends_on:
         - Post.Service
 
+  #management photo service
   Management.Photo.Service:
     container_name: Management.Photo.Service
     environment:
@@ -559,6 +567,7 @@ services:
         - MinioResourceDbFriendzy
         - MSSQLDbFriendzy
 
+  #authenticate.service
   Authenticate.Service:
     container_name: Authenticate.Service
     environment:
@@ -612,6 +621,7 @@ services:
       - "6011:80"
     restart: always
 
+  #account.service
   Account.Service:
     container_name: Account.Service
     environment:
@@ -668,8 +678,9 @@ services:
     depends_on:
       - MSSQLDbFriendzy
 
-  Matched.Friend.Service:
-    container_name: Matched.Friend.Service
+  #management.friends.action.service
+  Management.Friends.Action.Service:
+    container_name: Management.Friends.Action.Service
     environment:
       - "JwtBearerConfig:Issuer=${JWT_BEARER_CONFIG_ISSUER}"
       - "JwtBearerConfig:Audience=${JWT_BEARER_CONFIG_AUDIENCE}"
@@ -715,7 +726,7 @@ services:
       - "Serilog:WriteTo__0__Args__fileSizeLimitBytes=${SERILOG_WRITETO_ARGS_FILE_SIZE_LIMIT_BYTES}"
       - "Serilog:WriteTo__0__Args__shared=${SERILOG_WRITETO_ARGS_SHARED}"
       - "AllowedHosts=${ALLOWED_HOSTS}"
-      - "DatabaseConfigs:ConnectionString=hgHRo4D1vCQ23uDYkoTaQzgfyZvJ0iA3+d3Q+s2z2vvipp+7jlnytqZbf6eRhSq8To6g/07pO0vSxplubGwgWMD56hxth7WZGHG63mFiDVbGhWHu6efUTDCj6SkJ+CCn"
+      - "DatabaseConfigs:ConnectionString=hgHRo4D1vCQ23uDYkoTaQzgfyZvJ0iA3+d3Q+s2z2vsRm0FNkLBhnzMyLsHAy8hyMX5gzE+HJS8cNoCTudf1WYQqmjk0Jt+DMmYrcILqWUH/sEwRWBmCx8BR9NUL5O3A"
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=${ASPNETCORE_URLS}
     ports:

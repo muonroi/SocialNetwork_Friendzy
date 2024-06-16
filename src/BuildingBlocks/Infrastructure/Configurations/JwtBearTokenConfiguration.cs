@@ -1,5 +1,4 @@
-﻿using Contracts.Commons.Constants;
-using Infrastructure.Helper;
+﻿using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Configurations;
 
@@ -12,7 +11,7 @@ public static class JwtBearTokenConfiguration
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         })
-        .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+        .AddJwtBearer(options =>
         {
             options.TokenValidationParameters = new TokenValidationParameters
             {
@@ -20,9 +19,16 @@ public static class JwtBearTokenConfiguration
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
+                RequireSignedTokens = true,
                 ValidIssuer = configuration[ConfigurationSetting.JwtIssuer],
                 ValidAudience = configuration[ConfigurationSetting.JwtAudience],
-                IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(configuration.GetConfigHelper(ConfigurationSetting.JwtSecrectKey)))
+                IssuerSigningKeys =
+                [
+                    new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration.GetConfigHelper(ConfigurationSetting.JwtSecrectKey)))
+                    {
+                        KeyId = configuration.GetConfigHelper(ConfigurationSetting.JwtSecrectKey)
+                    }
+                ],
             };
 
             options.Events = new JwtBearerEvents
@@ -42,7 +48,25 @@ public static class JwtBearTokenConfiguration
                         }
                     }
                     return Task.CompletedTask;
+                },
+                OnMessageReceived = context =>
+                {
+                    ILogger<JwtBearerEvents> logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<JwtBearerEvents>>();
+                    StringValues accessToken = context.Request.Query["access_token"];
+                    PathString path = context.HttpContext.Request.Path;
+                    if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                    {
+                        context.Token = accessToken;
+                    }
+                    return Task.CompletedTask;
+                },
+                OnAuthenticationFailed = context =>
+                {
+                    ILogger<JwtBearerEvents> logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<JwtBearerEvents>>();
+                    logger.LogError("Authentication failed: {Exception}", context.Exception);
+                    return Task.CompletedTask;
                 }
+
             };
         });
 

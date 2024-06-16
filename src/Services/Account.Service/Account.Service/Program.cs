@@ -22,7 +22,7 @@ try
 
         _ = services.ConfigureJwtBearerToken(configuration);
 
-        _ = services.AddControllers();
+        _ = services.AddControllersConfig();
 
         _ = services.AddWorkContextAccessor();
 
@@ -36,9 +36,11 @@ try
 
         _ = services.AddEndpointsApiExplorer();
 
-        _ = services.SwaggerConfig();
+        _ = services.SwaggerConfig(builder.Environment.ApplicationName);
 
         _ = services.AuthorizationRoles();
+
+        _ = services.AddSignalR();
     }
 
     builder.AddAppConfigurations();

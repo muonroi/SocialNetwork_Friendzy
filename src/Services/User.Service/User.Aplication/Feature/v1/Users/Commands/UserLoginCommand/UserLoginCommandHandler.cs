@@ -1,4 +1,6 @@
-﻿namespace User.Application.Feature.v1.Users.Commands.UserLoginCommand;
+﻿using ExternalAPI.Models;
+
+namespace User.Application.Feature.v1.Users.Commands.UserLoginCommand;
 
 public class UserLoginCommandHandler(IUserRepository userRepository, IApiExternalClient externalClient) : IRequestHandler<UserLoginCommand, ApiResult<UserDto>>
 {
@@ -13,7 +15,7 @@ public class UserLoginCommandHandler(IUserRepository userRepository, IApiExterna
         {
             return new ApiErrorResult<UserDto>($"{ErrorMessageBase.UserNotFound}", (int)HttpStatusCode.NotFound);
         }
-        ExternalApiResponse<AccountDataDTO>? accountResponse = await _externalClient.VerifyAccountAsync(new AccountRequestBase
+        ExternalApiResponse<AccountDataModel>? accountResponse = await _externalClient.VerifyAccountAsync(new AccountRequestBase
         {
             Id = result.AccountGuid,
             UserId = result.Id,

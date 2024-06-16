@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" version="2.63.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Protobuf Include="..\..\Authenticate.Service\Protos\authenticate.proto" GrpcServices="Client">
+      <Link>Protos\authenticate.proto</Link>
+    </Protobuf>
+
+    <Protobuf Include="..\..\API.Intergration.Config.Service\v1\Protos\apiConfig.proto" GrpcServices="Client">
+      <Link>Protos\apiConfig.proto</Link>
+    </Protobuf>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commons\Constants\" />
+    <Folder Include="Feature\v2\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\ExternalAPI\ExternalAPI.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Management.Friends.Action.Domain\Management.Friends.Action.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

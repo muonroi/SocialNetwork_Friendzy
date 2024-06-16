@@ -1,4 +1,6 @@
-﻿namespace Post.Application.Commons.Models;
+﻿using ExternalAPI.Models;
+
+namespace Post.Application.Commons.Models;
 
 public class PostDto
 {
@@ -25,7 +27,7 @@ public class PostDto
     public long CategoryId { get; set; }
     public long AuthorId { get; set; }
 
-    public CategoryDataDTO? Category { get; set; }
+    public CategoryDataModel? Category { get; set; }
 
-    public UserDataDTO? Author { get; set; }
+    public UserDataModel? Author { get; set; }
 }
