@@ -68,6 +68,14 @@ namespace Account.Application.Helper
             }
         }
 
+        public async Task<AccountDTO?> GetCurrentUser(Guid accountId, CancellationToken cancellationToken)
+        {
+            using IServiceScope scope = _serviceProvider.CreateScope();
+            IAccountRepository accountRepository = scope.ServiceProvider.GetRequiredService<IAccountRepository>();
+            AccountDTO? accountInfo = await accountRepository.GetAccountByIdAsync(accountId, cancellationToken);
+            return accountInfo;
+        }
+
         public Task<List<string>> GetConnectionsForUserAsync(Guid accountId)
         {
             lock (OnlineUsersList)

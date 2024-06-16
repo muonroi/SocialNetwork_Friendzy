@@ -30,4 +30,8 @@ public interface IApiExternalClient
     [Header(HeaderConstants.MethodKey, "get-friends")]
     [Get]
     Task<ExternalApiResponse<IEnumerable<FriendMatchedDataModel>>> GetFriendsById([Query] string id, long userId, int action, CancellationToken cancellationtoken);
+
+    [Header(HeaderConstants.MethodKey, "get-friends-user")]
+    [Get]
+    Task<ExternalApiResponse<IEnumerable<FriendMatchedDataModel>>> GetFriendsUserById([Query] long userId, int action, CancellationToken cancellationtoken);
 }

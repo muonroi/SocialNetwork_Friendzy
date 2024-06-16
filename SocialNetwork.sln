@@ -121,7 +121,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchPartners.Service", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchPartners.Aggregate.Service", "src\Services\SearchPartner.Service\SearchPartner.Aggregate.Service\SearchPartners.Aggregate.Service.csproj", "{8F7DB56F-F9DC-40EF-B409-48BBB9DEDD6D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management.Friends.Action.Service", "Management.Friends.Action.Service", "{E3F22FF0-8923-450C-BD9F-54C366B33191}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Management.Friends.Action", "Management.Friends.Action", "{E3F22FF0-8923-450C-BD9F-54C366B33191}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Friends.Action.Service", "src\Services\Management.Friends.Action.Service\Management.Friends.Action.Service\Management.Friends.Action.Service.csproj", "{113473A7-FAC3-40D9-B375-3CBA65A7AE56}"
 EndProject
@@ -130,6 +130,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Friends.Action.Domain", "src\Services\Management.Friends.Action.Service\Management.Friends.Action.Domain\Management.Friends.Action.Domain.csproj", "{D44B02F5-3B85-4F3B-8C4F-5165BBB7688A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management.Friends.Action.Application", "src\Services\Management.Friends.Action.Service\Management.Friends.Action.Application\Management.Friends.Action.Application.csproj", "{5EBB79B2-606C-4612-8AE5-8E2BEB505499}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Messages", "Messages", "{658CA659-03BA-4A89-BF82-0E1E9472BC16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -351,6 +353,7 @@ Global
 		{82B4F1D4-964C-4A3C-A7F7-D5BCF39B20F7} = {E3F22FF0-8923-450C-BD9F-54C366B33191}
 		{D44B02F5-3B85-4F3B-8C4F-5165BBB7688A} = {E3F22FF0-8923-450C-BD9F-54C366B33191}
 		{5EBB79B2-606C-4612-8AE5-8E2BEB505499} = {E3F22FF0-8923-450C-BD9F-54C366B33191}
+		{658CA659-03BA-4A89-BF82-0E1E9472BC16} = {570F558C-C0EA-4ADF-A042-056291323E11}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {70492B5C-778F-4934-AF28-85BA58775A20}

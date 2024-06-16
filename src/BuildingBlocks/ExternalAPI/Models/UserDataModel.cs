@@ -15,7 +15,7 @@ public record UserDataModel
     public string LastName { get; set; } = string.Empty;
 
     [JsonProperty("phoneNumber")]
-    public long PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; } = string.Empty;
 
     [JsonProperty("emailAddress")]
     public string EmailAddress { get; set; } = string.Empty;
@@ -30,13 +30,13 @@ public record UserDataModel
     public string[] ProfileImages { get; set; } = [];
 
     [JsonProperty("longitude")]
-    public long Longitude { get; set; }
+    public double Longitude { get; set; }
 
     [JsonProperty("latitude")]
     public double Latitude { get; set; }
 
     [JsonProperty("gender")]
-    public long Gender { get; set; }
+    public int Gender { get; set; }
 
     [JsonProperty("birthdate")]
     public DateTime Birthdate { get; set; }

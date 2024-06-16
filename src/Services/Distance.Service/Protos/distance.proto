@@ -24,6 +24,7 @@ message GetDistanceInfoListRequest {
   string country = 1;
   int32 pageIndex = 2;
   int32 pageSize = 3;
+  string friendIds = 4;
 }
 
 message GetDistanceInfoListReply {
