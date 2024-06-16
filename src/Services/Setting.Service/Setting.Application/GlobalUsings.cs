@@ -8,7 +8,6 @@ global using Contracts.Commons.Constants;
 global using Contracts.Commons.Interfaces;
 global using Contracts.Domains;
 global using ExternalAPI;
-global using ExternalAPI.DTOs;
 global using FluentValidation;
 global using Infrastructure.Commons;
 global using Infrastructure.Extensions;

@@ -80,46 +80,4 @@ public class DistanceDbContextSeed(ILogger logger, DistanceDbContext context, IS
         }
         _ = await _context.SaveChangesAsync(new CancellationToken());
     }
-
-    private async Task DistanceSeedProcessAsync()
-    {
-        _logger.Information("Data seeding completed successfully.");
-
-        string createProcedureGetDistanceByCountry = @"
-                CREATE PROC GetDistanceByCountry
-            @Country VARCHAR(50),
-            @PageSize INT,
-            @PageIndex INT
-        AS
-        BEGIN
-            DECLARE @Offset INT;
-        SET @Offset = @PageSize * (@PageIndex - 1);
-
-        SELECT distance.Id,
-                   distance.Country,
-                   distance.Latitude,
-                   distance.Longitude,
-                   distance.UserId
-            FROM DistanceEntities distance
-            WHERE distance.Country like @Country
-            ORDER BY distance.Id
-            OFFSET @Offset ROWS
-            FETCH NEXT @PageSize ROWS ONLY;
-        END;
-";
-
-        string createProcedureGetDistanceByCountryCount = @"
-                CREATE PROC GetDistanceByCountryCount
-                @Country VARCHAR(50)
-            AS
-            BEGIN
-                SELECT COUNT(*)
-                FROM DistanceEntities distance
-                WHERE distance.Country like @Country
-            END;
-";
-        _ = await _context.Database.ExecuteSqlRawAsync(createProcedureGetDistanceByCountry);
-
-        _ = await _context.Database.ExecuteSqlRawAsync(createProcedureGetDistanceByCountryCount);
-    }
 }

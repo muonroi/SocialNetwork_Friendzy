@@ -23,7 +23,6 @@ global using User.Application.Extensions;
 global using User.Application.Feature.v1.Users.Commands.UserLoginCommand;
 global using User.Application.Feature.v1.Users.Commands.UserRegisterCommand;
 global using User.Application.Feature.v1.Users.Queries.GetMultipleUsersQuery;
-global using User.Application.Feature.v1.Users.Queries.GetUsersQuery;
 global using User.Application.Infrastructure;
 global using User.Infrastructure;
 global using User.Infrastructure.Persistence;

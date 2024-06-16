@@ -1,4 +1,5 @@
-﻿using Post.Aggregate.Service.Infrastructure.Messages;
+﻿using ExternalAPI.Models;
+using Post.Aggregate.Service.Infrastructure.Messages;
 
 namespace Post.Aggregate.Service.Services.v1.Query.GetPosts;
 
@@ -51,7 +52,7 @@ public class GetPostsQueryHandler(GrpcClientFactory grpcClientFactory
 
         #region Get category info
 
-        ExternalApiResponse<IEnumerable<CategoryDataDTO>> categorySetting = await externalClient.GetCategoryAsync(CancellationToken.None);
+        ExternalApiResponse<IEnumerable<CategoryDataModel>> categorySetting = await externalClient.GetCategoryAsync(CancellationToken.None);
         result.Data.ToList().ForEach(x =>
         {
             x.CategoryInfo = categorySetting.Data.FirstOrDefault(c => c.Id == x.CategoryId);
@@ -64,7 +65,7 @@ public class GetPostsQueryHandler(GrpcClientFactory grpcClientFactory
         // if multiple users
         if (result.Data.Count() > 1)
         {
-            ExternalApiResponse<IEnumerable<UserDataDTO>> usersResult = await externalClient.GetUsersAsync(userId, CancellationToken.None);
+            ExternalApiResponse<IEnumerable<UserDataModel>> usersResult = await externalClient.GetUsersAsync(userId, CancellationToken.None);
 
             result.Data.ToList().ForEach(x =>
             {
@@ -74,7 +75,7 @@ public class GetPostsQueryHandler(GrpcClientFactory grpcClientFactory
             return new ApiSuccessResult<PagingResponse<IEnumerable<GetPostsQueryResponse>>>(result);
         }
 
-        ExternalApiResponse<UserDataDTO> userResult = await externalClient.GetUserAsync(userId, CancellationToken.None);
+        ExternalApiResponse<UserDataModel> userResult = await externalClient.GetUserAsync(userId, CancellationToken.None);
         result.Data.ToList().ForEach(x =>
         {
             x.UserInfo = userResult.Data;

@@ -7,7 +7,6 @@ global using Consul;
 global using Contracts.Commons.Constants;
 global using Contracts.Commons.Interfaces;
 global using ExternalAPI;
-global using ExternalAPI.DTOs;
 global using Grpc.Net.ClientFactory;
 global using Infrastructure.Commons;
 global using Infrastructure.Configurations;

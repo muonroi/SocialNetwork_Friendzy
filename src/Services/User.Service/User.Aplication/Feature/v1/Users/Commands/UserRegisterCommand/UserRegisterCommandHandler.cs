@@ -1,4 +1,5 @@
 ﻿using Distance.Service.Protos;
+using ExternalAPI.Models;
 using User.Application.Messages;
 using static Distance.Service.Protos.DistanceService;
 
@@ -48,7 +49,7 @@ public class UserRegisterCommandHandler(GrpcClientFactory grpcClientFactory
             return new ApiErrorResult<UserDto>($"{ErrorMessageBase.UserNotFound}", (int)HttpStatusCode.NotFound);
         }
 
-        CreateAccountDto createAccountDto = new()
+        CreateAccountModel createAccountDto = new()
         {
             AccountType = AccountType.Personal,
             Currency = Currency.VND,
@@ -67,7 +68,7 @@ public class UserRegisterCommandHandler(GrpcClientFactory grpcClientFactory
             Latitude = userCreated.Latitude
         };
 
-        ExternalApiResponse<AccountDataDTO>? accountResponse = await _externalClient.CreateAccountAsync(createAccountDto, cancellationToken);
+        ExternalApiResponse<AccountDataModel>? accountResponse = await _externalClient.CreateAccountAsync(createAccountDto, cancellationToken);
 
         if (accountResponse.Data is null)
         {

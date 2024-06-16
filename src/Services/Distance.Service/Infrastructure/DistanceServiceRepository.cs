@@ -19,10 +19,9 @@ public class DistanceServiceRepository(DistanceDbContext distanceDbContext, IUni
             Parameters = new
             {
                 request.Country,
-                pageSize = request.PageSize,
-                pageIndex = request.PageIndex
+                request.PageSize,
+                request.PageIndex
             },
-            CommandType = CommandType.StoredProcedure,
         };
         PageResult<DistanceEntity> dataDistanceResult = await _dapper.QueryPageAsync<DistanceEntity>(command: command, CustomSqlQuery.GetDistanceCountInfo, request.PageIndex, request.PageSize);
         if (dataDistanceResult.Result.Count == 0)

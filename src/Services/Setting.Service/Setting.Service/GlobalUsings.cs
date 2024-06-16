@@ -1,5 +1,4 @@
 global using Commons.Logging;
-global using ExternalAPI.DTOs;
 global using Infrastructure.Extensions;
 global using Infrastructure.Middleware;
 global using MediatR;

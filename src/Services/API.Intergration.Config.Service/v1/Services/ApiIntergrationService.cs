@@ -1,3 +1,5 @@
+using API.Intergration.Config.Service.Protos;
+using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
 namespace API.Intergration.Config.Service.v1.Services;
 
 public class ApiIntergrationService(IDapper dapper, ILogger logger, ISerializeService serializeService) : ApiConfigGrpcBase

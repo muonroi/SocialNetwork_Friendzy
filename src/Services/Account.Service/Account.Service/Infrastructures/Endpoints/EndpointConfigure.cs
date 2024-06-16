@@ -1,4 +1,6 @@
-﻿namespace Account.Service.Infrastructures.Endpoints;
+﻿using Account.Service.Infrastructures.Hubs;
+
+namespace Account.Service.Infrastructures.Endpoints;
 
 internal static class EndpointConfigure
 {
@@ -17,6 +19,8 @@ internal static class EndpointConfigure
             context.Response.Redirect("/swagger");
             return Task.CompletedTask;
         });
+
+        _ = app.MapHub<StatusAccountHub>("hubs/status-account").RequireAuthorization();
 
         return app;
     }
