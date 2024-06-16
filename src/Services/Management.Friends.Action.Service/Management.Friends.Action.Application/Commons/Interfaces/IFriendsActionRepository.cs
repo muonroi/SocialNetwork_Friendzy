@@ -9,6 +9,8 @@ public interface IFriendsActionRepository : IRepositoryBaseAsync<FriendsActionEn
 
     Task<IEnumerable<FriendsActionDto>> GetFriendsById(long userId, IEnumerable<long> friendIds, ActionMatched actionMatched, CancellationToken cancellationToken);
 
+    Task<IEnumerable<FriendsActionDto>> GetFriendsById(long userId, ActionMatched actionMatched, CancellationToken cancellationToken);
+
     Task<bool> IsExistFriendAction(long userId, long friendId, ActionMatched actionMatched, CancellationToken cancellationToken);
 
     Task<bool> SetMatchFriendByAction(long userId, long friendId, ActionMatched actionMatched, CancellationToken cancellationToken);

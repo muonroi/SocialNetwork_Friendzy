@@ -1,4 +1,4 @@
-﻿using Account.Application.Infrastructure.feature.v1.ApiConfigService;
+﻿using Account.Application.Feature.v1.ApiConfigService;
 using ExternalAPI;
 using Microsoft.AspNetCore.Http;
 using System.Net.Http.Headers;

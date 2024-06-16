@@ -1,4 +1,5 @@
 ﻿using Management.Friends.Action.Application.Feature.v1.Command;
+using Management.Friends.Action.Application.Feature.v1.Query.GetFriendByUserIdQuery;
 using Management.Friends.Action.Application.Feature.v1.Query.GetFriendsActionByUserQuery;
 using Management.Friends.Action.Application.Feature.v1.Query.GetFriendsByIdQuery;
 using Matched.Friend.Domain.Infrastructure.Enums;
@@ -25,6 +26,18 @@ public class ManagementFriendsActionController(IMediator mediator) : ControllerB
         GetFriendsByIdQuery request = new()
         {
             FriendIds = id.Split(',').Select(long.Parse).ToList(),
+            ActionMatched = (ActionMatched)action,
+            UserId = userId
+        };
+        return Ok(await _mediator.Send(request));
+    }
+
+    [HttpGet("friends-user")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetFriendsById([FromQuery] long userId, int action)
+    {
+        GetFriendByUserIdQuery request = new()
+        {
             ActionMatched = (ActionMatched)action,
             UserId = userId
         };

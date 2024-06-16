@@ -1,4 +1,4 @@
-﻿using Account.Service.Infrastructures.Hubs;
+﻿using Account.Application.Infrastructure.Hubs;
 
 namespace Account.Service.Infrastructures.Endpoints;
 

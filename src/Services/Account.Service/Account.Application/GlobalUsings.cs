@@ -3,7 +3,6 @@ global using Account.Application.Commons.Interfaces;
 global using Account.Application.Commons.Messages;
 global using Account.Application.DTOs;
 global using Account.Application.Infrastructure.Constants;
-global using Account.Application.Infrastructure.feature.v1.Accounts.Queries.Base;
 global using Account.Application.Mappings;
 global using Account.Domain.Entities;
 global using API.Intergration.Config.Service.Protos;

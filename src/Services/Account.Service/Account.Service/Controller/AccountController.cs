@@ -1,4 +1,9 @@
-﻿namespace Account.Service.Controller;
+﻿using Account.Application.Feature.v1.Accounts.Commands.CreateAccountCommand;
+using Account.Application.Feature.v1.Accounts.Commands.VerifyAccountCommand;
+using Account.Application.Feature.v1.Accounts.Queries.GetAccount;
+using Account.Application.Feature.v1.Accounts.Queries.GetAccounts;
+
+namespace Account.Service.Controller;
 
 [Route("api/v1/[controller]")]
 [ApiController]

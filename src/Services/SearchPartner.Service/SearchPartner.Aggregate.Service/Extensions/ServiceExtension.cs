@@ -44,6 +44,9 @@ public static class ServiceExtension
         _ = services.AddGrpcClientInterceptor<ApiConfigGrpcClient>(grpcServiceOptions, ServiceConstants.ApiConfigService, environment)
               .AddConsulMessageHandler(environment);
 
+        _ = services.AddGrpcClientInterceptor<AuthenticateVerifyClient>(grpcServiceOptions, ServiceConstants.AuthenticateService, environment)
+      .AddConsulMessageHandler(environment);
+
         return services;
     }
 

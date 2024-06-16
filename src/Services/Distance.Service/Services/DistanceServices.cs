@@ -11,11 +11,13 @@ public class DistanceServices(ILogger<DistanceServices> logger, IDistanceService
     public override async Task<GetDistanceInfoListReply> GetDistanceInfoList(GetDistanceInfoListRequest request, ServerCallContext context)
     {
         _logger.LogInformation($"BEGIN: GetDistanceInfoList REQUEST --> {_serializeService.Serialize(request)} <--");
+
         DistanceResponse distances = await _distanceServiceRepository.GetDistanceAsync(new DistanceRequest
         {
             Country = request.Country,
             PageIndex = request.PageIndex,
-            PageSize = request.PageSize
+            PageSize = request.PageSize,
+            UserIds = request.FriendIds
         });
 
         GetDistanceInfoListReply result = new()

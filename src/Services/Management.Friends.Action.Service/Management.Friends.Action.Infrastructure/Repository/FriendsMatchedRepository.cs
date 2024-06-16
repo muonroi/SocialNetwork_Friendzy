@@ -35,12 +35,32 @@ public class FriendsMatchedRepository(ManagementFriendsActionDbContext dbContext
         return result;
     }
 
+    public async Task<IEnumerable<FriendsActionDto>> GetFriendsById(long userId, ActionMatched actionMatched, CancellationToken cancellationToken)
+    {
+        _logger.Information($"BEGIN: GetFriendsById REQUEST --> {_serializeService.Serialize(new { userId, actionMatched })} <--");
+        DapperCommand command = new()
+        {
+            CommandText = CustomSqlQuery.GetFriendsActionByUserId,
+            Parameters = new
+            {
+                userId,
+                actionMatched,
+            }
+        };
+
+        List<FriendsActionDto> result = await _dapper.QueryAsync<FriendsActionDto>(command.Build(cancellationToken));
+
+        _logger.Information($"END: GetFriendsActionByUserId RESULT --> {_serializeService.Serialize(result)} <-- ");
+
+        return result;
+    }
+
     public async Task<FriendsActionPagingResponse> GetFriendsActionByUserId(long userId, ActionMatched actionMatched, int pageIndex, int pageSize, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: GetFriendsActionByUserId REQUEST --> {_serializeService.Serialize(new { pageIndex, pageSize })} <--");
         DapperCommand command = new()
         {
-            CommandText = CustomSqlQuery.GetFriendsActionByUserId,
+            CommandText = CustomSqlQuery.GetFriendsActionByUserIdPaging,
             Parameters = new
             {
                 userId,

@@ -27,13 +27,28 @@ public class SearchPartnersQueryHandler(
     public async Task<ApiResult<SearchPartnersQueryResponse>> Handle(SearchPartnersQuery request, CancellationToken cancellationToken)
     {
         WorkContextInfoDTO workContext = _workContextAccessor.WorkContext!;
+
+        List<long> friendIds = [];
+
+        friendIds.Add(workContext.UserId);
+
+        ExternalApiResponse<IEnumerable<FriendMatchedDataModel>> friendIdsOfUser = await _externalClient.GetFriendsUserById(workContext.UserId, 0, CancellationToken.None);
+
+        if (!friendIdsOfUser.IsSucceeded)
+        {
+            return new ApiErrorResult<SearchPartnersQueryResponse>(nameof(SearchPartnersErrorMessages.PartnersNotFound), StatusCodes.Status404NotFound);
+        }
+        friendIds.AddRange(friendIdsOfUser.Data.Select(x => x.FriendId));
+
         SearchPartnersQueryResponse result = new();
 
         GetDistanceInfoListReply distanceResult = await _distanceServiceClient.GetDistanceInfoListAsync(new GetDistanceInfoListRequest
         {
             Country = request.Country,
             PageIndex = request.PageIndex,
-            PageSize = request.PageSize
+            PageSize = request.PageSize,
+            FriendIds = string.Join(",", friendIds)
+
         }, cancellationToken: cancellationToken);
 
         SortPartnersByDistanceReply partnersResult = _searchPartnersClient.SortPartnersByDistance(new SortPartnersByDistanceRequest
