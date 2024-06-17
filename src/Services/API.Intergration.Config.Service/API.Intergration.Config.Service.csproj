@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="v1\Protos\apiConfig.proto" />
+    <None Remove="v1\Protos\ApiConfig.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,8 +23,9 @@
     <ProjectReference Include="..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Protobuf Include="v1\Protos\apiConfig.proto" GrpcServices="Server" />
+    <Protobuf Include="v1\Protos\ApiConfig.proto" GrpcServices="Server" />
   </ItemGroup>
+
 
 
 

@@ -1,31 +1,53 @@
-﻿namespace Message.Domain.Entities
+﻿namespace Message.Domain.Entities;
+
+public class MessageEntity : EntityAuditBase<string>
 {
-    public class MessageEntity(
+    public AuthorEntity? Author { get; set; }
+    public string? AuthorId { get; set; }
+    public long CreatedAt { get; set; }
+    public string? Status { get; set; }
+    public string? Text { get; set; }
+    public string? Type { get; set; }
+    public int Height { get; set; }
+    public string? Name { get; set; }
+    public int Size { get; set; }
+    public string? Uri { get; set; }
+    public int Width { get; set; }
+    public string? MimeType { get; set; }
+    public TimeSpan? Duration { get; set; }
+
+    public MessageEntity()
+    {
+    }
+
+    public MessageEntity(
+
         AuthorEntity author,
+        string authorId,
         long createdAt,
-        string id,
         string status,
         string text,
         string type,
         int height,
         string name,
-        int size, string uri,
+        int size,
+        string uri,
         int width,
         string mimeType,
         TimeSpan? duration = null)
     {
-        public AuthorEntity Author { get; set; } = author;
-        public long CreatedAt { get; set; } = createdAt;
-        public string Id { get; set; } = id;
-        public string Status { get; set; } = status;
-        public string Text { get; set; } = text;
-        public string Type { get; set; } = type;
-        public int Height { get; set; } = height;
-        public string Name { get; set; } = name;
-        public int Size { get; set; } = size;
-        public string Uri { get; set; } = uri;
-        public int Width { get; set; } = width;
-        public string MimeType { get; set; } = mimeType;
-        public TimeSpan? Duration { get; set; } = duration;
+        AuthorId = authorId;
+        Author = author;
+        CreatedAt = createdAt;
+        Status = status;
+        Text = text;
+        Type = type;
+        Height = height;
+        Name = name;
+        Size = size;
+        Uri = uri;
+        Width = width;
+        MimeType = mimeType;
+        Duration = duration;
     }
 }

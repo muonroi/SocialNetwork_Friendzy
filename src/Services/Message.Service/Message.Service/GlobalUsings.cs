@@ -1,0 +1,15 @@
+global using Message.Infrastructure.Persistence;
+global using Infrastructure.Middleware;
+global using Infrastructure.Extensions;
+global using Commons.Logging;
+global using Serilog;
+global using Message.Service.Infrastructure;
+global using Message.Service.Infrastructure.Endpoints;
+global using Infrastructure.Configurations;
+global using Infrastructure.Helper;
+global using Contracts.Commons.Constants;
+global using Contracts.DTOs.JwtBearerDTOs;
+global using Message.Infrastructure;
+global using Message.Application;
+global using Message.Service.Extensions;
+global using Message.Application.Extensions;

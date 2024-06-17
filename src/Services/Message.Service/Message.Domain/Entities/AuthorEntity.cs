@@ -1,10 +1,18 @@
-﻿namespace Message.Domain.Entities
+﻿namespace Message.Domain.Entities;
+
+public class AuthorEntity : EntityAuditBase<string>
 {
-    public class AuthorEntity(string firstName, string id, string lastName, string imageUrl) :
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string ImageUrl { get; set; } = string.Empty;
+
+    public AuthorEntity()
+    { }
+
+    public AuthorEntity(string firstName, string lastName, string imageUrl)
     {
-        public string FirstName { get; set; } = firstName;
-        public string Id { get; set; } = id;
-        public string LastName { get; set; } = lastName;
-        public string ImageUrl { get; set; } = imageUrl;
+        FirstName = firstName;
+        LastName = lastName;
+        ImageUrl = imageUrl;
     }
 }

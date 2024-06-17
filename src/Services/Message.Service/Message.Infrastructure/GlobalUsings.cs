@@ -1,0 +1,17 @@
+global using Contracts.Commons.Constants;
+global using Contracts.Commons.Interfaces;
+global using Infrastructure.Commons;
+global using Infrastructure.Helper;
+global using Message.Domain.Entities;
+global using Message.Infrastructure.Persistence;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using MongoDB.EntityFrameworkCore.Extensions;global using Microsoft.Extensions.Logging;
+global using Newtonsoft.Json;
+global using Message.Infrastructure.EntitiesConfigure;
+global using Contracts.Domains.Interfaces;
+global using Microsoft.EntityFrameworkCore.ChangeTracking;
+global using Infrastructure.Extensions;
+global using MongoDB.Driver;

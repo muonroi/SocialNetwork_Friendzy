@@ -1,0 +1,25 @@
+global using API.Intergration.Config.Service.Protos;
+global using Authenticate.Verify.Service;
+global using Calzolari.Grpc.AspNetCore.Validation.Internal;
+global using Consul;
+global using Contracts.Commons.Constants;
+global using Contracts.Commons.Interfaces;
+global using ExternalAPI;
+global using Grpc.Net.ClientFactory;
+global using Infrastructure.Commons;
+global using Infrastructure.Extensions;
+global using Infrastructure.Factorys;
+global using Infrastructure.Middleware;
+global using Message.Application.Extensions;
+global using Message.Application.Feature.v1.ApiConfigService;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Hosting;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Serilog;
+global using System.Net.Http.Headers;
+global using System.Reflection;
+global
+using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
+global using static Authenticate.Verify.Service.AuthenticateVerify;global using Infrastructure.Helper;

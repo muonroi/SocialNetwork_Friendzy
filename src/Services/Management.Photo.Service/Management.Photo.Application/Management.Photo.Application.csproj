@@ -33,8 +33,8 @@
     <Protobuf Include="..\..\Authenticate.Service\Protos\authenticate.proto" GrpcServices="Client">
       <Link>Protos\authenticate.proto</Link>
     </Protobuf>
-    <Protobuf Include="..\..\API.Intergration.Config.Service\v1\Protos\apiConfig.proto" GrpcServices="Client">
-      <Link>Protos\apiConfig.proto</Link>
+    <Protobuf Include="..\..\API.Intergration.Config.Service\v1\Protos\ApiConfig.proto" GrpcServices="Client">
+      <Link>Protos\ApiConfig.proto</Link>
     </Protobuf>
   </ItemGroup>
   
