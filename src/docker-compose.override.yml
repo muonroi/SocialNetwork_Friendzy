@@ -58,6 +58,17 @@ services:
     ports:
       - "1434:1433"
 
+  MongoDbFriendzy:
+    container_name: MongoDbFriendzy
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: "0967442142Az*"
+    restart: always
+    volumes:
+      - friendzy_mongo_data:/var/lib/friendzy_mongo_data/data
+    ports:
+      - 27018:27017
+
   #microservice section
   User.Service:
     container_name: User.Service
