@@ -1,10 +1,4 @@
-﻿using Management.Friends.Action.Application.Feature.v1.Command;
-using Management.Friends.Action.Application.Feature.v1.Query.GetFriendByUserIdQuery;
-using Management.Friends.Action.Application.Feature.v1.Query.GetFriendsActionByUserQuery;
-using Management.Friends.Action.Application.Feature.v1.Query.GetFriendsByIdQuery;
-using Matched.Friend.Domain.Infrastructure.Enums;
-
-namespace Management.Friends.Action.Service.Controller;
+﻿namespace Management.Friends.Action.Service.Controller;
 
 [Route("api/v1/[controller]")]
 [ApiController]
@@ -43,7 +37,6 @@ public class ManagementFriendsActionController(IMediator mediator) : ControllerB
         };
         return Ok(await _mediator.Send(request));
     }
-
 
     #region Command
 

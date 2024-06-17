@@ -33,7 +33,6 @@ public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnit
         return result;
     }
 
-
     public async Task<bool> DeleteAccountAsync(Guid id, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: DeleteAccountAsync REQUEST --> {id} <-- REQUEST");

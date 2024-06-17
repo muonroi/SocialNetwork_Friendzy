@@ -1,6 +1,7 @@
 global using AutoMapper;
 global using Contracts.Commons.Interfaces;
 global using Dapper.Extensions;
+global using ExternalAPI.Models;
 global using FluentValidation;
 global using Grpc.Core;
 global using Infrastructure.Extensions;

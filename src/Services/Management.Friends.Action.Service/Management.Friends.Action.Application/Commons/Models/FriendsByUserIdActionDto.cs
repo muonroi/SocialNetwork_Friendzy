@@ -1,7 +1,4 @@
-﻿using ExternalAPI.Models;
-
-namespace Management.Friends.Action.Application.Commons.Models;
-
+﻿namespace Management.Friends.Action.Application.Commons.Models;
 
 public record FriendsByUserIdActionDto
 {

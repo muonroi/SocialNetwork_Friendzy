@@ -68,5 +68,4 @@ public class WorkContextMiddleware(RequestDelegate next)
 
         await next(context);
     }
-
 }

@@ -1,7 +1,4 @@
-﻿using User.Application.Feature.v1.Users.Commands.UserUpdateInfoCommand;
-using User.Application.Feature.v1.Users.Queries.GetUserQuery;
-
-namespace User.Service.Controllers;
+﻿namespace User.Service.Controllers;
 
 [Route("api/v1/[controller]")]
 [ApiController]

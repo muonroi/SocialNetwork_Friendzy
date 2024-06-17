@@ -7,6 +7,7 @@ public class PostDbContextSeed(ILogger logger, PostDbContext context, ISerialize
     private readonly PostDbContext _context = context;
 
     private readonly ISerializeService _serializeService = serializeService;
+
     public async Task InitialiseAsync()
     {
         try

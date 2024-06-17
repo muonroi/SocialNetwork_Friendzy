@@ -1,10 +1,4 @@
-﻿using Distance.Service.Protos;
-using ExternalAPI.Models;
-using SearchPartners.Service;
-using static Distance.Service.Protos.DistanceService;
-using static SearchPartners.Service.SearchPartnerService;
-
-namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
+﻿namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
 
 public class SearchPartnersQueryHandler(
     GrpcClientFactory grpcClientFactory
@@ -48,7 +42,6 @@ public class SearchPartnersQueryHandler(
             PageIndex = request.PageIndex,
             PageSize = request.PageSize,
             FriendIds = string.Join(",", friendIds)
-
         }, cancellationToken: cancellationToken);
 
         SortPartnersByDistanceReply partnersResult = _searchPartnersClient.SortPartnersByDistance(new SortPartnersByDistanceRequest

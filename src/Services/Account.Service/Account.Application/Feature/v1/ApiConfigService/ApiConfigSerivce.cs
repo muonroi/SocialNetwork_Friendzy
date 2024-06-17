@@ -1,6 +1,4 @@
-﻿using Serilog;
-
-namespace Account.Application.Feature.v1.ApiConfigService;
+﻿namespace Account.Application.Feature.v1.ApiConfigService;
 
 public class ApiConfigService(GrpcClientFactory grpcClientFactory, ILogger logger, ISerializeService serializeService) : IApiConfigSerivce
 {

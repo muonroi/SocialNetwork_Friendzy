@@ -2,7 +2,7 @@
 
 public class RawProceduceGetUsersByInput
 {
-    public const string query = @"                    
+    public const string query = @"
 
 CREATE PROC GetUsersByInput
     @Input varchar(50),

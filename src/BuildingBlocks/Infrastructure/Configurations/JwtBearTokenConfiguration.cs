@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-
-namespace Infrastructure.Configurations;
+﻿namespace Infrastructure.Configurations;
 
 public static class JwtBearTokenConfiguration
 {
@@ -66,7 +64,6 @@ public static class JwtBearTokenConfiguration
                     logger.LogError("Authentication failed: {Exception}", context.Exception);
                     return Task.CompletedTask;
                 }
-
             };
         });
 

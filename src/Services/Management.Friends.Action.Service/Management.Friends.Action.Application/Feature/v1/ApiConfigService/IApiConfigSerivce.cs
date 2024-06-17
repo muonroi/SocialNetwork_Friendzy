@@ -1,4 +1,4 @@
-﻿namespace Matched.Friend.Application.Feature.v1.ApiConfigService;
+﻿namespace Management.Friends.Action.Application.Feature.v1.ApiConfigService;
 
 public interface IApiConfigSerivce
 {

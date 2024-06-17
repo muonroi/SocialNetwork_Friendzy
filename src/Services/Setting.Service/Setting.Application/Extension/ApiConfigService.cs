@@ -1,6 +1,4 @@
-﻿using Grpc.Net.ClientFactory;
-
-namespace Setting.Application.Extension;
+﻿namespace Setting.Application.Extension;
 
 public class ApiConfigService(GrpcClientFactory grpcClientFactory, ILogger logger,
     ISerializeService serializeService) : IApiConfigSerivce

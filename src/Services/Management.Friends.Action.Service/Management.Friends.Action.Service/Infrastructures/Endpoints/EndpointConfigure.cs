@@ -1,4 +1,6 @@
-﻿namespace Matched.Friend.Service.Infrastructures.Endpoints;
+﻿using Management.Friends.Action.Application.Extensions;
+
+namespace Matched.Friend.Service.Infrastructures.Endpoints;
 
 internal static class EndpointConfigure
 {

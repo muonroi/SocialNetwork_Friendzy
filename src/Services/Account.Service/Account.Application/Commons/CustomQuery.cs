@@ -1,10 +1,10 @@
-﻿namespace Account.Application.Commons
-{
-    public static class CustomQuery
-    {
-        public const string GetAccountsPaging = @"
+﻿namespace Account.Application.Commons;
 
-                                                SELECT 
+public static class CustomQuery
+{
+    public const string GetAccountsPaging = @"
+
+                                                SELECT
                                                     a.Id,
                                                     a.AccountType,
                                                     a.Currency,
@@ -17,7 +17,7 @@
                                                 FROM Accounts a
                                                 JOIN AccountRoles ar ON a.Id = ar.AccountId
                                                 JOIN RoleEntities r ON ar.RoleId = r.Id
-                                                GROUP BY 
+                                                GROUP BY
                                                     a.Id,
                                                     a.AccountType,
                                                     a.Currency,
@@ -32,9 +32,9 @@
 
                                                 ";
 
-        public const string GetAccount = @"
+    public const string GetAccount = @"
 
-                                                SELECT 
+                                                SELECT
                                                     a.Id,
                                                     a.AccountType,
                                                     a.Currency,
@@ -48,7 +48,7 @@
                                                 JOIN AccountRoles ar ON a.Id = ar.AccountId
                                                 JOIN RoleEntities r ON ar.RoleId = r.Id
                                                WHERE a.Id = @Id
-                                                GROUP BY 
+                                                GROUP BY
                                                     a.Id,
                                                     a.AccountType,
                                                     a.Currency,
@@ -58,6 +58,4 @@
                                                     a.IsEmailVerified,
                                                     a.Status;
                                                 ";
-
-    }
 }

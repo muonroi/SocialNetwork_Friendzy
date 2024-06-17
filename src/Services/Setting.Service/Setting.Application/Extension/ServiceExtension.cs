@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace Setting.Application.Extension;
+﻿namespace Setting.Application.Extension;
 
 public static class ServiceExtension
 {

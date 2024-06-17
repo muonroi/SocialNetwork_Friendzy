@@ -2,7 +2,6 @@
 
 [Route("api/v1/[controller]")]
 [ApiController]
-//[Authorize]
 public class ManagementPhotoController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
@@ -41,5 +40,5 @@ public class ManagementPhotoController(IMediator mediator) : ControllerBase
         return Ok(result);
     }
 
-    #endregion CRUD
+    #endregion Command
 }

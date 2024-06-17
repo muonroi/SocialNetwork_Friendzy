@@ -16,7 +16,6 @@ global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using MySql.EntityFrameworkCore.Extensions;
 global using MySql.EntityFrameworkCore.Metadata;
-global using Newtonsoft.Json;
 global using Post.Application.Commons.Interfaces;
 global using Post.Application.Commons.Models;
 global using Post.Domain.Entities;

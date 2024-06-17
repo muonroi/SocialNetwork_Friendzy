@@ -1,6 +1,4 @@
-﻿
-
-namespace SearchPartners.Aggregate.Service.Infrastructure.Endpoints;
+﻿namespace SearchPartners.Aggregate.Service.Infrastructure.Endpoints;
 
 internal static class EndpointConfigure
 {

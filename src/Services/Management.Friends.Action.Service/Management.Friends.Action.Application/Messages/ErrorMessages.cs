@@ -1,4 +1,4 @@
-﻿namespace Matched.Friend.Application.Messages;
+﻿namespace Management.Friends.Action.Application.Messages;
 
 public enum ErrorMessages
 {

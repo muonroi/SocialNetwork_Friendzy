@@ -1,14 +1,5 @@
-﻿using Authenticate.Verify.Service;
-using Contracts.Commons.Constants;
-using Grpc.Net.ClientFactory;
-using Infrastructure.Commons;
-using Infrastructure.Helper;
-using Infrastructure.Middleware;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
+﻿namespace Setting.Application.Extension;
 
-namespace Setting.Application.Extension;
 public static class AuthenticationExtention
 {
     private static IApplicationBuilder UseJwtMiddleware(

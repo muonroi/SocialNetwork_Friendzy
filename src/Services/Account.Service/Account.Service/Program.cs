@@ -17,7 +17,6 @@ try
 
     IServiceCollection services = builder.Services;
     {
-
         _ = services.Configure<ConsulConfigs>(configuration.GetSection(nameof(ConsulConfigs)));
 
         _ = services.ConfigureJwtBearerToken(configuration);
@@ -58,7 +57,7 @@ try
 
         _ = app.UseCors();
 
-        _ = app.ConfigureEndpoints(configuration);
+        _ = app.ConfigureEndpoints();
 
         _ = app.UseConsul(consulSettings, env);
 

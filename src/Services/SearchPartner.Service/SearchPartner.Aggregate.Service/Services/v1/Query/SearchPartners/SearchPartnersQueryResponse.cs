@@ -1,6 +1,4 @@
-﻿using ExternalAPI.Models;
-
-namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
+﻿namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
 
 public class SearchPartnersQueryResponse
 {

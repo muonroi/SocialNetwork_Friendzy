@@ -1,5 +1,3 @@
-using API.Intergration.Config.Service.Protos;
-using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
 namespace API.Intergration.Config.Service.v1.Services;
 
 public class ApiIntergrationService(IDapper dapper, ILogger logger, ISerializeService serializeService) : ApiConfigGrpcBase
@@ -27,7 +25,6 @@ public class ApiIntergrationService(IDapper dapper, ILogger logger, ISerializeSe
 
         _logger.Information($"END: GetApiIntConfig RESULT --> {_serializeService.Serialize(result)} <--");
         return MappingApiIntergrationIntConfig(result);
-
     }
 
     private ApiIntConfigReply MappingApiIntergrationIntConfig(ApiIntConfigDTO result)

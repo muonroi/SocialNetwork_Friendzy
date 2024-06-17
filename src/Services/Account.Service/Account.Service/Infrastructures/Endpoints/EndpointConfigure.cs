@@ -1,10 +1,8 @@
-﻿using Account.Application.Infrastructure.Hubs;
-
-namespace Account.Service.Infrastructures.Endpoints;
+﻿namespace Account.Service.Infrastructures.Endpoints;
 
 internal static class EndpointConfigure
 {
-    internal static IApplicationBuilder ConfigureEndpoints(this WebApplication app, IConfiguration configuration)
+    internal static IApplicationBuilder ConfigureEndpoints(this WebApplication app)
     {
         _ = app.UseMiddleware<GlobalExceptionMiddleware>();
 

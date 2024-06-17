@@ -1,6 +1,4 @@
-﻿using ExternalAPI.Models;
-
-namespace Post.Aggregate.Service.Services.v1.Query.GetPosts;
+﻿namespace Post.Aggregate.Service.Services.v1.Query.GetPosts;
 
 public class GetPostsQueryResponse
 {

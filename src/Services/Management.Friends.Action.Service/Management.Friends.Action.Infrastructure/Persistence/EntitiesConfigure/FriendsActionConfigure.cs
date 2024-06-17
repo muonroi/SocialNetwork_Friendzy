@@ -1,6 +1,4 @@
-﻿using Management.Friends.Action.Domain.Entities;
-
-namespace Management.Friends.Action.Infrastructure.Persistence.EntitiesConfigure;
+﻿namespace Management.Friends.Action.Infrastructure.Persistence.EntitiesConfigure;
 
 public class FriendsActionConfigure : IEntityTypeConfiguration<FriendsActionEntity>
 {

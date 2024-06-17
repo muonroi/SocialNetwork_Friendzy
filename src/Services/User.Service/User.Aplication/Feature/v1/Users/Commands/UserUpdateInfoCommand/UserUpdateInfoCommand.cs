@@ -2,27 +2,27 @@
 
 public class UserUpdateInfoCommand : IRequest<ApiResult<UserDto>>
 {
-    public required string PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; } = string.Empty;
 
-    public required string FirstName { get; set; }
+    public string FirstName { get; set; } = string.Empty;
 
-    public required string LastName { get; set; }
+    public string LastName { get; set; } = string.Empty;
 
     public string? EmailAddress { get; set; }
 
-    public required string AvatarUrl { get; set; }
+    public string AvatarUrl { get; set; } = string.Empty;
 
-    public required string Address { get; set; }
+    public string Address { get; set; } = string.Empty;
 
-    public required string ProfileImagesUrl { get; set; }
+    public string ProfileImagesUrl { get; set; } = string.Empty;
 
-    public required double Longitude { get; set; }
+    public double Longitude { get; set; }
 
-    public required double Latitude { get; set; }
+    public double Latitude { get; set; }
 
-    public required Gender Gender { get; set; }
+    public Gender Gender { get; set; }
 
-    public required long Birthdate { get; set; }
+    public long Birthdate { get; set; }
 
-    public required string CategoryId { get; set; }
+    public string CategoryId { get; set; } = string.Empty;
 }

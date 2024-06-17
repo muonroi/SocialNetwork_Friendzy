@@ -12,13 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="v1\NewFolder\**" />
-    <Content Remove="v1\NewFolder\**" />
-    <EmbeddedResource Remove="v1\NewFolder\**" />
-    <None Remove="v1\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="v1\Protos\apiConfig.proto" />
   </ItemGroup>
 

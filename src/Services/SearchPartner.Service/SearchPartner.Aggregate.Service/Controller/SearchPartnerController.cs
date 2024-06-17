@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace SearchPartners.Aggregate.Service.Controller;
+﻿namespace SearchPartners.Aggregate.Service.Controller;
 
 [Route("api/v1/[controller]")]
 [ApiController]

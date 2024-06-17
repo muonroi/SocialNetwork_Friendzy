@@ -1,8 +1,3 @@
-using Dapper.Extensions.MySql;
-using Management.Friends.Action.Application.Commons.Interfaces;
-using Management.Friends.Action.Infrastructure.Persistence;
-using Management.Friends.Action.Infrastructure.Repository;
-
 namespace Management.Friends.Action.Infrastructure;
 
 public static class ConfigureService

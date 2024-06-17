@@ -1,5 +1,3 @@
-using Management.Photo.Service.Extension;
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -38,7 +36,6 @@ try
         _ = services.AddEndpointsApiExplorer();
 
         _ = services.SwaggerConfig(builder.Environment.ApplicationName);
-
     }
 
     builder.AddAppConfigurations();

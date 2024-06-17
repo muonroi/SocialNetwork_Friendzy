@@ -2,7 +2,6 @@
 
 public class StoreInfoRepository(StoreInfoDbContext dbContext, IDbContextFactory<StoreInfoDbContext> dbContextFactory, IUnitOfWork<StoreInfoDbContext> unitOfWork, ILogger logger, IDapper dapper, IBucketRepository bucketRepository, IWorkContextAccessor workContextAccessor, ISerializeService serializeService) : RepositoryBaseAsync<StoreInfoEntity, long, StoreInfoDbContext>(dbContext, unitOfWork, workContextAccessor), IStoreInfoRepository
 {
-
     private readonly ISerializeService _serializeService = serializeService;
 
     private readonly IDbContextFactory<StoreInfoDbContext> _dbContextFactory = dbContextFactory;

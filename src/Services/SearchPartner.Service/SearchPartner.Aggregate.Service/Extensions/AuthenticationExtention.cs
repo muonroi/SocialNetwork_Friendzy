@@ -1,6 +1,4 @@
-﻿using Infrastructure.Helper;
-
-namespace SearchPartners.Aggregate.Service.Extensions;
+﻿namespace SearchPartners.Aggregate.Service.Extensions;
 
 public static class AuthenticationExtention
 {

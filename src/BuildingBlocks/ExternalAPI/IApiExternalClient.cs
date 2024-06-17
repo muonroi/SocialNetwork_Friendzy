@@ -1,6 +1,4 @@
-﻿using ExternalAPI.Models;
-
-namespace ExternalAPI;
+﻿namespace ExternalAPI;
 
 [SerializationMethods(Query = QuerySerializationMethod.Serialized)]
 public interface IApiExternalClient

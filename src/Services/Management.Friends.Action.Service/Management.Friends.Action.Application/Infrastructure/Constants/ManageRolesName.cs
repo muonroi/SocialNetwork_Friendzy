@@ -1,4 +1,4 @@
-﻿namespace Matched.Friend.Application.Infrastructure.Constants;
+﻿namespace Management.Friends.Action.Application.Infrastructure.Constants;
 
 public static class ManageRolesName
 {

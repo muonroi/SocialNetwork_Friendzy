@@ -1,4 +1,6 @@
 global using API.Intergration.Config.Service.Extensions;
+global using API.Intergration.Config.Service.Infrastructure.Endpoints;
+global using API.Intergration.Config.Service.Protos;
 global using API.Intergration.Config.Service.v1.DTOs;
 global using API.Intergration.Config.Service.v1.Query;
 global using API.Intergration.Config.Service.v1.Services;
@@ -7,8 +9,10 @@ global using Contracts.Commons.Interfaces;
 global using Dapper.Extensions;
 global using Dapper.Extensions.PostgreSql;
 global using Grpc.Core;
+global using Infrastructure.Commons;
 global using Infrastructure.Extensions;
 global using Infrastructure.Middleware;
 global using Infrastructure.ORMs.Dapper;
 global using Serilog;
+global using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
 global using ILogger = Serilog.ILogger;

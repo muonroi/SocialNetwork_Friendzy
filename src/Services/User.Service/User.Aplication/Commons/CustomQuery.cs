@@ -31,7 +31,7 @@ public static class CustomQuery
                     ),
 
                     FilteredUserInfo AS (
-                        SELECT * FROM UserInfo WHERE LastName LIKE @Input + '%' 
+                        SELECT * FROM UserInfo WHERE LastName LIKE @Input + '%'
                         UNION ALL
                         SELECT * FROM UserInfo WHERE FirstName LIKE @Input + '%'
                         UNION ALL
@@ -119,5 +119,4 @@ public static class CustomQuery
                                         OFFSET (@PageNumber - 1) * @PageSize ROWS
                                         FETCH NEXT @PageSize ROWS ONLY;
                     ";
-
 }

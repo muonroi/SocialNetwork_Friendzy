@@ -5,7 +5,6 @@ GrpcClientFactory grpcClientFactory, IAccountRepository accountRepository, IAcco
 {
     private readonly IAccountRepository _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
 
-
     private readonly IAccountRoleRepository _accountRoleRepository = accountRoleRepository ?? throw new ArgumentNullException(nameof(accountRoleRepository));
 
     private readonly JwtBearerConfig _jwtBearerConfig = jwtBearerConfig ?? throw new ArgumentNullException(nameof(jwtBearerConfig));

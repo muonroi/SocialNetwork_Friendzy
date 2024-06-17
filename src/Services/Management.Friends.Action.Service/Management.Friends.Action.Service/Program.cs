@@ -1,11 +1,8 @@
-using Management.Friends.Action.Infrastructure;
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-
 
 IWebHostEnvironment env = builder.Environment;
 
@@ -37,7 +34,6 @@ try
         _ = services.AddEndpointsApiExplorer();
 
         _ = services.SwaggerConfig(builder.Environment.ApplicationName);
-
     }
 
     builder.AddAppConfigurations();

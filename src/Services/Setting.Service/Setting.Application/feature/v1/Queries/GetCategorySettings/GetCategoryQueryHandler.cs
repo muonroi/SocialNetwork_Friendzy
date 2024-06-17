@@ -1,6 +1,4 @@
-﻿using ExternalAPI.Models;
-
-namespace Setting.Application.feature.v1.Queries.GetCategorySettings;
+﻿namespace Setting.Application.feature.v1.Queries.GetCategorySettings;
 
 public class GetCategoryQueryHandler(ISettingRepository<SettingEntity, long> settingRepository,
     ISerializeService serializeService) :

@@ -93,8 +93,6 @@ public static class GrpcExtensions
             : serviceUri;
     }
 
-
-
     public static string GetByKey(this Metadata metadata, string key)
     {
         key = key.Trim();

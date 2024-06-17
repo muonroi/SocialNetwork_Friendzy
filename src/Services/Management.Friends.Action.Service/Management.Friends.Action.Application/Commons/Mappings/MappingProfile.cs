@@ -1,4 +1,6 @@
-﻿namespace Matched.Friend.Application.Commons.Mappings;
+﻿using Management.Friends.Action.Application.Commons.Mappings;
+
+namespace Matched.Friend.Application.Commons.Mappings;
 
 public class MappingProfile : Profile
 {

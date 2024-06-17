@@ -16,7 +16,7 @@ public static class CustomSqlQuery
                                         FETCH NEXT @PageSize ROWS ONLY;";
 
     public const string GetDistanceCountInfo = @"SELECT COUNT(*)
-                                                FROM DistanceEntities distance 
+                                                FROM DistanceEntities distance
                                                 WHERE distance.Country LIKE @Country
                                                 AND distance.UserId NOT IN (SELECT value FROM STRING_SPLIT(@UserIds, ','));";
 }

@@ -1,10 +1,4 @@
-﻿using Management.Friends.Action.Application.Commons.Interfaces;
-using Management.Friends.Action.Application.Commons.Models;
-using Management.Friends.Action.Domain.Entities;
-using Management.Friends.Action.Infrastructure.Persistence;
-using Management.Friends.Action.Infrastructure.Persistence.Query;
-
-namespace Management.Friends.Action.Infrastructure.Repository;
+﻿namespace Management.Friends.Action.Infrastructure.Repository;
 
 public class FriendsMatchedRepository(ManagementFriendsActionDbContext dbContext, IUnitOfWork<ManagementFriendsActionDbContext> unitOfWork, ILogger logger, IDapper dapper, IWorkContextAccessor workContextAccessor, ISerializeService serializeService) : RepositoryBaseAsync<FriendsActionEntity, long, ManagementFriendsActionDbContext>(dbContext, unitOfWork, workContextAccessor), IFriendsActionRepository
 {

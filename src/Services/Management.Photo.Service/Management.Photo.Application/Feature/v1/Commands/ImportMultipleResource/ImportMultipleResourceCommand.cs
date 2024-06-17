@@ -4,5 +4,4 @@ public record ImportMultipleResourceCommand(StoreInfoType Type, IEnumerable<IFor
 {
     public StoreInfoType Type { get; set; } = Type;
     public IEnumerable<IFormFile> Files { get; set; } = Files;
-
 }

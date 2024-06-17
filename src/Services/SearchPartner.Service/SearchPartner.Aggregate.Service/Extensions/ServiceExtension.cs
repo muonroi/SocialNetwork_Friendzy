@@ -1,7 +1,4 @@
-﻿using static Distance.Service.Protos.DistanceService;
-using static SearchPartners.Service.SearchPartnerService;
-
-namespace SearchPartners.Aggregate.Service.Extensions;
+﻿namespace SearchPartners.Aggregate.Service.Extensions;
 
 public static class ServiceExtension
 {

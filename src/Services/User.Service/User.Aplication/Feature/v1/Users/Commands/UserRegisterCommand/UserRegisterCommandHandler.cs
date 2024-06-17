@@ -1,9 +1,4 @@
-﻿using Distance.Service.Protos;
-using ExternalAPI.Models;
-using User.Application.Messages;
-using static Distance.Service.Protos.DistanceService;
-
-namespace User.Application.Feature.v1.Users.Commands.UserRegisterCommand;
+﻿namespace User.Application.Feature.v1.Users.Commands.UserRegisterCommand;
 
 public class UserRegisterCommandHandler(GrpcClientFactory grpcClientFactory
     , IUserRepository userRepository, IApiExternalClient externalClient) : IRequestHandler<UserRegisterCommand, ApiResult<UserDto>>
@@ -11,7 +6,6 @@ public class UserRegisterCommandHandler(GrpcClientFactory grpcClientFactory
     private readonly IUserRepository _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
 
     private readonly IApiExternalClient _externalClient = externalClient;
-
 
     private readonly DistanceServiceClient _distanceServiceClient =
         grpcClientFactory.CreateClient<DistanceServiceClient>(ServiceConstants.DistanceService);

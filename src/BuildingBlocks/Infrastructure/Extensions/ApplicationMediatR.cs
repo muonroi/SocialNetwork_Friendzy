@@ -1,4 +1,5 @@
 ﻿namespace Infrastructure.Extensions;
+
 public static class ApplicationMediatR
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, Assembly assembly)

@@ -1,6 +1,4 @@
-﻿using static Distance.Service.Protos.DistanceService;
-
-namespace User.Application.Extensions;
+﻿namespace User.Application.Extensions;
 
 public static class ServiceExtension
 {

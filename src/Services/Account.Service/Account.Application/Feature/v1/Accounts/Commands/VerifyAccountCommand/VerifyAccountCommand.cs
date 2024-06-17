@@ -1,5 +1,4 @@
-﻿
-namespace Account.Application.Feature.v1.Accounts.Commands.VerifyAccountCommand;
+﻿namespace Account.Application.Feature.v1.Accounts.Commands.VerifyAccountCommand;
 
 public class VerifyAccountCommand : AccountDTO, IRequest<ApiResult<VerifyAccountCommandResponse>>
 {

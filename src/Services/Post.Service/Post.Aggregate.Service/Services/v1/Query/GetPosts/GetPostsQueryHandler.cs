@@ -1,7 +1,4 @@
-﻿using ExternalAPI.Models;
-using Post.Aggregate.Service.Infrastructure.Messages;
-
-namespace Post.Aggregate.Service.Services.v1.Query.GetPosts;
+﻿namespace Post.Aggregate.Service.Services.v1.Query.GetPosts;
 
 public class GetPostsQueryHandler(GrpcClientFactory grpcClientFactory
     , IWorkContextAccessor workContextAccessor

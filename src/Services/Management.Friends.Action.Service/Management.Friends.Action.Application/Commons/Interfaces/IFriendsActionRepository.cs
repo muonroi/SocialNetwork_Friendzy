@@ -1,7 +1,4 @@
-﻿using Management.Friends.Action.Application.Commons.Models;
-using Management.Friends.Action.Domain.Entities;
-
-namespace Management.Friends.Action.Application.Commons.Interfaces;
+﻿namespace Management.Friends.Action.Application.Commons.Interfaces;
 
 public interface IFriendsActionRepository : IRepositoryBaseAsync<FriendsActionEntity, long>
 {

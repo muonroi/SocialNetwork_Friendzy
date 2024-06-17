@@ -1,6 +1,4 @@
-﻿using Management.Friends.Action.Infrastructure.Persistence;
-
-namespace Matched.Friend.Service.Infrastructures;
+﻿namespace Management.Friends.Action.Service.Infrastructures;
 
 public static class SeedingDataConfig
 {

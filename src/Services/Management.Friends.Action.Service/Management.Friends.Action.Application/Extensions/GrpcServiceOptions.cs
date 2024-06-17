@@ -1,3 +1,3 @@
-﻿namespace Matched.Friend.Application.Extensions;
+﻿namespace Management.Friends.Action.Application.Extensions;
 
 public class GrpcServiceOptions : Dictionary<string, string>;
