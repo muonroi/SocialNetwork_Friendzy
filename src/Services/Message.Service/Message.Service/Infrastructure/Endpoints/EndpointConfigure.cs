@@ -1,4 +1,6 @@
-﻿namespace Message.Service.Infrastructure.Endpoints;
+﻿using Message.Application.Infrastructure.Hubs;
+
+namespace Message.Service.Infrastructure.Endpoints;
 
 internal static class EndpointConfigure
 {
@@ -18,7 +20,7 @@ internal static class EndpointConfigure
             return Task.CompletedTask;
         });
 
-        // _ = app.MapHub<StatusAccountHub>("hubs/status-account").RequireAuthorization();
+        _ = app.MapHub<MessageHub>("message-hub").RequireAuthorization();
 
         return app;
     }

@@ -20,5 +20,9 @@
     <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Message.Infrastructure\Message.Infrastructure.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
 
 </Project>

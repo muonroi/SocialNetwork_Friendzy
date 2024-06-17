@@ -1,3 +1,4 @@
+using Message.Service;
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -38,13 +39,15 @@ try
         _ = services.SwaggerConfig(builder.Environment.ApplicationName);
 
         _ = services.AddSignalR();
+
+        _ = services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
     }
 
     builder.AddAppConfigurations();
 
     WebApplication app = builder.Build();
     {
-        _ = app.SeedConfigAsync();
+        _ = app.SeedConfig(configuration);
 
         if (app.Environment.IsDevelopment())
         {

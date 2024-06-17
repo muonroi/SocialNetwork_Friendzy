@@ -1,4 +1,8 @@
-﻿namespace Account.Application.Infrastructure.Hubs;
+﻿using Account.Application.Helper;
+using ExternalAPI.Models;
+using Microsoft.AspNetCore.SignalR;
+
+namespace Account.Application.Infrastructure.Hubs;
 
 public class StatusAccountHub(PresenceTracker presenceTracker) : Hub
 
