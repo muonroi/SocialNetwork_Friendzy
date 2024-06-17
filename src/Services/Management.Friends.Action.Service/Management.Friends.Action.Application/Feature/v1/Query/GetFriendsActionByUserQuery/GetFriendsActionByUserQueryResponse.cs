@@ -1,6 +1,4 @@
-﻿using ExternalAPI.Models;
-
-namespace Management.Friends.Action.Application.Feature.v1.Query.GetFriendsActionByUserQuery;
+﻿namespace Management.Friends.Action.Application.Feature.v1.Query.GetFriendsActionByUserQuery;
 
 public class GetFriendsActionByUserQueryResponse
 {

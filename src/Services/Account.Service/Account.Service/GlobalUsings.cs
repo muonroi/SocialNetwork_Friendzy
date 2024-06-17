@@ -1,5 +1,10 @@
 global using Account.Application;
+global using Account.Application.Feature.v1.Accounts.Commands.CreateAccountCommand;
+global using Account.Application.Feature.v1.Accounts.Commands.VerifyAccountCommand;
+global using Account.Application.Feature.v1.Accounts.Queries.GetAccount;
+global using Account.Application.Feature.v1.Accounts.Queries.GetAccounts;
 global using Account.Application.Infrastructure;
+global using Account.Application.Infrastructure.Hubs;
 global using Account.Infrastructure;
 global using Account.Infrastructure.Persistence;
 global using Account.Service.Extensions;

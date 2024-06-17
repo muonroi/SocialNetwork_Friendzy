@@ -1,8 +1,4 @@
-﻿using Dapper.Extensions;
-using Dapper.Extensions.MSSQL;
-using Infrastructure.ORMs.Dapper;
-
-namespace Authenticate.Service.Extensions;
+﻿namespace Authenticate.Service.Extensions;
 
 internal static class ServiceExtension
 {

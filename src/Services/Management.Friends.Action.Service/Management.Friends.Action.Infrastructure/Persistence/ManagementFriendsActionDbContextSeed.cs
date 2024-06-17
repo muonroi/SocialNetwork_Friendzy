@@ -1,6 +1,4 @@
-﻿using Management.Friends.Action.Domain.Entities;
-
-namespace Management.Friends.Action.Infrastructure.Persistence;
+﻿namespace Management.Friends.Action.Infrastructure.Persistence;
 
 public class ManagementFriendsActionDbContextSeed(ILogger logger, ManagementFriendsActionDbContext context, ISerializeService serializeService)
 {
@@ -9,6 +7,7 @@ public class ManagementFriendsActionDbContextSeed(ILogger logger, ManagementFrie
     private readonly ManagementFriendsActionDbContext _context = context;
 
     private readonly ISerializeService _serializeService = serializeService;
+
     public async Task InitializeAsync()
     {
         try

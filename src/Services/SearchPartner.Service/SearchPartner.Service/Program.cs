@@ -1,6 +1,3 @@
-using Contracts.Commons.Interfaces;
-using Infrastructure.Commons;
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -24,7 +21,6 @@ try
         _ = services.AddScoped<ISerializeService, SerializeService>();
 
         builder.AddAppConfigurations();
-
     }
 
     WebApplication app = builder.Build();
@@ -32,7 +28,7 @@ try
         app.AddMapGrpcServices();
     }
 
-    _ = app.ConfigureEndpoints(configuration);
+    _ = app.ConfigureEndpoints();
 
     app.Run();
 }

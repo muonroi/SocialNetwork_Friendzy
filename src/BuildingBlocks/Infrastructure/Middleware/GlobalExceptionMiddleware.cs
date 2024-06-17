@@ -1,40 +1,37 @@
-﻿
-namespace Infrastructure.Middleware
+﻿namespace Infrastructure.Middleware;
+
+public class GlobalExceptionMiddleware(RequestDelegate next, ILogger logger)
 {
-    public class GlobalExceptionMiddleware(RequestDelegate next, ILogger logger)
+    private readonly RequestDelegate _next = next;
+
+    private readonly ILogger _logger = logger;
+
+    public async Task InvokeAsync(HttpContext context)
     {
-        private readonly RequestDelegate _next = next;
-
-        private readonly ILogger _logger = logger;
-
-        public async Task InvokeAsync(HttpContext context)
+        try
         {
-            try
-            {
-                await _next(context);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "An unhandled exception occurred while processing the request.");
-                await HandleExceptionAsync(context, ex);
-            }
+            await _next(context);
         }
-
-        private Task HandleExceptionAsync(HttpContext context, Exception ex)
+        catch (Exception ex)
         {
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.OK;
-
-            var response = new
-            {
-                error = new
-                {
-                    message = new ApiErrorResult<string>(),
-                    details = ex.Message
-                }
-            };
-            return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
+            _logger.Error(ex, "An unhandled exception occurred while processing the request.");
+            await HandleExceptionAsync(context, ex);
         }
     }
 
+    private Task HandleExceptionAsync(HttpContext context, Exception ex)
+    {
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = (int)HttpStatusCode.OK;
+
+        var response = new
+        {
+            error = new
+            {
+                message = new ApiErrorResult<string>(),
+                details = ex.Message
+            }
+        };
+        return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
+    }
 }

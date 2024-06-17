@@ -1,8 +1,4 @@
-﻿using ExternalAPI.Models;
-using Management.Friends.Action.Application.Commons.Interfaces;
-using Management.Friends.Action.Application.Feature.v1.Command;
-
-namespace Matched.Friend.Application.Feature.v1.Command;
+﻿namespace Management.Friends.Action.Application.Feature.v1.Command;
 
 public class SetFriendByActionCommandHandler(
     IWorkContextAccessor workContextAccessor,

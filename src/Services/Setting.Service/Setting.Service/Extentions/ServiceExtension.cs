@@ -1,17 +1,12 @@
-﻿using Dapper.Extensions;
-using Dapper.Extensions.MSSQL;
-using Infrastructure.ORMs.Dapper;
+﻿namespace Setting.Service.Extentions;
 
-namespace Setting.Service.Extentions
+public static class ServiceExtension
 {
-    public static class ServiceExtension
+    internal static IServiceCollection AddConfigurationSettings(this IServiceCollection services, IConfiguration configuration)
     {
-        internal static IServiceCollection AddConfigurationSettings(this IServiceCollection services, IConfiguration configuration)
-        {
-            _ = services.AddDapperForMSSQL();
-            _ = services.AddDapperConnectionStringProvider<ConnectionStringProvider>();
-            _ = services.AddDapperCaching(configuration);
-            return services;
-        }
+        _ = services.AddDapperForMSSQL();
+        _ = services.AddDapperConnectionStringProvider<ConnectionStringProvider>();
+        _ = services.AddDapperCaching(configuration);
+        return services;
     }
 }

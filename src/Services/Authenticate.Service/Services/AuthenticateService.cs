@@ -1,7 +1,4 @@
-﻿using Contracts.Commons.Interfaces;
-using System.Text;
-
-namespace Authenticate.Service.Services;
+﻿namespace Authenticate.Service.Services;
 
 public class AuthenticateService(ILogger logger, ISerializeService serializeService) : AuthenticateVerifyBase
 {
@@ -80,8 +77,6 @@ public class AuthenticateService(ILogger logger, ISerializeService serializeServ
         });
     }
 
-
-
     public override async Task<VerifyTokenReply> VerifyToken(VerifyTokenRequest request, ServerCallContext context)
     {
         string token = request.AccessToken.Replace("Bearer ", string.Empty);
@@ -134,5 +129,4 @@ public class AuthenticateService(ILogger logger, ISerializeService serializeServ
 
         return verifyTokenReply;
     }
-
 }

@@ -1,11 +1,11 @@
-global using Contracts.Domains.Interfaces;
-global using System;
-global using System.Linq.Expressions;
 global using Contracts.Domains;
+global using Contracts.Domains.Interfaces;
+global using Contracts.DTOs.ResourceDTOs;
+global using Contracts.Services.Interfaces;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Storage;
 global using Shared.DTOs;
-global using Contracts.Services.Interfaces;
-global using Shared.Services.Resources;
-global using Contracts.DTOs.ResourceDTOs;
 global using Shared.Services.Emails;
+global using Shared.Services.Resources;
+global using System;
+global using System.Linq.Expressions;

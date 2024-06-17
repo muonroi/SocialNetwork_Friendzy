@@ -1,11 +1,4 @@
-﻿using Account.Application.Helper;
-using Account.Application.Infrastructure.Hubs;
-using Dapper.Extensions;
-using ExternalAPI.Models;
-using Microsoft.AspNetCore.SignalR;
-using System.Collections.ObjectModel;
-
-namespace Account.Application.Feature.v1.Accounts.Commands.VerifyAccountCommand;
+﻿namespace Account.Application.Feature.v1.Accounts.Commands.VerifyAccountCommand;
 
 public class VerifyAccountCommandHandler(
         GrpcClientFactory grpcClientFactory,
@@ -19,6 +12,7 @@ public class VerifyAccountCommandHandler(
     private readonly PresenceTracker _presenceTracker = presenceTracker;
     private readonly JwtBearerConfig _jwtBearerConfig = jwtBearerConfig ?? throw new ArgumentNullException(nameof(jwtBearerConfig));
     private readonly IHubContext<StatusAccountHub> _statusAccount = statusAccount ?? throw new ArgumentNullException(nameof(statusAccount));
+
     private readonly AuthenticateVerifyClient _authenticateClient =
    grpcClientFactory.CreateClient<AuthenticateVerifyClient>(ServiceConstants.AuthenticateService);
 

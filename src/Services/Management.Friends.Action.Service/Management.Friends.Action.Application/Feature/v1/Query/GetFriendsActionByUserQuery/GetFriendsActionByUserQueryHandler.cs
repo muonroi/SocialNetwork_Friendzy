@@ -1,8 +1,4 @@
-﻿using Management.Friends.Action.Application.Commons.Interfaces;
-using Management.Friends.Action.Application.Commons.Models;
-using Management.Friends.Action.Application.Infrastructure.Helpers;
-
-namespace Management.Friends.Action.Application.Feature.v1.Query.GetFriendsActionByUserQuery;
+﻿namespace Management.Friends.Action.Application.Feature.v1.Query.GetFriendsActionByUserQuery;
 
 public class GetFriendsActionByUserQueryHandler(IFriendsActionRepository friendMatchedRepository,
 IWorkContextAccessor workContextAccessor

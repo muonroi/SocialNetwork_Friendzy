@@ -1,4 +1,6 @@
-﻿namespace Matched.Friend.Application.Infrastructure;
+﻿using Management.Friends.Action.Application.Infrastructure.Constants;
+
+namespace Matched.Friend.Application.Infrastructure;
 
 public static class ManageRoles
 {

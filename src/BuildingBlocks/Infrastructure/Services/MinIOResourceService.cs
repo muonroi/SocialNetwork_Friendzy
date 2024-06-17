@@ -6,7 +6,6 @@ public class MinIOResourceService(ILogger logger, IMinioClient minioClient, ISer
     private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     private readonly IMinioClient _minioClient = minioClient ?? throw new ArgumentNullException(nameof(minioClient));
 
-
     public async Task<string> GetUrlObject(string bucketName, string objectName, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: GetUrlObject REQUEST --> {_serializeService.Serialize(new { bucketName, objectName })} <--");
@@ -89,5 +88,4 @@ public class MinIOResourceService(ILogger logger, IMinioClient minioClient, ISer
         await _minioClient.RemoveObjectAsync(bucketName, objectName, cancellationToken);
         _logger.Information($"END: RemoveResourceAsync RESULT --> none <-- ");
     }
-
 }

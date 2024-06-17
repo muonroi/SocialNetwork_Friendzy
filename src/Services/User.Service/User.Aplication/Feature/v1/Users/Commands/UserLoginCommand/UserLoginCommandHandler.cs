@@ -1,6 +1,4 @@
-﻿using ExternalAPI.Models;
-
-namespace User.Application.Feature.v1.Users.Commands.UserLoginCommand;
+﻿namespace User.Application.Feature.v1.Users.Commands.UserLoginCommand;
 
 public class UserLoginCommandHandler(IUserRepository userRepository, IApiExternalClient externalClient) : IRequestHandler<UserLoginCommand, ApiResult<UserDto>>
 {
@@ -30,7 +28,6 @@ public class UserLoginCommandHandler(IUserRepository userRepository, IApiExterna
             Gender = result.Gender,
             Birthdate = result.Birthdate ?? 0,
             ProfileImages = result.ProfileImages ?? [],
-
         }, cancellationToken);
 
         if (accountResponse.Data is null)

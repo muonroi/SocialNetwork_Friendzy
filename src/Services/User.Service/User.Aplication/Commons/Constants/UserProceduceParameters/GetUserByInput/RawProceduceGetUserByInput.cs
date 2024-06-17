@@ -24,7 +24,7 @@ CREATE PROC GetUserByInput
                                         AccountGuid uniqueidentifier,
                                         CategoryId varchar(255),
                                     )
-                                
+
                                     -- Chèn dữ liệu từ bảng Users vào bảng tạm
                                     INSERT INTO #TempUserResult
                                     SELECT
@@ -43,7 +43,7 @@ CREATE PROC GetUserByInput
                                         u.AccountGuid,
                                 		u.CategoryId
                                     FROM Users u
-                                
+
                                     -- Truy vấn các bản ghi từ bảng tạm theo nhiều điều kiện
                                     SELECT * FROM #TempUserResult WHERE LastName LIKE @Input + '%'
                                     UNION ALL
@@ -54,7 +54,7 @@ CREATE PROC GetUserByInput
                                     SELECT * FROM #TempUserResult WHERE PhoneNumber = @Input
                                     UNION ALL
                                     SELECT * FROM #TempUserResult WHERE Id = TRY_CONVERT(int, @Input)
-                                
+
                                     -- Xóa bảng tạm
                                     DROP TABLE #TempUserResult
                                 END

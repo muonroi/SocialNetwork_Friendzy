@@ -1,5 +1,3 @@
-using Account.Application.Helper;
-
 namespace Account.Infrastructure;
 
 public static class ConfigureService

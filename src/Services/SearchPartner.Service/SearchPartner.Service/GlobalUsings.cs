@@ -1,10 +1,11 @@
 global using Calzolari.Grpc.AspNetCore.Validation.Internal;
 global using Commons.Logging;
 global using Contracts.Commons.Constants;
+global using Contracts.Commons.Interfaces;
 global using Grpc.Core;
+global using Infrastructure.Commons;
 global using Infrastructure.Extensions;
 global using Infrastructure.Middleware;
-global using Newtonsoft.Json;
 global using SearchPartners.Service.Extensions;
 global using SearchPartners.Service.Helpers;
 global using SearchPartners.Service.Infrastructure.Endpoints;

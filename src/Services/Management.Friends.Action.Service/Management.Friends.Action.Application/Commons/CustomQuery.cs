@@ -1,4 +1,4 @@
-﻿namespace Matched.Friend.Application.Commons;
+﻿namespace Management.Friends.Action.Application.Commons;
 
 public static class CustomQuery
 {

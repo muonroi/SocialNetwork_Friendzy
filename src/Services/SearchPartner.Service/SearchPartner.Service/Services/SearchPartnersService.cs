@@ -1,5 +1,3 @@
-using Contracts.Commons.Interfaces;
-
 namespace SearchPartners.Service.Services;
 
 public class SearchPartnersService(ILogger logger, ISerializeService serializeService) : SearchPartnerServiceBase
@@ -7,6 +5,7 @@ public class SearchPartnersService(ILogger logger, ISerializeService serializeSe
     private readonly ILogger _logger = logger;
 
     private readonly ISerializeService _serializeService = serializeService;
+
     public override Task<SortPartnersByDistanceReply> SortPartnersByDistance(SortPartnersByDistanceRequest request, ServerCallContext context)
     {
         _logger.Information($"BEGIN: SortPartnersByDistance REQUEST --> {_serializeService.Serialize(request)} <--");

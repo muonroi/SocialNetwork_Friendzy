@@ -1,5 +1,3 @@
-using Post.Service.Infrastructure.Endpoints;
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -23,7 +21,6 @@ try
         _ = services.AddScoped<ISerializeService, SerializeService>();
 
         builder.AddAppConfigurations();
-
     }
 
     WebApplication app = builder.Build();

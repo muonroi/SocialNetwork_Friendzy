@@ -34,5 +34,4 @@ public record WorkContextInfoDTO
 
     public int AccountType { get; set; }
     public bool IsAuthenticated { get; set; }
-
 }

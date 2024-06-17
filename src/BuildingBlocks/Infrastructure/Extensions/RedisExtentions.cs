@@ -1,5 +1,4 @@
-﻿
-namespace Infrastructure.Extensions;
+﻿namespace Infrastructure.Extensions;
 
 public static class RedisExtentions
 {

@@ -1,4 +1,6 @@
-﻿namespace Matched.Friend.Application;
+﻿using Management.Friends.Action.Application.Extensions;
+
+namespace Matched.Friend.Application;
 
 public static class ConfigServices
 {

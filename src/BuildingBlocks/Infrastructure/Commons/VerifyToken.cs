@@ -1,4 +1,5 @@
 ﻿namespace Infrastructure.Commons;
+
 public sealed class VerifyToken(bool isAuthenticated)
 {
     public int UserId { get; set; }

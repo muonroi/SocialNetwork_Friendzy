@@ -1,6 +1,4 @@
-﻿using Shared.DTOs;
-
-namespace User.Application.Feature.v1.Users.Commands.UserUpdateInfoCommand;
+﻿namespace User.Application.Feature.v1.Users.Commands.UserUpdateInfoCommand;
 
 public class UserUpdateInfoCommandHandler(IUserRepository userRepository, IWorkContextAccessor workContextAccessor) : IRequestHandler<UserUpdateInfoCommand, ApiResult<UserDto>>
 {
@@ -35,7 +33,6 @@ public class UserUpdateInfoCommandHandler(IUserRepository userRepository, IWorkC
             Birthdate = request.Birthdate,
             AccountGuid = userResult.AccountGuid,
         }, workContext.PhoneNumber, cancellationToken);
-
 
         if (!updateResult)
         {

@@ -1,6 +1,3 @@
-using Infrastructure.Configurations;
-using Setting.Service.Extentions;
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -40,7 +37,6 @@ try
 
         _ = services.SwaggerConfig(builder.Environment.ApplicationName);
     }
-
 
     builder.AddAppConfigurations();
 

@@ -2,7 +2,6 @@
 
 public class ConnectionStringProvider(IConfiguration configuration) : IConnectionStringProvider
 {
-
     public string GetConnectionString(string connectionName, bool enableMasterSlave = false, bool readOnly = false)
     {
         string? secretKey = configuration.GetEx("SecretKey");

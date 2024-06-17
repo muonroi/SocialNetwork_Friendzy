@@ -1,4 +1,4 @@
-﻿namespace Matched.Friend.Application.Extensions;
+﻿namespace Management.Friends.Action.Application.Extensions;
 
 public static class AuthenticationExtention
 {

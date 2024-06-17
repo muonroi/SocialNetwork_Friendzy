@@ -1,6 +1,4 @@
-﻿using ExternalAPI.Models;
-
-namespace Post.Application.Commons.Models;
+﻿namespace Post.Application.Commons.Models;
 
 public class PostDto
 {

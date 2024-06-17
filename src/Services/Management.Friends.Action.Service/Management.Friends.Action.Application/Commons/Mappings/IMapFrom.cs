@@ -1,4 +1,4 @@
-﻿namespace Matched.Friend.Application.Commons.Mappings;
+﻿namespace Management.Friends.Action.Application.Commons.Mappings;
 
 public interface IMapFrom<T>
 {

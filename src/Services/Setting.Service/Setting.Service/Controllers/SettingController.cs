@@ -1,6 +1,4 @@
-﻿using ExternalAPI.Models;
-
-namespace Setting.Service.Controllers;
+﻿namespace Setting.Service.Controllers;
 
 [Route("api/v1/[controller]")]
 [ApiController]

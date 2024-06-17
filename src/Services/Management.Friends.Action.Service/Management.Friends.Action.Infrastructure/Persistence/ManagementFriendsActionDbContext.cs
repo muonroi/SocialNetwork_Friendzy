@@ -1,7 +1,4 @@
-﻿using Management.Friends.Action.Domain.Entities;
-using Management.Friends.Action.Infrastructure.Persistence.EntitiesConfigure;
-
-namespace Management.Friends.Action.Infrastructure.Persistence;
+﻿namespace Management.Friends.Action.Infrastructure.Persistence;
 
 public class ManagementFriendsActionDbContext(DbContextOptions<ManagementFriendsActionDbContext> options) : DbContext(options)
 {

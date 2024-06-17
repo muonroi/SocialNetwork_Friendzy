@@ -17,7 +17,6 @@
 }(function ($) {
     (function () {
         function stripHtml(value) {
-
             // Remove html tags and space chars
             return value.replace(/<.[^<>]*?>/g, " ").replace(/&nbsp;|&#160;/gi, " ")
 
@@ -74,7 +73,6 @@
 
     // Accept a value from a file input based on a required mimetype
     $.validator.addMethod("accept", function (value, element, param) {
-
         // Split mime on commas in case we have multiple types we can accept
         var typeParam = typeof param === "string" ? param.replace(/\s/g, "") : "image/*",
             optionalValue = this.optional(element),
@@ -86,7 +84,6 @@
         }
 
         if ($(element).attr("type") === "file") {
-
             // Escape string to be used in the regex
             // see: https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
             // Escape also "/*" as "/.*" as a wildcard
@@ -252,7 +249,6 @@
 
             // Odd positions
             if (isOdd(i)) {
-
                 // Odd positions are multiplied first.
                 n *= 2;
 
@@ -289,7 +285,6 @@
      * CNH numbers have 11 digits in total: 9 numbers followed by 2 check numbers that are being used for validation.
      */
     $.validator.addMethod("cnhBR", function (value) {
-
         // Removing special characters from value
         value = value.replace(/([~!@#$%^&*()_+=`{}\[\]\-|\\:;'<>,.\/? ])+/g, "");
 
@@ -716,7 +711,6 @@
      * Validation is case-insensitive. Please make sure to normalize input yourself.
      */
     $.validator.addMethod("iban", function (value, element) {
-
         // Some quick simple tests to prevent needless work
         if (this.optional(element)) {
             return true;

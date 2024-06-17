@@ -1,34 +1,31 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿#nullable disable
 
-#nullable disable
+namespace User.Infrastructure.Persistence.Migrations;
 
-namespace User.Infrastructure.Persistence.Migrations
+/// <inheritdoc />
+public partial class Updatesizecolumnprofileimage : Migration
 {
     /// <inheritdoc />
-    public partial class Updatesizecolumnprofileimage : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AlterColumn<string>(
-                name: "ProfileImagesUrl",
-                table: "Users",
-                type: "varchar(max)",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
-        }
+        migrationBuilder.AlterColumn<string>(
+            name: "ProfileImagesUrl",
+            table: "Users",
+            type: "varchar(max)",
+            nullable: false,
+            oldClrType: typeof(string),
+            oldType: "nvarchar(max)");
+    }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AlterColumn<string>(
-                name: "ProfileImagesUrl",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "varchar(max)");
-        }
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.AlterColumn<string>(
+            name: "ProfileImagesUrl",
+            table: "Users",
+            type: "nvarchar(max)",
+            nullable: false,
+            oldClrType: typeof(string),
+            oldType: "varchar(max)");
     }
 }

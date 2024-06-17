@@ -41,7 +41,6 @@ public class RepositoryBaseAsync<T, TK, TContext>(TContext context, IUnitOfWork<
 
         T? exist = _context.Set<T>().Find(entity.Id);
 
-
         if (exist is null)
         {
             return Task.CompletedTask;
@@ -61,7 +60,6 @@ public class RepositoryBaseAsync<T, TK, TContext>(TContext context, IUnitOfWork<
         }
 
         _context.Set<T>().UpdateRange(entities);
-
 
         return Task.CompletedTask;
     }
@@ -105,5 +103,4 @@ public class RepositoryBaseAsync<T, TK, TContext>(TContext context, IUnitOfWork<
     {
         return _context.Database.RollbackTransactionAsync();
     }
-
 }
