@@ -1,4 +1,9 @@
-﻿namespace Message.Application.Service;
+﻿using AutoMapper;
+using Message.Application.Service.Interfaces;
+using Message.Domain.Entities;
+using MongoDB.Driver;
+
+namespace Message.Application.Service;
 
 public class GroupService : MongoDbRepository<GroupEntry>, IGroupService
 {

@@ -1,10 +1,12 @@
-﻿namespace Message.Application.Infrastructure.Hubs;
+﻿using Message.Application.Infrastructure.Dtos;
+using Message.Application.Service.Interfaces;
+using Microsoft.AspNetCore.SignalR;
 
-public class MessageHub(IMessageService messageService, IGroupService groupService, IConnectionService connectionService) : Hub
+namespace Message.Application.Infrastructure.Hubs;
+
+public class MessageHub(IMessageService messageService) : Hub
 {
     private readonly IMessageService _messageService = messageService;
-    private readonly IGroupService _groupService = groupService;
-    private readonly IConnectionService _connectionService = connectionService;
 
     public override async Task OnConnectedAsync()
     {
@@ -33,27 +35,4 @@ public class MessageHub(IMessageService messageService, IGroupService groupServi
         bool stringCompare = string.CompareOrdinal(caller, other) < 0;
         return stringCompare ? $"{caller}-{other}" : $"{other}-{caller}";
     }
-
-    //private async Task<GroupEntry> AddToGroup(string groupName)
-    //{
-    //    var group = await _unitOfWork.MessageRepository.GetMessageGroup(groupName);
-    //    ConnectionEntry connection = new(Context.ConnectionId, Context.UserIdentifier!.ToString());
-    //    if (group == null)
-    //    {
-    //        group = new GroupEntry(groupName);
-    //        _unitOfWork.MessageRepository.AddGroup(group);
-    //    }
-    //    group.Connections.Add(connection);
-
-    //    return await _unitOfWork.Complete() ? group : throw new HubException("Failed to join group");
-    //}
-
-    //private async Task<GroupEntry> RemoveFromMessageGroup()
-    //{
-    //    var group = await _unitOfWork.MessageRepository.GetGroupForConnection(Context.ConnectionId);
-    //    var connection = group.Connections.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-    //    _unitOfWork.MessageRepository.RemoveConnection(connection);
-
-    //    return await _unitOfWork.Complete() ? group : throw new HubException("Fail to remove from group");
-    //}
 }

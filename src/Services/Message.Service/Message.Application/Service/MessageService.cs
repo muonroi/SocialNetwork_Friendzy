@@ -1,4 +1,12 @@
-﻿namespace Message.Application.Service;
+﻿using AutoMapper;
+using Commons.Pagination;
+using Message.Application.Infrastructure.Dtos;
+using Message.Application.Service.Interfaces;
+using Message.Domain.Entities;
+using Message.Domain.Models;
+using MongoDB.Driver;
+
+namespace Message.Application.Service;
 
 public class MessageService : MongoDbRepository<MessageEntry>, IMessageService
 {

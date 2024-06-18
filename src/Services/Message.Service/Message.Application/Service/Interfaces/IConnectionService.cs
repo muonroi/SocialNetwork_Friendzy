@@ -1,4 +1,6 @@
-﻿namespace Message.Application.Service.Interfaces;
+﻿using Message.Domain.Entities;
+
+namespace Message.Application.Service.Interfaces;
 
 public interface IConnectionService : IMongoDbRepositoryBase<ConnectionEntry>
 {
