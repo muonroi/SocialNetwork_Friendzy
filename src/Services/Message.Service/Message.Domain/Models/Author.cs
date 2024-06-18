@@ -1,8 +1,8 @@
-﻿namespace Message.Domain.Entities;
+﻿namespace Message.Domain.Models;
 
 public class Author
 {
-    public required string Id { get; set; }
+    public string Id { get; set; } = string.Empty;
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string DisplayName => $"{FirstName} {LastName}";
@@ -10,6 +10,6 @@ public class Author
     public DateTime? LastActive { get; set; }
     public ICollection<MessageEntry> MessagesSent { get; set; } = [];
     public ICollection<MessageEntry> MessagesReceived { get; set; } = [];
-    public ICollection<LastMessageChat> LastMessageChatsSent { get; set; } = [];
-    public ICollection<LastMessageChat> LastMessageChatsReceived { get; set; } = [];
+    public ICollection<LastMessageChatEntry> LastMessageChatsSent { get; set; } = [];
+    public ICollection<LastMessageChatEntry> LastMessageChatsReceived { get; set; } = [];
 }

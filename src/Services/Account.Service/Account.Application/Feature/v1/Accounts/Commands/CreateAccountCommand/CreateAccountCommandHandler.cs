@@ -35,7 +35,8 @@ GrpcClientFactory grpcClientFactory, IAccountRepository accountRepository, IAcco
         //assign account to role user
         //E897718A-9D7E-4AAA-1E81-08DC8DAB5820
         //F9E297B9-15D2-4DD6-61FC-08DC781F4659
-        _ = await _accountRoleRepository.AssignAccountToRoleId(accountIdCreated, Guid.Parse("E897718A-9D7E-4AAA-1E81-08DC8DAB5820"), cancellationToken); // edit after, this is role user hardcode
+        //D4265F27-F492-4E71-0A71-08DC8EA27BA1 //company
+        _ = await _accountRoleRepository.AssignAccountToRoleId(accountIdCreated, Guid.Parse("D4265F27-F492-4E71-0A71-08DC8EA27BA1"), cancellationToken); // edit after, this is role user hardcode
 
         CreateAccountCommandResponse? result = new()
         {

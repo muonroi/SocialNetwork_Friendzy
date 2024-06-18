@@ -1,6 +1,5 @@
-﻿using Message.Domain.Entities;
-
-public class LastMessageChat
+﻿[BsonCollectionAttribute("LastMessageChats")]
+public class LastMessageChatEntry : MongoDbEntity
 {
     public string SenderId { get; set; } = string.Empty;
     public string SenderUsername { get; set; } = string.Empty;

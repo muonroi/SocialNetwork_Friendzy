@@ -8,8 +8,10 @@ public static class ConfigureService
         new MongoClient(GetConnectionMongoDbNameString(configuration)))
             .AddScoped(x => x.GetService<IMongoClient>()!.StartSession());
         _ = services.AddScoped<ISerializeService, SerializeService>();
+
         return services;
     }
+
     private static string GetConnectionMongoDbNameString(this IConfiguration configuration)
     {
         string mongoDbConnectionString = configuration.GetConfigHelper(ConfigurationSetting.ConnectionString);

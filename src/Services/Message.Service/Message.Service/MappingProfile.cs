@@ -1,14 +1,11 @@
-﻿using AutoMapper;
-using Message.Domain.Entities;
-using Message.Infrastructure.Dtos;
+﻿using Message.Application.Infrastructure.Dtos;
 
-namespace Message.Service
+namespace Message.Service;
+
+public class MappingProfile : Profile
 {
-    public class MappingProfile : Profile
+    public MappingProfile()
     {
-        public MappingProfile()
-        {
-            _ = CreateMap<MessageEntry, MessageResponse>().ReverseMap();
-        }
+        _ = CreateMap<MessageEntry, MessageResponse>().ReverseMap();
     }
 }

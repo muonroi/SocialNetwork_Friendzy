@@ -12,7 +12,9 @@ public static class ServiceExtension
         _ = services.AddApiIntegration(configuration);
         _ = services.AddScoped<ISerializeService, SerializeService>();
         _ = services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+        _ = services.AddScoped<IMessageService, MessageService>();
+        _ = services.AddScoped<IGroupService, GroupService>();
+        _ = services.AddScoped<IConnectionService, ConnectionService>();
         return services;
     }
 

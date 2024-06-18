@@ -1,4 +1,3 @@
-using Message.Service;
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();

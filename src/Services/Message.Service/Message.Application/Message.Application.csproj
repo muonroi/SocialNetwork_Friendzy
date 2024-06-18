@@ -16,6 +16,7 @@
     <ProjectReference Include="..\..\..\BuildingBlocks\ExternalAPI\ExternalAPI.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Shared\Shared.csproj" />
+    <ProjectReference Include="..\Message.Domain\Message.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
