@@ -38,7 +38,9 @@ public class AccountRequestBase
 
     public double Latitude { get; set; }
     public Gender Gender { get; set; }
-    public long Birthdate { get; set; }
+    public long BirthDate { get; set; }
 
     public IEnumerable<string> ProfileImages { get; set; } = [];
+    public long LastModifiedDateTs { get; set; }
+
 }

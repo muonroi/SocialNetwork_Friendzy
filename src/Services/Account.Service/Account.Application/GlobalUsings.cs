@@ -33,7 +33,6 @@ global using Microsoft.AspNetCore.SignalR;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Serilog;
-global using Shared.DTOs;
 global using Shared.Enums;
 global using Shared.SeedWorks;
 global using System;
@@ -46,4 +45,4 @@ global using System.Threading;
 global using System.Threading.Tasks;
 global
 using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
-global using static Authenticate.Verify.Service.AuthenticateVerify;global using Message.Infrastructure.Service.Interfaces;
+global using static Authenticate.Verify.Service.AuthenticateVerify;

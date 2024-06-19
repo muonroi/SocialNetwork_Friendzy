@@ -52,7 +52,8 @@ public class VerifyAccountCommandHandler(
                     ProfileImages = request.ProfileImages.ToArray(),
                     AvatarUrl = request.AvatarUrl,
                     Gender = (int)request.Gender,
-                    Birthdate = request.Birthdate.ToDateTime(),
+                    BirthDate = request.Birthdate.ToDateTime(),
+                    LastModifiedDateTs = request.LastModifiedDateTs.ToDateTime(),
                 };
                 currentUserModels.Add(currentUserModel);
 

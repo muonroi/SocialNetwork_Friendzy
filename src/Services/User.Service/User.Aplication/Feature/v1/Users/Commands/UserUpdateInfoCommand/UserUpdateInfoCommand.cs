@@ -22,7 +22,7 @@ public class UserUpdateInfoCommand : IRequest<ApiResult<UserDto>>
 
     public Gender Gender { get; set; }
 
-    public long Birthdate { get; set; }
+    public long BirthDate { get; set; }
 
     public string CategoryId { get; set; } = string.Empty;
 }

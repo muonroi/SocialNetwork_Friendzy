@@ -26,8 +26,9 @@ public class UserLoginCommandHandler(IUserRepository userRepository, IApiExterna
             Longitude = result.Longitude,
             Latitude = result.Latitude,
             Gender = result.Gender,
-            Birthdate = result.Birthdate ?? 0,
+            BirthDate = result.BirthDate ?? 0,
             ProfileImages = result.ProfileImages ?? [],
+            LastModifiedDateTs = result.LastModifiedDateTs ?? 0,
         }, cancellationToken);
 
         if (accountResponse.Data is null)

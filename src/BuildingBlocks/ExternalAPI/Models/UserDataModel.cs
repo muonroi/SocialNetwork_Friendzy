@@ -38,12 +38,15 @@ public record UserDataModel
     [JsonProperty("gender")]
     public int Gender { get; set; }
 
-    [JsonProperty("birthdate")]
-    public DateTime Birthdate { get; set; }
+    [JsonProperty("birthDate")]
+    public DateTime BirthDate { get; set; }
 
     [JsonProperty("accountGuid")]
     public Guid AccountGuid { get; set; }
 
     [JsonProperty("matchScore")]
     public double MatchScore { get; set; }
+
+    [JsonProperty("lastModifiedDateTs")]
+    public DateTime LastModifiedDateTs { get; set; }
 }

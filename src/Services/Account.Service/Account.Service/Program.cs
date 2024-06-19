@@ -1,3 +1,5 @@
+string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
@@ -17,6 +19,17 @@ try
 
     IServiceCollection services = builder.Services;
     {
+        _ = services.AddCors(options =>
+        {
+            options.AddPolicy(name: MyAllowSpecificOrigins,
+                              builder =>
+                              {
+                                  _ = builder.WithOrigins("http://localhost:4200")
+                                              .AllowAnyHeader()
+                                              .AllowAnyMethod()
+                                              .AllowCredentials();
+                              });
+        });
         _ = services.Configure<ConsulConfigs>(configuration.GetSection(nameof(ConsulConfigs)));
 
         _ = services.ConfigureJwtBearerToken(configuration);
@@ -55,7 +68,7 @@ try
         }
         _ = app.MapControllers();
 
-        _ = app.UseCors();
+        _ = app.UseCors(MyAllowSpecificOrigins);
 
         _ = app.ConfigureEndpoints();
 

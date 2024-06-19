@@ -26,7 +26,7 @@ public class UserRegisterCommandHandler(GrpcClientFactory grpcClientFactory
             PhoneNumber = request.PhoneNumber,
             EmailAddress = request.EmailAddress ?? string.Empty,
             AvatarUrl = request.AvatarUrl,
-            Birthdate = request.Birthdate,
+            BirthDate = request.BirthDate,
             ProfileImages = request.ProfileImagesUrl.Split(','),
             Address = request.Address,
             Longitude = request.Longitude,

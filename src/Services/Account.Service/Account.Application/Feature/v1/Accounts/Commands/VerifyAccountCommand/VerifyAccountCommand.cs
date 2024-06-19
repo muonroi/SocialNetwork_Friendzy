@@ -14,4 +14,5 @@ public class VerifyAccountCommand : AccountDTO, IRequest<ApiResult<VerifyAccount
     public Gender Gender { get; set; }
     public long Birthdate { get; set; }
     public IEnumerable<string> ProfileImages { get; set; } = [];
+    public long LastModifiedDateTs { get; set; }
 }

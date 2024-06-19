@@ -1,8 +1,4 @@
-﻿using Message.Application.Infrastructure.Dtos;
-using Message.Application.Service.Interfaces;
-using Microsoft.AspNetCore.SignalR;
-
-namespace Message.Application.Infrastructure.Hubs;
+﻿namespace Message.Application.Infrastructure.Hubs;
 
 public class MessageHub(IMessageService messageService) : Hub
 {

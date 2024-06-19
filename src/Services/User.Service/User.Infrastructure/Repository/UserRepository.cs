@@ -80,7 +80,7 @@ public class UserRepository(IMapper mapper, UserDbContext dbContext, IUnitOfWork
             Latitude = user.Latitude,
             Longitude = user.Longitude,
             Gender = user.Gender,
-            Birthdate = user.Birthdate ?? 0,
+            BirthDate = user.BirthDate ?? 0,
         };
         _ = await CreateAsync(entity, cancellationToken);
         _ = await SaveChangesAsync();
@@ -114,7 +114,7 @@ public class UserRepository(IMapper mapper, UserDbContext dbContext, IUnitOfWork
         entity.Latitude = user.Latitude;
         entity.Longitude = user.Longitude;
         entity.Gender = user.Gender;
-        entity.Birthdate = user.Birthdate ?? 0;
+        entity.BirthDate = user.BirthDate ?? 0;
 
         await UpdateAsync(entity);
 

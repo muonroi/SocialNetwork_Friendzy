@@ -30,7 +30,7 @@ public class UserUpdateInfoCommandHandler(IUserRepository userRepository, IWorkC
             Longitude = request.Longitude,
             Latitude = request.Latitude,
             CategoryIds = userResult.CategoryIds,
-            Birthdate = request.Birthdate,
+            BirthDate = request.BirthDate,
             AccountGuid = userResult.AccountGuid,
         }, workContext.PhoneNumber, cancellationToken);
 

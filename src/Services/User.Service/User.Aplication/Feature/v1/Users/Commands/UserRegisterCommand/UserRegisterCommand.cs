@@ -22,7 +22,7 @@ public record UserRegisterCommand : IRequest<ApiResult<UserDto>>
 
     public required Gender Gender { get; set; }
 
-    public required long Birthdate { get; set; }
+    public required long BirthDate { get; set; }
 
     public required string CategoryId { get; set; }
 }
