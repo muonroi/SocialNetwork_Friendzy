@@ -8,7 +8,7 @@ public interface IMessageService : IMongoDbRepositoryBase<MessageEntry>
 
     Task<bool> RemoveMessageAsync(AuthorDto user, AuthorDto friend, MessageDto userMessage, MessageDto friendMessage);
 
-    Task AddMessage(MessageEntry message);
+    Task AddMessageAsync(MessageEntry message);
 
     Task<IEnumerable<MessageResponse>> GetMessageThread(string currentAccountId, string recipientAccountId);
 

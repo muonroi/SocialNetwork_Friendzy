@@ -15,6 +15,7 @@ public class StatusAccountHub(PresenceTracker presenceTracker) : Hub
             return;
         }
         IEnumerable<UserDataModel> friendsInfo = await _presenceTracker.GetUsersInfoAsync(friendMatchedsOnline, userId, 0);
+
         await Clients.Caller.SendAsync("FriendsOnline", friendsInfo);
     }
 

@@ -32,4 +32,12 @@ public interface IApiExternalClient
     [Header(HeaderConstants.MethodKey, "get-friends-user")]
     [Get]
     Task<ExternalApiResponse<IEnumerable<FriendMatchedDataModel>>> GetFriendsUserById([Query] long userId, int action, CancellationToken cancellationtoken);
+
+    [Header(HeaderConstants.MethodKey, "user-online")]
+    [Get]
+    Task<ExternalApiResponse<bool>> GetTotalUserOnline([Query] int type, CancellationToken cancellationtoken);
+
+    [Header(HeaderConstants.MethodKey, "set-user-online")]
+    [Post]
+    Task<ExternalApiResponse<bool>> SetNumberUserOnline([Body] SettingRequestModel requestModel, CancellationToken cancellationtoken);
 }

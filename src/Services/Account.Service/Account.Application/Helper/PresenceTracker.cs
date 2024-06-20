@@ -10,6 +10,8 @@ public class PresenceTracker(IServiceProvider serviceProvider)
     {
         using IServiceScope scope = _serviceProvider.CreateScope();
         IAccountRepository accountRepository = scope.ServiceProvider.GetRequiredService<IAccountRepository>();
+        IApiExternalClient externalClient = scope.ServiceProvider.GetRequiredService<IApiExternalClient>();
+        ExternalApiResponse<IEnumerable<UserDataModel>> userOnlineResult = await externalClient.GetUsersAsync(accountId.ToString(), cancellationToken);
         AccountDTO? accountInfo = await accountRepository.GetAccountByIdAsync(accountId, cancellationToken);
         if (accountInfo == null)
         {
@@ -21,6 +23,7 @@ public class PresenceTracker(IServiceProvider serviceProvider)
         {
             if (OnlineUsersList.TryGetValue(accountId, out List<string>? value))
             {
+
                 value.Add(connectionId);
             }
             else

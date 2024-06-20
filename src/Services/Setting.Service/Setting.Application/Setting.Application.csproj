@@ -28,8 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commons\Models\" />
-    <Folder Include="feature\v1\Commands\" />
-    <Folder Include="feature\v1\EventHandlers\" />
+    <Folder Include="Feature\v1\EventHandlers\" />
   </ItemGroup>
 
 </Project>

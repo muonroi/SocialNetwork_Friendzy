@@ -53,7 +53,7 @@ try
 
         _ = app.UseCors();
 
-        _ = app.ConfigureEndpoints();
+        _ = app.ConfigureEndpoints(configuration);
 
         _ = app.UseConsul(consulSettings, env);
 

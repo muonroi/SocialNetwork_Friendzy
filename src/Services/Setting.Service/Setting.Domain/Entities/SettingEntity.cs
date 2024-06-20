@@ -1,4 +1,6 @@
-﻿namespace Setting.Domain.Entities;
+﻿using Shared.Enums;
+
+namespace Setting.Domain.Entities;
 
 public class SettingEntity : EntityAuditBase<long>
 {
@@ -8,5 +10,5 @@ public class SettingEntity : EntityAuditBase<long>
 
     public string Content { get; set; } = string.Empty;
 
-    public Settings Type { get; set; }
+    public SettingsConfig Type { get; set; }
 }

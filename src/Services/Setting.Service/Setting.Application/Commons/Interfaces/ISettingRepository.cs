@@ -3,4 +3,6 @@
 public interface ISettingRepository<T, TK> : IRepositoryBaseAsync<T, TK> where T : EntityBase<TK>
 {
     Task<T?> GetSettingByType(Expression<Func<T, bool>> expresion);
+
+    Task CreateSettingByType(T request, Expression<Func<T, bool>> expresion, CancellationToken cancellationToken);
 }

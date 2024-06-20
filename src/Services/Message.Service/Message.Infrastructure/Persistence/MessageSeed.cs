@@ -51,92 +51,193 @@ public class MessageSeed(ILogger logger)
         string messagesJson = @"[
                 {
                     ""SenderId"": ""1"",
-                    ""SenderAccountId"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
+                    ""SenderAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
                     ""Sender"": {
-                        ""Id"": ""D3059221-324E-4932-A241-2CC29A48B001"",
-                        ""FirstName"": ""John"",
-                        ""LastName"": ""Doe"",
+                        ""Id"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
                         ""ImageUrl"": """"
                     },
                     ""RecipientId"": ""2"",
-                    ""RecipientAccountId"": ""D3059221-324E-4932-A241-2CC29A48B001"",
+                    ""RecipientAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
                     ""Recipient"": {
-                        ""Id"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
-                        ""FirstName"": ""Alice"",
-                        ""LastName"": ""Smith"",
+                        ""Id"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
                         ""ImageUrl"": """"
                     },
-                    ""Content"": ""Hello, how are you?"",
+                    ""Content"": ""Hello, how are you?""
                 },
                 {
                     ""SenderId"": ""2"",
-                    ""SenderAccountId"": ""D3059221-324E-4932-A241-2CC29A48B001"",
+                    ""SenderAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
                     ""Sender"": {
-                        ""Id"": ""D3059221-324E-4932-A241-2CC29A48B001"",
+                        ""Id"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
+                        ""ImageUrl"": """"
+                    },
+                    ""RecipientId"": ""1"",
+                    ""RecipientAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                    ""Recipient"": {
+                        ""Id"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
                         ""FirstName"": ""Alice"",
                         ""LastName"": ""Smith"",
                         ""ImageUrl"": """"
                     },
-                    ""RecipientId"": ""1"",
-                    ""RecipientAccountId"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
-                    ""Recipient"": {
-                        ""Id"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
-                        ""FirstName"": ""John"",
-                        ""LastName"": ""Doe"",
-                        ""ImageUrl"": """"
-                    },
-                    ""Content"": ""I'm good, thank you!"",
-                },
-                {
-                    ""SenderId"": ""3"",
-                    ""SenderAccountId"": ""mike_jones_account"",
-                    ""Sender"": {
-                        ""FirstName"": ""Mike"",
-                        ""LastName"": ""Jones"",
-                        ""ImageUrl"": """"
-                    },
-                    ""RecipientId"": ""4"",
-                    ""RecipientAccountId"": ""emily_clark_account"",
-                    ""Recipient"": {
-                        ""FirstName"": ""Emily"",
-                        ""LastName"": ""Clark"",
-                        ""ImageUrl"": """"
-                    },
-                    ""Content"": ""Are we still meeting tomorrow?"",
-                },
-                {
-                    ""SenderId"": ""4"",
-                    ""SenderAccountId"": ""emily_clark_account"",
-                    ""Sender"": {
-                        ""FirstName"": ""Emily"",
-                        ""LastName"": ""Clark"",
-                        ""ImageUrl"": """"
-                    },
-                    ""RecipientId"": ""3"",
-                    ""RecipientAccountId"": ""mike_jones_account"",
-                    ""Recipient"": {
-                        ""FirstName"": ""Mike"",
-                        ""LastName"": ""Jones"",
-                        ""ImageUrl"": """"
-                    },
-                    ""Content"": ""Yes, see you then!"",
+                    ""Content"": ""I'm good, thank you!""
                 },
                 {
                     ""SenderId"": ""1"",
-                    ""SenderAccountId"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
+                    ""SenderAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
                     ""Sender"": {
+                        ""Id"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
+                        ""ImageUrl"": """"
+                    },
+                    ""RecipientId"": ""2"",
+                    ""RecipientAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                    ""Recipient"": {
+                        ""Id"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
                         ""FirstName"": ""John"",
                         ""LastName"": ""Doe"",
                         ""ImageUrl"": """"
                     },
-                    ""RecipientId"": ""4"",
-                    ""RecipientAccountId"": ""emily_clark"",
-                    ""Recipient"": {
-                        ""FirstName"": ""Emily"",
-                        ""LastName"": ""Clark"",
+                    ""Content"": ""What are you up to?""
+                },
+                {
+                    ""SenderId"": ""2"",
+                    ""SenderAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                    ""Sender"": {
+                        ""Id"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
                         ""ImageUrl"": """"
                     },
-                    ""Content"": ""Happy Birthday!"",
+                    ""RecipientId"": ""1"",
+                    ""RecipientAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                    ""Recipient"": {
+                        ""Id"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
+                        ""ImageUrl"": """"
+                    },
+                    ""Content"": ""Just working. You?""
+                },
+                {
+                    ""SenderId"": ""1"",
+                    ""SenderAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                    ""Sender"": {
+                        ""Id"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
+                        ""ImageUrl"": """"
+                    },
+                    ""RecipientId"": ""2"",
+                    ""RecipientAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                    ""Recipient"": {
+                        ""Id"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
+                        ""ImageUrl"": """"
+                    },
+                    ""Content"": ""Same here. Busy day!""
+                },
+                {
+                    ""SenderId"": ""2"",
+                    ""SenderAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                    ""Sender"": {
+                        ""Id"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
+                        ""ImageUrl"": """"
+                    },
+                    ""RecipientId"": ""1"",
+                    ""RecipientAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                    ""Recipient"": {
+                        ""Id"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
+                        ""ImageUrl"": """"
+                    },
+                    ""Content"": ""Let's catch up later.""
+                },
+                {
+                    ""SenderId"": ""1"",
+                    ""SenderAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                    ""Sender"": {
+                        ""Id"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
+                        ""ImageUrl"": """"
+                    },
+                    ""RecipientId"": ""2"",
+                    ""RecipientAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                    ""Recipient"": {
+                        ""Id"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
+                        ""ImageUrl"": """"
+                    },
+                    ""Content"": ""Sure, talk to you soon.""
+                },
+                {
+                    ""SenderId"": ""2"",
+                    ""SenderAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                    ""Sender"": {
+                        ""Id"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
+                        ""ImageUrl"": """"
+                    },
+                    ""RecipientId"": ""1"",
+                    ""RecipientAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                    ""Recipient"": {
+                        ""Id"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
+                        ""ImageUrl"": """"
+                    },
+                    ""Content"": ""Goodbye!""
+                },
+                {
+                    ""SenderId"": ""1"",
+                    ""SenderAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                    ""Sender"": {
+                        ""Id"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
+                        ""ImageUrl"": """"
+                    },
+                    ""RecipientId"": ""2"",
+                    ""RecipientAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                    ""Recipient"": {
+                        ""Id"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
+                        ""ImageUrl"": """"
+                    },
+                    ""Content"": ""Take care!""
+                },
+                {
+                    ""SenderId"": ""2"",
+                    ""SenderAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                    ""Sender"": {
+                        ""Id"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
+                        ""ImageUrl"": """"
+                    },
+                    ""RecipientId"": ""1"",
+                    ""RecipientAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                    ""Recipient"": {
+                        ""Id"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
+                        ""ImageUrl"": """"
+                    },
+                    ""Content"": ""You too!""
                 }
             ]";
 
@@ -150,17 +251,17 @@ public class MessageSeed(ILogger logger)
         string chatsJson = @"[
                 {
                     ""SenderId"": ""1"",
-                    ""SenderAccountId"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
+                    ""SenderAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
                     ""Sender"": {
-                        ""FirstName"": ""John"",
-                        ""LastName"": ""Doe"",
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
                         ""ImageUrl"": """"
                     },
                     ""RecipientId"": ""2"",
-                    ""RecipienAccountId"": ""D3059221-324E-4932-A241-2CC29A48B001"",
+                    ""RecipientAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
                     ""Recipient"": {
-                        ""FirstName"": ""Alice"",
-                        ""LastName"": ""Smith"",
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
                         ""ImageUrl"": """"
                     },
                     ""Content"": ""Hello, how are you?"",
@@ -169,17 +270,17 @@ public class MessageSeed(ILogger logger)
                 },
                 {
                     ""SenderId"": ""2"",
-                    ""SenderAccountId"": ""D3059221-324E-4932-A241-2CC29A48B001"",
+                    ""SenderAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
                     ""Sender"": {
-                        ""FirstName"": ""Alice"",
-                        ""LastName"": ""Smith"",
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
                         ""ImageUrl"": """"
                     },
                     ""RecipientId"": ""1"",
-                    ""RecipienAccountId"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
+                    ""RecipientAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
                     ""Recipient"": {
-                        ""FirstName"": ""John"",
-                        ""LastName"": ""Doe"",
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
                         ""ImageUrl"": """"
                     },
                     ""Content"": ""I'm good, thank you!"",
@@ -187,61 +288,156 @@ public class MessageSeed(ILogger logger)
                     ""IsRead"": true
                 },
                 {
-                    ""SenderId"": ""3"",
-                    ""SenderAccountId"": ""mike_jones"",
+                    ""SenderId"": ""1"",
+                    ""SenderAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
                     ""Sender"": {
-                        ""FirstName"": ""Mike"",
-                        ""LastName"": ""Jones"",
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
                         ""ImageUrl"": """"
                     },
-                    ""RecipientId"": ""4"",
-                    ""RecipienAccountId"": ""emily_clark"",
+                    ""RecipientId"": ""2"",
+                    ""RecipientAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
                     ""Recipient"": {
-                        ""FirstName"": ""Emily"",
-                        ""LastName"": ""Clark"",
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
                         ""ImageUrl"": """"
                     },
-                    ""Content"": ""Are we still meeting tomorrow?"",
-                    ""GroupName"": ""Work"",
-                    ""IsRead"": false
-                },
-                {
-                    ""SenderId"": ""4"",
-                    ""SenderAccountId"": ""emily_clark"",
-                    ""Sender"": {
-                        ""FirstName"": ""Emily"",
-                        ""LastName"": ""Clark"",
-                        ""ImageUrl"": """"
-                    },
-                    ""RecipientId"": ""3"",
-                    ""RecipienAccountId"": ""mike_jones"",
-                    ""Recipient"": {
-                        ""FirstName"": ""Mike"",
-                        ""LastName"": ""Jones"",
-                        ""ImageUrl"": """"
-                    },
-                    ""Content"": ""Yes, see you then!"",
-                    ""GroupName"": ""Work"",
+                    ""Content"": ""What are you up to?"",
+                    ""GroupName"": ""General"",
                     ""IsRead"": true
                 },
                 {
-                    ""SenderId"": ""1"",
-                    ""SenderAccountId"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
+                    ""SenderId"": ""2"",
+                    ""SenderAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
                     ""Sender"": {
                         ""FirstName"": ""John"",
                         ""LastName"": ""Doe"",
                         ""ImageUrl"": """"
                     },
-                    ""RecipientId"": ""4"",
-                    ""RecipienAccountId"": ""emily_clark"",
+                    ""RecipientId"": ""1"",
+                    ""RecipientAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
                     ""Recipient"": {
-                        ""FirstName"": ""Emily"",
-                        ""LastName"": ""Clark"",
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
                         ""ImageUrl"": """"
                     },
-                    ""Content"": ""Happy Birthday!"",
-                    ""GroupName"": ""Friends"",
-                    ""IsRead"": false
+                    ""Content"": ""Just working. You?"",
+                    ""GroupName"": ""General"",
+                    ""IsRead"": true
+                },
+                {
+                    ""SenderId"": ""1"",
+                    ""SenderAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                    ""Sender"": {
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
+                        ""ImageUrl"": """"
+                    },
+                    ""RecipientId"": ""2"",
+                    ""RecipientAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                    ""Recipient"": {
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
+                        ""ImageUrl"": """"
+                    },
+                    ""Content"": ""Same here. Busy day!"",
+                    ""GroupName"": ""General"",
+                    ""IsRead"": true
+                },
+                {
+                    ""SenderId"": ""2"",
+                    ""SenderAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                    ""Sender"": {
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
+                        ""ImageUrl"": """"
+                    },
+                    ""RecipientId"": ""1"",
+                    ""RecipientAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                    ""Recipient"": {
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
+                        ""ImageUrl"": """"
+                    },
+                    ""Content"": ""Let's catch up later."",
+                    ""GroupName"": ""General"",
+                    ""IsRead"": true
+                },
+                {
+                    ""SenderId"": ""1"",
+                    ""SenderAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                    ""Sender"": {
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
+                        ""ImageUrl"": """"
+                    },
+                    ""RecipientId"": ""2"",
+                    ""RecipientAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                    ""Recipient"": {
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
+                        ""ImageUrl"": """"
+                    },
+                    ""Content"": ""Sure, talk to you soon."",
+                    ""GroupName"": ""General"",
+                    ""IsRead"": true
+                },
+                {
+                    ""SenderId"": ""2"",
+                    ""SenderAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                    ""Sender"": {
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
+                        ""ImageUrl"": """"
+                    },
+                    ""RecipientId"": ""1"",
+                    ""RecipientAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                    ""Recipient"": {
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
+                        ""ImageUrl"": """"
+                    },
+                    ""Content"": ""Goodbye!"",
+                    ""GroupName"": ""General"",
+                    ""IsRead"": true
+                },
+                {
+                    ""SenderId"": ""1"",
+                    ""SenderAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                    ""Sender"": {
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
+                        ""ImageUrl"": """"
+                    },
+                    ""RecipientId"": ""2"",
+                    ""RecipientAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                    ""Recipient"": {
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
+                        ""ImageUrl"": """"
+                    },
+                    ""Content"": ""Take care!"",
+                    ""GroupName"": ""General"",
+                    ""IsRead"": true
+                },
+                {
+                    ""SenderId"": ""2"",
+                    ""SenderAccountId"": ""49b640c0-95ed-44b3-86ec-b45dffd032c6"",
+                    ""Sender"": {
+                        ""FirstName"": ""John"",
+                        ""LastName"": ""Doe"",
+                        ""ImageUrl"": """"
+                    },
+                    ""RecipientId"": ""1"",
+                    ""RecipientAccountId"": ""232ba7d0-e9b4-4c62-8320-5478443704cc"",
+                    ""Recipient"": {
+                        ""FirstName"": ""Alice"",
+                        ""LastName"": ""Smith"",
+                        ""ImageUrl"": """"
+                    },
+                    ""Content"": ""You too!"",
+                    ""GroupName"": ""General"",
+                    ""IsRead"": true
                 }
             ]";
 
@@ -258,42 +454,10 @@ public class MessageSeed(ILogger logger)
                 Name = "General",
                 Connections =
                 [
-                    new("1", "013C9F7E-0C59-458F-82BA-11780A20EDBF"),
-                    new("2", "D3059221-324E-4932-A241-2CC29A48B001")
+                    new("1", "49b640c0-95ed-44b3-86ec-b45dffd032c6"),
+                    new("2", "232ba7d0-e9b4-4c62-8320-5478443704cc")
                 ]
             },
-            new() {
-                Name = "Work",
-                Connections =
-                [
-                    new("3", "mike_jones"),
-                    new("4", "emily_clark")
-                ]
-            },
-            new() {
-                Name = "Friends",
-                Connections =
-                [
-                    new("1", "013C9F7E-0C59-458F-82BA-11780A20EDBF"),
-                    new("4", "emily_clark")
-                ]
-            },
-            new() {
-                Name = "Family",
-                Connections =
-                [
-                    new("1", "013C9F7E-0C59-458F-82BA-11780A20EDBF"),
-                    new("3", "mike_jones")
-                ]
-            },
-            new() {
-                Name = "Gym Buddies",
-                Connections =
-                [
-                    new("2", "D3059221-324E-4932-A241-2CC29A48B001"),
-                    new("4", "emily_clark")
-                ]
-            }
         ];
     }
 
@@ -302,10 +466,8 @@ public class MessageSeed(ILogger logger)
     {
         return
         [
-            new("1", "013C9F7E-0C59-458F-82BA-11780A20EDBF"),
-            new("2", "D3059221-324E-4932-A241-2CC29A48B001"),
-            new("3", "mike_jones_account"),
-            new("4", "emily_clark_account")
+            new("1", "49b640c0-95ed-44b3-86ec-b45dffd032c6"),
+            new("2", "232ba7d0-e9b4-4c62-8320-5478443704cc"),
         ];
     }
 }

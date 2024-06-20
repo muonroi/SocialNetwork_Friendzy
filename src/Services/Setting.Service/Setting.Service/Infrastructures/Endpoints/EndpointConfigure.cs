@@ -1,12 +1,13 @@
-﻿namespace Setting.Service.Infrastructures.Endpoints;
+﻿using Setting.Application.Extension;
+namespace Setting.Service.Infrastructures.Endpoints;
 
 internal static class EndpointConfigure
 {
-    internal static IApplicationBuilder ConfigureEndpoints(this WebApplication app)
+    internal static IApplicationBuilder ConfigureEndpoints(this WebApplication app, IConfiguration configuration)
     {
         _ = app.UseMiddleware<GlobalExceptionMiddleware>();
 
-        //_ = app.UseAuthenticationMiddleware(configuration);
+        _ = app.UseAuthenticationMiddleware(configuration);
 
         _ = app.UseWorkContext();
 

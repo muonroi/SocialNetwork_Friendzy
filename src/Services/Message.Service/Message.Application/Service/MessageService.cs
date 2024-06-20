@@ -53,7 +53,7 @@ public class MessageService : MongoDbRepository<MessageEntry>, IMessageService
     }
 
     // Thêm tin nhắn
-    public async Task AddMessage(MessageEntry message)
+    public async Task AddMessageAsync(MessageEntry message)
     {
         await _messages.InsertOneAsync(message);
     }
@@ -61,6 +61,10 @@ public class MessageService : MongoDbRepository<MessageEntry>, IMessageService
     // Lấy chuỗi tin nhắn
     public async Task<IEnumerable<MessageResponse>> GetMessageThread(string currentAccountId, string recipientAccountId)
     {
+        FilterDefinition<MessageEntry> s = Builders<MessageEntry>.Filter.Where(m =>
+            (m.Recipient!.Id == currentAccountId && m.Sender!.Id == recipientAccountId) ||
+            (m.Recipient.Id == recipientAccountId && m.Sender!.Id == currentAccountId));
+        SortDefinition<MessageEntry> ss = Builders<MessageEntry>.Sort.Ascending(m => m.MessageSent);
         List<MessageEntry> messages = await _messages.Find(m =>
             (m.Recipient!.Id == currentAccountId && m.Sender!.Id == recipientAccountId) ||
             (m.Recipient.Id == recipientAccountId && m.Sender!.Id == currentAccountId))

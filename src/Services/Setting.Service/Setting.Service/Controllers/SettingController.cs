@@ -1,4 +1,7 @@
-﻿namespace Setting.Service.Controllers;
+﻿using Setting.Application.feature.v1.Commands;
+using Setting.Application.feature.v1.Queries.GetUserOnlineSettings;
+
+namespace Setting.Service.Controllers;
 
 [Route("api/v1/[controller]")]
 [ApiController]
@@ -8,10 +11,25 @@ public class SettingController(IMediator mediator) : ControllerBase
 
     [HttpGet("categories")]
     [ProducesResponseType(typeof(IEnumerable<CategoryDataModel>), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> GetCategory()
+    public async Task<IActionResult> GetCategory([FromQuery] GetCategoryQuery request)
     {
-        GetCategoryQuery request = new(Settings.Category);
         ApiResult<IEnumerable<CategoryDataModel>> result = await _mediator.Send(request).ConfigureAwait(false);
+        return Ok(result);
+    }
+
+    [HttpGet("user-online")]
+    [ProducesResponseType(typeof(UserOnlineModel), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetUserOnline([FromQuery] GetUserOnlineQuery request)
+    {
+        ApiResult<UserOnlineModel> result = await _mediator.Send(request).ConfigureAwait(false);
+        return Ok(result);
+    }
+
+    [HttpPost]
+    [ProducesResponseType(typeof(UserOnlineModel), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> CreateSetting([FromBody] CreateSettingCommand request)
+    {
+        ApiResult<UserOnlineModel> result = await _mediator.Send(request).ConfigureAwait(false);
         return Ok(result);
     }
 }

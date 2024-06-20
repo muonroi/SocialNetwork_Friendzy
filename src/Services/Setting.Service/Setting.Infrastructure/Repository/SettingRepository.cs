@@ -17,4 +17,13 @@ public class SettingRepository<T, TK>(SettingDbContext dbContext, IUnitOfWork<Se
         _logger.Information($"END: GetSettingByKey RESULT --> {_serializeService.Serialize(result)} <-- ");
         return result;
     }
+
+    public async Task CreateSettingByType(T request, Expression<Func<T, bool>> expresion, CancellationToken cancellationToken)
+    {
+        _logger.Information($"BEGIN: CreateSettingByType REQUEST --> Expression<Func<T, bool>> expresion <--");
+
+        TK? result = await CreateAsync(request, cancellationToken);
+
+        _logger.Information($"END: CreateSettingByType RESULT --> {_serializeService.Serialize(result)} <-- ");
+    }
 }
