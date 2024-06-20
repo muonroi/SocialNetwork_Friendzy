@@ -15,6 +15,7 @@ public static class ConfigureService
         _ = services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
         _ = services.AddScoped<IAccountRepository, AccountRepository>();
         _ = services.AddScoped<IAccountRoleRepository, AccountRoleRepository>();
+        _ = services.AddScoped<IRoleRepository, RoleRepository>();
         _ = services.AddScoped<ISerializeService, SerializeService>();
         return services;
     }

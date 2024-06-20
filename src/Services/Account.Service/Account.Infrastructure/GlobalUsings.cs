@@ -22,4 +22,7 @@ global using Microsoft.EntityFrameworkCore.Migrations;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Serilog;
-global using System;
+global using System;global using System.Collections.Generic;
+global using Shared.Enums;
+global using System.Threading;
+global using Microsoft.Identity.Client;

@@ -11,5 +11,6 @@
   "UserHasRegisted": "Số điện thoại {0} đã được đăng kí",
   "UserUpdateFailed": "Cập nhật thông tin người dùng thất bại",
   "CreateAccountError": "Tạo tài khoản thất bại",
-  "InsertDistanceError": "Khoảng cách giữa bạn và người dùng khác không được lưu"
+  "InsertDistanceError": "Khoảng cách giữa bạn và người dùng khác không được lưu",
+  "RoleNotFound": "Không tìm thấy dữ liệu quyền người dùng"
 }

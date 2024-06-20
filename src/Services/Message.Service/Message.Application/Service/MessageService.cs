@@ -1,12 +1,4 @@
-﻿using AutoMapper;
-using Commons.Pagination;
-using Message.Application.Infrastructure.Dtos;
-using Message.Application.Service.Interfaces;
-using Message.Domain.Entities;
-using Message.Domain.Models;
-using MongoDB.Driver;
-
-namespace Message.Application.Service;
+﻿namespace Message.Application.Service;
 
 public class MessageService : MongoDbRepository<MessageEntry>, IMessageService
 {
@@ -21,7 +13,7 @@ public class MessageService : MongoDbRepository<MessageEntry>, IMessageService
         _mongoClient = mongoClient;
         _configuration = configuration;
         IMongoDatabase database = _mongoClient.GetDatabase(_configuration.GetConfigHelper(ConfigurationSetting.ConnectionMongoDbNameString));
-        _messages = database.GetCollection<MessageEntry>("Messages");
+        _messages = database.GetCollection<MessageEntry>("MessageEntry");
     }
 
     public async Task<MongoPagedList<MessageResponse>> GetMessagePageAsync(string userId, string friendId, int pageIndex, int pageSize)

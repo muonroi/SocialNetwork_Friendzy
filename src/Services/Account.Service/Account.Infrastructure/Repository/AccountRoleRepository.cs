@@ -12,25 +12,17 @@ public class AccountRoleRepository(IMapper mapper, AccountDbContext dbContext, I
 
     public async Task<bool> AssignAccountToRoleId(Guid accountId, Guid roleId, CancellationToken cancellationToken)
     {
-        try
+        _logger.Information($"BEGIN: CreateAccountAsync REQUEST --> {_serializeService.Serialize(new { accountId, roleId })} <-- REQUEST");
+        _ = await CreateAsync(new AccountRolesEntity
         {
-            _logger.Information($"BEGIN: CreateAccountAsync REQUEST --> {_serializeService.Serialize(new { accountId, roleId })} <-- REQUEST");
-            _ = await CreateAsync(new AccountRolesEntity
-            {
-                AccountId = accountId,
-                RoleId = roleId
-            }, cancellationToken);
+            AccountId = accountId,
+            RoleId = roleId
+        }, cancellationToken);
 
-            int result = await SaveChangesAsync();
+        int result = await SaveChangesAsync();
 
-            _logger.Information($"END: CreateAccountAsync RESULT --> {_serializeService.Serialize(result)} <-- ");
+        _logger.Information($"END: CreateAccountAsync RESULT --> {_serializeService.Serialize(result)} <-- ");
 
-            return result > 0;
-        }
-        catch (Exception ex)
-        {
-            _ = ex.Message;
-            throw;
-        }
+        return result > 0;
     }
 }

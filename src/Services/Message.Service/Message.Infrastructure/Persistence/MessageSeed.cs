@@ -51,15 +51,17 @@ public class MessageSeed(ILogger logger)
         string messagesJson = @"[
                 {
                     ""SenderId"": ""1"",
-                    ""SenderAccountId"": ""john_doe_account"",
+                    ""SenderAccountId"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
                     ""Sender"": {
+                        ""Id"": ""D3059221-324E-4932-A241-2CC29A48B001"",
                         ""FirstName"": ""John"",
                         ""LastName"": ""Doe"",
                         ""ImageUrl"": """"
                     },
                     ""RecipientId"": ""2"",
-                    ""RecipientAccountId"": ""alice_smith_account"",
+                    ""RecipientAccountId"": ""D3059221-324E-4932-A241-2CC29A48B001"",
                     ""Recipient"": {
+                        ""Id"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
                         ""FirstName"": ""Alice"",
                         ""LastName"": ""Smith"",
                         ""ImageUrl"": """"
@@ -68,15 +70,17 @@ public class MessageSeed(ILogger logger)
                 },
                 {
                     ""SenderId"": ""2"",
-                    ""SenderAccountId"": ""alice_smith_account"",
+                    ""SenderAccountId"": ""D3059221-324E-4932-A241-2CC29A48B001"",
                     ""Sender"": {
+                        ""Id"": ""D3059221-324E-4932-A241-2CC29A48B001"",
                         ""FirstName"": ""Alice"",
                         ""LastName"": ""Smith"",
                         ""ImageUrl"": """"
                     },
                     ""RecipientId"": ""1"",
-                    ""RecipientAccountId"": ""john_doe_account"",
+                    ""RecipientAccountId"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
                     ""Recipient"": {
+                        ""Id"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
                         ""FirstName"": ""John"",
                         ""LastName"": ""Doe"",
                         ""ImageUrl"": """"
@@ -119,14 +123,14 @@ public class MessageSeed(ILogger logger)
                 },
                 {
                     ""SenderId"": ""1"",
-                    ""SenderAccountId"": ""john_doe_account"",
+                    ""SenderAccountId"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
                     ""Sender"": {
                         ""FirstName"": ""John"",
                         ""LastName"": ""Doe"",
                         ""ImageUrl"": """"
                     },
                     ""RecipientId"": ""4"",
-                    ""RecipientAccountId"": ""emily_clark_account"",
+                    ""RecipientAccountId"": ""emily_clark"",
                     ""Recipient"": {
                         ""FirstName"": ""Emily"",
                         ""LastName"": ""Clark"",
@@ -146,14 +150,14 @@ public class MessageSeed(ILogger logger)
         string chatsJson = @"[
                 {
                     ""SenderId"": ""1"",
-                    ""SenderUsername"": ""john_doe"",
+                    ""SenderAccountId"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
                     ""Sender"": {
                         ""FirstName"": ""John"",
                         ""LastName"": ""Doe"",
                         ""ImageUrl"": """"
                     },
                     ""RecipientId"": ""2"",
-                    ""RecipientUsername"": ""alice_smith"",
+                    ""RecipienAccountId"": ""D3059221-324E-4932-A241-2CC29A48B001"",
                     ""Recipient"": {
                         ""FirstName"": ""Alice"",
                         ""LastName"": ""Smith"",
@@ -165,14 +169,14 @@ public class MessageSeed(ILogger logger)
                 },
                 {
                     ""SenderId"": ""2"",
-                    ""SenderUsername"": ""alice_smith"",
+                    ""SenderAccountId"": ""D3059221-324E-4932-A241-2CC29A48B001"",
                     ""Sender"": {
                         ""FirstName"": ""Alice"",
                         ""LastName"": ""Smith"",
                         ""ImageUrl"": """"
                     },
                     ""RecipientId"": ""1"",
-                    ""RecipientUsername"": ""john_doe"",
+                    ""RecipienAccountId"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
                     ""Recipient"": {
                         ""FirstName"": ""John"",
                         ""LastName"": ""Doe"",
@@ -184,14 +188,14 @@ public class MessageSeed(ILogger logger)
                 },
                 {
                     ""SenderId"": ""3"",
-                    ""SenderUsername"": ""mike_jones"",
+                    ""SenderAccountId"": ""mike_jones"",
                     ""Sender"": {
                         ""FirstName"": ""Mike"",
                         ""LastName"": ""Jones"",
                         ""ImageUrl"": """"
                     },
                     ""RecipientId"": ""4"",
-                    ""RecipientUsername"": ""emily_clark"",
+                    ""RecipienAccountId"": ""emily_clark"",
                     ""Recipient"": {
                         ""FirstName"": ""Emily"",
                         ""LastName"": ""Clark"",
@@ -203,14 +207,14 @@ public class MessageSeed(ILogger logger)
                 },
                 {
                     ""SenderId"": ""4"",
-                    ""SenderUsername"": ""emily_clark"",
+                    ""SenderAccountId"": ""emily_clark"",
                     ""Sender"": {
                         ""FirstName"": ""Emily"",
                         ""LastName"": ""Clark"",
                         ""ImageUrl"": """"
                     },
                     ""RecipientId"": ""3"",
-                    ""RecipientUsername"": ""mike_jones"",
+                    ""RecipienAccountId"": ""mike_jones"",
                     ""Recipient"": {
                         ""FirstName"": ""Mike"",
                         ""LastName"": ""Jones"",
@@ -222,14 +226,14 @@ public class MessageSeed(ILogger logger)
                 },
                 {
                     ""SenderId"": ""1"",
-                    ""SenderUsername"": ""john_doe"",
+                    ""SenderAccountId"": ""013C9F7E-0C59-458F-82BA-11780A20EDBF"",
                     ""Sender"": {
                         ""FirstName"": ""John"",
                         ""LastName"": ""Doe"",
                         ""ImageUrl"": """"
                     },
                     ""RecipientId"": ""4"",
-                    ""RecipientUsername"": ""emily_clark"",
+                    ""RecipienAccountId"": ""emily_clark"",
                     ""Recipient"": {
                         ""FirstName"": ""Emily"",
                         ""LastName"": ""Clark"",
@@ -254,8 +258,8 @@ public class MessageSeed(ILogger logger)
                 Name = "General",
                 Connections =
                 [
-                    new("1", "john_doe"),
-                    new("2", "alice_smith")
+                    new("1", "013C9F7E-0C59-458F-82BA-11780A20EDBF"),
+                    new("2", "D3059221-324E-4932-A241-2CC29A48B001")
                 ]
             },
             new() {
@@ -270,7 +274,7 @@ public class MessageSeed(ILogger logger)
                 Name = "Friends",
                 Connections =
                 [
-                    new("1", "john_doe"),
+                    new("1", "013C9F7E-0C59-458F-82BA-11780A20EDBF"),
                     new("4", "emily_clark")
                 ]
             },
@@ -278,7 +282,7 @@ public class MessageSeed(ILogger logger)
                 Name = "Family",
                 Connections =
                 [
-                    new("1", "john_doe"),
+                    new("1", "013C9F7E-0C59-458F-82BA-11780A20EDBF"),
                     new("3", "mike_jones")
                 ]
             },
@@ -286,7 +290,7 @@ public class MessageSeed(ILogger logger)
                 Name = "Gym Buddies",
                 Connections =
                 [
-                    new("2", "alice_smith"),
+                    new("2", "D3059221-324E-4932-A241-2CC29A48B001"),
                     new("4", "emily_clark")
                 ]
             }
@@ -298,8 +302,8 @@ public class MessageSeed(ILogger logger)
     {
         return
         [
-            new("1", "john_doe_account"),
-            new("2", "alice_smith_account"),
+            new("1", "013C9F7E-0C59-458F-82BA-11780A20EDBF"),
+            new("2", "D3059221-324E-4932-A241-2CC29A48B001"),
             new("3", "mike_jones_account"),
             new("4", "emily_clark_account")
         ];

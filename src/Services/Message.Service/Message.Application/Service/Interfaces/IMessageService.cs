@@ -1,9 +1,4 @@
-﻿using Commons.Pagination;
-using Message.Application.Infrastructure.Dtos;
-using Message.Domain.Entities;
-using Message.Domain.Models;
-
-namespace Message.Application.Service.Interfaces;
+﻿namespace Message.Application.Service.Interfaces;
 
 public interface IMessageService : IMongoDbRepositoryBase<MessageEntry>
 {

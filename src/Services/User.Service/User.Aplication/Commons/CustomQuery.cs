@@ -86,7 +86,8 @@ public static class CustomQuery
                             u.AvatarUrl,
                             u.PhoneNumber,
                             u.AccountGuid,
-                            u.CategoryId
+                            u.CategoryId,
+                            u.LastModifiedDateTs
                         FROM Users u
                     ),
 
@@ -113,7 +114,8 @@ public static class CustomQuery
                         AvatarUrl,
                         PhoneNumber,
                         AccountGuid,
-                        CategoryId
+                        CategoryId,
+                        LastModifiedDateTs
                     FROM FilteredUserInfo
                     ORDER BY Id -- Sắp xếp theo Id, có thể thay đổi nếu cần
                                         OFFSET (@PageNumber - 1) * @PageSize ROWS

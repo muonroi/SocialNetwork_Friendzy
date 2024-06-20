@@ -1,13 +1,15 @@
 ﻿namespace Account.Application.Feature.v1.Accounts.Commands.CreateAccountCommand;
 
 public class CreateAccountCommandHandler(
-GrpcClientFactory grpcClientFactory, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, JwtBearerConfig jwtBearerConfig) : IRequestHandler<CreateAccountCommand, ApiResult<CreateAccountCommandResponse>>
+GrpcClientFactory grpcClientFactory, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IRoleRepository roleRepository, JwtBearerConfig jwtBearerConfig) : IRequestHandler<CreateAccountCommand, ApiResult<CreateAccountCommandResponse>>
 {
     private readonly IAccountRepository _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
 
     private readonly IAccountRoleRepository _accountRoleRepository = accountRoleRepository ?? throw new ArgumentNullException(nameof(accountRoleRepository));
 
     private readonly JwtBearerConfig _jwtBearerConfig = jwtBearerConfig ?? throw new ArgumentNullException(nameof(jwtBearerConfig));
+
+    private readonly IRoleRepository _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
 
     private readonly AuthenticateVerifyClient _authenticateClient =
    grpcClientFactory.CreateClient<AuthenticateVerifyClient>(ServiceConstants.AuthenticateService);
@@ -32,21 +34,22 @@ GrpcClientFactory grpcClientFactory, IAccountRepository accountRepository, IAcco
         };
         _ = await _accountRepository.UpdateAccountAsync(accountIdCreated, accountDto, cancellationToken);
 
-        //assign account to role user
-        //E897718A-9D7E-4AAA-1E81-08DC8DAB5820
-        //F9E297B9-15D2-4DD6-61FC-08DC781F4659
-        //D4265F27-F492-4E71-0A71-08DC8EA27BA1 //company
-        _ = await _accountRoleRepository.AssignAccountToRoleId(accountIdCreated, Guid.Parse("D4265F27-F492-4E71-0A71-08DC8EA27BA1"), cancellationToken); // edit after, this is role user hardcode
+        RoleDTO? roleInfo = await _roleRepository.GetRoleByRoleName(RoleConstants.User, cancellationToken);
+        if (roleInfo is null)
+        {
+            return new ApiErrorResult<CreateAccountCommandResponse>(nameof(AccountErrorMessage.RoleNotFound), StatusCodes.Status404NotFound);
+        }
 
-        CreateAccountCommandResponse? result = new()
+        _ = await _accountRoleRepository.AssignAccountToRoleId(accountIdCreated, roleInfo.RoleId, cancellationToken);
+
+        CreateAccountCommandResponse result = new()
         {
             AccountId = accountIdCreated,
             AccessToken = tokenResult.AccessToken,
             RefreshToken = tokenResult.RefreshToken,
         };
-        return result is null
-            ? new ApiErrorResult<CreateAccountCommandResponse>()
-            : new ApiSuccessResult<CreateAccountCommandResponse>(result);
+
+        return new ApiSuccessResult<CreateAccountCommandResponse>(result);
     }
 
     private async Task<GenerateTokenReply> GenerateToken(CreateAccountCommand request, Guid accountId, CancellationToken cancellationToken)

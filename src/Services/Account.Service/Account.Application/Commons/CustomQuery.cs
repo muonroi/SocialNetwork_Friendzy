@@ -58,4 +58,15 @@ public static class CustomQuery
                                                     a.IsEmailVerified,
                                                     a.Status;
                                                 ";
+
+    public const string GetAllRoles = @"       SELECT
+                                                    r.Id AS RoleId,
+                                                    r.Name AS RoleName
+                                                FROM RoleEntities r ";
+
+    public const string GetRoleByRoleName = @"       SELECT
+                                                    r.Id AS RoleId,
+                                                    r.Name AS RoleName
+                                                FROM RoleEntities r
+                                                WHERE r.Name = @roleName";
 }

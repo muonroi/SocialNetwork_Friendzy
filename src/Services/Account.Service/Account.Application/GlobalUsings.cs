@@ -45,4 +45,6 @@ global using System.Threading;
 global using System.Threading.Tasks;
 global
 using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
-global using static Authenticate.Verify.Service.AuthenticateVerify;
+global using static Authenticate.Verify.Service.AuthenticateVerify;global using System.Linq;
+global using System.Text;
+global using Minio;

@@ -7,7 +7,7 @@ public class MessageHub(IMessageService messageService) : Hub
     public override async Task OnConnectedAsync()
     {
         HttpContext? httpContext = Context.GetHttpContext();
-        string otherUser = httpContext!.Request.Query["user"].ToString();
+        string otherUser = httpContext!.Request.Query["friendId"].ToString();
         string groupName = GetGroupName(Context.UserIdentifier!, otherUser);
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
         IEnumerable<MessageResponse> messages = await _messageService.GetMessageThread(Context.UserIdentifier!, otherUser);
