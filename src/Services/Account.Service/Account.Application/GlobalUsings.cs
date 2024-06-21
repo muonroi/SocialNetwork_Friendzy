@@ -48,3 +48,4 @@ using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
 global using static Authenticate.Verify.Service.AuthenticateVerify;global using System.Linq;
 global using System.Text;
 global using Minio;
+global using Newtonsoft.Json;

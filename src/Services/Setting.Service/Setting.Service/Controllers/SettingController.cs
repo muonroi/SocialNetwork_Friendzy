@@ -1,5 +1,5 @@
-﻿using Setting.Application.feature.v1.Commands;
-using Setting.Application.feature.v1.Queries.GetUserOnlineSettings;
+﻿
+
 
 namespace Setting.Service.Controllers;
 
@@ -18,10 +18,10 @@ public class SettingController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet("user-online")]
-    [ProducesResponseType(typeof(UserOnlineModel), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IEnumerable<UserOnlineModel>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> GetUserOnline([FromQuery] GetUserOnlineQuery request)
     {
-        ApiResult<UserOnlineModel> result = await _mediator.Send(request).ConfigureAwait(false);
+        ApiResult<IEnumerable<UserOnlineModel>> result = await _mediator.Send(request).ConfigureAwait(false);
         return Ok(result);
     }
 

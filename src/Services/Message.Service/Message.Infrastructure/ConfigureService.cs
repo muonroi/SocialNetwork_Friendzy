@@ -1,4 +1,6 @@
-﻿namespace Message.Infrastructure;
+﻿
+
+namespace Message.Infrastructure;
 
 public static class ConfigureService
 {
@@ -8,7 +10,6 @@ public static class ConfigureService
         new MongoClient(GetConnectionMongoDbNameString(configuration)))
             .AddScoped(x => x.GetService<IMongoClient>()!.StartSession());
         _ = services.AddScoped<ISerializeService, SerializeService>();
-
         return services;
     }
 

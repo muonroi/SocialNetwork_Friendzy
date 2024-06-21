@@ -1,4 +1,6 @@
-﻿namespace Account.Application.Helper;
+﻿
+
+namespace Account.Application.Helper;
 
 public class PresenceTracker(IServiceProvider serviceProvider)
 {
@@ -8,22 +10,34 @@ public class PresenceTracker(IServiceProvider serviceProvider)
 
     public async Task<bool> UserConnected(Guid accountId, string connectionId, CancellationToken cancellationToken)
     {
+        // Tạo scope cho dịch vụ
         using IServiceScope scope = _serviceProvider.CreateScope();
+
+        // Lấy repository tài khoản và client API
         IAccountRepository accountRepository = scope.ServiceProvider.GetRequiredService<IAccountRepository>();
         IApiExternalClient externalClient = scope.ServiceProvider.GetRequiredService<IApiExternalClient>();
+
+        // Lấy thông tin người dùng online từ API bên ngoài
         ExternalApiResponse<IEnumerable<UserDataModel>> userOnlineResult = await externalClient.GetUsersAsync(accountId.ToString(), cancellationToken);
+
+        // Lấy thông tin tài khoản từ repository
         AccountDTO? accountInfo = await accountRepository.GetAccountByIdAsync(accountId, cancellationToken);
+
+        // Kiểm tra tài khoản có tồn tại không
         if (accountInfo == null)
         {
             return false;
         }
+
+        // Cập nhật trạng thái tài khoản
         accountInfo.Status = AccountStatus.Online;
         bool result = await accountRepository.UpdateAccountAsync(accountId, accountInfo, cancellationToken);
+
+        // Cập nhật danh sách người dùng online
         lock (OnlineUsersList)
         {
             if (OnlineUsersList.TryGetValue(accountId, out List<string>? value))
             {
-
                 value.Add(connectionId);
             }
             else
@@ -31,6 +45,14 @@ public class PresenceTracker(IServiceProvider serviceProvider)
                 OnlineUsersList.Add(accountId, [connectionId]);
             }
         }
+
+        await externalClient.SetNumberUserOnline(new SettingRequestModel
+        {
+            Name = nameof(SettingsConfig.UserOnline),
+            Description = "Current User online",
+            Content = JsonConvert.SerializeObject(new UserOnlineModel { Key = accountId.ToString(), Value = OnlineUsersList[accountId] })
+        }, cancellationToken);
+
         return result;
     }
 
@@ -106,6 +128,8 @@ public class PresenceTracker(IServiceProvider serviceProvider)
             string accountIdsRequest = string.Join(",", friendAccountIds);
 
             ExternalApiResponse<IEnumerable<UserDataModel>> usersResponse = await externalClient.GetUsersAsync(accountIdsRequest, CancellationToken.None);
+
+
 
             if (usersResponse?.Data == null)
             {

@@ -1,9 +1,8 @@
-﻿namespace ExternalAPI.Models
-{
-    public class UserOnlineModel
-    {
-        public string Key { get; set; } = string.Empty;
+﻿namespace ExternalAPI.Models;
 
-        public string Value { get; set; } = string.Empty;
-    }
+public class UserOnlineModel
+{
+    public string Key { get; set; } = string.Empty;
+
+    public IEnumerable<string> Value { get; set; } = [];
 }

@@ -7,6 +7,7 @@ public static class ServiceExtension
     {
         _ = configuration.ToBase64();
         _ = services.AddInternalService();
+        _ = services.AddSingleton<PresenceTracker>();
         _ = services.AddTransient(typeof(GrpcConfigClientFactory<>));
         _ = services.AddGrpcClientServices(configuration, environment);
         _ = services.AddApiIntegration(configuration);
@@ -15,6 +16,7 @@ public static class ServiceExtension
         _ = services.AddScoped<IMessageService, MessageService>();
         _ = services.AddScoped<IGroupService, GroupService>();
         _ = services.AddScoped<IConnectionService, ConnectionService>();
+        _ = services.AddScoped<ILastMessageChatService, LastMessageChatService>();
         return services;
     }
 

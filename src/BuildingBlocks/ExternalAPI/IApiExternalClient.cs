@@ -33,11 +33,15 @@ public interface IApiExternalClient
     [Get]
     Task<ExternalApiResponse<IEnumerable<FriendMatchedDataModel>>> GetFriendsUserById([Query] long userId, int action, CancellationToken cancellationtoken);
 
-    [Header(HeaderConstants.MethodKey, "user-online")]
+    [Header(HeaderConstants.MethodKey, "get-user-online")]
     [Get]
-    Task<ExternalApiResponse<bool>> GetTotalUserOnline([Query] int type, CancellationToken cancellationtoken);
+    Task<ExternalApiResponse<IEnumerable<UserOnlineModel>>> GetUsersOnline([Query] int type, CancellationToken cancellationtoken);
 
     [Header(HeaderConstants.MethodKey, "set-user-online")]
     [Post]
-    Task<ExternalApiResponse<bool>> SetNumberUserOnline([Body] SettingRequestModel requestModel, CancellationToken cancellationtoken);
+    Task<ExternalApiResponse<UserOnlineModel>> SetNumberUserOnline([Body] SettingRequestModel requestModel, CancellationToken cancellationtoken);
+
+    [Header(HeaderConstants.MethodKey, "push-noti-text")]
+    [Post]
+    Task<ExternalApiResponse<UserOnlineModel>> PushNotificationMessageText([Body] PushNotificationMessageTextHub request, CancellationToken cancellationtoken);
 }

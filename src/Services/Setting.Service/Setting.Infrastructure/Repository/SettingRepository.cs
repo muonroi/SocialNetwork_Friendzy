@@ -8,17 +8,17 @@ public class SettingRepository<T, TK>(SettingDbContext dbContext, IUnitOfWork<Se
 
     public async Task<T?> GetSettingByType(Expression<Func<T, bool>> expresion)
     {
-        _logger.Information($"BEGIN: GetSettingByKey REQUEST --> Expression<Func<T, bool>> expresion <--");
+        _logger.Information($"BEGIN: GetSettingByType REQUEST --> Expression<Func<T, bool>> expresion <--");
         T? result = await FindObjectByCondition(expresion);
         if (result is null)
         {
             return null;
         }
-        _logger.Information($"END: GetSettingByKey RESULT --> {_serializeService.Serialize(result)} <-- ");
+        _logger.Information($"END: GetSettingByType RESULT --> {_serializeService.Serialize(result)} <-- ");
         return result;
     }
 
-    public async Task CreateSettingByType(T request, Expression<Func<T, bool>> expresion, CancellationToken cancellationToken)
+    public async Task CreateSettingByType(T request, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: CreateSettingByType REQUEST --> Expression<Func<T, bool>> expresion <--");
 

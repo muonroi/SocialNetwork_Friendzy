@@ -25,3 +25,5 @@ global using Microsoft.AspNetCore.Mvc;
 global using Serilog;
 global using Shared.SeedWorks;
 global using System.Net;global using Account.Application.Commons.Interfaces;
+global using Microsoft.AspNetCore.SignalR;
+global using ExternalAPI.Models;

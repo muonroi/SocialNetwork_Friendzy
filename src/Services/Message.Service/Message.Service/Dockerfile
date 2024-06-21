@@ -3,15 +3,23 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Services/Message.Service/Message.Service/Message.Service.csproj", "src/Services/Message.Service/Message.Service/"]
-RUN dotnet restore "./src/Services/Message.Service/Message.Service/Message.Service.csproj"
+COPY ["Services/Message.Service/Message.Service/Message.Service.csproj", "Services/Message.Service/Message.Service/"]
+COPY ["BuildingBlocks/Commons/Commons.csproj", "BuildingBlocks/Commons/"]
+COPY ["BuildingBlocks/Infrastructure/Infrastructure.csproj", "BuildingBlocks/Infrastructure/"]
+COPY ["BuildingBlocks/Contracts/Contracts.csproj", "BuildingBlocks/Contracts/"]
+COPY ["BuildingBlocks/Shared/Shared.csproj", "BuildingBlocks/Shared/"]
+COPY ["Services/Message.Service/Message.Infrastructure/Message.Infrastructure.csproj", "Services/Message.Service/Message.Infrastructure/"]
+COPY ["Services/Message.Service/Message.Application/Message.Application.csproj", "Services/Message.Service/Message.Application/"]
+COPY ["BuildingBlocks/ExternalAPI/ExternalAPI.csproj", "BuildingBlocks/ExternalAPI/"]
+COPY ["Services/Message.Service/Message.Domain/Message.Domain.csproj", "Services/Message.Service/Message.Domain/"]
+RUN dotnet restore "./Services/Message.Service/Message.Service/Message.Service.csproj"
 COPY . .
-WORKDIR "/src/src/Services/Message.Service/Message.Service"
+WORKDIR "/src/Services/Message.Service/Message.Service"
 RUN dotnet build "./Message.Service.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish

@@ -1,10 +1,16 @@
-﻿namespace Account.Service.Controller;
+﻿
+
+
+
+namespace Account.Service.Controller;
 
 [Route("api/v1/[controller]")]
 [ApiController]
-public class AccountController(IMediator mediator) : ControllerBase
+public class AccountController(IMediator mediator, IHubContext<StatusAccountHub> statusAccountHub) : ControllerBase
 {
     private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+
+    private readonly IHubContext<StatusAccountHub> _statusAccountHub = statusAccountHub ?? throw new ArgumentNullException(nameof(statusAccountHub));
 
     [HttpGet("paging")]
     [ProducesResponseType(typeof(ApiResult<IEnumerable<GetAccountsQueryResponse>>), (int)HttpStatusCode.OK)]
@@ -38,6 +44,14 @@ public class AccountController(IMediator mediator) : ControllerBase
     {
         ApiResult<VerifyAccountCommandResponse> result = await _mediator.Send(request).ConfigureAwait(false);
         return Ok(result);
+    }
+
+    [HttpPost("send-notification-text")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> SendNotificationMessage([FromBody] PushNotificationMessageTextHub request)
+    {
+        await _statusAccountHub.Clients.All.SendAsync("NewMessageReceived", request.AccountId, request.MessageText);
+        return Ok();
     }
 
     #endregion Command

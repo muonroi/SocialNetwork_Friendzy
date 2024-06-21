@@ -1,9 +1,6 @@
-﻿using ExternalAPI.Models;
-using Message.Application.Infrastructure.Helper;
+﻿namespace Message.Application.Infrastructure.Hubs;
 
-namespace Message.Application.Infrastructure.Hubs;
-
-public class MessageHub(IMessageService messageService, IGroupService groupService, ILastMessageChatService lastMessageChatService, PresenceTracker presenceTracker, IMapper mapper) : Hub
+public class MessageHub(IMessageService messageService, IGroupService groupService, ILastMessageChatService lastMessageChatService, PresenceTracker presenceTracker, IMapper mapper, IServiceProvider serviceProvider) : Hub
 {
     private readonly IGroupService _groupService = groupService;
 
@@ -15,6 +12,8 @@ public class MessageHub(IMessageService messageService, IGroupService groupServi
 
     private readonly PresenceTracker _presenceTracker = presenceTracker;
 
+    private readonly IServiceProvider _serviceProvider = serviceProvider;
+
 
     public override async Task OnConnectedAsync()
     {
@@ -22,6 +21,8 @@ public class MessageHub(IMessageService messageService, IGroupService groupServi
         string otherUser = httpContext!.Request.Query["friendId"].ToString();
         string groupName = GetGroupName(Context.UserIdentifier!, otherUser);
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+        await AddToGroup(groupName);
+
         IEnumerable<MessageResponse> messages = await _messageService.GetMessageThread(Context.UserIdentifier!, otherUser);
 
         await Clients.Caller.SendAsync("ReceiveMessageThread", messages);
@@ -29,6 +30,10 @@ public class MessageHub(IMessageService messageService, IGroupService groupServi
 
     public async Task SendMessage(CreateMessageDto createMessageDto)
     {
+        using IServiceScope scope = _serviceProvider.CreateScope();
+
+        IApiExternalClient externalClient = scope.ServiceProvider.GetRequiredService<IApiExternalClient>();
+
         string? currenAccountId = Context.UserIdentifier!;
 
         if (string.Equals(currenAccountId, createMessageDto.RecipientAccountId, StringComparison.CurrentCultureIgnoreCase))
@@ -76,13 +81,14 @@ public class MessageHub(IMessageService messageService, IGroupService groupServi
 
         await Clients.Group(groupName).SendAsync("NewMessage", _mapper.Map<MessageDto>(message));
 
-        var connections = await _presenceTracker.GetConnectionsForUser(createMessageDto.RecipientUsername);
+        IEnumerable<string>? connections = await _presenceTracker.GetCurrentConnectionUserOnline(Guid.Parse(createMessageDto.RecipientAccountId), new CancellationToken());
 
         if (connections != null)
         {
-            var user = await _unitOfWork.UserRepository.GetMemberAsync(currenAccountId);
+            ExternalApiResponse<UserDataModel> user = await externalClient.GetUserAsync(currenAccountId, CancellationToken.None);
+
             // gui tin hieu den RecipientUsername, de hien thi chatbox cua userName gui tin nhan
-            await _presenceHub.Clients.Clients(connections).SendAsync("NewMessageReceived", user, createMessageDto.Content);
+            await externalClient.PushNotificationMessageText(new PushNotificationMessageTextHub { AccountId = currenAccountId, MessageText = createMessageDto.Content }, CancellationToken.None);
         }
 
         ////send push notification to user when chat 1-1
@@ -140,6 +146,19 @@ public class MessageHub(IMessageService messageService, IGroupService groupServi
             };
             await _lastMessageChatService.AddAsync(lastMessageChat);
         }
+    }
+
+    private async Task AddToGroup(string groupName)
+    {
+        GroupEntry? group = await _groupService.GetMessageGroup(groupName);
+        ConnectionEntry connection = new(Context.ConnectionId, Context.UserIdentifier!);
+        if (group == null)
+        {
+            group = new GroupEntry(groupName);
+            await _groupService.AddGroup(group);
+        }
+        group.Connections.Add(connection);
+
     }
 
     public async Task ReadMessage(string accountId, string messageId)

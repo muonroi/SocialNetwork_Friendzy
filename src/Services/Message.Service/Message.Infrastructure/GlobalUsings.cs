@@ -3,7 +3,6 @@ global using Contracts.Commons.Interfaces;
 global using Infrastructure.Commons;
 global using Infrastructure.Helper;
 global using Message.Domain.Entities;
-global using Message.Domain.Models;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using MongoDB.Driver;

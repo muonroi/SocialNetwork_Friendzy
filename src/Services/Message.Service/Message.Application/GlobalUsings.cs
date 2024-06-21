@@ -31,3 +31,7 @@ global using Message.Application.Infrastructure.Dtos;
 global using Commons.Pagination;
 global using AutoMapper;
 global using MongoDB.Driver;
+global using Message.Application.Infrastructure.Helper;
+global using ExternalAPI.Models;
+global using Shared.Enums;
+global using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;

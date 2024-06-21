@@ -27,7 +27,7 @@ global using Setting.Application.Commons.Messages;
 global using Setting.Application.Extension;
 global using Setting.Application.feature.v1.ApiConfigService;
 global using Setting.Domain.Entities;
-global using Setting.Domain.Enums;
+global using Shared.Enums;
 global using Shared.SeedWorks;
 global using System;
 global using System.Collections.Generic;
