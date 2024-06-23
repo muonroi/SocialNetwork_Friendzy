@@ -12,13 +12,13 @@ public class VerifyAccountCommandHandler(
     private readonly PresenceTracker _presenceTracker = presenceTracker;
     private readonly JwtBearerConfig _jwtBearerConfig = jwtBearerConfig ?? throw new ArgumentNullException(nameof(jwtBearerConfig));
     private readonly IHubContext<StatusAccountHub> _statusAccount = statusAccount ?? throw new ArgumentNullException(nameof(statusAccount));
-
+    private readonly IAccountRepository _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
     private readonly AuthenticateVerifyClient _authenticateClient =
    grpcClientFactory.CreateClient<AuthenticateVerifyClient>(ServiceConstants.AuthenticateService);
 
     public async Task<ApiResult<VerifyAccountCommandResponse>> Handle(VerifyAccountCommand request, CancellationToken cancellationToken)
     {
-        AccountDTO? accountInfo = await accountRepository.GetAccountByIdAsync(request.Id, cancellationToken);
+        AccountDTO? accountInfo = await _accountRepository.GetAccountByIdAsync(request.Id, cancellationToken);
         if (accountInfo == null)
         {
             return new ApiErrorResult<VerifyAccountCommandResponse>(nameof(AccountErrorMessage.AccountNotFound), (int)StatusCode.NotFound);
@@ -52,8 +52,8 @@ public class VerifyAccountCommandHandler(
                     ProfileImages = request.ProfileImages.ToArray(),
                     AvatarUrl = request.AvatarUrl,
                     Gender = (int)request.Gender,
-                    BirthDate = request.Birthdate.ToDateTime(),
-                    LastModifiedDateTs = request.LastModifiedDateTs.ToDateTime(),
+                    BirthDate = request.Birthdate,
+                    LastModifiedDate = accountInfo.LastModifiedDate.DateTime,
                 };
                 currentUserModels.Add(currentUserModel);
 

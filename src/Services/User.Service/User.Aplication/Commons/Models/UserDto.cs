@@ -18,5 +18,12 @@ public record UserDto : IMapFrom<UserEntity>
     public long? BirthDate { get; set; }
     public Guid AccountGuid { get; set; }
     public IEnumerable<string> CategoryIds { get; set; } = [];
-    public long? LastModifiedDateTs { get; set; }
+    public long? LastModifiedDateTs => LastModifiedDate.GetTimeStamp();
+    public DateTime LastModifiedDate { get; set; } = DateTime.UtcNow;
+
+    public void Mapping(Profile profile)
+    {
+        _ = profile.CreateMap<UserEntity, UserDto>()
+               .ForMember(dest => dest.LastModifiedDate, opt => opt.Ignore());
+    }
 }

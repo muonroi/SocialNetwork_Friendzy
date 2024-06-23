@@ -1,8 +1,4 @@
-﻿
-
-
-
-namespace Account.Service.Controller;
+﻿namespace Account.Service.Controller;
 
 [Route("api/v1/[controller]")]
 [ApiController]
@@ -13,10 +9,10 @@ public class AccountController(IMediator mediator, IHubContext<StatusAccountHub>
     private readonly IHubContext<StatusAccountHub> _statusAccountHub = statusAccountHub ?? throw new ArgumentNullException(nameof(statusAccountHub));
 
     [HttpGet("paging")]
-    [ProducesResponseType(typeof(ApiResult<IEnumerable<GetAccountsQueryResponse>>), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> GetAccounts([FromQuery] GetAccountsQuery request)
+    [ProducesResponseType(typeof(ApiResult<IEnumerable<GetAccountsPagingQueryResponse>>), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetAccounts([FromQuery] GetAccountsPagingQuery request)
     {
-        ApiResult<IEnumerable<GetAccountsQueryResponse>> result = await _mediator.Send(request).ConfigureAwait(false);
+        ApiResult<IEnumerable<GetAccountsPagingQueryResponse>> result = await _mediator.Send(request).ConfigureAwait(false);
         return Ok(result);
     }
 
@@ -25,6 +21,14 @@ public class AccountController(IMediator mediator, IHubContext<StatusAccountHub>
     public async Task<IActionResult> GetAccount([FromQuery] GetAccountQuery request)
     {
         ApiResult<GetAccountQueryResponse> result = await _mediator.Send(request).ConfigureAwait(false);
+        return Ok(result);
+    }
+
+    [HttpGet("list")]
+    [ProducesResponseType(typeof(ApiResult<GetAccountQueryResponse>), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetAccounts([FromQuery] GetAccountsQuery request)
+    {
+        ApiResult<IEnumerable<GetAccountsQueryResponse>> result = await _mediator.Send(request).ConfigureAwait(false);
         return Ok(result);
     }
 
@@ -50,7 +54,7 @@ public class AccountController(IMediator mediator, IHubContext<StatusAccountHub>
     [ProducesResponseType((int)HttpStatusCode.OK)]
     public async Task<IActionResult> SendNotificationMessage([FromBody] PushNotificationMessageTextHub request)
     {
-        await _statusAccountHub.Clients.All.SendAsync("NewMessageReceived", request.AccountId, request.MessageText);
+        await _statusAccountHub.Clients.All.SendAsync("NewMessageReceived", request.MessageText, request.SenderAccountId, request.RecipientAccountId);
         return Ok();
     }
 

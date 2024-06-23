@@ -21,7 +21,7 @@ try
 
         _ = services.ConfigureJwtBearerToken(configuration);
 
-        _ = services.AddControllersConfig();
+        _ = services.AddControllers();
 
         _ = services.AddWorkContextAccessor();
 

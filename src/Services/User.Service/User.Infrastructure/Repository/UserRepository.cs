@@ -42,9 +42,9 @@ public class UserRepository(IMapper mapper, UserDbContext dbContext, IUnitOfWork
             CommandText = CustomQuery.GetUsersByInput,
             Parameters = new
             {
-                input,
-                pageNumber = pageIndex,
-                pageSize
+                Input = input,
+                PageNumber = pageIndex,
+                PageSize = pageSize
             },
         };
         IEnumerable<UserEntity>? rawResult = await _dapper.QueryAsync<UserEntity>(command.Build(cancellationToken));

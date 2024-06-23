@@ -6,7 +6,7 @@ public class GetAccountsQueryHandler(IAccountRepository accountRepository) : IRe
 
     public async Task<ApiResult<IEnumerable<GetAccountsQueryResponse>>> Handle(GetAccountsQuery request, CancellationToken cancellationToken)
     {
-        IEnumerable<AccountDTO>? accountResponse = await _accountRepository.GetAccountsAsync(cancellationToken, request.PageIndex, request.PageSize);
+        IEnumerable<AccountDTO>? accountResponse = await _accountRepository.GetAccountsAsync(request.Input, cancellationToken);
         if (accountResponse is null)
         {
             return new ApiErrorResult<IEnumerable<GetAccountsQueryResponse>>($"{AccountErrorMessage.AccountNotFound}", (int)HttpStatusCode.NotFound);
@@ -21,7 +21,8 @@ public class GetAccountsQueryHandler(IAccountRepository accountRepository) : IRe
             IsActive = account.IsActive,
             IsEmailVerified = account.IsEmailVerified,
             Status = account.Status,
-            Roles = account.Roles
+            Roles = account.Roles,
+            LastModifiedDate = account.LastModifiedDate.DateTime.GetTimeStamp(true)
         });
 
         return result is null

@@ -1,10 +1,12 @@
-﻿namespace Infrastructure.Commons;
+﻿using Shared.Models;
+
+namespace Infrastructure.Commons;
 
 public class WorkContextAccessor : IWorkContextAccessor
 {
-    private static readonly AsyncLocal<WorkContextInfoDTO?> LocalWorkContext = new();
+    private static readonly AsyncLocal<WorkContextInfoModel?> LocalWorkContext = new();
 
-    public WorkContextInfoDTO? WorkContext
+    public WorkContextInfoModel? WorkContext
     {
         get => LocalWorkContext.Value;
         set => LocalWorkContext.Value = value;

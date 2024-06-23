@@ -1,6 +1,7 @@
 ﻿namespace ExternalAPI.Models;
 public record PushNotificationMessageTextHub
 {
-    public string AccountId { get; set; } = string.Empty;
-    public string MessageText { get; set; } = string.Empty;
+    public required string MessageText { get; set; }
+    public required string SenderAccountId { get; set; }
+    public required string RecipientAccountId { get; set; }
 }

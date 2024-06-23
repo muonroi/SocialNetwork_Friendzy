@@ -17,3 +17,8 @@ global using Message.Service.Extensions;
 global using Message.Service.Infrastructure;
 global using Message.Service.Infrastructure.Endpoints;
 global using Serilog;
+global using Microsoft.AspNetCore.Mvc;
+global using Message.Application.Feature.v1.Query.GetLastMessages;
+global using MediatR;
+global using Microsoft.AspNetCore.Authorization;
+global using Shared.SeedWorks;

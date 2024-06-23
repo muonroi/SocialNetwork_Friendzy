@@ -44,4 +44,12 @@ public interface IApiExternalClient
     [Header(HeaderConstants.MethodKey, "push-noti-text")]
     [Post]
     Task<ExternalApiResponse<UserOnlineModel>> PushNotificationMessageText([Body] PushNotificationMessageTextHub request, CancellationToken cancellationtoken);
+
+    [Header(HeaderConstants.MethodKey, "account")]
+    [Get]
+    Task<ExternalApiResponse<AccountInfoModel>> GetAccount([Query] Guid accountId, CancellationToken cancellationtoken);
+
+    [Header(HeaderConstants.MethodKey, "accounts")]
+    [Get]
+    Task<ExternalApiResponse<IEnumerable<AccountInfoModel>>> GetAccounts([Query] string input, CancellationToken cancellationtoken);
 }

@@ -23,4 +23,6 @@ public class AccountDTO : IMapFrom<AccountEntity>
     public string RefreshToken { get; set; } = string.Empty;
 
     public double RefreshTokenExpiryTime { get; set; }
+
+    public DateTimeOffset LastModifiedDate { get; set; }
 }

@@ -7,7 +7,7 @@ internal static class EndpointConfigure
         IConfiguration s = configuration;
         _ = app.UseMiddleware<GlobalExceptionMiddleware>();
 
-        // _ = app.UseAuthenticationMiddleware(configuration);
+        //_ = app.UseAuthenticationMiddleware(configuration);
 
         _ = app.UseWorkContext();
 

@@ -1,6 +1,7 @@
 ﻿namespace Account.Application.Feature.v1.Accounts.Queries.GetAccount;
 
-public class GetAccountQueryHandler(IAccountRepository accountRepository) : IRequestHandler<GetAccountQuery, ApiResult<GetAccountQueryResponse>>
+public class GetAccountQueryHandler
+    (IAccountRepository accountRepository) : IRequestHandler<GetAccountQuery, ApiResult<GetAccountQueryResponse>>
 {
     private readonly IAccountRepository _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
 
@@ -21,7 +22,8 @@ public class GetAccountQueryHandler(IAccountRepository accountRepository) : IReq
             IsActive = accountResponse.IsActive,
             IsEmailVerified = accountResponse.IsEmailVerified,
             Status = accountResponse.Status,
-            Roles = accountResponse.Roles
+            Roles = accountResponse.Roles,
+            LastModifiedDate = accountResponse.LastModifiedDate.DateTime.GetTimeStamp(true)
         };
 
         return result is null

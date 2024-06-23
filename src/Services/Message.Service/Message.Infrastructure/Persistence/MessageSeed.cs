@@ -11,9 +11,9 @@ public class MessageSeed(ILogger logger)
 
         // Lấy các collection từ database
         IMongoCollection<MessageEntry> messageEntryCollection = database.GetCollection<MessageEntry>(nameof(MessageEntry));
-        IMongoCollection<LastMessageChatEntry> lastMessageChatEntryCollection = database.GetCollection<LastMessageChatEntry>(nameof(LastMessageChatEntry));
-        IMongoCollection<GroupEntry> groupEntryCollection = database.GetCollection<GroupEntry>(nameof(GroupEntry));
-        IMongoCollection<ConnectionEntry> connectionEntryCollection = database.GetCollection<ConnectionEntry>(nameof(ConnectionEntry));
+        IMongoCollection<LastMessageChatEntry> lastMessageChatEntryCollection = database.GetCollection<LastMessageChatEntry>("LastMessageChats");
+        IMongoCollection<GroupEntry> groupEntryCollection = database.GetCollection<GroupEntry>("Groups");
+        IMongoCollection<ConnectionEntry> connectionEntryCollection = database.GetCollection<ConnectionEntry>("Connections");
 
         try
         {

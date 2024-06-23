@@ -1,4 +1,6 @@
-﻿namespace SearchPartners.Service.Helpers;
+﻿using Shared.Models;
+
+namespace SearchPartners.Service.Helpers;
 
 public static class DistanceCalculatorHelper
 {
@@ -21,7 +23,7 @@ public static class DistanceCalculatorHelper
         return SearchPartnersConstants.EarthRadiusKm * distanceInRadians;
     }
 
-    public static List<CoordinateDTO> SortCoordinatesByDistance(double clientLat, double clientLon, List<CoordinateDTO> coordinates)
+    public static List<CoordinateModel> SortCoordinatesByDistance(double clientLat, double clientLon, List<CoordinateModel> coordinates)
     {
         coordinates.Sort((c1, c2) =>
         {

@@ -1,6 +1,6 @@
-﻿namespace Shared.DTOs;
+﻿namespace Shared.Models;
 
-public class CoordinateDTO
+public class CoordinateModel
 {
     public long UserId { get; set; }
 

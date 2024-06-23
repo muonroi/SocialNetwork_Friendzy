@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Configurations;
+﻿using Shared.Models;
+
+namespace Infrastructure.Configurations;
 
 public class GrpcClientInterceptor(Func<object?> workContextFunc) : GrpcCoreInterceptor
 {
@@ -74,33 +76,33 @@ public class GrpcClientInterceptor(Func<object?> workContextFunc) : GrpcCoreInte
     {
         object? workContextObj = _workContextFunc.Invoke();
         Metadata grpcMetadata = [];
-        WorkContextInfoDTO workContext = Convert(workContextObj);
+        WorkContextInfoModel workContext = Convert(workContextObj);
         if (string.IsNullOrEmpty(workContext.CorrelationId))
         {
             workContext.CorrelationId = Guid.NewGuid().ToString();
         }
 
-        grpcMetadata.Add(nameof(WorkContextInfoDTO.CorrelationId), workContext.CorrelationId);
-        grpcMetadata.Add(nameof(WorkContextInfoDTO.Caller), workContext.Caller ?? string.Empty);
-        grpcMetadata.Add(nameof(WorkContextInfoDTO.ClientIpAddr), workContext.ClientIpAddr ?? string.Empty);
-        grpcMetadata.Add(nameof(WorkContextInfoDTO.Username), workContext.Username);
+        grpcMetadata.Add(nameof(WorkContextInfoModel.CorrelationId), workContext.CorrelationId);
+        grpcMetadata.Add(nameof(WorkContextInfoModel.Caller), workContext.Caller ?? string.Empty);
+        grpcMetadata.Add(nameof(WorkContextInfoModel.ClientIpAddr), workContext.ClientIpAddr ?? string.Empty);
+        grpcMetadata.Add(nameof(WorkContextInfoModel.Username), workContext.Username);
         grpcMetadata.Add("Accept-Language", workContext.Language ?? "vi -VN");
-        grpcMetadata.Add(nameof(WorkContextInfoDTO.Roles), workContext.Roles);
-        grpcMetadata.Add(nameof(WorkContextInfoDTO.AgentCode), workContext.AgentCode);
-        grpcMetadata.Add(nameof(WorkContextInfoDTO.UserId), workContext.UserId.ToString());
+        grpcMetadata.Add(nameof(WorkContextInfoModel.Roles), workContext.Roles);
+        grpcMetadata.Add(nameof(WorkContextInfoModel.AgentCode), workContext.AgentCode);
+        grpcMetadata.Add(nameof(WorkContextInfoModel.UserId), workContext.UserId.ToString());
 
         CallOptions options = context.Options.WithHeaders(grpcMetadata);
         context = new ClientInterceptorContext<TRequest, TResponse>(context.Method, context.Host, options);
     }
 
-    private static WorkContextInfoDTO Convert(object? obj)
+    private static WorkContextInfoModel Convert(object? obj)
     {
         if (obj is null)
         {
-            return new WorkContextInfoDTO();
+            return new WorkContextInfoModel();
         }
 
-        WorkContextInfoDTO workContext = new();
+        WorkContextInfoModel workContext = new();
         System.Reflection.PropertyInfo[] contextProperties = obj.GetType().GetProperties();
 
         foreach (System.Reflection.PropertyInfo property in contextProperties)

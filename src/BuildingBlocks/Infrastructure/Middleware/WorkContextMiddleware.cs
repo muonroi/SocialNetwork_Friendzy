@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Middleware;
+﻿using Shared.Models;
+
+namespace Infrastructure.Middleware;
 
 public class WorkContextMiddleware(RequestDelegate next)
 {
@@ -7,26 +9,27 @@ public class WorkContextMiddleware(RequestDelegate next)
         IWorkContextAccessor accessor = context.RequestServices.GetRequiredService<IWorkContextAccessor>();
 
         IHeaderDictionary headers = context.Request.Headers;
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.CorrelationId), out StringValues correlationIds);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.Username), out StringValues usernames);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.CorrelationId), out StringValues correlationIds);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.Username), out StringValues usernames);
         _ = headers.TryGetValue("Accept-Language", out StringValues languages);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.Roles), out StringValues roles);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.AgentCode), out StringValues agentCodes);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.UserId), out StringValues userIds);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.FirstName), out StringValues firstNames);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.LastName), out StringValues lastNames);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.PhoneNumber), out StringValues phoneNumbers);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.RoleIds), out StringValues roleIds);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.EmailAddress), out StringValues emailAddresses);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.IsActive), out StringValues isActives);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.Balance), out StringValues balances);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.IsEmailVerify), out StringValues isEmailVerifies);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.AccountStatus), out StringValues accountStatuses);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.Currency), out StringValues currencies);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.AccountType), out StringValues accountTypes);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.IsAuthenticated), out StringValues isAuthenticateds);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.Latitude), out StringValues latitudes);
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.Longitude), out StringValues longitudes);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.Roles), out StringValues roles);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.AgentCode), out StringValues agentCodes);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.UserId), out StringValues userIds);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.FirstName), out StringValues firstNames);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.LastName), out StringValues lastNames);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.PhoneNumber), out StringValues phoneNumbers);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.RoleIds), out StringValues roleIds);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.EmailAddress), out StringValues emailAddresses);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.IsActive), out StringValues isActives);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.Balance), out StringValues balances);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.IsEmailVerify), out StringValues isEmailVerifies);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.AccountStatus), out StringValues accountStatuses);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.Currency), out StringValues currencies);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.AccountType), out StringValues accountTypes);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.IsAuthenticated), out StringValues isAuthenticateds);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.Latitude), out StringValues latitudes);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.Longitude), out StringValues longitudes);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.AccountId), out StringValues accountId);
 
         string clientIpAddr = context.GetRequestedIpAddress();
         string caller = context.GetHeaderUserAgent();
@@ -40,7 +43,7 @@ public class WorkContextMiddleware(RequestDelegate next)
         _ = int.TryParse(currencies.FirstOrDefault(), out int currency);
         _ = int.TryParse(accountTypes.FirstOrDefault(), out int accountType);
 
-        accessor.WorkContext = new WorkContextInfoDTO
+        accessor.WorkContext = new WorkContextInfoModel
         {
             CorrelationId = correlationIds.FirstOrDefault() ?? Guid.NewGuid().ToString(),
             ClientIpAddr = clientIpAddr,
@@ -63,7 +66,8 @@ public class WorkContextMiddleware(RequestDelegate next)
             AccountType = accountType,
             IsAuthenticated = isAuthenticated,
             Latitude = latitude,
-            Longitude = longitude
+            Longitude = longitude,
+            AccountId = accountId.FirstOrDefault() ?? string.Empty,
         };
 
         await next(context);

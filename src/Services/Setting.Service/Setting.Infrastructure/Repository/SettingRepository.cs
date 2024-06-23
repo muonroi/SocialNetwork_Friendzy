@@ -20,7 +20,7 @@ public class SettingRepository<T, TK>(SettingDbContext dbContext, IUnitOfWork<Se
 
     public async Task CreateSettingByType(T request, CancellationToken cancellationToken)
     {
-        _logger.Information($"BEGIN: CreateSettingByType REQUEST --> Expression<Func<T, bool>> expresion <--");
+        _logger.Information($"BEGIN: CreateSettingByType REQUEST --> request <--");
 
         TK? result = await CreateAsync(request, cancellationToken);
 

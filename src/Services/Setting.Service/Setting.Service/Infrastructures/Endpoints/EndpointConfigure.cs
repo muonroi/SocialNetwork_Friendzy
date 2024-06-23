@@ -1,5 +1,4 @@
-﻿using Setting.Application.Extension;
-namespace Setting.Service.Infrastructures.Endpoints;
+﻿namespace Setting.Service.Infrastructures.Endpoints;
 
 internal static class EndpointConfigure
 {
@@ -7,7 +6,7 @@ internal static class EndpointConfigure
     {
         _ = app.UseMiddleware<GlobalExceptionMiddleware>();
 
-        _ = app.UseAuthenticationMiddleware(configuration);
+        // _ = app.UseAuthenticationMiddleware(configuration);
 
         _ = app.UseWorkContext();
 

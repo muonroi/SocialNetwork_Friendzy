@@ -8,7 +8,7 @@ public class UserUpdateInfoCommandHandler(IUserRepository userRepository, IWorkC
 
     public async Task<ApiResult<UserDto>> Handle(UserUpdateInfoCommand request, CancellationToken cancellationToken)
     {
-        WorkContextInfoDTO workContext = _workContextAccessor.WorkContext!;
+        WorkContextInfoModel workContext = _workContextAccessor.WorkContext!;
 
         UserDto? userResult = await _userRepository.GetUserByInput(workContext.PhoneNumber, cancellationToken);
 

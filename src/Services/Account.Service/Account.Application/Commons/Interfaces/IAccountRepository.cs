@@ -6,6 +6,8 @@ public interface IAccountRepository
 
     Task<IEnumerable<AccountDTO>?> GetAccountsAsync(CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10);
 
+    Task<IEnumerable<AccountDTO>?> GetAccountsAsync(string ids, CancellationToken cancellationToken);
+
     Task<Guid> CreateAccountAsync<T>(T account, CancellationToken cancellationToken) where T : AccountDTO;
 
     Task<bool> UpdateAccountAsync(Guid id, AccountDTO account, CancellationToken cancellationToken);

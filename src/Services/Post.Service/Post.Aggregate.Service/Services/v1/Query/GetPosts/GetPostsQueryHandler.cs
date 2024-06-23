@@ -19,7 +19,7 @@ public class GetPostsQueryHandler(GrpcClientFactory grpcClientFactory
     public async Task<ApiResult<PagingResponse<IEnumerable<GetPostsQueryResponse>>>> Handle(GetPostsQuery request, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: GetPostsQuery REQUEST --> {_serializeService.Serialize(request)} <--");
-        WorkContextInfoDTO workContext = _workContextAccessor.WorkContext!;
+        WorkContextInfoModel workContext = _workContextAccessor.WorkContext!;
         if (request.PageIndex < 1)
         {
             request.PageIndex = paginationConfigs.DefaultPageIndex;

@@ -31,4 +31,7 @@ public sealed class VerifyToken(bool isAuthenticated)
     public int Currency { get; set; }
 
     public int AccountType { get; set; }
+
+    public string AccountId { get; set; }
+
 }

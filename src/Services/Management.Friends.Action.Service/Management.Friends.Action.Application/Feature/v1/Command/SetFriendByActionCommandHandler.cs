@@ -19,7 +19,7 @@ public class SetFriendByActionCommandHandler(
 
     public async Task<ApiResult<bool>> Handle(SetFriendByActionCommand request, CancellationToken cancellationToken)
     {
-        WorkContextInfoDTO userInfo = _workContextAccessor.WorkContext!;
+        WorkContextInfoModel userInfo = _workContextAccessor.WorkContext!;
         _logger.Information($"BEGIN: SetMatchFriendCommandHandler REQUEST --> {_serializeService.Serialize(request)} <--");
         ExternalApiResponse<UserDataModel> friendInfoResult = await _externalClient.GetUserAsync(request.FriendId.ToString(), cancellationToken);
         if (friendInfoResult.Data is null)

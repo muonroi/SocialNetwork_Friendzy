@@ -3,17 +3,17 @@
 public class LastMessageChatService : ILastMessageChatService
 {
     private readonly IMongoCollection<LastMessageChatEntry> _lastMessages;
-    private readonly IMapper _mapper;
     private readonly IMongoClient _mongoClient;
     private readonly IConfiguration _configuration;
+    private readonly IApiExternalClient _externalClient;
 
-    public LastMessageChatService(IMongoClient mongoClient, IConfiguration configuration, IMapper mapper)
+    public LastMessageChatService(IMongoClient mongoClient, IConfiguration configuration, IApiExternalClient externalClient)
     {
-        _mapper = mapper;
         _mongoClient = mongoClient;
         _configuration = configuration;
         IMongoDatabase database = _mongoClient.GetDatabase(_configuration.GetConfigHelper(ConfigurationSetting.ConnectionMongoDbNameString));
         _lastMessages = database.GetCollection<LastMessageChatEntry>("LastMessageChats");
+        _externalClient = externalClient;
     }
 
     public async Task<LastMessageChatEntry> GetLastMessageChatAsync(string currentAccountId, string recipientAccountId)
@@ -24,16 +24,46 @@ public class LastMessageChatService : ILastMessageChatService
         return await _lastMessages.Find(filter).FirstOrDefaultAsync();
     }
 
-    /// <summary>
-    /// group name = hoainam10th-lisa, containGroupName = hoainam10th
-    /// </summary>
-    /// <param name="currentUsername"></param>
-    /// <returns></returns>
-    public async Task<List<LastMessageChatDto>> GetListLastMessageChatAsync(string currentUsername)
+    public async Task<MongoPagedList<LastMessageChatDto>> GetListLastMessageChatAsync(string currentUserId, int pageIndex, int pageSize)
     {
-        FilterDefinition<LastMessageChatEntry> filter = Builders<LastMessageChatEntry>.Filter.Where(x => x.GroupName.Contains(currentUsername));
-        List<LastMessageChatEntry> lastMessages = await _lastMessages.Find(filter).ToListAsync();
-        return _mapper.Map<List<LastMessageChatEntry>, List<LastMessageChatDto>>(lastMessages);
+        FilterDefinition<LastMessageChatEntry> filter = Builders<LastMessageChatEntry>.Filter.Where(x => x.GroupName.Contains(currentUserId));
+
+        SortDefinition<LastMessageChatEntry> sort = Builders<LastMessageChatEntry>.Sort.Descending(x => x.LastModifiedDate);
+
+        MongoPagedList<LastMessageChatEntry> pagedList = await MongoPagedList<LastMessageChatEntry>.ToPagedList(_lastMessages, filter, pageIndex, pageSize, sort);
+
+        List<UserDataModel> userResponse = [];
+        string accountIdsRequest = string.Join(",", pagedList.Select(x => x.SenderAccountId));
+
+        accountIdsRequest = string.Concat(accountIdsRequest, ",", string.Join(",", pagedList.Select(x => x.RecipienAccountId)));
+
+        ExternalApiResponse<IEnumerable<UserDataModel>> usersResponse = await _externalClient.GetUsersAsync(accountIdsRequest, CancellationToken.None);
+
+        if (usersResponse?.Data is not null)
+        {
+            userResponse.AddRange(usersResponse.Data);
+        }
+
+        IEnumerable<LastMessageChatDto> items = pagedList.Select(x => new LastMessageChatDto
+        {
+            Id = x.Id is null ? string.Empty : x.Id.ToString(),
+            SenderId = x.SenderId,
+            SenderAccountGuid = x.SenderAccountId,
+            SenderDisplayName = $"{x.Sender!.FirstName} {x.Sender.LastName}",
+            SenderImgUrl = x.Sender.ImageUrl,
+            RecipientId = x.RecipientId,
+            RecipientAccountGuid = x.RecipienAccountId,
+            Content = x.Content,
+            MessageLastDate = x.MessageLastDate,
+            GroupName = x.GroupName,
+            IsRead = x.IsRead,
+            Sender = userResponse.FirstOrDefault(y => y.AccountGuid == Guid.Parse(x.SenderAccountId)) ?? new UserDataModel(),
+            Recipient = userResponse.FirstOrDefault(y => y.AccountGuid == Guid.Parse(x.RecipienAccountId)) ?? new UserDataModel(),
+            QuickSenderInfo = x.Sender,
+            QuickRecipientInfo = x.Recipient
+        });
+
+        return new MongoPagedList<LastMessageChatDto>(items, pagedList.GetMetaData().TotalItems, pageIndex, pageSize);
     }
 
     public async Task<int> GetUnreadAsync(string currentUsername)

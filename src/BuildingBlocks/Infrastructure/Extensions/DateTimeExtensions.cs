@@ -7,13 +7,13 @@ public static class DateTimeExtensions
         return srcDate.Year == desDate.Year && srcDate.Month == desDate.Month && srcDate.Day == desDate.Day;
     }
 
-    public static DateTime TimeStampToDate(long timeStamp)
+    public static DateTime TimeStampToDate(this long timeStamp)
     {
         timeStamp = timeStamp < 0 ? 0 : timeStamp;
         return TimeStampToDateTime(timeStamp).Date;
     }
 
-    public static DateTime TimeStampToDateTime(long timeStamp)
+    public static DateTime TimeStampToDateTime(this long timeStamp)
     {
         timeStamp = timeStamp < 0 ? 0 : timeStamp;
         return DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(timeStamp)).DateTime;

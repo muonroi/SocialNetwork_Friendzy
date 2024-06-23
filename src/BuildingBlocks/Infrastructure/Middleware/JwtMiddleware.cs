@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Middleware;
+﻿using Shared.Models;
+
+namespace Infrastructure.Middleware;
 
 public class JwtMiddleware(
     RequestDelegate next,
@@ -19,9 +21,9 @@ public class JwtMiddleware(
         }
         _ = headers.TryGetValue("Accept-Language", out StringValues language);
 
-        _ = headers.TryGetValue(nameof(WorkContextInfoDTO.CorrelationId), out StringValues correlationIds);
+        _ = headers.TryGetValue(nameof(WorkContextInfoModel.CorrelationId), out StringValues correlationIds);
 
-        AddHeader(headers, nameof(WorkContextInfoDTO.Language), language.FirstOrDefault() ?? "vi-VN");
+        AddHeader(headers, nameof(WorkContextInfoModel.Language), language.FirstOrDefault() ?? "vi-VN");
 
         if (context.Request.Headers.TryGetValue("Authorization", out StringValues value))
         {
@@ -36,21 +38,22 @@ public class JwtMiddleware(
             context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
             return;
         }
-        AddHeader(headers, nameof(WorkContextInfoDTO.UserId), long.Parse(verifyToken.UserId.ToString()).ToString());
-        AddHeader(headers, nameof(WorkContextInfoDTO.Fullname), verifyToken.FullName);
-        AddHeader(headers, nameof(WorkContextInfoDTO.Roles), verifyToken.Role);
-        AddHeader(headers, nameof(WorkContextInfoDTO.Latitude), verifyToken.Latitude.ToString());
-        AddHeader(headers, nameof(WorkContextInfoDTO.Longitude), verifyToken.Longitude.ToString());
-        AddHeader(headers, nameof(WorkContextInfoDTO.PhoneNumber), verifyToken.PhoneNumber);
-        AddHeader(headers, nameof(WorkContextInfoDTO.RoleIds), verifyToken.RoleIds);
-        AddHeader(headers, nameof(WorkContextInfoDTO.EmailAddress), verifyToken.EmailAddress);
-        AddHeader(headers, nameof(WorkContextInfoDTO.IsActive), verifyToken.IsActive.ToString());
-        AddHeader(headers, nameof(WorkContextInfoDTO.Balance), verifyToken.Balance);
-        AddHeader(headers, nameof(WorkContextInfoDTO.IsEmailVerify), verifyToken.IsEmailVerify.ToString());
-        AddHeader(headers, nameof(WorkContextInfoDTO.AccountStatus), verifyToken.AccountStatus.ToString());
-        AddHeader(headers, nameof(WorkContextInfoDTO.Currency), verifyToken.Currency.ToString());
-        AddHeader(headers, nameof(WorkContextInfoDTO.AccountType), verifyToken.AccountType.ToString());
-        AddHeader(headers, nameof(WorkContextInfoDTO.IsAuthenticated), verifyToken.IsAuthenticated.ToString());
+        AddHeader(headers, nameof(WorkContextInfoModel.UserId), long.Parse(verifyToken.UserId.ToString()).ToString());
+        AddHeader(headers, nameof(WorkContextInfoModel.Fullname), verifyToken.FullName);
+        AddHeader(headers, nameof(WorkContextInfoModel.Roles), verifyToken.Role);
+        AddHeader(headers, nameof(WorkContextInfoModel.Latitude), verifyToken.Latitude.ToString());
+        AddHeader(headers, nameof(WorkContextInfoModel.Longitude), verifyToken.Longitude.ToString());
+        AddHeader(headers, nameof(WorkContextInfoModel.PhoneNumber), verifyToken.PhoneNumber);
+        AddHeader(headers, nameof(WorkContextInfoModel.RoleIds), verifyToken.RoleIds);
+        AddHeader(headers, nameof(WorkContextInfoModel.EmailAddress), verifyToken.EmailAddress);
+        AddHeader(headers, nameof(WorkContextInfoModel.IsActive), verifyToken.IsActive.ToString());
+        AddHeader(headers, nameof(WorkContextInfoModel.Balance), verifyToken.Balance);
+        AddHeader(headers, nameof(WorkContextInfoModel.IsEmailVerify), verifyToken.IsEmailVerify.ToString());
+        AddHeader(headers, nameof(WorkContextInfoModel.AccountStatus), verifyToken.AccountStatus.ToString());
+        AddHeader(headers, nameof(WorkContextInfoModel.Currency), verifyToken.Currency.ToString());
+        AddHeader(headers, nameof(WorkContextInfoModel.AccountType), verifyToken.AccountType.ToString());
+        AddHeader(headers, nameof(WorkContextInfoModel.IsAuthenticated), verifyToken.IsAuthenticated.ToString());
+        AddHeader(headers, nameof(WorkContextInfoModel.AccountId), verifyToken.AccountId);
         await _next(context);
     }
 

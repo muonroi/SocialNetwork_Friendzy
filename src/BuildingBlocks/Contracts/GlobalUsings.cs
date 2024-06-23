@@ -6,7 +6,6 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Storage;
 global using MongoDB.Bson;
 global using MongoDB.Bson.Serialization.Attributes;
-global using Shared.DTOs;
 global using Shared.Services.Emails;
 global using Shared.Services.Resources;
 global using System;

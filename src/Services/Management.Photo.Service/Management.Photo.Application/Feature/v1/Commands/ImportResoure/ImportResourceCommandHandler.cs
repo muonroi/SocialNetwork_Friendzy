@@ -16,7 +16,7 @@ public class ImportResourceCommandHandler(
 
     public async Task<ApiResult<ImportResourceCommandResponse>> Handle(ImportResourceCommand request, CancellationToken cancellationToken)
     {
-        WorkContextInfoDTO workContext = _workContext.WorkContext!;
+        WorkContextInfoModel workContext = _workContext.WorkContext!;
 
         string prefixFileName = $"{Guid.NewGuid()}";
 

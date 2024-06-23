@@ -12,5 +12,6 @@
   "UserUpdateFailed": "Cập nhật thông tin người dùng thất bại",
   "CreateAccountError": "Tạo tài khoản thất bại",
   "InsertDistanceError": "Khoảng cách giữa bạn và người dùng khác không được lưu",
-  "RoleNotFound": "Không tìm thấy dữ liệu quyền người dùng"
+  "RoleNotFound": "Không tìm thấy dữ liệu quyền người dùng",
+  "LastMessageNotFound": "Không có tin nhắn gần đây"
 }

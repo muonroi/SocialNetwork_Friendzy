@@ -1,4 +1,7 @@
-﻿namespace Message.Application.Infrastructure.Helper;
+﻿using ExternalAPI.Models;
+using Shared.Enums;
+
+namespace Message.Application.Infrastructure.Helper;
 
 public class PresenceTracker(IServiceProvider serviceProvider)
 {

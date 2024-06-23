@@ -8,7 +8,7 @@ public class GetResourceQueryHandler(IStoreInfoRepository storeInfoRepository, I
 
     public async Task<ApiResult<IEnumerable<StoreInfoDTO>>> Handle(GetResourceQuery request, CancellationToken cancellationToken)
     {
-        WorkContextInfoDTO workContext = _workContext.WorkContext!;
+        WorkContextInfoModel workContext = _workContext.WorkContext!;
 
         IEnumerable<StoreInfoDTO>? storeInfo = await _storeInfoRepository.GetResourceByTypeAsync(workContext.UserId, request.BucketId, request.Type, cancellationToken);
 

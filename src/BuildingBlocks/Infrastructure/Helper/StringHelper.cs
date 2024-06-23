@@ -15,11 +15,6 @@ public static class StringHelper
     {
         base64Encoded = base64Encoded.Trim();
 
-        if (base64Encoded.Length % 4 != 0)
-        {
-            base64Encoded = base64Encoded.PadRight(base64Encoded.Length + (4 - (base64Encoded.Length % 4)), '=');
-        }
-
         try
         {
             byte[] base64Bytes = Convert.FromBase64String(base64Encoded);
@@ -31,7 +26,7 @@ public static class StringHelper
         catch (FormatException)
         {
             // Handle invalid Base64 input
-            return "Invalid Base64 string.";
+            return base64Encoded;
         }
     }
 }

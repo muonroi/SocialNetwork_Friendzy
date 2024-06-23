@@ -1,6 +1,8 @@
-﻿namespace Contracts.Commons.Interfaces;
+﻿using Shared.Models;
+
+namespace Contracts.Commons.Interfaces;
 
 public interface IWorkContextAccessor
 {
-    WorkContextInfoDTO? WorkContext { get; set; }
+    WorkContextInfoModel? WorkContext { get; set; }
 }

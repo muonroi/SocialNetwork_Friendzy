@@ -2,4 +2,5 @@
 
 public class GetAccountQueryResponse : AccountQueryResponseBase
 {
+    public long LastModifiedDate { get; set; }
 }

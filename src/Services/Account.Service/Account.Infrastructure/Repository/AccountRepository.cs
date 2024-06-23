@@ -71,6 +71,29 @@ public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnit
         return result;
     }
 
+    public async Task<IEnumerable<AccountDTO>?> GetAccountsAsync(string ids, CancellationToken cancellationToken)
+    {
+        _logger.Information($"BEGIN: GetAccountsAsync REQUEST --> {ids} <-- REQUEST");
+        string[] idList = ids.Split(',').Select(x => x).ToArray();
+        DapperCommand command = new()
+        {
+            CommandText = CustomQuery.GetAccounts,
+            Parameters = new
+            {
+                Id = idList
+            },
+        };
+        List<AccountDTO>? result = await _dapper.QueryAsync<AccountDTO>(command.Build(cancellationToken));
+        if (result is null)
+        {
+            return null;
+        }
+
+        _logger.Information($"END: GetAccountsAsync RESULT --> {_serializeService.Serialize(result)} <-- ");
+
+        return result;
+    }
+
     public async Task<IEnumerable<AccountDTO>?> GetAccountsAsync(CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10)
     {
         _logger.Information($"BEGIN: GetAccountsAsync --> {_serializeService.Serialize(new { pageIndex, pageSize })} <-- ");
@@ -111,7 +134,6 @@ public class AccountRepository(IMapper mapper, AccountDbContext dbContext, IUnit
         accountResult.IsActive = account.IsActive;
         accountResult.IsEmailVerified = account.IsEmailVerified;
         accountResult.Status = account.Status;
-
         await UpdateAsync(accountResult);
 
         long result = await SaveChangesAsync();

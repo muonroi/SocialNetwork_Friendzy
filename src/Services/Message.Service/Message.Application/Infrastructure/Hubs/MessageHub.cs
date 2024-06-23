@@ -14,7 +14,6 @@ public class MessageHub(IMessageService messageService, IGroupService groupServi
 
     private readonly IServiceProvider _serviceProvider = serviceProvider;
 
-
     public override async Task OnConnectedAsync()
     {
         HttpContext? httpContext = Context.GetHttpContext();
@@ -26,6 +25,19 @@ public class MessageHub(IMessageService messageService, IGroupService groupServi
         IEnumerable<MessageResponse> messages = await _messageService.GetMessageThread(Context.UserIdentifier!, otherUser);
 
         await Clients.Caller.SendAsync("ReceiveMessageThread", messages);
+    }
+
+    public async Task MarkMessageAsRead(string senderAccountId, string recipientAccountId)
+    {
+        LastMessageChatEntry lastMessage = await _lastMessageChatService.GetLastMessageChatAsync(senderAccountId, recipientAccountId);
+
+        if (lastMessage != null)
+        {
+            lastMessage.IsRead = true;
+            await _lastMessageChatService.UpdateAsync(lastMessage);
+
+            await Clients.User(senderAccountId).SendAsync("MessageRead", recipientAccountId);
+        }
     }
 
     public async Task SendMessage(CreateMessageDto createMessageDto)
@@ -88,7 +100,7 @@ public class MessageHub(IMessageService messageService, IGroupService groupServi
             ExternalApiResponse<UserDataModel> user = await externalClient.GetUserAsync(currenAccountId, CancellationToken.None);
 
             // gui tin hieu den RecipientUsername, de hien thi chatbox cua userName gui tin nhan
-            await externalClient.PushNotificationMessageText(new PushNotificationMessageTextHub { AccountId = currenAccountId, MessageText = createMessageDto.Content }, CancellationToken.None);
+            _ = await externalClient.PushNotificationMessageText(new PushNotificationMessageTextHub { SenderAccountId = currenAccountId, MessageText = createMessageDto.Content, RecipientAccountId = createMessageDto.RecipientAccountId }, CancellationToken.None);
         }
 
         ////send push notification to user when chat 1-1
@@ -158,7 +170,6 @@ public class MessageHub(IMessageService messageService, IGroupService groupServi
             await _groupService.AddGroup(group);
         }
         group.Connections.Add(connection);
-
     }
 
     public async Task ReadMessage(string accountId, string messageId)

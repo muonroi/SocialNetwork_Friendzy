@@ -1,6 +1,6 @@
-﻿namespace Shared.DTOs;
+﻿namespace Shared.Models;
 
-public record WorkContextInfoDTO
+public record WorkContextInfoModel
 
 {
     public string CorrelationId { get; set; } = string.Empty;
@@ -34,4 +34,5 @@ public record WorkContextInfoDTO
 
     public int AccountType { get; set; }
     public bool IsAuthenticated { get; set; }
+    public string AccountId { get; set; } = string.Empty;
 }

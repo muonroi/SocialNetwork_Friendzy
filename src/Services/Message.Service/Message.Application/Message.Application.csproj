@@ -29,4 +29,8 @@
     </Protobuf>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Feature\v1\Command\" />
+  </ItemGroup>
+
 </Project>

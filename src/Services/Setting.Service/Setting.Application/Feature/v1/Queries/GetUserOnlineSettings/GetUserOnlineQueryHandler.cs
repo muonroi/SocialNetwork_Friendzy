@@ -18,7 +18,7 @@ public class GetUserOnlineQueryHandler(ISettingRepository<SettingEntity, long> s
 
         IEnumerable<UserOnlineModel>? result = _serializeService.Deserialize<IEnumerable<UserOnlineModel>>(userOnlineSetting.Content) ?? [];
 
-        return !result.Any()
+        return !result!.Any()
             ? new ApiErrorResult<IEnumerable<UserOnlineModel>>($"{SettingErrorMessages.CategorySettingNotFound}", (int)HttpStatusCode.NotFound)
             : new ApiSuccessResult<IEnumerable<UserOnlineModel>>(result);
     }

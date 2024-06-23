@@ -1,6 +1,4 @@
-﻿
-
-namespace Account.Application.Helper;
+﻿namespace Account.Application.Helper;
 
 public class PresenceTracker(IServiceProvider serviceProvider)
 {
@@ -16,9 +14,6 @@ public class PresenceTracker(IServiceProvider serviceProvider)
         // Lấy repository tài khoản và client API
         IAccountRepository accountRepository = scope.ServiceProvider.GetRequiredService<IAccountRepository>();
         IApiExternalClient externalClient = scope.ServiceProvider.GetRequiredService<IApiExternalClient>();
-
-        // Lấy thông tin người dùng online từ API bên ngoài
-        ExternalApiResponse<IEnumerable<UserDataModel>> userOnlineResult = await externalClient.GetUsersAsync(accountId.ToString(), cancellationToken);
 
         // Lấy thông tin tài khoản từ repository
         AccountDTO? accountInfo = await accountRepository.GetAccountByIdAsync(accountId, cancellationToken);
@@ -45,13 +40,19 @@ public class PresenceTracker(IServiceProvider serviceProvider)
                 OnlineUsersList.Add(accountId, [connectionId]);
             }
         }
-
-        await externalClient.SetNumberUserOnline(new SettingRequestModel
+        List<UserOnlineModel> onlineUsers = OnlineUsersList.Select(kvp => new UserOnlineModel
+        {
+            Key = kvp.Key.ToString(),
+            Value = kvp.Value
+        }).ToList();
+        _ = await externalClient.SetNumberUserOnline(new SettingRequestModel
         {
             Name = nameof(SettingsConfig.UserOnline),
             Description = "Current User online",
-            Content = JsonConvert.SerializeObject(new UserOnlineModel { Key = accountId.ToString(), Value = OnlineUsersList[accountId] })
+            Content = JsonConvert.SerializeObject(onlineUsers),
+            Type = (int)SettingsConfig.UserOnline
         }, cancellationToken);
+
 
         return result;
     }
@@ -128,8 +129,6 @@ public class PresenceTracker(IServiceProvider serviceProvider)
             string accountIdsRequest = string.Join(",", friendAccountIds);
 
             ExternalApiResponse<IEnumerable<UserDataModel>> usersResponse = await externalClient.GetUsersAsync(accountIdsRequest, CancellationToken.None);
-
-
 
             if (usersResponse?.Data == null)
             {

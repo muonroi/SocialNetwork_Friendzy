@@ -19,7 +19,7 @@ IWorkContextAccessor workContextAccessor
 
     public async Task<ApiResult<PagingResponse<IEnumerable<GetFriendsActionByUserQueryResponse>>>> Handle(GetFriendsActionByUserQuery request, CancellationToken cancellationToken)
     {
-        WorkContextInfoDTO workContext = _workContextAccessor.WorkContext!;
+        WorkContextInfoModel workContext = _workContextAccessor.WorkContext!;
         if (request.PageIndex < 1)
         {
             request.PageIndex = paginationConfigs.DefaultPageIndex;

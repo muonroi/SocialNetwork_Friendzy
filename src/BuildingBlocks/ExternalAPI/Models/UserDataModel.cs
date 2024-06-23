@@ -1,4 +1,6 @@
-﻿namespace ExternalAPI.Models;
+﻿using Infrastructure.Extensions;
+
+namespace ExternalAPI.Models;
 
 public record UserDataModel
 {
@@ -39,7 +41,7 @@ public record UserDataModel
     public int Gender { get; set; }
 
     [JsonProperty("birthDate")]
-    public DateTime BirthDate { get; set; }
+    public long BirthDate { get; set; }
 
     [JsonProperty("accountGuid")]
     public Guid AccountGuid { get; set; }
@@ -47,6 +49,6 @@ public record UserDataModel
     [JsonProperty("matchScore")]
     public double MatchScore { get; set; }
 
-    [JsonProperty("lastModifiedDateTs")]
-    public DateTime LastModifiedDateTs { get; set; }
+    public long? LastModifiedDateTs => LastModifiedDate.GetTimeStamp();
+    public DateTime LastModifiedDate { get; set; } = DateTime.UtcNow;
 }

@@ -1,3 +1,5 @@
+using Shared.Models;
+
 namespace SearchPartners.Service.Services;
 
 public class SearchPartnersService(ILogger logger, ISerializeService serializeService) : SearchPartnerServiceBase
@@ -9,7 +11,7 @@ public class SearchPartnersService(ILogger logger, ISerializeService serializeSe
     public override Task<SortPartnersByDistanceReply> SortPartnersByDistance(SortPartnersByDistanceRequest request, ServerCallContext context)
     {
         _logger.Information($"BEGIN: SortPartnersByDistance REQUEST --> {_serializeService.Serialize(request)} <--");
-        List<CoordinateDTO> distancesListSorted = DistanceCalculatorHelper.SortCoordinatesByDistance(request.Latitude, request.Longitude, request.Distancedetails.Select(x => new CoordinateDTO
+        List<CoordinateModel> distancesListSorted = DistanceCalculatorHelper.SortCoordinatesByDistance(request.Latitude, request.Longitude, request.Distancedetails.Select(x => new CoordinateModel
         {
             UserId = x.UserId,
             Latitude = x.Latitude,

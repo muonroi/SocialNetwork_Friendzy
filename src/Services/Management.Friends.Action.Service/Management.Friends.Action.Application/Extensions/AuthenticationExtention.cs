@@ -52,7 +52,8 @@ public static class AuthenticationExtention
                     IsEmailVerify = validateToken.IsEmailVerify,
                     AccountStatus = validateToken.AccountStatus,
                     Currency = validateToken.Currency,
-                    AccountType = validateToken.AccountType
+                    AccountType = validateToken.AccountType,
+                    AccountId = validateToken.AccountId,
                 };
         });
 

@@ -13,7 +13,7 @@ IBucketRepository bucketRepository) : IRequestHandler<ImportMultipleResourceComm
 
     public async Task<ApiResult<IEnumerable<ImportMultipleResourceCommandResponse>>> Handle(ImportMultipleResourceCommand request, CancellationToken cancellationToken)
     {
-        WorkContextInfoDTO workContext = _workContext.WorkContext!;
+        WorkContextInfoModel workContext = _workContext.WorkContext!;
         string prefixFileName = $"{Guid.NewGuid()}";
         //Get bucket info
         BucketDto? getBucketResult = await _bucketRepository.GetBucketByIdAsync((int)request.Type, cancellationToken);

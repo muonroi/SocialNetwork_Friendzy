@@ -27,3 +27,4 @@ global using Shared.SeedWorks;
 global using System.Net;global using Account.Application.Commons.Interfaces;
 global using Microsoft.AspNetCore.SignalR;
 global using ExternalAPI.Models;
+global using Account.Application.Feature.v1.Accounts.Queries.GetAccountsPaging;

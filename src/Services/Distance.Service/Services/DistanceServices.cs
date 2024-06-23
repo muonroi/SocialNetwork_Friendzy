@@ -19,7 +19,10 @@ public class DistanceServices(ILogger<DistanceServices> logger, IDistanceService
             PageSize = request.PageSize,
             UserIds = request.FriendIds
         });
-
+        if (distances.TotalItems == 0)
+        {
+            return new GetDistanceInfoListReply();
+        }
         GetDistanceInfoListReply result = new()
         {
             DistanceInfoList = { distances.Items!.Select(x => new GetDistanceInfoDetail

@@ -3,7 +3,7 @@
     public interface ILastMessageChatService
     {
         Task<LastMessageChatEntry> GetLastMessageChatAsync(string currentAccountId, string recipientAccountId);
-        Task<List<LastMessageChatDto>> GetListLastMessageChatAsync(string currentAccountId);
+        Task<MongoPagedList<LastMessageChatDto>> GetListLastMessageChatAsync(string currentUsername, int pageIndex, int pageSize);
         Task<int> GetUnreadAsync(string currentAccountId);
         Task UpdateAsync(LastMessageChatEntry lastMessageChat);
         Task AddAsync(LastMessageChatEntry lastMessageChat);
