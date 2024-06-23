@@ -5,4 +5,7 @@ global using Shared.Resources;
 global using System;
 global using System.ComponentModel.DataAnnotations;
 global using System.Net;
-global using System.Reflection;
+global using System.Reflection;global using System.Linq;
+global using System.Threading.Tasks;
+global using System.Collections.Generic;
+global using System.Text;

@@ -12,4 +12,11 @@ public class MessageController(IMediator mediator) : ControllerBase
         ApiResult<GetLastMessageQueryResponse> result = await _mediator.Send(request).ConfigureAwait(false);
         return Ok(result);
     }
+
+    [HttpGet("agora/rtc-token")]
+    public async Task<IActionResult> GetRtcToken([FromQuery] GetRtcAgoraTokensQuery request)
+    {
+        ApiResult<GetRtcAgoraTokensQueryResponse> result = await _mediator.Send(request).ConfigureAwait(false);
+        return Ok(result);
+    }
 }

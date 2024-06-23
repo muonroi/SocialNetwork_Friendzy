@@ -17,6 +17,7 @@ public static class ServiceExtension
         _ = services.AddScoped<IGroupService, GroupService>();
         _ = services.AddScoped<IConnectionService, ConnectionService>();
         _ = services.AddScoped<ILastMessageChatService, LastMessageChatService>();
+
         return services;
     }
 

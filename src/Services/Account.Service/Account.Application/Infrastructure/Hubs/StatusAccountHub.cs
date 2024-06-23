@@ -26,4 +26,17 @@ public class StatusAccountHub(PresenceTracker presenceTracker) : Hub
         await Clients.Others.SendAsync("FriendsOffline", accountId);
         await base.OnDisconnectedAsync(exception);
     }
+
+    public async Task CallToAccountId(string otherAccountId, string channelName)
+    {
+        string currentAccountId = Context.UserIdentifier!;
+        Guid[] connections = await _presenceTracker.GetOnlineUsersAsync(Guid.Parse(otherAccountId));
+        if (connections != null)
+        {
+            Console.Write($"HERE {JsonConvert.SerializeObject(connections.Select(x => x.ToString()))}");
+            UserDataModel userCalling = await _presenceTracker.GetUserInfo(Guid.Parse(currentAccountId));
+            await Clients.User(otherAccountId).SendAsync("DisplayInformationCaller", userCalling, channelName);
+            Console.Write($"SEND {JsonConvert.SerializeObject(new { userCalling, channelName })}");
+        }
+    }
 }

@@ -1,6 +1,4 @@
-﻿using Message.Application.Infrastructure.Dtos;
-
-namespace Message.Service;
+﻿namespace Message.Service;
 
 public class MappingProfile : Profile
 {

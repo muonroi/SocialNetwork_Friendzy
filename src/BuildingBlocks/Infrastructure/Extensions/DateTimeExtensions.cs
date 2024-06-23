@@ -7,6 +7,14 @@ public static class DateTimeExtensions
         return srcDate.Year == desDate.Year && srcDate.Month == desDate.Month && srcDate.Day == desDate.Day;
     }
 
+    public static uint DateTimeToUInt32(this DateTime dateTime)
+    {
+        DateTime startTime = new(1970, 1, 1, 0, 0, 0, 0);
+        TimeSpan currTime = dateTime - startTime;
+        uint time_t = Convert.ToUInt32(Math.Abs(currTime.TotalSeconds));
+        return time_t;
+    }
+
     public static DateTime TimeStampToDate(this long timeStamp)
     {
         timeStamp = timeStamp < 0 ? 0 : timeStamp;

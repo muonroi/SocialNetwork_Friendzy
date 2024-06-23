@@ -53,8 +53,17 @@ public class PresenceTracker(IServiceProvider serviceProvider)
             Type = (int)SettingsConfig.UserOnline
         }, cancellationToken);
 
-
         return result;
+    }
+
+    public async Task<UserDataModel> GetUserInfo(Guid accountId)
+    {
+        using IServiceScope scope = _serviceProvider.CreateScope();
+        IApiExternalClient externalClient = scope.ServiceProvider.GetRequiredService<IApiExternalClient>();
+
+        ExternalApiResponse<UserDataModel> userResponse = await externalClient.GetUserAsync(accountId.ToString(), CancellationToken.None);
+
+        return userResponse?.Data == null ? new UserDataModel() : userResponse.Data;
     }
 
     public async Task<bool> UserDisconnected(Guid accountId, string connectionId, CancellationToken cancellationToken)

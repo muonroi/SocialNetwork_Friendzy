@@ -4,6 +4,18 @@ public static class ConfigurationExtensions
 {
     private const string ConfigKey = "SecretKey";
 
+    public static T GetOptions<T>(this IServiceCollection services, string sectionName)
+        where T : new()
+    {
+        using ServiceProvider serviceProvider = services.BuildServiceProvider();
+        IConfiguration configuration = serviceProvider.GetRequiredService<IConfiguration>();
+        IConfigurationSection section = configuration.GetSection(sectionName);
+        T options = new();
+        section.Bind(options);
+
+        return options;
+    }
+
     public static T GetOptions<T>(this IConfiguration configuration, string section)
         where T : new()
     {
@@ -51,6 +63,24 @@ public static class ConfigurationExtensions
 
         string? cipherText = configuration.GetEx(configKey);
         ArgumentException.ThrowIfNullOrEmpty(cipherText);
+
+        string planText = Cryptography.Decrypt(secretKey, cipherText);
+
+        return planText;
+    }
+
+    public static string? GetExCipherText(this IConfiguration configuration, string cipherText)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        string secretKey = configuration.GetEx(ConfigKey) ?? string.Empty;
+        ArgumentException.ThrowIfNullOrEmpty(secretKey);
+
+        ArgumentNullException.ThrowIfNull(configuration);
+        ArgumentException.ThrowIfNullOrEmpty(cipherText);
+
+        secretKey = configuration.GetEx(ConfigKey) ?? string.Empty;
+        ArgumentException.ThrowIfNullOrEmpty(secretKey);
 
         string planText = Cryptography.Decrypt(secretKey, cipherText);
 

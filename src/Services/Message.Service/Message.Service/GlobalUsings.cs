@@ -22,3 +22,5 @@ global using Message.Application.Feature.v1.Query.GetLastMessages;
 global using MediatR;
 global using Microsoft.AspNetCore.Authorization;
 global using Shared.SeedWorks;
+global using Message.Application.Feature.v1.Query.GetRtcAgoraTokens;
+global using Message.Application.Infrastructure.Dtos;

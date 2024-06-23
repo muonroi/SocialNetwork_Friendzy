@@ -11,6 +11,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\AgoraIO\AgoraIO.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Commons\Commons.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Contracts\Contracts.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\ExternalAPI\ExternalAPI.csproj" />
