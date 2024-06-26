@@ -1,7 +1,6 @@
-﻿namespace AgoraIO.Common
+﻿namespace AgoraIO.Common;
+
+public interface IPackable
 {
-    public interface IPackable
-    {
-        ByteBuf Marshal(ByteBuf outBuf);
-    }
+    ByteBuf Marshal(ByteBuf outBuf);
 }

@@ -1,4 +1,6 @@
-﻿namespace Management.Photo.Application.Feature.v1.Commands.ImportMultipleResource;
+﻿
+
+namespace Management.Photo.Application.Feature.v1.Commands.ImportMultipleResource;
 
 public class ImportMultipleResourceCommandHandler(
 IStoreInfoRepository storeInfoRepository,

@@ -141,8 +141,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Message.Infrastructure", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Message.Application", "src\Services\Message.Service\Message.Application\Message.Application.csproj", "{026B5324-9047-42A7-955A-18EFC287E68D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgoraIO", "src\BuildingBlocks\AgoraIO\AgoraIO.csproj", "{1D7794D7-BA87-4C11-B741-D8F2142C7E0B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -317,10 +315,6 @@ Global
 		{026B5324-9047-42A7-955A-18EFC287E68D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{026B5324-9047-42A7-955A-18EFC287E68D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{026B5324-9047-42A7-955A-18EFC287E68D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1D7794D7-BA87-4C11-B741-D8F2142C7E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D7794D7-BA87-4C11-B741-D8F2142C7E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D7794D7-BA87-4C11-B741-D8F2142C7E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D7794D7-BA87-4C11-B741-D8F2142C7E0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -388,7 +382,6 @@ Global
 		{1C6060C6-F375-4BA7-BE8D-14E6096F3D50} = {658CA659-03BA-4A89-BF82-0E1E9472BC16}
 		{6A89F945-D657-4521-8780-00A33248EB5C} = {658CA659-03BA-4A89-BF82-0E1E9472BC16}
 		{026B5324-9047-42A7-955A-18EFC287E68D} = {658CA659-03BA-4A89-BF82-0E1E9472BC16}
-		{1D7794D7-BA87-4C11-B741-D8F2142C7E0B} = {CBDA8801-4FEE-46C3-9C44-539B6FC9A218}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {70492B5C-778F-4934-AF28-85BA58775A20}

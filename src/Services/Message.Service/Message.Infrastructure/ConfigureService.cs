@@ -8,16 +8,8 @@ public static class ConfigureService
         new MongoClient(GetConnectionMongoDbNameString(configuration)))
             .AddScoped(x => x.GetService<IMongoClient>()!.StartSession());
         _ = services.AddScoped<ISerializeService, SerializeService>();
-        AgoraSetting? agoraSettings = configuration.GetSection(nameof(AgoraSetting)).Get<AgoraSetting>();
-
-        if (agoraSettings != null)
-        {
-            agoraSettings.AppId = configuration.GetExCipherText(agoraSettings.AppId!);
-            agoraSettings.AppCertificate = configuration.GetExCipherText(agoraSettings.AppCertificate!);
-        }
         DatabaseConfigs? databaseSettings = configuration.GetSection(nameof(DatabaseConfigs)).Get<DatabaseConfigs>();
 
-        _ = services.AddSingleton(agoraSettings!);
         _ = services.AddSingleton(databaseSettings!);
         return services;
     }

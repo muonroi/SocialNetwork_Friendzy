@@ -19,9 +19,9 @@ public static class ServiceExtensionCommon
         _ = services.AddSingleton<IMinioClient, MinioClient>(sp =>
         {
             return new MinioClient()
-                .WithEndpoint(minIOConfig!.Endpoint)
-                .WithCredentials(configuration.GetConfigHelper(ConfigurationSetting.MinIOAccessKey),
-            configuration.GetConfigHelper(ConfigurationSetting.MinIOSerrectKey))
+                .WithEndpoint(minIOConfig!.PublicEndPoint)
+                .WithCredentials(configuration.GetExCipherText(minIOConfig.AccessKey),
+                configuration.GetExCipherText(minIOConfig.SecretKey))
                 .WithSSL(false)
                 .Build();
         });

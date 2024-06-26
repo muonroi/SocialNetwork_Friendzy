@@ -1,0 +1,14 @@
+{
+  "name": "agora-token-server",
+  "version": "1.0.0",
+  "description": "A simple server to generate Agora tokens",
+  "main": "agora_server.js",
+  "scripts": {
+    "start": "node agora_server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "dotenv": "^10.0.0",
+    "agora-access-token": "^2.0.0"
+  }
+}
