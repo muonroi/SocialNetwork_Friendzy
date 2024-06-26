@@ -4,12 +4,9 @@ var { RtcTokenBuilder, RtmTokenBuilder, RtcRole, RtmRole } = require('agora-acce
 
 const crypto = require('crypto');
 
-console.log(`Server will start on port: ${process.env.Agora_AppId}`); 
-
-
 const port = parseInt(process.env.Agora_Port);
-const appID = getEx(process.env.Agora_AppId);
-const appCertificate = getEx(process.env.Agora_AppCertificate);
+const appID = process.env.Agora_AppId;
+const appCertificate = process.env.Agora_AppCertificate;
 const expirationTimeInSeconds = parseInt(process.env.Agora_EXPIRATION_TIME_IN_SECONDS);
 const role = RtcRole.PUBLISHER;
 
@@ -100,6 +97,8 @@ function encrypt(key, plainText) {
  * @returns {string} - Văn bản gốc đã giải mã.
  */
 function decrypt(key, cipherText) {
+
+
     if (!cipherText || !key) {
         throw new Error('Key and cipherText must not be null or empty.');
     }
@@ -120,17 +119,16 @@ function decrypt(key, cipherText) {
  * @returns {string|null} - Văn bản gốc đã giải mã hoặc null nếu không thành công.
  */
 function getEx(text) {
-    var secretKey = process.env.SECRET_KEY;
+
+    console.log('text: ' + text);
+    var secretKey = process.env.SecretKey;
+    console.log('secretKey: ' + secretKey);
     if (!text || !secretKey) {
         throw new Error('text and secretKey must not be null or empty.');
     }
 
-    const cipherText = text;
-    if (!cipherText) {
-        throw new Error('cipherText must not be null or empty.');
-    }
-
-    const plainText = decrypt(secretKey, cipherText);
+    const plainText = decrypt(secretKey, text);
+    console.log('plainText: ' + plainText);
     if (!plainText) {
         throw new Error('plainText must not be null or empty.');
     }

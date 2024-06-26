@@ -1,16 +1,18 @@
 ﻿namespace Message.Application.Feature.v1.Query.GetRtcAgoraTokens;
 
-public class GetRtcAgoraTokensQueryHandler : IRequestHandler<GetRtcAgoraTokensQuery, ApiResult<GetRtcAgoraTokensQueryResponse>>
+public class GetRtcAgoraTokensQueryHandler(IApiExternalClient externalClient) : IRequestHandler<GetRtcAgoraTokensQuery, ApiResult<GetRtcAgoraTokensQueryResponse>>
 {
-    public Task<ApiResult<GetRtcAgoraTokensQueryResponse>> Handle(GetRtcAgoraTokensQuery request, CancellationToken cancellationToken)
-    {
+    private readonly IApiExternalClient _externalClient = externalClient ?? throw new ArgumentNullException(nameof(externalClient));
 
-        token.addPrivilege(Privileges.kJoinChannel, DateTime.Now.AddDays(1).DateTimeToUInt32());
+    public async Task<ApiResult<GetRtcAgoraTokensQueryResponse>> Handle(GetRtcAgoraTokensQuery request, CancellationToken cancellationToken)
+    {
+        AgoraTokenModel token = await _externalClient
+            .GetRtmToken(request.Uid, request.ChannelName, cancellationToken).ConfigureAwait(false);
 
         GetRtcAgoraTokensQueryResponse result = new()
         {
-            TokenResult = token.build()
+            TokenResult = token.Key
         };
-        return Task.FromResult<ApiResult<GetRtcAgoraTokensQueryResponse>>(new ApiSuccessResult<GetRtcAgoraTokensQueryResponse>(result));
+        return new ApiSuccessResult<GetRtcAgoraTokensQueryResponse>(result);
     }
 }

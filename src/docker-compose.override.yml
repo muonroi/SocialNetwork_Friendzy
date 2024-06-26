@@ -746,6 +746,7 @@ services:
     depends_on:
         - MysqlDbFriendzy
 
+  # Message.Service:
   Message.Service:
     container_name: Message.Service
     environment:
@@ -795,7 +796,7 @@ services:
       - "AllowedHosts=${ALLOWED_HOSTS}"
       - "DatabaseConfigs:ConnectionString=vlnMSjKk2d97cSOfsnJ9RDXsFGKB+7OroNEPBBC2gdE9X+CvDiTs/11T2LiwiWeu4vY7jQ3/c7q/XhGfTT0Z9g=="
       - "DatabaseConfigs:DatabaseName=zaFJDog6Kf4BBgeyGQlep48jeUHGoCGQG1LHWpWYLR4="
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT} 
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=${ASPNETCORE_URLS}
     ports:
       - "6014:80"
@@ -803,6 +804,7 @@ services:
     depends_on:
         - MongoDbFriendzy
 
+  #Agora.Service
   Agora.Service:
     container_name: Agora.Service
     environment:

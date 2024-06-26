@@ -52,4 +52,8 @@ public interface IApiExternalClient
     [Header(HeaderConstants.MethodKey, "accounts")]
     [Get]
     Task<ExternalApiResponse<IEnumerable<AccountInfoModel>>> GetAccounts([Query] string input, CancellationToken cancellationtoken);
+
+    [Header(HeaderConstants.MethodKey, "rtm-token")]
+    [Get]
+    Task<AgoraTokenModel> GetRtmToken([Query] string account, string channelName, CancellationToken cancellationtoken);
 }

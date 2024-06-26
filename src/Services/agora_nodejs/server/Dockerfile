@@ -14,10 +14,7 @@ COPY . .
 WORKDIR /src/Services/agora_nodejs/server
 
 # Cài đặt các phụ thuộc với tùy chọn retry và timeout, sử dụng cache nếu có thể
-RUN npm config set fetch-retries 5 \
-    && npm config set fetch-retry-mintimeout 20000 \
-    && npm config set fetch-retry-maxtimeout 120000 \
-    && npm install --prefer-offline
+RUN npm install
 
 # Expose cổng mà ứng dụng của bạn sẽ chạy
 EXPOSE 80
