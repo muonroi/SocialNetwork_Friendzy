@@ -51,9 +51,11 @@ try
         }
         _ = app.MapControllers();
 
+        _ = app.UseStaticFiles();
+
         _ = app.UseCors();
 
-        _ = app.ConfigureEndpoints(configuration);
+        _ = app.ConfigureEndpoints(configuration, env);
 
         _ = app.UseConsul(consulSettings, env);
 

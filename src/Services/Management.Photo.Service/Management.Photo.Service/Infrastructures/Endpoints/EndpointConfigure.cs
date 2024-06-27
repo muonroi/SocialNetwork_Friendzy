@@ -2,7 +2,7 @@
 
 internal static class EndpointConfigure
 {
-    internal static IApplicationBuilder ConfigureEndpoints(this WebApplication app, IConfiguration configuration)
+    internal static IApplicationBuilder ConfigureEndpoints(this WebApplication app, IConfiguration configuration, IWebHostEnvironment env)
     {
         _ = app.UseMiddleware<GlobalExceptionMiddleware>();
 
@@ -18,6 +18,20 @@ internal static class EndpointConfigure
             context.Response.Redirect("/swagger");
             return Task.CompletedTask;
         });
+
+        _ = app.MapGet("images/{filename}", async context =>
+        {
+            object? filename = context.Request.RouteValues["filename"];
+            string file = Path.Combine(env.WebRootPath, "images", filename?.ToString()!);
+            if (File.Exists(file))
+            {
+                await context.Response.SendFileAsync(file);
+            }
+            else
+            {
+                context.Response.StatusCode = 404;
+            }
+        }).AllowAnonymous();
         return app;
     }
 }
