@@ -56,4 +56,8 @@ public interface IApiExternalClient
     [Header(HeaderConstants.MethodKey, "rtm-token")]
     [Get]
     Task<AgoraTokenModel> GetRtmToken([Query] string account, string channelName, CancellationToken cancellationtoken);
+
+    [Header(HeaderConstants.MethodKey, "rtc-token")]
+    [Get]
+    Task<AgoraTokenModel> GetRtcToken([Query] string uid, string channelName, CancellationToken cancellationtoken);
 }

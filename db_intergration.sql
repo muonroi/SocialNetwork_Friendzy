@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE user_infomation_config (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     user_id int,
@@ -25,22 +27,15 @@ INSERT INTO user_infomation_config (id, user_id, partner_code, partner_type, met
     ('2fade1da-53df-4299-a809-72b7b7ec1373', 1, 'Intergration', 'API', 'get-friends-user', 'http://Management.Friends.Action.Service/api/v1/ManagementFriendsAction/friends-user', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
 	('079c1671-3a4c-4fbe-a11a-c26dcdac676e', 1, 'Intergration', 'API', 'get-user-online', 'http://Setting.Service/api/v1/Setting/user-online', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
     ('2fade1da-53df-4299-a809-72b7b7ec13b3', 1, 'Intergration', 'API', 'set-user-online', 'http://Setting.Service/api/v1/Setting', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
-    ('2fade1da-53df-4299-a809-72b7b7ec13b3', 1, 'Intergration', 'API', 'push-noti-text', 'http://Account.Service/api/v1/Account/send-notification-text', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL);
+    ('2fade1da-53df-4299-a809-72b7b7ec13b3', 1, 'Intergration', 'API', 'push-noti-text', 'http://Account.Service/api/v1/Account/send-notification-text', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
+
+    ('2fade1da-53df-4299-a809-72b7b7ec13b4', 1, 'Intergration', 'API', 'account', 'http://Account.Service/api/v1/Account/single', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
+    ('2fade1da-53df-4299-a809-72b7b7ec13b5', 1, 'Intergration', 'API', 'accounts', 'http://Account.Service/api/v1/Account/list', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
+    
+    ('2fade1da-53df-4299-a809-72b7b7ec13b2', 1, 'Intergration', 'API', 'rtm-token', 'http://Agora.Service/rtmToken', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
+    ('2fade1da-53df-4299-a809-72b7b7ec13b1', 1, 'Intergration', 'API', 'rtc-token', 'http://Agora.Service/rtcToken', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL);
     
    
    
    
    
-   
-   
-INSERT INTO user_infomation_config (id, user_id, partner_code, partner_type, method_key, method_value, is_deleted, created_by, created_date, updated_by, updated_date, type, key, value) VALUES
-    ('3116cb66-3736-4521-a3ca-c41a2b2e2fd6', 1, 'Intergration', 'API', 'get-user', 'http://localhost:6001/api/v1/User', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
-    ('3d6eadc4-8ba3-44da-aa1a-074e1bdeb3a9', 1, 'Intergration', 'API', 'get-users', 'http://localhost:6001/api/v1/User/list', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
-    ('47028c6a-bf96-4071-8ba4-ff498158b823', 1, 'Intergration', 'API', 'get-category-setting', 'http://localhost:6002/api/v1/Setting/categories', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
-    ('f9200919-fd24-4bda-bbab-6a4eacbdc30e', 1, 'Intergration', 'API', 'verify-account', 'http://localhost:6012/api/v1/Account/verify', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
-    ('ae62bc04-67f8-4ef1-be59-785e782bcf5d', 1, 'Intergration', 'API', 'create-account', 'http://localhost:6012/api/v1/Account/create', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
-    ('079c1671-3a4c-4fbe-a11a-c26dcdac676d', 1, 'Intergration', 'API', 'get-friends', 'http://localhost:6013/api/v1/ManagementFriendsAction/friends', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
-    ('2fade1da-53df-4299-a809-72b7b7ec1373', 1, 'Intergration', 'API', 'get-friends-user', 'http://localhost:6013/api/v1/ManagementFriendsAction/friends-user', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
-	('079c1671-3a4c-4fbe-a11a-c26dcdac676e', 1, 'Intergration', 'API', 'get-user-online', 'http://localhost:6002/api/v1/Setting/user-online', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
-    ('2fade1da-53df-4299-a809-72b7b7ec13b3', 1, 'Intergration', 'API', 'set-user-online', 'http://localhost:6002/api/v1/Setting', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL),
-    ('2fade1da-53df-4299-a809-72b7b7ec13b3', 1, 'Intergration', 'API', 'push-noti-text', 'http://localhost:6013/api/v1/Account/send-notification-text', false, NULL, '2023-12-25 13:08:35.789853', NULL, NULL, NULL, NULL, NULL);

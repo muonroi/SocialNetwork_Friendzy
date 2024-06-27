@@ -7,7 +7,7 @@ public class GetRtcAgoraTokensQueryHandler(IApiExternalClient externalClient) : 
     public async Task<ApiResult<GetRtcAgoraTokensQueryResponse>> Handle(GetRtcAgoraTokensQuery request, CancellationToken cancellationToken)
     {
         AgoraTokenModel token = await _externalClient
-            .GetRtmToken(request.Uid, request.ChannelName, cancellationToken).ConfigureAwait(false);
+            .GetRtcToken(request.Uid, request.ChannelName, cancellationToken).ConfigureAwait(false);
 
         GetRtcAgoraTokensQueryResponse result = new()
         {

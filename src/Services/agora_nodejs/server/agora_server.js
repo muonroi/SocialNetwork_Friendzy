@@ -31,7 +31,7 @@ var generateRtcToken = function(req, resp) {
     }
 
     var key = RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpiredTs);
-
+    console.log('rtc: '+key);
     resp.header("Access-Control-Allow-Origin", "*");
     return resp.json({ 'key': key }).send();
 };
@@ -53,6 +53,7 @@ var generateRtmToken = function(req, resp) {
     var key = RtmTokenBuilder.buildToken(appID, appCertificate, account, RtmRole.Rtm_User, privilegeExpiredTs);
 
     resp.header("Access-Control-Allow-Origin", "*");
+    console.log('rtm: '+key);
     return resp.json({ 'key': key }).send();
 };
 

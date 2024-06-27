@@ -44,3 +44,4 @@ global using System.Reflection;
 global using System.Threading.Tasks;
 global using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
 global using static Authenticate.Verify.Service.AuthenticateVerify;
+global using Message.Application.Feature.v1.Query.GetRtcAgoraTokens;

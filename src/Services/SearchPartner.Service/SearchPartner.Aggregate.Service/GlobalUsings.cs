@@ -34,4 +34,4 @@ global using static API.Intergration.Config.Service.Protos.ApiConfigGrpc;
 global using static Authenticate.Verify.Service.AuthenticateVerify;
 global using static Distance.Service.Protos.DistanceService;
 global using static SearchPartners.Service.SearchPartnerService;
-global using ILogger = Serilog.ILogger;
+global using ILogger = Serilog.ILogger;global using Shared.Models;

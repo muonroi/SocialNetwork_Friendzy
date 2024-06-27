@@ -1,4 +1,6 @@
-﻿namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
+﻿using Shared.Models;
+
+namespace SearchPartners.Aggregate.Service.Services.v1.Query.SearchPartners;
 
 public class SearchPartnersQueryHandler(
     GrpcClientFactory grpcClientFactory
