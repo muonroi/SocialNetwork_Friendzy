@@ -32,6 +32,6 @@ public sealed class VerifyToken(bool isAuthenticated)
 
     public int AccountType { get; set; }
 
-    public string AccountId { get; set; }
+    public string AccountId { get; set; } = string.Empty;
 
 }

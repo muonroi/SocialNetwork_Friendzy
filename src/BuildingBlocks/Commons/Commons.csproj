@@ -11,6 +11,7 @@
     <PackageReference Include="Calzolari.Grpc.AspNetCore.Validation" Version="8.0.0" />
     <PackageReference Include="Calzolari.Grpc.Domain" Version="8.0.0" />
     <PackageReference Include="Calzolari.Grpc.Net.Client.Validation" Version="8.0.0" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.26.2" />
     <PackageReference Include="Consul" Version="1.7.14.3" />
     <PackageReference Include="Crc32.NET" Version="1.2.0" />
     <PackageReference Include="Dapper" Version="2.1.35" />

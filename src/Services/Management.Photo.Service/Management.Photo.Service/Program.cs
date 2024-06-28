@@ -44,11 +44,11 @@ try
     {
         _ = app.SeedConfigAsync();
 
-        if (app.Environment.IsDevelopment())
-        {
-            _ = app.UseSwagger();
-            _ = app.UseSwaggerUI();
-        }
+        //if (app.Environment.IsDevelopment())
+        //{
+        _ = app.UseSwagger();
+        _ = app.UseSwaggerUI();
+        //}
         _ = app.MapControllers();
 
         _ = app.UseStaticFiles();
